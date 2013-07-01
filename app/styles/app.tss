@@ -1,0 +1,4 @@
+"Window": {
+	backgroundColor: "#fff",
+	title: Alloy.Globals.NAME_PAGE
+}

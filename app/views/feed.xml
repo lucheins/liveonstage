@@ -1,0 +1,6 @@
+<Alloy>
+	<Window>
+		<Button >Load</Button>
+		<TableView id="table"/>
+	</Window>
+</Alloy>

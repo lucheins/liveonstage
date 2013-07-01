@@ -1,0 +1,19 @@
+<Alloy>
+	<TabGroup>
+		<Tab title="Feed" icon="KS_nav_ui.png">
+			<Require src="feed"/>
+		</Tab>
+		<Tab title="Campaigns" icon="KS_nav_views.png">
+			<Require src="campaigns"/>
+		</Tab>
+		<Tab title="Artists" icon="KS_nav_views.png">
+			<Require src="artists"/>
+		</Tab>
+		<Tab title="Calendar" icon="KS_nav_views.png">
+			<Require src="calendar"/>
+		</Tab>
+		<Tab title="Login" icon="KS_nav_views.png">
+			<Require src="login"/>
+		</Tab>
+	</TabGroup>
+</Alloy>
