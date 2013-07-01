@@ -1,6 +1,18 @@
 <Alloy>
-	<Window>
-		<Button >Load</Button>
-		<TableView id="table"/>
+	<Window id="feedWin">
+		<ActivityIndicator id="activity"/>
+		<View id="search">
+			<Label class="viewsLabel">Search</Label>
+		</View>
+		<View id="upcoming">
+			<Label class="viewsLabel">Upcoming</Label>
+		</View>
+		<View id="live">
+			<Label class="viewsLabel">Live</Label>
+		</View>
+		<View id="campaigns">
+			<Label class="viewsLabel">Campaigns</Label>
+		</View>		
+		<TableView id="data">
 	</Window>
 </Alloy>

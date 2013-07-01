@@ -11,11 +11,11 @@
 // Alloy.Globals.someGlobalFunction = function(){};
 
 Alloy.Globals.NAME_PAGE = 'Live On Stage';
-Alloy.Globals.DOMAIN = 'http://www.liveonstage.com/';
+Alloy.Globals.DOMAIN = 'http://192.168.1.2/liveonstage/';
 Alloy.Globals.URL_FEED = 'index.php?option=com_mobile';
 Alloy.Globals.URL_CATEGORIES = 'index.php?option=com_mobile&task=categories';
 Alloy.Globals.URL_UPCOMING = 'index.php?option=com_mobile&task=events';
-Alloy.Globals.LIMIT = 10;
+Alloy.Globals.LIMIT = 5;
 Alloy.Globals.TOP_LIMIT = 50;
 Alloy.Globals.IMAGE_EVENT_DEFAULT='components/com_community/assets/event.png'
 Alloy.Globals.USER = 'mobile';

@@ -1,0 +1,55 @@
+"#title": {	
+	font: {
+		fontSize:'14dp',
+		fontWeight:'bold' 
+		},
+	height:'auto',
+	left:'110dp',
+	top:'5dp',
+	color: "#6cb1d5"
+},
+"#author":{
+   	font: {
+	   	fontSize:'12dp',
+		fontWeight:'bold'
+		},
+	height:'auto',
+	left:'110dp',
+	top:'40dp',
+	color:'#717777'
+},
+"#date":{
+	font: {
+		fontSize:'12dp',
+		height:'auto'
+		},
+	left:'110dp',
+	top:'60dp',
+	color:'#717777'
+},
+"#guest":{
+	font: {
+		fontSize:'12dp',
+		height:'auto'
+		},
+	left:'130dp',
+	bottom: '5dp',
+	color: "#6cb1d5"	
+},
+"#image":{
+	width: '98dp',
+	height: '80dp',
+	left: '5dp',
+	top: '10dp'
+},"#imageGuest":{
+	image: '/images/guest.png',
+	left:'110dp',
+	bottom: '5dp',
+	width: '17dp',
+	height: '17dp'
+},
+"#rowFeed":{
+	height: '100dp',
+	touchEnabled: true,
+	hasChild: true
+}

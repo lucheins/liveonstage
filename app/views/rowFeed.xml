@@ -1,0 +1,10 @@
+<Alloy>
+  <TableViewRow id="rowFeed">
+    <Label id="title"/>
+    <Label id="author"/>
+    <Label id="date"/>
+    <ImageView id="image"/>
+    <Label id="guest"/>
+    <ImageView id="imageGuest"/>
+  </TableViewRow>
+</Alloy>

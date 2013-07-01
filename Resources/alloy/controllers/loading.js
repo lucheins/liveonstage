@@ -4,17 +4,6 @@ function Controller() {
     arguments[0] ? arguments[0]["$model"] : null;
     var $ = this;
     var exports = {};
-    $.__views.login = Ti.UI.createWindow({
-        backgroundColor: "#fff",
-        title: "Login",
-        id: "login"
-    });
-    $.__views.login && $.addTopLevelView($.__views.login);
-    $.__views.__alloyId22 = Ti.UI.createLabel({
-        text: "I am Login",
-        id: "__alloyId22"
-    });
-    $.__views.login.add($.__views.__alloyId22);
     exports.destroy = function() {};
     _.extend($, $.__views);
     _.extend($, exports);
