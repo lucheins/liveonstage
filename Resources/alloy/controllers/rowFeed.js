@@ -107,7 +107,11 @@ function Controller() {
         var percent = args.received / 10;
         $.bar.value = percent;
         $.labelBar.text = args.received + "% to goal";
-    } else $.viewBar.hide;
+    } else {
+        $.viewBar.hide();
+        $.bar.height = 10;
+        $.bar.hide;
+    }
     $.author.text = args.author || "";
     $.guest.text = args.guest || "";
     $.image.image = args.image;

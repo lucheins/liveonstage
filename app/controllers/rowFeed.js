@@ -14,7 +14,9 @@ if(args.id > 0)
 	$.bar.value = percent;
 	$.labelBar.text = args.received + '% to goal'
 } else {
-	$.viewBar.hide;
+	$.viewBar.hide();
+	$.bar.height = 10;
+	$.bar.hide;
 }
 
 $.author.text = args.author || '';
