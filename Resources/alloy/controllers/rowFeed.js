@@ -106,7 +106,6 @@ function Controller() {
     if (args.id > 0) {
         var percent = args.received / 10;
         $.bar.value = percent;
-        $.bar.center;
         $.labelBar.text = args.received + "% to goal";
     } else $.viewBar.hide;
     $.author.text = args.author || "";

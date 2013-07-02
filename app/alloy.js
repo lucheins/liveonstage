@@ -11,7 +11,7 @@
 // Alloy.Globals.someGlobalFunction = function(){};
 
 Alloy.Globals.NAME_PAGE = 'Live On Stage';
-Alloy.Globals.DOMAIN = 'http://192.168.1.2/liveonstage/';
+Alloy.Globals.DOMAIN = 'http://www.liveonstage.com/';
 Alloy.Globals.URL_FEED = 'index.php?option=com_mobile';
 Alloy.Globals.URL_CATEGORIES = 'index.php?option=com_mobile&task=categories';
 Alloy.Globals.URL_UPCOMING = 'index.php?option=com_mobile&task=events';
