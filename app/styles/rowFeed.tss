@@ -52,4 +52,22 @@
 	height: '100dp',
 	touchEnabled: true,
 	hasChild: true
+},
+"#viewBar":{
+	width: '80dp',
+	height: '30dp',
+	top: '0dp',
+	left: '75%'
+},
+"#labelBar":{
+	font: {
+		fontSize:'9dp'
+		},
+	textAlign: "center"	
+},
+"#bar":{
+	height: "auto",
+	min: "0",
+	max: "10",
+	width: "90"
 }

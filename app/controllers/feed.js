@@ -73,7 +73,9 @@ function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 	        			image: imageLink,
 	        			guest: labelEnd,
 	        			check_date: responses[i].check_date,
-	        			link: link
+	        			link: link,
+	        			id: responses[i].campaign,
+	        			received:  responses[i].received
 	      		};
 	      		var row = Alloy.createController('rowFeed',args).getView(); 				 	
 			 }

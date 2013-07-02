@@ -74,11 +74,41 @@ function Controller() {
         id: "imageGuest"
     });
     $.__views.rowFeed.add($.__views.imageGuest);
+    $.__views.viewBar = Ti.UI.createView({
+        width: "80dp",
+        height: "30dp",
+        top: "0dp",
+        left: "75%",
+        id: "viewBar"
+    });
+    $.__views.rowFeed.add($.__views.viewBar);
+    $.__views.bar = Ti.UI.createProgressBar({
+        height: "auto",
+        min: "0",
+        max: "10",
+        width: "90",
+        id: "bar"
+    });
+    $.__views.viewBar.add($.__views.bar);
+    $.__views.labelBar = Ti.UI.createLabel({
+        font: {
+            fontSize: "9dp"
+        },
+        textAlign: "center",
+        id: "labelBar"
+    });
+    $.__views.viewBar.add($.__views.labelBar);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
     $.title.text = args.title || "";
     "date" == args.check_date ? $.date.text = args.date || "" : $.date.hide;
+    if (args.id > 0) {
+        var percent = args.received / 10;
+        $.bar.value = percent;
+        $.bar.center;
+        $.labelBar.text = args.received + "% to goal";
+    } else $.viewBar.hide;
     $.author.text = args.author || "";
     $.guest.text = args.guest || "";
     $.image.image = args.image;
