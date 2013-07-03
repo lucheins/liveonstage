@@ -59,7 +59,6 @@ function Controller() {
     client.onload = function() {
         var json = this.responseText;
         var responses = JSON.parse(json);
-        alert(json);
         $.labelId.text = responses.title;
         $.activity.hide();
     };
