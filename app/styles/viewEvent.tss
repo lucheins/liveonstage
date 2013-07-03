@@ -1,0 +1,18 @@
+"#labelId": {
+	font: {
+	   	fontSize:'12dp',
+		fontWeight:'bold'
+		},
+	height:'auto',
+	left:'0dp',
+	top:'0dp',
+	color:'#717777'
+},
+"#btnClose":{
+	top: 0,
+	left: '80%'
+},
+"#name": {
+	top: 20	
+}
+

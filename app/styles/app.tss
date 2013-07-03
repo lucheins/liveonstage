@@ -1,4 +1,50 @@
 "Window": {
 	backgroundColor: "#fff",
 	title: Alloy.Globals.NAME_PAGE
+},
+"#activity":{
+	color: '#6cb1d5',
+	font: {
+	  	fontFamily:'Helvetica Neue', 
+	  	fontSize:26, 
+	  	fontWeight:'bold'
+	  	},
+	message: 'Loading...',  
+	height:Ti.UI.SIZE,
+	width:Ti.UI.SIZE
+},
+"#browse":{
+	bottom: '0dp',
+   	left: '0dp',
+   	width:'33%',
+   	height:'30dp',
+   	backgroundColor: '#f5f5f5'
+},
+"#artist":{
+	bottom: '0dp',
+   	left: '33%',
+   	width:'33%',   
+   	height:'30dp',
+   	backgroundColor: '#f5f5f5'	
+},
+"#stage":{
+	bottom: '0dp',
+   	width:'33%',
+   	left: '66%',
+   	height:'30dp',
+   	backgroundColor: '#f5f5f5'	
+},
+"#tabs":{
+	width: '100%',
+	bottom: '0dp',
+	height:'30dp'
+},
+".viewsLabel":{
+	textAlign: 'center',
+	color: '#000000',
+	font: {
+		fontSize: 20,
+		fontFamily: 'Helvetica Neue'
+	}
 }
+

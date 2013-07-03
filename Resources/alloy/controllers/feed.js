@@ -28,10 +28,10 @@ function Controller() {
                     row.add(buttonMore);
                     band = false;
                 } else {
-                    var link = responses[i].id;
+                    var link = "event_" + responses[i].id;
                     var labelEnd = responses[i].confirmed;
                     if (responses[i].video_id > 0) {
-                        link = responses[i].video_id;
+                        link = "video_" + responses[i].video_id;
                         labelEnd = responses[i].watching;
                     }
                     var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
@@ -92,6 +92,13 @@ function Controller() {
             tc: Alloy.Globals.USER_MOBILE.toString()
         };
         client.send(params);
+        $.data.addEventListener("click", function(e) {
+            var link = e.source.link;
+            var elements = link.split("_");
+            var id = elements[1];
+            if ("event" == elements[0]) var win = Alloy.createController("viewEvent", id).getView(); else var win = Alloy.createController("viewVideo", id).getView();
+            win.open();
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -117,82 +124,6 @@ function Controller() {
         id: "activity"
     });
     $.__views.feedWin.add($.__views.activity);
-    $.__views.search = Ti.UI.createView({
-        top: "0dp",
-        left: "0dp",
-        width: "24%",
-        height: "30dp",
-        backgroundColor: "#f5f5f5",
-        id: "search"
-    });
-    $.__views.feedWin.add($.__views.search);
-    $.__views.__alloyId3 = Ti.UI.createLabel({
-        color: "#000000",
-        text: "Search",
-        font: {
-            fontWeight: "bold"
-        },
-        left: "10dp",
-        id: "__alloyId3"
-    });
-    $.__views.search.add($.__views.__alloyId3);
-    $.__views.upcoming = Ti.UI.createView({
-        top: "0dp",
-        left: "25%",
-        width: "24%",
-        height: "30dp",
-        backgroundColor: "#f5f5f5",
-        id: "upcoming"
-    });
-    $.__views.feedWin.add($.__views.upcoming);
-    $.__views.__alloyId4 = Ti.UI.createLabel({
-        color: "#000000",
-        text: "Upcoming",
-        font: {
-            fontWeight: "bold"
-        },
-        left: "10dp",
-        id: "__alloyId4"
-    });
-    $.__views.upcoming.add($.__views.__alloyId4);
-    $.__views.live = Ti.UI.createView({
-        top: "0dp",
-        width: "24%",
-        left: "50%",
-        height: "30dp",
-        backgroundColor: "#f5f5f5",
-        id: "live"
-    });
-    $.__views.feedWin.add($.__views.live);
-    $.__views.__alloyId5 = Ti.UI.createLabel({
-        color: "#000000",
-        text: "Live",
-        font: {
-            fontWeight: "bold"
-        },
-        left: "10dp",
-        id: "__alloyId5"
-    });
-    $.__views.live.add($.__views.__alloyId5);
-    $.__views.campaigns = Ti.UI.createView({
-        top: "0dp",
-        left: "75%",
-        width: "24%",
-        height: "30dp",
-        backgroundColor: "#f5f5f5",
-        id: "campaigns"
-    });
-    $.__views.feedWin.add($.__views.campaigns);
-    $.__views.__alloyId6 = Ti.UI.createLabel({
-        color: "#000000",
-        text: "Campaigns",
-        font: {
-            fontWeight: "bold"
-        },
-        left: "10dp",
-        id: "__alloyId6"
-    });
-    $.__views.campaigns.add($.__views.__alloyId6);
     $.__views.data = Ti.UI.createTableView({
         top: "35dp",
         separatorColor: "#fff",
@@ -201,19 +132,10 @@ function Controller() {
     $.__views.feedWin.add($.__views.data);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var win = Alloy.createController("tabs").getView();
+    $.feedWin.add(win);
     getDataFeed(0, 0, 0, 0, 0);
-    $.search.addEventListener("click", function() {
-        getDataFeed(0, 0, 0, 0, 0);
-    });
-    $.upcoming.addEventListener("click", function() {
-        getDataFeed(0, 0, 1, 0, 0);
-    });
-    $.live.addEventListener("click", function() {
-        getDataFeed(0, 0, 0, 1, 0);
-    });
-    $.campaigns.addEventListener("click", function() {
-        getDataFeed(0, 0, 0, 0, 1);
-    });
+    $.feedWin.open();
     _.extend($, exports);
 }
 

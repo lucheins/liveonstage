@@ -1,0 +1,9 @@
+<Alloy>
+	<Window id="viewVideo">	
+		<ActivityIndicator id="activity"/>
+		<Label id="labelId" />
+		<Label id="name" />
+		<Button onClick="closeView" id="btnClose">close</Button>
+		<VideoPlayer id="vp" />
+	</Window>
+</Alloy>

@@ -1,20 +1,8 @@
+
+var win = Alloy.createController('tabs').getView();
+$.feedWin.add(win);
 getDataFeed(0,0,0,0,0);
-
-$.search.addEventListener("click",function(e){
-    getDataFeed(0,0,0,0,0);
-});
-
-$.upcoming.addEventListener("click",function(e){
-    getDataFeed(0,0,1,0,0);
-});
-
-$.live.addEventListener("click",function(e){
-    getDataFeed(0,0,0,1,0);
-});
-
-$.campaigns.addEventListener("click",function(e){
-    getDataFeed(0,0,0,0,1);
-});
+$.feedWin.open();
 function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 {
 	var tableData = [];
@@ -48,11 +36,11 @@ function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 				band = false;
 			 } else {
 			 	
-			 	var link = responses[i].id;
+			 	var link = 'event_' + responses[i].id;
 			 	var labelEnd = responses[i].confirmed;
 			 	if(responses[i].video_id > 0)
 			 	{
-			 		link = responses[i].video_id;
+			 		link = 'video_' + responses[i].video_id;
 			 		labelEnd = responses[i].watching;
 			 	}
 			 	 var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
@@ -128,4 +116,18 @@ function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
         tc: Alloy.Globals.USER_MOBILE.toString(),
     };
 	client.send(params);	
+	
+	$.data.addEventListener('click', function(e)
+	{
+		var link = e.source.link;
+		var elements = link.split('_');
+		var id = elements[1];
+		if (elements[0] == 'event')
+		{
+			var win = Alloy.createController('viewEvent', id).getView();
+		} else {
+			var win = Alloy.createController('viewVideo', id).getView();
+		}
+		win.open();		
+	});
 }

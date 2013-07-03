@@ -1,0 +1,7 @@
+<Alloy>
+	<Window id="viewEvent">	
+		<ActivityIndicator id="activity"/>
+		<Label id="labelId" />
+		<Button onClick="closeView" id="btnClose">close</Button>
+	</Window>
+</Alloy>
