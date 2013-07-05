@@ -1,5 +1,5 @@
 var id = arguments[0] || {};
-
+alert(id);
 function closeView()
 {
 	$.vp.hide();
@@ -58,6 +58,6 @@ client.send(params);
 
 $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
 $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMINGM
+$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
 
 $.viewVideo.open();

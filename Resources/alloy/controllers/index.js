@@ -10,20 +10,18 @@ function Controller() {
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
-    $.__views.__alloyId4 = Ti.UI.createView({
-        id: "__alloyId4"
+    $.__views.__alloyId9 = Ti.UI.createView({
+        id: "__alloyId9"
     });
-    $.__views.index.add($.__views.__alloyId4);
-    $.__views.__alloyId5 = Ti.UI.createLabel({
+    $.__views.index.add($.__views.__alloyId9);
+    $.__views.__alloyId10 = Ti.UI.createLabel({
         text: "Soy Pantalla 1",
-        id: "__alloyId5"
+        id: "__alloyId10"
     });
-    $.__views.__alloyId4.add($.__views.__alloyId5);
+    $.__views.__alloyId9.add($.__views.__alloyId10);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var win = Alloy.createController("tabs").getView();
-    var nav = Alloy.createController("topMenu").getView();
-    $.index.add(nav);
     $.index.add(win);
     $.index.open();
     _.extend($, exports);

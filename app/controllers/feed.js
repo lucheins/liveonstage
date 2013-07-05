@@ -1,6 +1,9 @@
 getDataFeed(0,0,0,0,0);
 
 $.feedWin.open();
+$.scrollableView.currentPage = 1;
+$.topNav.scrollTo(60 , 0);
+$.menuBar.scrollTo(-100 , 0);
 
 
 function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
@@ -131,5 +134,60 @@ function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 		win.open();		
 	});
 };
+
+$.categories.addEventListener("click",function(e){
+   // aqui habririas la otra ventana 
+  	$.scrollableView.scrollToView(0);
+  	
+});
+$.videos.addEventListener("click",function(e){
+   // aqui habririas la otra ventana 
+  	$.scrollableView.scrollToView(1);
+  	
+});
+$.campaigns.addEventListener("click",function(e){
+   // aqui habririas la otra ventana 
+  	$.scrollableView.scrollToView(2);
+  	
+});
+$.upcoming.addEventListener("click",function(e){
+   // aqui habririas la otra ventana 
+  	$.scrollableView.scrollToView(3);
+  	
+});
+$.artists.addEventListener("click",function(e){
+   // aqui habririas la otra ventana 
+  	$.scrollableView.scrollToView(4);
+});
+
+
+
+$.scrollableView.addEventListener("scroll", function(e){
+
+	if ($.scrollableView.currentPage == 0){
+	$.topNav.scrollTo(0 , 0);
+	$.menuBar.scrollTo(0 , 0);
+	
+	};
+	if ($.scrollableView.currentPage == 1){
+	$.topNav.scrollTo(60 , 0);
+	$.menuBar.scrollTo(-100 , 0);
+	};
+	if ($.scrollableView.currentPage == 2){
+	$.topNav.scrollTo(160 , 0);
+	$.menuBar.scrollTo(-200 , 0);
+	};
+	if ($.scrollableView.currentPage == 3){
+	$.topNav.scrollTo(180 , 0);
+	$.menuBar.scrollTo(-300 , 0);
+	};
+	if ($.scrollableView.currentPage == 4){
+	
+	$.menuBar.scrollTo(-400 , 0);
+	};
+});
+
+
+
 
 

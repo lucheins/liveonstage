@@ -1,10 +1,40 @@
 
 <Alloy>
     <Window id="feedWin">
+    	<ScrollView id="topNav" showVerticalScrollIndicator="false" showHorizontalScrollIndicator="false" scrollType="horizontal">
+			<View id="NavContainer">
+				<View id="categories" class="navItem">
+					<Label class="navLabel">Categories</Label>
+				</View>
+		        <View id="videos" class="navItem">
+					<Label class="navLabel">Live Shows</Label>
+				</View>
+				<View id="campaigns"class="navItem">
+					<Label class="navLabel">Campaigns</Label>
+				</View>
+				<View id="upcoming" class="navItem">
+					<Label class="navLabel">Upcoming</Label>
+				</View>
+				<View id="artists" class="navItem">
+					<Label class="navLabel">Artists</Label>
+				</View>  
+			</View> 
+			
+			<ScrollView id="menuBar" showVerticalScrollIndicator="false" showHorizontalScrollIndicator="false" scrollType="horizontal">
+				<View id="barra">
+			    		
+			    </View>
+		    </ScrollView>
+    
+    </ScrollView>
+    
         <ScrollableView id="scrollableView">
-            <View id="view1" backgroundColor="#123" ><ActivityIndicator id="activity"/>	<TableView id="data"></View>
-            <View id="view2" backgroundColor="#246" />
-            <View id="view3" backgroundColor="#48b" />
+            <View id="categoriesScreen" backgroundColor="#123" ><ActivityIndicator id="activity"/>	<TableView id="data"></View>
+            <View id="videosScreen" backgroundColor="#246" />
+            <View id="campaignsScreen" backgroundColor="#48b" />
+            <View id="upcomingScreen" backgroundColor="#246" />
+            <View id="artistsScreen" backgroundColor="#48b" />
+           
         </ScrollableView>
     </Window>
 </Alloy>

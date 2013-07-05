@@ -66,14 +66,19 @@
 	width: '100%',
 	left: '0%'
 	},
-
+"#scrollableView": {
+	height: '93%',
+	top: '7%'
+	},
 "#NavContainer": {
-	width: 500
+	width: 500,
+	height: '90%',
+	top: '0%'
 	},
 
 "#feedWin": {
-	height: "80%",
-	top: '7%'
+	height: "87%",
+	top: '0%'
 },
 
 "#tabs":{
@@ -107,4 +112,16 @@
 	width: '20%',
 	bottom: '0%',
 	left:'80%'
-	}
+	},
+"#barra": {
+	height:'100%',
+	width: '20%',
+	backgroundColor: 'green',
+	bottom: '0%',
+	left: '0%'
+	},
+"#menuBar":{
+	height: '10%',
+	bottom: '0%',
+	width: '100%',
+	},

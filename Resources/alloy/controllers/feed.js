@@ -108,17 +108,154 @@ function Controller() {
     $.__views.feedWin = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: Alloy.Globals.NAME_PAGE,
-        height: "80%",
-        top: "7%",
+        height: "87%",
+        top: "0%",
         id: "feedWin"
     });
     $.__views.feedWin && $.addTopLevelView($.__views.feedWin);
-    var __alloyId3 = [];
-    $.__views.view1 = Ti.UI.createView({
-        id: "view1",
+    $.__views.topNav = Ti.UI.createScrollView({
+        height: "7%",
+        top: "0%",
+        width: "100%",
+        left: "0%",
+        id: "topNav",
+        showVerticalScrollIndicator: "false",
+        showHorizontalScrollIndicator: "false",
+        scrollType: "horizontal"
+    });
+    $.__views.feedWin.add($.__views.topNav);
+    $.__views.NavContainer = Ti.UI.createView({
+        width: 500,
+        height: "90%",
+        top: "0%",
+        id: "NavContainer"
+    });
+    $.__views.topNav.add($.__views.NavContainer);
+    $.__views.categories = Ti.UI.createView({
+        height: "100%",
+        width: "20%",
+        bottom: "0%",
+        left: "0%",
+        id: "categories"
+    });
+    $.__views.NavContainer.add($.__views.categories);
+    $.__views.__alloyId3 = Ti.UI.createLabel({
+        textAlign: "center",
+        color: "red",
+        font: {
+            fontSize: 12,
+            fontFamily: "Helvetica Neue"
+        },
+        bottom: "20%",
+        text: "Categories",
+        id: "__alloyId3"
+    });
+    $.__views.categories.add($.__views.__alloyId3);
+    $.__views.videos = Ti.UI.createView({
+        height: "100%",
+        bottom: "0%",
+        width: "20%",
+        left: "20%",
+        id: "videos"
+    });
+    $.__views.NavContainer.add($.__views.videos);
+    $.__views.__alloyId4 = Ti.UI.createLabel({
+        textAlign: "center",
+        color: "red",
+        font: {
+            fontSize: 12,
+            fontFamily: "Helvetica Neue"
+        },
+        bottom: "20%",
+        text: "Live Shows",
+        id: "__alloyId4"
+    });
+    $.__views.videos.add($.__views.__alloyId4);
+    $.__views.campaigns = Ti.UI.createView({
+        height: "100%",
+        width: "20%",
+        bottom: "0%",
+        left: "40%",
+        id: "campaigns"
+    });
+    $.__views.NavContainer.add($.__views.campaigns);
+    $.__views.__alloyId5 = Ti.UI.createLabel({
+        textAlign: "center",
+        color: "red",
+        font: {
+            fontSize: 12,
+            fontFamily: "Helvetica Neue"
+        },
+        bottom: "20%",
+        text: "Campaigns",
+        id: "__alloyId5"
+    });
+    $.__views.campaigns.add($.__views.__alloyId5);
+    $.__views.upcoming = Ti.UI.createView({
+        height: "100%",
+        width: "20%",
+        bottom: "0%",
+        left: "60%",
+        id: "upcoming"
+    });
+    $.__views.NavContainer.add($.__views.upcoming);
+    $.__views.__alloyId6 = Ti.UI.createLabel({
+        textAlign: "center",
+        color: "red",
+        font: {
+            fontSize: 12,
+            fontFamily: "Helvetica Neue"
+        },
+        bottom: "20%",
+        text: "Upcoming",
+        id: "__alloyId6"
+    });
+    $.__views.upcoming.add($.__views.__alloyId6);
+    $.__views.artists = Ti.UI.createView({
+        height: "100%",
+        width: "20%",
+        bottom: "0%",
+        left: "80%",
+        id: "artists"
+    });
+    $.__views.NavContainer.add($.__views.artists);
+    $.__views.__alloyId7 = Ti.UI.createLabel({
+        textAlign: "center",
+        color: "red",
+        font: {
+            fontSize: 12,
+            fontFamily: "Helvetica Neue"
+        },
+        bottom: "20%",
+        text: "Artists",
+        id: "__alloyId7"
+    });
+    $.__views.artists.add($.__views.__alloyId7);
+    $.__views.menuBar = Ti.UI.createScrollView({
+        height: "10%",
+        bottom: "0%",
+        width: "100%",
+        id: "menuBar",
+        showVerticalScrollIndicator: "false",
+        showHorizontalScrollIndicator: "false",
+        scrollType: "horizontal"
+    });
+    $.__views.topNav.add($.__views.menuBar);
+    $.__views.barra = Ti.UI.createView({
+        height: "100%",
+        width: "20%",
+        backgroundColor: "green",
+        bottom: "0%",
+        left: "0%",
+        id: "barra"
+    });
+    $.__views.menuBar.add($.__views.barra);
+    var __alloyId8 = [];
+    $.__views.categoriesScreen = Ti.UI.createView({
+        id: "categoriesScreen",
         backgroundColor: "#123"
     });
-    __alloyId3.push($.__views.view1);
+    __alloyId8.push($.__views.categoriesScreen);
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -131,24 +268,36 @@ function Controller() {
         width: Ti.UI.SIZE,
         id: "activity"
     });
-    $.__views.view1.add($.__views.activity);
+    $.__views.categoriesScreen.add($.__views.activity);
     $.__views.data = Ti.UI.createTableView({
         separatorColor: "#fff",
         id: "data"
     });
-    $.__views.view1.add($.__views.data);
-    $.__views.view2 = Ti.UI.createView({
-        id: "view2",
+    $.__views.categoriesScreen.add($.__views.data);
+    $.__views.videosScreen = Ti.UI.createView({
+        id: "videosScreen",
         backgroundColor: "#246"
     });
-    __alloyId3.push($.__views.view2);
-    $.__views.view3 = Ti.UI.createView({
-        id: "view3",
+    __alloyId8.push($.__views.videosScreen);
+    $.__views.campaignsScreen = Ti.UI.createView({
+        id: "campaignsScreen",
         backgroundColor: "#48b"
     });
-    __alloyId3.push($.__views.view3);
+    __alloyId8.push($.__views.campaignsScreen);
+    $.__views.upcomingScreen = Ti.UI.createView({
+        id: "upcomingScreen",
+        backgroundColor: "#246"
+    });
+    __alloyId8.push($.__views.upcomingScreen);
+    $.__views.artistsScreen = Ti.UI.createView({
+        id: "artistsScreen",
+        backgroundColor: "#48b"
+    });
+    __alloyId8.push($.__views.artistsScreen);
     $.__views.scrollableView = Ti.UI.createScrollableView({
-        views: __alloyId3,
+        height: "93%",
+        top: "7%",
+        views: __alloyId8,
         id: "scrollableView"
     });
     $.__views.feedWin.add($.__views.scrollableView);
@@ -156,6 +305,43 @@ function Controller() {
     _.extend($, $.__views);
     getDataFeed(0, 0, 0, 0, 0);
     $.feedWin.open();
+    $.scrollableView.currentPage = 1;
+    $.topNav.scrollTo(60, 0);
+    $.menuBar.scrollTo(-100, 0);
+    $.categories.addEventListener("click", function() {
+        $.scrollableView.scrollToView(0);
+    });
+    $.videos.addEventListener("click", function() {
+        $.scrollableView.scrollToView(1);
+    });
+    $.campaigns.addEventListener("click", function() {
+        $.scrollableView.scrollToView(2);
+    });
+    $.upcoming.addEventListener("click", function() {
+        $.scrollableView.scrollToView(3);
+    });
+    $.artists.addEventListener("click", function() {
+        $.scrollableView.scrollToView(4);
+    });
+    $.scrollableView.addEventListener("scroll", function() {
+        if (0 == $.scrollableView.currentPage) {
+            $.topNav.scrollTo(0, 0);
+            $.menuBar.scrollTo(0, 0);
+        }
+        if (1 == $.scrollableView.currentPage) {
+            $.topNav.scrollTo(60, 0);
+            $.menuBar.scrollTo(-100, 0);
+        }
+        if (2 == $.scrollableView.currentPage) {
+            $.topNav.scrollTo(160, 0);
+            $.menuBar.scrollTo(-200, 0);
+        }
+        if (3 == $.scrollableView.currentPage) {
+            $.topNav.scrollTo(180, 0);
+            $.menuBar.scrollTo(-300, 0);
+        }
+        4 == $.scrollableView.currentPage && $.menuBar.scrollTo(-400, 0);
+    });
     _.extend($, exports);
 }
 

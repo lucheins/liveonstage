@@ -73,6 +73,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
+    alert(id);
     var client = Ti.Network.createHTTPClient();
     var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_VIDEO;
     client.open("POST", url);
@@ -103,7 +104,7 @@ function Controller() {
     client.send(params);
     $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
     $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-    $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMINGM;
+    $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
     $.viewVideo.open();
     __defers["$.__views.btnClose!click!closeView"] && $.__views.btnClose.addEventListener("click", closeView);
     _.extend($, exports);
