@@ -3,8 +3,8 @@ getDataFeed(0,0,0,0,0);
 $.feedWin.open();
 $.scrollableView.currentPage = 1;
 $.topNav.scrollTo(60 , 0);
-$.menuBar.scrollTo(-100 , 0);
 
+$.barra.animate({ left: '100dp', duration: 100 });
 
 function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 {
@@ -138,26 +138,27 @@ function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 $.categories.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(0);
-  	
+  	$.barra.animate({ left: '0dp', duration: 50 });
 });
 $.videos.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(1);
-  	
+  	$.barra.animate({ left: '100dp', duration: 50 });
 });
 $.campaigns.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(2);
-  	
+  	$.barra.animate({ left: '200dp', duration: 50 });
 });
 $.upcoming.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(3);
-  	
+  	$.barra.animate({ left: '300dp', duration: 50 });
 });
 $.artists.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(4);
+  	$.barra.animate({ left: '400dp', duration: 50 });
 });
 
 
@@ -165,29 +166,23 @@ $.artists.addEventListener("click",function(e){
 $.scrollableView.addEventListener("scroll", function(e){
 
 	if ($.scrollableView.currentPage == 0){
-	$.topNav.scrollTo(0 , 0);
-	$.menuBar.scrollTo(0 , 0);
-	
+		$.topNav.scrollTo(0 , 0);	
+		$.barra.animate({ left: '0dp', duration: 150 });
 	};
 	if ($.scrollableView.currentPage == 1){
-	$.topNav.scrollTo(60 , 0);
-	$.menuBar.scrollTo(-100 , 0);
+		$.topNav.scrollTo(60 , 0);
+		$.barra.animate({ left: '100dp', duration: 150 });
 	};
 	if ($.scrollableView.currentPage == 2){
-	$.topNav.scrollTo(160 , 0);
-	$.menuBar.scrollTo(-200 , 0);
+		$.topNav.scrollTo(160 , 0);
+		$.barra.animate({ left: '200dp', duration: 150 });
 	};
 	if ($.scrollableView.currentPage == 3){
-	$.topNav.scrollTo(180 , 0);
-	$.menuBar.scrollTo(-300 , 0);
+		$.topNav.scrollTo(180 , 0);
+		$.barra.animate({ left: '300dp', duration: 150 });
 	};
 	if ($.scrollableView.currentPage == 4){
-	
-	$.menuBar.scrollTo(-400 , 0);
+		
+		$.barra.animate({ left: '400dp', duration: 150 });
 	};
 });
-
-
-
-
-

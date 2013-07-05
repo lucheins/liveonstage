@@ -18,14 +18,8 @@
 				<View id="artists" class="navItem">
 					<Label class="navLabel">Artists</Label>
 				</View>  
-			</View> 
-			
-			<ScrollView id="menuBar" showVerticalScrollIndicator="false" showHorizontalScrollIndicator="false" scrollType="horizontal">
-				<View id="barra">
-			    		
-			    </View>
-		    </ScrollView>
-    
+			</View>
+			<View id="barra"> </View>
     </ScrollView>
     
         <ScrollableView id="scrollableView">
