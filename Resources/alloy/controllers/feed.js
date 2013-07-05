@@ -108,9 +108,17 @@ function Controller() {
     $.__views.feedWin = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: Alloy.Globals.NAME_PAGE,
+        height: "80%",
+        top: "7%",
         id: "feedWin"
     });
     $.__views.feedWin && $.addTopLevelView($.__views.feedWin);
+    var __alloyId3 = [];
+    $.__views.view1 = Ti.UI.createView({
+        id: "view1",
+        backgroundColor: "#123"
+    });
+    __alloyId3.push($.__views.view1);
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -123,17 +131,29 @@ function Controller() {
         width: Ti.UI.SIZE,
         id: "activity"
     });
-    $.__views.feedWin.add($.__views.activity);
+    $.__views.view1.add($.__views.activity);
     $.__views.data = Ti.UI.createTableView({
-        top: "35dp",
         separatorColor: "#fff",
         id: "data"
     });
-    $.__views.feedWin.add($.__views.data);
+    $.__views.view1.add($.__views.data);
+    $.__views.view2 = Ti.UI.createView({
+        id: "view2",
+        backgroundColor: "#246"
+    });
+    __alloyId3.push($.__views.view2);
+    $.__views.view3 = Ti.UI.createView({
+        id: "view3",
+        backgroundColor: "#48b"
+    });
+    __alloyId3.push($.__views.view3);
+    $.__views.scrollableView = Ti.UI.createScrollableView({
+        views: __alloyId3,
+        id: "scrollableView"
+    });
+    $.__views.feedWin.add($.__views.scrollableView);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var win = Alloy.createController("tabs").getView();
-    $.feedWin.add(win);
     getDataFeed(0, 0, 0, 0, 0);
     $.feedWin.open();
     _.extend($, exports);

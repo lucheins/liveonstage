@@ -7,6 +7,9 @@ function Controller() {
     $.__views.campaigns = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: "Campaigns",
+        width: "20%",
+        bottom: "0%",
+        left: "40%",
         id: "campaigns"
     });
     $.__views.campaigns && $.addTopLevelView($.__views.campaigns);

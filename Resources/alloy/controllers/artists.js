@@ -7,6 +7,9 @@ function Controller() {
     $.__views.artists = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: "Artists",
+        width: "20%",
+        bottom: "0%",
+        left: "80%",
         id: "artists"
     });
     $.__views.artists && $.addTopLevelView($.__views.artists);

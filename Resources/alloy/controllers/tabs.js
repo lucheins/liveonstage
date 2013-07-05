@@ -6,8 +6,8 @@ function Controller() {
     var exports = {};
     $.__views.tabs = Ti.UI.createView({
         width: "100%",
-        bottom: "0dp",
-        height: "30dp",
+        top: "87%",
+        height: "13%",
         id: "tabs"
     });
     $.__views.tabs && $.addTopLevelView($.__views.tabs);
@@ -15,62 +15,65 @@ function Controller() {
         bottom: "0dp",
         left: "0dp",
         width: "33%",
-        height: "30dp",
         backgroundColor: "#f5f5f5",
+        height: "100%",
         id: "browse"
     });
     $.__views.tabs.add($.__views.browse);
-    $.__views.__alloyId6 = Ti.UI.createLabel({
-        textAlign: "center",
-        color: "#000000",
-        font: {
-            fontSize: 20,
-            fontFamily: "Helvetica Neue"
-        },
-        text: "Browse",
-        id: "__alloyId6"
-    });
-    $.__views.browse.add($.__views.__alloyId6);
-    $.__views.artist = Ti.UI.createView({
-        bottom: "0dp",
-        left: "33%",
-        width: "33%",
-        height: "30dp",
-        backgroundColor: "#f5f5f5",
-        id: "artist"
-    });
-    $.__views.tabs.add($.__views.artist);
     $.__views.__alloyId7 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#000000",
         font: {
-            fontSize: 20,
+            fontSize: 10,
             fontFamily: "Helvetica Neue"
         },
-        text: "Artist Search",
+        bottom: "0dp",
+        text: "Browse",
         id: "__alloyId7"
     });
-    $.__views.artist.add($.__views.__alloyId7);
-    $.__views.stage = Ti.UI.createView({
+    $.__views.browse.add($.__views.__alloyId7);
+    $.__views.artist = Ti.UI.createView({
         bottom: "0dp",
+        left: "33%",
         width: "33%",
-        left: "66%",
-        height: "30dp",
         backgroundColor: "#f5f5f5",
-        id: "stage"
+        height: "100%",
+        id: "artist"
     });
-    $.__views.tabs.add($.__views.stage);
+    $.__views.tabs.add($.__views.artist);
     $.__views.__alloyId8 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#000000",
         font: {
-            fontSize: 20,
+            fontSize: 10,
             fontFamily: "Helvetica Neue"
         },
-        text: "My Stage",
+        bottom: "0dp",
+        text: "Artist Search",
         id: "__alloyId8"
     });
-    $.__views.stage.add($.__views.__alloyId8);
+    $.__views.artist.add($.__views.__alloyId8);
+    $.__views.stage = Ti.UI.createView({
+        bottom: "0dp",
+        width: "33%",
+        left: "66%",
+        backgroundColor: "#f5f5f5",
+        height: "100%",
+        id: "stage"
+    });
+    $.__views.tabs.add($.__views.stage);
+    $.__views.__alloyId9 = Ti.UI.createLabel({
+        textAlign: "center",
+        color: "#000000",
+        font: {
+            fontSize: 10,
+            fontFamily: "Helvetica Neue"
+        },
+        bottom: "0dp",
+        text: "My Stage",
+        id: "__alloyId9"
+    });
+    $.__views.stage.add($.__views.__alloyId9);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.artist.addEventListener("click", function() {

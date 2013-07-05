@@ -86,8 +86,10 @@ function Controller() {
         var url = "";
         var name = getName(responses.path);
         $.name.text = name;
-        url = "live" == responses.type ? Alloy.Globals.URL_LIVE_ANDROID : Alloy.Globals.URL_VOD_ANDROID;
-        url = url + name + Alloy.Globals.URL_ANDROID_END;
+        if ("android" == Ti.Platform.osname) {
+            url = "live" == responses.type ? Alloy.Globals.URL_LIVE_ANDROID : Alloy.Globals.URL_VOD_ANDROID;
+            url = url + name + Alloy.Globals.URL_ANDROID_END;
+        } else url = Alloy.Globals.URL_IOS + name + Alloy.Globals.URL_IOS_END;
         $.vp.url = url;
         $.activity.hide();
     };

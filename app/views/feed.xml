@@ -1,6 +1,10 @@
+
 <Alloy>
-	<Window id="feedWin">
-		<ActivityIndicator id="activity"/>	
-		<TableView id="data">
-	</Window>
+    <Window id="feedWin">
+        <ScrollableView id="scrollableView">
+            <View id="view1" backgroundColor="#123" ><ActivityIndicator id="activity"/>	<TableView id="data"></View>
+            <View id="view2" backgroundColor="#246" />
+            <View id="view3" backgroundColor="#48b" />
+        </ScrollableView>
+    </Window>
 </Alloy>

@@ -1,4 +1,5 @@
 <Alloy>
+	
 	<View id="tabs">
 		<View id="browse">
 			<Label class="viewsLabel">Browse</Label>
