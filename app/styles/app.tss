@@ -123,5 +123,5 @@
 "#menuBar":{
 	height: '10%',
 	bottom: '0%',
-	width: '100%',
+	width: '100%'
 	}

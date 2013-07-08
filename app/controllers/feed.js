@@ -1,3 +1,20 @@
+ var osname = Ti.Platform.osname,
+        version = Ti.Platform.version,
+        height = Ti.Platform.displayCaps.platformHeight,
+        width = Ti.Platform.displayCaps.platformWidth;
+
+    var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));
+ 
+    var Window;
+    if (isTablet) {
+       $.NavContainer.width = '100%';
+    }
+    else {
+        if (osname === 'iphone') {
+            $.NavContainer.width = '100%';
+        }
+       }
+
 getDataFeed(0,0,0,0,0);
 
 $.feedWin.open();
@@ -5,10 +22,11 @@ $.scrollableView.currentPage = 1;
 $.topNav.scrollTo(60 , 0);
 if(Ti.Platform.osname != 'android')
 {
-	$.barra.animate({ left: '100dp', duration: 50 }, function () {
-		$.barra.left = '100dp'; 
+	$.barra.animate({ left: '20%', duration: 50 }, function () {
+		$.barra.left = '20%'; 
 	});	
 }
+
 
 function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 {
@@ -178,8 +196,8 @@ $.scrollableView.addEventListener("scroll", function(e){
 
 	if ($.scrollableView.currentPage == 0){
 			
-		$.barra.animate({ left: '0dp', duration: 50 }, function () {
-			    $.barra.left = '0dp'; 
+		$.barra.animate({ left: '0%', duration: 50 }, function () {
+			    $.barra.left = '0%'; 
 			});
 		
 		$.topNav.scrollTo(0 , 0);
@@ -187,39 +205,39 @@ $.scrollableView.addEventListener("scroll", function(e){
 	};
 	if ($.scrollableView.currentPage == 1){
 		
-		if ($.barra.left != '100dp')
+		if ($.barra.left != '20%')
 		{
-			$.barra.animate({ left: '100dp', duration: 50 }, function () {
-			    $.barra.left = '100dp'; 
+			$.barra.animate({ left: '20%', duration: 50 }, function () {
+			    $.barra.left = '20%'; 
 			});
 		};
 		$.topNav.scrollTo(60 * convert , 0);
 	};
 	if ($.scrollableView.currentPage == 2){
 		
-		if ($.barra.left != '200dp')
+		if ($.barra.left != '40%')
 		{
-			$.barra.animate({ left: '200dp', duration: 50 }, function () {
-			    $.barra.left = '200dp'; 
+			$.barra.animate({ left: '40%', duration: 50 }, function () {
+			    $.barra.left = '40%'; 
 			});
 		};
 		$.topNav.scrollTo(160 * convert , 0);
 	};
 	if ($.scrollableView.currentPage == 3){
 		
-		if ($.barra.left != '300dp')
+		if ($.barra.left != '60%')
 		{
-			$.barra.animate({ left: '300dp', duration: 50 }, function () {
-			    $.barra.left = '300dp'; 
+			$.barra.animate({ left: '60%', duration: 50 }, function () {
+			    $.barra.left = '60%'; 
 			});
 		};
 		$.topNav.scrollTo(180 * convert , 0);
 	};
 	if ($.scrollableView.currentPage == 4){
-		if ($.barra.left != '400dp')
+		if ($.barra.left != '80%')
 		{
-			$.barra.animate({ left: '400dp', duration: 50 }, function () {
-			    $.barra.left = '400dp'; 
+			$.barra.animate({ left: '80%', duration: 50 }, function () {
+			    $.barra.left = '80%'; 
 			});
 		}
 	};

@@ -293,16 +293,13 @@ function Controller() {
     $.__views.feedWin.add($.__views.scrollableView);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var osname = "android", height = (Ti.Platform.version, Ti.Platform.displayCaps.platformHeight), width = Ti.Platform.displayCaps.platformWidth;
+    var isTablet = "ipad" === osname || "android" === osname && (width > 899 || height > 899);
+    isTablet ? $.NavContainer.width = "100%" : "iphone" === osname && ($.NavContainer.width = "100%");
     getDataFeed(0, 0, 0, 0, 0);
     $.feedWin.open();
     $.scrollableView.currentPage = 1;
     $.topNav.scrollTo(60, 0);
-    "android" != Ti.Platform.osname && $.barra.animate({
-        left: "100dp",
-        duration: 50
-    }, function() {
-        $.barra.left = "100dp";
-    });
     $.categories.addEventListener("click", function() {
         $.scrollableView.scrollToView(0);
     });
@@ -320,48 +317,48 @@ function Controller() {
     });
     $.scrollableView.addEventListener("scroll", function() {
         var convert = 1;
-        "android" == Ti.Platform.osname && (convert = Titanium.Platform.displayCaps.dpi / 160);
+        convert = Titanium.Platform.displayCaps.dpi / 160;
         if (0 == $.scrollableView.currentPage) {
             $.barra.animate({
-                left: "0dp",
+                left: "0%",
                 duration: 50
             }, function() {
-                $.barra.left = "0dp";
+                $.barra.left = "0%";
             });
             $.topNav.scrollTo(0, 0);
         }
         if (1 == $.scrollableView.currentPage) {
-            "100dp" != $.barra.left && $.barra.animate({
-                left: "100dp",
+            "20%" != $.barra.left && $.barra.animate({
+                left: "20%",
                 duration: 50
             }, function() {
-                $.barra.left = "100dp";
+                $.barra.left = "20%";
             });
             $.topNav.scrollTo(60 * convert, 0);
         }
         if (2 == $.scrollableView.currentPage) {
-            "200dp" != $.barra.left && $.barra.animate({
-                left: "200dp",
+            "40%" != $.barra.left && $.barra.animate({
+                left: "40%",
                 duration: 50
             }, function() {
-                $.barra.left = "200dp";
+                $.barra.left = "40%";
             });
             $.topNav.scrollTo(160 * convert, 0);
         }
         if (3 == $.scrollableView.currentPage) {
-            "300dp" != $.barra.left && $.barra.animate({
-                left: "300dp",
+            "60%" != $.barra.left && $.barra.animate({
+                left: "60%",
                 duration: 50
             }, function() {
-                $.barra.left = "300dp";
+                $.barra.left = "60%";
             });
             $.topNav.scrollTo(180 * convert, 0);
         }
-        4 == $.scrollableView.currentPage && "400dp" != $.barra.left && $.barra.animate({
-            left: "400dp",
+        4 == $.scrollableView.currentPage && "80%" != $.barra.left && $.barra.animate({
+            left: "80%",
             duration: 50
         }, function() {
-            $.barra.left = "400dp";
+            $.barra.left = "80%";
         });
     });
     _.extend($, exports);
