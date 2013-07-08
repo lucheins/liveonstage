@@ -297,77 +297,63 @@ function Controller() {
     $.feedWin.open();
     $.scrollableView.currentPage = 1;
     $.topNav.scrollTo(60, 0);
-    $.barra.animate({
-        left: "100dp",
-        duration: 100
-    });
     $.categories.addEventListener("click", function() {
         $.scrollableView.scrollToView(0);
-        $.barra.animate({
-            left: "0dp",
-            duration: 50
-        });
     });
     $.videos.addEventListener("click", function() {
         $.scrollableView.scrollToView(1);
-        $.barra.animate({
-            left: "100dp",
-            duration: 50
-        });
     });
     $.campaigns.addEventListener("click", function() {
         $.scrollableView.scrollToView(2);
-        $.barra.animate({
-            left: "200dp",
-            duration: 50
-        });
     });
     $.upcoming.addEventListener("click", function() {
         $.scrollableView.scrollToView(3);
-        $.barra.animate({
-            left: "300dp",
-            duration: 50
-        });
     });
     $.artists.addEventListener("click", function() {
         $.scrollableView.scrollToView(4);
-        $.barra.animate({
-            left: "400dp",
-            duration: 50
-        });
     });
     $.scrollableView.addEventListener("scroll", function() {
         if (0 == $.scrollableView.currentPage) {
             $.topNav.scrollTo(0, 0);
             $.barra.animate({
                 left: "0dp",
-                duration: 150
+                duration: 50
+            }, function() {
+                $.barra.left = "0dp";
             });
         }
         if (1 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(60, 0);
+            $.topNav.scrollTo(80, 0);
             $.barra.animate({
                 left: "100dp",
-                duration: 150
+                duration: 50
+            }, function() {
+                $.barra.left = "100dp";
             });
         }
         if (2 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(160, 0);
+            $.topNav.scrollTo(200, 0);
             $.barra.animate({
                 left: "200dp",
-                duration: 150
+                duration: 50
+            }, function() {
+                $.barra.left = "200dp";
             });
         }
         if (3 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(180, 0);
+            $.topNav.scrollTo(280, 0);
             $.barra.animate({
                 left: "300dp",
-                duration: 150
+                duration: 50
+            }, function() {
+                $.barra.left = "300dp";
             });
         }
         4 == $.scrollableView.currentPage && $.barra.animate({
             left: "400dp",
-            duration: 150
+            duration: 50
+        }, function() {
+            $.barra.left = "400dp";
         });
     });
     _.extend($, exports);
