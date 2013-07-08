@@ -1,23 +1,19 @@
  var osname = Ti.Platform.osname,
-        version = Ti.Platform.version,
-        height = Ti.Platform.displayCaps.platformHeight,
-        width = Ti.Platform.displayCaps.platformWidth;
+     height = Ti.Platform.displayCaps.platformHeight,
+     width = Ti.Platform.displayCaps.platformWidth;
 
-    var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));
-    
+    var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));    
    
     if (isTablet) {
        $.NavContainer.width = '100%';
-       $.topNav.scrollingEnabled = 'false';
-     }
+       $.topNav.setScrollingEnabled = false;
+    } else {    	
+    	$.topNav.scrollTo(60 , 0);
+    }
     
 getDataFeed(0,0,0,0,0);
-
 $.feedWin.open();
 $.scrollableView.currentPage = 1;
-if (!isTablet) {
-$.topNav.scrollTo(60 , 0);
-}
 if(Ti.Platform.osname != 'android')
 {
 	$.barra.animate({ left: '20%', duration: 50 }, function () {
@@ -190,60 +186,33 @@ $.scrollableView.addEventListener("scroll", function(e){
 	{
 		convert = (Titanium.Platform.displayCaps.dpi / 160);
 	}
-
-
-	if ($.scrollableView.currentPage == 0){
-			
-		$.barra.animate({ left: '0%', duration: 50 }, function () {
-			    $.barra.left = '0%'; 
-			});
-	if (!isTablet) {
-       
-		$.topNav.scrollTo(0 , 0);
-	}
-	};
+	var scrollTo = 0;
+	var leftPercent = '0%';
+	
 	if ($.scrollableView.currentPage == 1){
-		
-		if ($.barra.left != '20%')
-		{
-			$.barra.animate({ left: '20%', duration: 50 }, function () {
-			    $.barra.left = '20%'; 
-			});
-		};
-		if (!isTablet) {
-		$.topNav.scrollTo(60 * convert , 0);
-		}
+		scrollTo = 60 * convert;
+		leftPercent = '20%';
 	};
 	if ($.scrollableView.currentPage == 2){
-		
-		if ($.barra.left != '40%')
-		{
-			$.barra.animate({ left: '40%', duration: 50 }, function () {
-			    $.barra.left = '40%'; 
-			});
-		};
-		if (!isTablet) {
-		$.topNav.scrollTo(160 * convert , 0);
-		}
+		scrollTo = 160 * convert;
+		leftPercent = '40%';
 	};
 	if ($.scrollableView.currentPage == 3){
-		
-		if ($.barra.left != '60%')
-		{
-			$.barra.animate({ left: '60%', duration: 50 }, function () {
-			    $.barra.left = '60%'; 
-			});
-		};
-		if (!isTablet) {
-		$.topNav.scrollTo(180 * convert , 0);
-		}
+		scrollTo = 180 * convert;
+		leftPercent = '60%';
 	};
 	if ($.scrollableView.currentPage == 4){
-		if ($.barra.left != '80%')
-		{
-			$.barra.animate({ left: '80%', duration: 50 }, function () {
-			    $.barra.left = '80%'; 
-			});
-		}
+		leftPercent = '80%';		
 	};
+	
+	if ($.barra.left != leftPercent)
+	{
+		$.barra.animate({ left: leftPercent, duration: 50 }, function () {
+			   $.barra.left = leftPercent; 
+		});
+	}
+	
+	if ((!isTablet)&&($.scrollableView.currentPage != 4)) {       
+		$.topNav.scrollTo(scrollTo , 0);
+	}
 });
