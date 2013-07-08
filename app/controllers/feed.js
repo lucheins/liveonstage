@@ -164,34 +164,55 @@ $.artists.addEventListener("click",function(e){
 
 $.scrollableView.addEventListener("scroll", function(e){
 
+	var convert = 1;
+	if(Ti.Platform.osname == 'android')
+	{
+		convert = (Titanium.Platform.displayCaps.dpi / 160);
+	}
+
 	if ($.scrollableView.currentPage == 0){
 		$.topNav.scrollTo(0 , 0);	
-		$.barra.animate({ left: '0dp', duration: 50 }, function () {
-		    $.barra.left = '0dp'; 
-		});
+		if ($.barra.left != '0dp')
+		{
+			$.barra.animate({ left: '0dp', duration: 50 }, function () {
+			    $.barra.left = '0dp'; 
+			});
+		}
+		
 	};
 	if ($.scrollableView.currentPage == 1){
-		$.topNav.scrollTo(80 , 0);
-		$.barra.animate({ left: '100dp', duration: 50 }, function () {
-		    $.barra.left = '100dp'; 
-		});
+		$.topNav.scrollTo(60 * convert , 0);
+		if ($.barra.left != '100dp')
+		{
+			$.barra.animate({ left: '100dp', duration: 50 }, function () {
+			    $.barra.left = '100dp'; 
+			});
+		}
 	};
 	if ($.scrollableView.currentPage == 2){
-		$.topNav.scrollTo(200 , 0);
-		$.barra.animate({ left: '200dp', duration: 50 }, function () {
-		    $.barra.left = '200dp'; 
-		});
+		$.topNav.scrollTo(160 * convert , 0);
+		if ($.barra.left != '200dp')
+		{
+			$.barra.animate({ left: '200dp', duration: 50 }, function () {
+			    $.barra.left = '200dp'; 
+			});
+		}
 	};
 	if ($.scrollableView.currentPage == 3){
-		$.topNav.scrollTo(280 , 0);
-		$.barra.animate({ left: '300dp', duration: 50 }, function () {
-		    $.barra.left = '300dp'; 
-		});
+		$.topNav.scrollTo(180 * convert , 0);
+		if ($.barra.left != '300dp')
+		{
+			$.barra.animate({ left: '300dp', duration: 50 }, function () {
+			    $.barra.left = '300dp'; 
+			});
+		}
 	};
 	if ($.scrollableView.currentPage == 4){
-		
-		$.barra.animate({ left: '400dp', duration: 50 }, function () {
-		    $.barra.left = '400dp'; 
-		});
+		if ($.barra.left != '400dp')
+		{
+			$.barra.animate({ left: '400dp', duration: 50 }, function () {
+			    $.barra.left = '400dp'; 
+			});
+		}
 	};
 });

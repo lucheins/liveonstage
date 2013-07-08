@@ -313,9 +313,11 @@ function Controller() {
         $.scrollableView.scrollToView(4);
     });
     $.scrollableView.addEventListener("scroll", function() {
+        var convert = 1;
+        convert = Titanium.Platform.displayCaps.dpi / 160;
         if (0 == $.scrollableView.currentPage) {
             $.topNav.scrollTo(0, 0);
-            $.barra.animate({
+            "0dp" != $.barra.left && $.barra.animate({
                 left: "0dp",
                 duration: 50
             }, function() {
@@ -323,8 +325,8 @@ function Controller() {
             });
         }
         if (1 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(80, 0);
-            $.barra.animate({
+            $.topNav.scrollTo(60 * convert, 0);
+            "100dp" != $.barra.left && $.barra.animate({
                 left: "100dp",
                 duration: 50
             }, function() {
@@ -332,8 +334,8 @@ function Controller() {
             });
         }
         if (2 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(200, 0);
-            $.barra.animate({
+            $.topNav.scrollTo(160 * convert, 0);
+            "200dp" != $.barra.left && $.barra.animate({
                 left: "200dp",
                 duration: 50
             }, function() {
@@ -341,15 +343,15 @@ function Controller() {
             });
         }
         if (3 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(280, 0);
-            $.barra.animate({
+            $.topNav.scrollTo(180 * convert, 0);
+            "300dp" != $.barra.left && $.barra.animate({
                 left: "300dp",
                 duration: 50
             }, function() {
                 $.barra.left = "300dp";
             });
         }
-        4 == $.scrollableView.currentPage && $.barra.animate({
+        4 == $.scrollableView.currentPage && "400dp" != $.barra.left && $.barra.animate({
             left: "400dp",
             duration: 50
         }, function() {
