@@ -297,6 +297,12 @@ function Controller() {
     $.feedWin.open();
     $.scrollableView.currentPage = 1;
     $.topNav.scrollTo(60, 0);
+    "android" != Ti.Platform.osname && $.barra.animate({
+        left: "100dp",
+        duration: 50
+    }, function() {
+        $.barra.left = "100dp";
+    });
     $.categories.addEventListener("click", function() {
         $.scrollableView.scrollToView(0);
     });
@@ -314,42 +320,42 @@ function Controller() {
     });
     $.scrollableView.addEventListener("scroll", function() {
         var convert = 1;
-        convert = Titanium.Platform.displayCaps.dpi / 160;
+        "android" == Ti.Platform.osname && (convert = Titanium.Platform.displayCaps.dpi / 160);
         if (0 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(0, 0);
-            "0dp" != $.barra.left && $.barra.animate({
+            $.barra.animate({
                 left: "0dp",
                 duration: 50
             }, function() {
                 $.barra.left = "0dp";
             });
+            $.topNav.scrollTo(0, 0);
         }
         if (1 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(60 * convert, 0);
             "100dp" != $.barra.left && $.barra.animate({
                 left: "100dp",
                 duration: 50
             }, function() {
                 $.barra.left = "100dp";
             });
+            $.topNav.scrollTo(60 * convert, 0);
         }
         if (2 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(160 * convert, 0);
             "200dp" != $.barra.left && $.barra.animate({
                 left: "200dp",
                 duration: 50
             }, function() {
                 $.barra.left = "200dp";
             });
+            $.topNav.scrollTo(160 * convert, 0);
         }
         if (3 == $.scrollableView.currentPage) {
-            $.topNav.scrollTo(180 * convert, 0);
             "300dp" != $.barra.left && $.barra.animate({
                 left: "300dp",
                 duration: 50
             }, function() {
                 $.barra.left = "300dp";
             });
+            $.topNav.scrollTo(180 * convert, 0);
         }
         4 == $.scrollableView.currentPage && "400dp" != $.barra.left && $.barra.animate({
             left: "400dp",

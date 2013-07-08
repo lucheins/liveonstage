@@ -3,7 +3,12 @@ getDataFeed(0,0,0,0,0);
 $.feedWin.open();
 $.scrollableView.currentPage = 1;
 $.topNav.scrollTo(60 , 0);
-
+if(Ti.Platform.osname != 'android')
+{
+	$.barra.animate({ left: '100dp', duration: 50 }, function () {
+		$.barra.left = '100dp'; 
+	});	
+}
 
 function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 {
@@ -137,27 +142,27 @@ function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 $.categories.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(0);
-  //	$.barra.animate({ left: '0dp', duration: 50 });
+ 
 });
 $.videos.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(1);
-  	//$.barra.animate({ left: '100dp', duration: 50 });
+  	
 });
 $.campaigns.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(2);
-  	//$.barra.animate({ left: '200dp', duration: 50 });
+  	
 });
 $.upcoming.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(3);
-  //	$.barra.animate({ left: '300dp', duration: 50 });
+ 
 });
 $.artists.addEventListener("click",function(e){
    // aqui habririas la otra ventana 
   	$.scrollableView.scrollToView(4);
-  //	$.barra.animate({ left: '400dp', duration: 50 });
+ 
 });
 
 
@@ -170,42 +175,45 @@ $.scrollableView.addEventListener("scroll", function(e){
 		convert = (Titanium.Platform.displayCaps.dpi / 160);
 	}
 
+
 	if ($.scrollableView.currentPage == 0){
-		$.topNav.scrollTo(0 , 0);	
-		if ($.barra.left != '0dp')
-		{
-			$.barra.animate({ left: '0dp', duration: 50 }, function () {
+			
+		$.barra.animate({ left: '0dp', duration: 50 }, function () {
 			    $.barra.left = '0dp'; 
 			});
-		}
+		
+		$.topNav.scrollTo(0 , 0);
 		
 	};
 	if ($.scrollableView.currentPage == 1){
-		$.topNav.scrollTo(60 * convert , 0);
+		
 		if ($.barra.left != '100dp')
 		{
 			$.barra.animate({ left: '100dp', duration: 50 }, function () {
 			    $.barra.left = '100dp'; 
 			});
-		}
+		};
+		$.topNav.scrollTo(60 * convert , 0);
 	};
 	if ($.scrollableView.currentPage == 2){
-		$.topNav.scrollTo(160 * convert , 0);
+		
 		if ($.barra.left != '200dp')
 		{
 			$.barra.animate({ left: '200dp', duration: 50 }, function () {
 			    $.barra.left = '200dp'; 
 			});
-		}
+		};
+		$.topNav.scrollTo(160 * convert , 0);
 	};
 	if ($.scrollableView.currentPage == 3){
-		$.topNav.scrollTo(180 * convert , 0);
+		
 		if ($.barra.left != '300dp')
 		{
 			$.barra.animate({ left: '300dp', duration: 50 }, function () {
 			    $.barra.left = '300dp'; 
 			});
-		}
+		};
+		$.topNav.scrollTo(180 * convert , 0);
 	};
 	if ($.scrollableView.currentPage == 4){
 		if ($.barra.left != '400dp')
