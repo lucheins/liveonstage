@@ -4,22 +4,20 @@
         width = Ti.Platform.displayCaps.platformWidth;
 
     var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));
- 
-    var Window;
+    
+   
     if (isTablet) {
        $.NavContainer.width = '100%';
-    }
-    else {
-        if (osname === 'iphone') {
-            $.NavContainer.width = '100%';
-        }
-       }
-
+       $.topNav.scrollingEnabled = 'false';
+     }
+    
 getDataFeed(0,0,0,0,0);
 
 $.feedWin.open();
 $.scrollableView.currentPage = 1;
+if (!isTablet) {
 $.topNav.scrollTo(60 , 0);
+}
 if(Ti.Platform.osname != 'android')
 {
 	$.barra.animate({ left: '20%', duration: 50 }, function () {
@@ -199,9 +197,10 @@ $.scrollableView.addEventListener("scroll", function(e){
 		$.barra.animate({ left: '0%', duration: 50 }, function () {
 			    $.barra.left = '0%'; 
 			});
-		
+	if (!isTablet) {
+       
 		$.topNav.scrollTo(0 , 0);
-		
+	}
 	};
 	if ($.scrollableView.currentPage == 1){
 		
@@ -211,7 +210,9 @@ $.scrollableView.addEventListener("scroll", function(e){
 			    $.barra.left = '20%'; 
 			});
 		};
+		if (!isTablet) {
 		$.topNav.scrollTo(60 * convert , 0);
+		}
 	};
 	if ($.scrollableView.currentPage == 2){
 		
@@ -221,7 +222,9 @@ $.scrollableView.addEventListener("scroll", function(e){
 			    $.barra.left = '40%'; 
 			});
 		};
+		if (!isTablet) {
 		$.topNav.scrollTo(160 * convert , 0);
+		}
 	};
 	if ($.scrollableView.currentPage == 3){
 		
@@ -231,7 +234,9 @@ $.scrollableView.addEventListener("scroll", function(e){
 			    $.barra.left = '60%'; 
 			});
 		};
+		if (!isTablet) {
 		$.topNav.scrollTo(180 * convert , 0);
+		}
 	};
 	if ($.scrollableView.currentPage == 4){
 		if ($.barra.left != '80%')
