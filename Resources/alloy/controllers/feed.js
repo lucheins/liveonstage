@@ -108,7 +108,7 @@ function Controller() {
     $.__views.feedWin = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: Alloy.Globals.NAME_PAGE,
-        height: "87%",
+        height: "95%",
         top: "0%",
         id: "feedWin"
     });

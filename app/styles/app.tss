@@ -39,7 +39,7 @@
 	textAlign: 'center',
 	color: '#000000',
 	font: {
-		fontSize: 10,
+		fontSize: 12,
 		fontFamily: 'Helvetica Neue'
 	},
 	bottom: '0dp'
@@ -77,14 +77,14 @@
 	},
 
 "#feedWin": {
-	height: "87%",
+	height: "95%",
 	top: '0%'
 },
 
 "#tabs":{
 	width: '100%',
-	top: '87%',
-	height: '13%'
+	bottom: 0,
+	height: '5%'
 	},
 	
 "#categories":{

@@ -6,8 +6,8 @@ function Controller() {
     var exports = {};
     $.__views.tabs = Ti.UI.createView({
         width: "100%",
-        top: "87%",
-        height: "13%",
+        bottom: 0,
+        height: "5%",
         id: "tabs"
     });
     $.__views.tabs && $.addTopLevelView($.__views.tabs);
@@ -24,7 +24,7 @@ function Controller() {
         textAlign: "center",
         color: "#000000",
         font: {
-            fontSize: 10,
+            fontSize: 12,
             fontFamily: "Helvetica Neue"
         },
         bottom: "0dp",
@@ -45,7 +45,7 @@ function Controller() {
         textAlign: "center",
         color: "#000000",
         font: {
-            fontSize: 10,
+            fontSize: 12,
             fontFamily: "Helvetica Neue"
         },
         bottom: "0dp",
@@ -66,7 +66,7 @@ function Controller() {
         textAlign: "center",
         color: "#000000",
         font: {
-            fontSize: 10,
+            fontSize: 12,
             fontFamily: "Helvetica Neue"
         },
         bottom: "0dp",
