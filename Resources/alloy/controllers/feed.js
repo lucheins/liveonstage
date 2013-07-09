@@ -293,22 +293,15 @@ function Controller() {
     $.__views.feedWin.add($.__views.scrollableView);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var osname = Ti.Platform.osname, height = (Ti.Platform.version, Ti.Platform.displayCaps.platformHeight), width = Ti.Platform.displayCaps.platformWidth;
+    var osname = "android", height = Ti.Platform.displayCaps.platformHeight, width = Ti.Platform.displayCaps.platformWidth;
     var isTablet = "ipad" === osname || "android" === osname && (width > 899 || height > 899);
     if (isTablet) {
         $.NavContainer.width = "100%";
-        $.topNav.scrollingEnabled = "false";
-    }
+        $.topNav.setScrollingEnabled = false;
+    } else $.topNav.scrollTo(60, 0);
     getDataFeed(0, 0, 0, 0, 0);
     $.feedWin.open();
     $.scrollableView.currentPage = 1;
-    isTablet || $.topNav.scrollTo(60, 0);
-    "android" != Ti.Platform.osname && $.barra.animate({
-        left: "20%",
-        duration: 50
-    }, function() {
-        $.barra.left = "20%";
-    });
     $.categories.addEventListener("click", function() {
         $.scrollableView.scrollToView(0);
     });
@@ -326,49 +319,29 @@ function Controller() {
     });
     $.scrollableView.addEventListener("scroll", function() {
         var convert = 1;
-        "android" == Ti.Platform.osname && (convert = Titanium.Platform.displayCaps.dpi / 160);
-        if (0 == $.scrollableView.currentPage) {
-            $.barra.animate({
-                left: "0%",
-                duration: 50
-            }, function() {
-                $.barra.left = "0%";
-            });
-            isTablet || $.topNav.scrollTo(0, 0);
-        }
+        convert = Titanium.Platform.displayCaps.dpi / 160;
+        var scrollTo = 0;
+        var leftPercent = "0%";
         if (1 == $.scrollableView.currentPage) {
-            "20%" != $.barra.left && $.barra.animate({
-                left: "20%",
-                duration: 50
-            }, function() {
-                $.barra.left = "20%";
-            });
-            isTablet || $.topNav.scrollTo(60 * convert, 0);
+            scrollTo = 60 * convert;
+            leftPercent = "20%";
         }
         if (2 == $.scrollableView.currentPage) {
-            "40%" != $.barra.left && $.barra.animate({
-                left: "40%",
-                duration: 50
-            }, function() {
-                $.barra.left = "40%";
-            });
-            isTablet || $.topNav.scrollTo(160 * convert, 0);
+            scrollTo = 160 * convert;
+            leftPercent = "40%";
         }
         if (3 == $.scrollableView.currentPage) {
-            "60%" != $.barra.left && $.barra.animate({
-                left: "60%",
-                duration: 50
-            }, function() {
-                $.barra.left = "60%";
-            });
-            isTablet || $.topNav.scrollTo(180 * convert, 0);
+            scrollTo = 180 * convert;
+            leftPercent = "60%";
         }
-        4 == $.scrollableView.currentPage && "80%" != $.barra.left && $.barra.animate({
-            left: "80%",
+        4 == $.scrollableView.currentPage && (leftPercent = "80%");
+        $.barra.left != leftPercent && $.barra.animate({
+            left: leftPercent,
             duration: 50
         }, function() {
-            $.barra.left = "80%";
+            $.barra.left = leftPercent;
         });
+        isTablet || 4 == $.scrollableView.currentPage || $.topNav.scrollTo(scrollTo, 0);
     });
     _.extend($, exports);
 }
