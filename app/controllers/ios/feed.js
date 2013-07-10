@@ -1,38 +1,27 @@
 var win = Alloy.createController('tabs').getView();
-$.feedWin.add(win)
-
+$.feedWin.add(win);
 getDataFeed(0,0,0,0,0);
-
 $.feedWin.open();
 $.scrollableView.currentPage = 1;
-
-
 var osname = Ti.Platform.osname,
      height = Ti.Platform.displayCaps.platformHeight,
-     width = Ti.Platform.displayCaps.platformWidth;
-     
-     scrollunit = width/5;
-     
+     width = Ti.Platform.displayCaps.platformWidth;     
+     scrollunit = width/5;     
 
-    var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));    
+    var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));
    
     if (isTablet) {
        $.NavContainer.width = width;
        $.barContainer.width = '100%';
-       $.topNav.setScrollingEnabled = false;
-       
-       
+       $.topNav.setScrollingEnabled = false;       
     } else {    	
-    	$.topNav.scrollTo(60 , 0);
-		
+    	$.topNav.scrollTo(60 , 0);	
     };
     
     var cualquiera = $.NavContainer.width - width;
-    scrollunit = scrollunit + (cualquiera/5);
-    
+    scrollunit = scrollunit + (cualquiera/5);   
     $.menuBar.scrollTo(-scrollunit , 0);
-
-
+    
 function getDataFeed(offsetHome, pageHome,upcoming, live, campaigns)
 {
 	var tableData = [];
@@ -188,53 +177,21 @@ $.artists.addEventListener("click",function(e){
 });
 
 
-
 $.scrollableView.addEventListener("scroll", function(e){
-
-if (!isTablet) {
-	if ($.scrollableView.currentPage == 0){
-	$.topNav.scrollTo(0 , 0);
-	$.menuBar.scrollTo(0 , 0);
-
-	};
-	if ($.scrollableView.currentPage == 1){
-	$.topNav.scrollTo(60 , 0);
-	$.menuBar.scrollTo(-100 , 0);
-	};
-	if ($.scrollableView.currentPage == 2){
-	$.topNav.scrollTo(160 , 0);
-	$.menuBar.scrollTo(-200 , 0);
-	};
-	if ($.scrollableView.currentPage == 3){
-	$.topNav.scrollTo(180 , 0);
-	$.menuBar.scrollTo(-300 , 0);
-	};
-	if ($.scrollableView.currentPage == 4){
-
-	$.menuBar.scrollTo(-400 , 0);
-	};
-}
-else {
-	if ($.scrollableView.currentPage == 0){
-	
-	$.menuBar.scrollTo(0 , 0);
-
-	};
-	if ($.scrollableView.currentPage == 1){
-	
-	$.menuBar.scrollTo(-scrollunit , 0);
-	};
-	if ($.scrollableView.currentPage == 2){
-	
-	$.menuBar.scrollTo(-scrollunit*2 , 0);
-	};
-	if ($.scrollableView.currentPage == 3){
-	
-	$.menuBar.scrollTo(-scrollunit*3 , 0);
-	};
-	if ($.scrollableView.currentPage == 4){
-
-	$.menuBar.scrollTo(-scrollunit*4 , 0);
-	};
-}
+	var topScroll = 0;
+	if (!isTablet) {	
+		if ($.scrollableView.currentPage == 1){
+			topScroll = 60;
+		};
+		if ($.scrollableView.currentPage == 2){
+			topScroll = 160;
+		};
+		if ($.scrollableView.currentPage == 3){
+			topScroll = 180;
+		};
+		if ($.scrollableView.currentPage != 4){
+			$.topNav.scrollTo(topScroll , 0);
+		};
+	} 
+	$.menuBar.scrollTo(-scrollunit * $.scrollableView.currentPage , 0);
 });
