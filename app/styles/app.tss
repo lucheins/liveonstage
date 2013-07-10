@@ -54,7 +54,6 @@
 		fontFamily: 'Helvetica Neue'
 	},
 	bottom: '20%'
-
 },
 ".navItem":{
 
@@ -68,7 +67,7 @@
 	left: '0%'
 	},
 "#scrollableView": {
-	height: '93%',
+	height: '80%',
 	top: '7%'
 	},
 "#NavContainer": {
@@ -79,7 +78,8 @@
 
 "#feedWin": {
 	height: "100%",
-	top: '0%'
+	top: '0%',
+	width: '100%'
 },
 
 "#tabs":{
