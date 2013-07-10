@@ -310,6 +310,7 @@ function Controller() {
     $.__views.feedWin.add($.__views.scrollableView);
     exports.destroy = function() {};
     _.extend($, $.__views);
+<<<<<<< HEAD
     var win = Alloy.createController("tabs").getView();
     $.feedWin.add(win);
     getDataFeed(0, 0, 0, 0, 0);
@@ -326,6 +327,17 @@ function Controller() {
     var cualquiera = $.NavContainer.width - width;
     scrollunit += cualquiera / 5;
     $.menuBar.scrollTo(-scrollunit, 0);
+=======
+    var osname = "android", height = Ti.Platform.displayCaps.platformHeight, width = Ti.Platform.displayCaps.platformWidth;
+    var isTablet = "ipad" === osname || "android" === osname && (width > 899 || height > 899);
+    if (isTablet) {
+        $.NavContainer.width = "100%";
+        $.topNav.setScrollingEnabled = false;
+    } else $.topNav.scrollTo(60, 0);
+    getDataFeed(0, 0, 0, 0, 0);
+    $.feedWin.open();
+    $.scrollableView.currentPage = 1;
+>>>>>>> 74a0c76a2dc2cb047b2d59e3fee951f83d174799
     $.categories.addEventListener("click", function() {
         $.scrollableView.scrollToView(0);
     });
@@ -342,6 +354,7 @@ function Controller() {
         $.scrollableView.scrollToView(4);
     });
     $.scrollableView.addEventListener("scroll", function() {
+<<<<<<< HEAD
         if (isTablet) {
             0 == $.scrollableView.currentPage && $.menuBar.scrollTo(0, 0);
             1 == $.scrollableView.currentPage && $.menuBar.scrollTo(-scrollunit, 0);
@@ -367,6 +380,32 @@ function Controller() {
             }
             4 == $.scrollableView.currentPage && $.menuBar.scrollTo(-400, 0);
         }
+=======
+        var convert = 1;
+        convert = Titanium.Platform.displayCaps.dpi / 160;
+        var scrollTo = 0;
+        var leftPercent = "0%";
+        if (1 == $.scrollableView.currentPage) {
+            scrollTo = 60 * convert;
+            leftPercent = "20%";
+        }
+        if (2 == $.scrollableView.currentPage) {
+            scrollTo = 160 * convert;
+            leftPercent = "40%";
+        }
+        if (3 == $.scrollableView.currentPage) {
+            scrollTo = 180 * convert;
+            leftPercent = "60%";
+        }
+        4 == $.scrollableView.currentPage && (leftPercent = "80%");
+        $.barra.left != leftPercent && $.barra.animate({
+            left: leftPercent,
+            duration: 50
+        }, function() {
+            $.barra.left = leftPercent;
+        });
+        isTablet || 4 == $.scrollableView.currentPage || $.topNav.scrollTo(scrollTo, 0);
+>>>>>>> 74a0c76a2dc2cb047b2d59e3fee951f83d174799
     });
     _.extend($, exports);
 }
