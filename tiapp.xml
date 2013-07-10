@@ -28,7 +28,15 @@
             <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
         </orientations>
     </iphone>
-    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <property name="ti.android.fastdev" type="bool">false</property>
+	<android xmlns:android="http://schemas.android.com/apk/res/android">
+	    <tool-api-level>17</tool-api-level>
+	    <manifest>
+	        <supports-screens android:anyDensity="false"/>
+	       
+	        <uses-sdk android:maxSdkVersion="17" android:minSdkVersion="14" android:targetSdkVersion="16"/>
+	    </manifest>
+	</android>
     <mobileweb>
         <precache/>
         <splash>

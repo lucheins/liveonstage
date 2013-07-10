@@ -1,0 +1,65 @@
+<Alloy>
+	<TabGroup id="feedWin">
+		<Tab title="Tab 1" icon="KS_nav_ui.png">
+			<Window title="Tab 1">
+				<ScrollableView id="scrollableView">
+            <View id="categoriesScreen" backgroundColor="#123" ><ActivityIndicator id="activity"/>	<TableView id="data"></View>
+            <View id="videosScreen" backgroundColor="#246" />
+            <View id="campaignsScreen" backgroundColor="#48b" />
+            <View id="upcomingScreen" backgroundColor="#246" />
+            <View id="artistsScreen" backgroundColor="#48b" />
+           
+        </ScrollableView>
+			</Window>
+		</Tab>
+		<Tab title="Tab 2" icon="KS_nav_views.png">
+			<Window title="Tab 2">
+				<ScrollableView id="scrollableView">
+            <View id="categoriesScreen" backgroundColor="#123" ><ActivityIndicator id="activity"/>	<TableView id="data"></View>
+            <View id="videosScreen" backgroundColor="#246" />
+            <View id="campaignsScreen" backgroundColor="#48b" />
+            <View id="upcomingScreen" backgroundColor="#246" />
+            <View id="artistsScreen" backgroundColor="#48b" />
+           
+        </ScrollableView>
+			</Window>
+		</Tab>
+		<Tab title="Tab 3" icon="KS_nav_views.png">
+			<Window title="Tab 2">
+				<ScrollableView id="scrollableView">
+            <View id="categoriesScreen" backgroundColor="#123" ><ActivityIndicator id="activity"/>	<TableView id="data"></View>
+            <View id="videosScreen" backgroundColor="#246" />
+            <View id="campaignsScreen" backgroundColor="#48b" />
+            <View id="upcomingScreen" backgroundColor="#246" />
+            <View id="artistsScreen" backgroundColor="#48b" />
+           
+        </ScrollableView>
+			</Window>
+		</Tab>
+		<Tab title="Tab 4" icon="KS_nav_views.png">
+			<Window title="Tab 2">
+				<ScrollableView id="scrollableView">
+            <View id="categoriesScreen" backgroundColor="#123" ><ActivityIndicator id="activity"/>	<TableView id="data"></View>
+            <View id="videosScreen" backgroundColor="#246" />
+            <View id="campaignsScreen" backgroundColor="#48b" />
+            <View id="upcomingScreen" backgroundColor="#246" />
+            <View id="artistsScreen" backgroundColor="#48b" />
+           
+        </ScrollableView>
+			</Window>
+		</Tab>
+		<Tab title="Tab 5" icon="KS_nav_views.png">
+			<Window title="Tab 2">
+				<ScrollableView id="scrollableView">
+            <View id="categoriesScreen" backgroundColor="#123" ><ActivityIndicator id="activity"/>	<TableView id="data"></View>
+            <View id="videosScreen" backgroundColor="#246" />
+            <View id="campaignsScreen" backgroundColor="#48b" />
+            <View id="upcomingScreen" backgroundColor="#246" />
+            <View id="artistsScreen" backgroundColor="#48b" />
+           
+        </ScrollableView>
+			</Window>
+		</Tab>
+		
+	</TabGroup>
+</Alloy>

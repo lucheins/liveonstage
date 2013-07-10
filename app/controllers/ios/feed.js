@@ -1,5 +1,5 @@
 var win = Alloy.createController('tabs').getView();
-$.feedWin.add(win);
+$.feedWin.add(win)
 
 getDataFeed(0,0,0,0,0);
 

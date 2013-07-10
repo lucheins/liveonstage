@@ -105,165 +105,23 @@ function Controller() {
     arguments[0] ? arguments[0]["$model"] : null;
     var $ = this;
     var exports = {};
-    $.__views.feedWin = Ti.UI.createWindow({
-        backgroundColor: "#fff",
-        title: Alloy.Globals.NAME_PAGE,
+    $.__views.feedWin = Ti.UI.createTabGroup({
         height: "100%",
         top: "0%",
         width: "100%",
         id: "feedWin"
     });
-    $.__views.feedWin && $.addTopLevelView($.__views.feedWin);
-    $.__views.topNav = Ti.UI.createScrollView({
-        height: "7%",
-        top: "0%",
-        width: "100%",
-        left: "0%",
-        id: "topNav",
-        showVerticalScrollIndicator: "false",
-        showHorizontalScrollIndicator: "false",
-        scrollType: "horizontal"
+    $.__views.__alloyId8 = Ti.UI.createWindow({
+        backgroundColor: "#fff",
+        title: "Tab 1",
+        id: "__alloyId8"
     });
-    $.__views.feedWin.add($.__views.topNav);
-    $.__views.NavContainer = Ti.UI.createView({
-        width: 500,
-        height: "90%",
-        top: "0%",
-        id: "NavContainer"
-    });
-    $.__views.topNav.add($.__views.NavContainer);
-    $.__views.categories = Ti.UI.createView({
-        height: "100%",
-        width: "20%",
-        bottom: "0%",
-        left: "0%",
-        id: "categories"
-    });
-    $.__views.NavContainer.add($.__views.categories);
-    $.__views.__alloyId3 = Ti.UI.createLabel({
-        textAlign: "center",
-        color: "red",
-        font: {
-            fontSize: 12,
-            fontFamily: "Helvetica Neue"
-        },
-        bottom: "20%",
-        text: "Categories",
-        id: "__alloyId3"
-    });
-    $.__views.categories.add($.__views.__alloyId3);
-    $.__views.videos = Ti.UI.createView({
-        height: "100%",
-        bottom: "0%",
-        width: "20%",
-        left: "20%",
-        id: "videos"
-    });
-    $.__views.NavContainer.add($.__views.videos);
-    $.__views.__alloyId4 = Ti.UI.createLabel({
-        textAlign: "center",
-        color: "red",
-        font: {
-            fontSize: 12,
-            fontFamily: "Helvetica Neue"
-        },
-        bottom: "20%",
-        text: "Live Shows",
-        id: "__alloyId4"
-    });
-    $.__views.videos.add($.__views.__alloyId4);
-    $.__views.campaigns = Ti.UI.createView({
-        height: "100%",
-        width: "20%",
-        bottom: "0%",
-        left: "40%",
-        id: "campaigns"
-    });
-    $.__views.NavContainer.add($.__views.campaigns);
-    $.__views.__alloyId5 = Ti.UI.createLabel({
-        textAlign: "center",
-        color: "red",
-        font: {
-            fontSize: 12,
-            fontFamily: "Helvetica Neue"
-        },
-        bottom: "20%",
-        text: "Campaigns",
-        id: "__alloyId5"
-    });
-    $.__views.campaigns.add($.__views.__alloyId5);
-    $.__views.upcoming = Ti.UI.createView({
-        height: "100%",
-        width: "20%",
-        bottom: "0%",
-        left: "60%",
-        id: "upcoming"
-    });
-    $.__views.NavContainer.add($.__views.upcoming);
-    $.__views.__alloyId6 = Ti.UI.createLabel({
-        textAlign: "center",
-        color: "red",
-        font: {
-            fontSize: 12,
-            fontFamily: "Helvetica Neue"
-        },
-        bottom: "20%",
-        text: "Upcoming",
-        id: "__alloyId6"
-    });
-    $.__views.upcoming.add($.__views.__alloyId6);
-    $.__views.artists = Ti.UI.createView({
-        height: "100%",
-        width: "20%",
-        bottom: "0%",
-        left: "80%",
-        id: "artists"
-    });
-    $.__views.NavContainer.add($.__views.artists);
-    $.__views.__alloyId7 = Ti.UI.createLabel({
-        textAlign: "center",
-        color: "red",
-        font: {
-            fontSize: 12,
-            fontFamily: "Helvetica Neue"
-        },
-        bottom: "20%",
-        text: "Artists",
-        id: "__alloyId7"
-    });
-    $.__views.artists.add($.__views.__alloyId7);
-    $.__views.menuBar = Ti.UI.createScrollView({
-        height: "10%",
-        bottom: "0%",
-        id: "menuBar",
-        showVerticalScrollIndicator: "false",
-        showHorizontalScrollIndicator: "false",
-        scrollType: "horizontal"
-    });
-    $.__views.topNav.add($.__views.menuBar);
-    $.__views.barContainer = Ti.UI.createView({
-        width: "100%",
-        height: "100%",
-        bottom: "0%",
-        left: "0%",
-        id: "barContainer"
-    });
-    $.__views.menuBar.add($.__views.barContainer);
-    $.__views.barra = Ti.UI.createView({
-        height: "100%",
-        width: "20%",
-        backgroundColor: "green",
-        bottom: "0%",
-        left: "0%",
-        id: "barra"
-    });
-    $.__views.barContainer.add($.__views.barra);
-    var __alloyId8 = [];
+    var __alloyId9 = [];
     $.__views.categoriesScreen = Ti.UI.createView({
         id: "categoriesScreen",
         backgroundColor: "#123"
     });
-    __alloyId8.push($.__views.categoriesScreen);
+    __alloyId9.push($.__views.categoriesScreen);
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -286,89 +144,295 @@ function Controller() {
         id: "videosScreen",
         backgroundColor: "#246"
     });
-    __alloyId8.push($.__views.videosScreen);
+    __alloyId9.push($.__views.videosScreen);
     $.__views.campaignsScreen = Ti.UI.createView({
         id: "campaignsScreen",
         backgroundColor: "#48b"
     });
-    __alloyId8.push($.__views.campaignsScreen);
+    __alloyId9.push($.__views.campaignsScreen);
     $.__views.upcomingScreen = Ti.UI.createView({
         id: "upcomingScreen",
         backgroundColor: "#246"
     });
-    __alloyId8.push($.__views.upcomingScreen);
+    __alloyId9.push($.__views.upcomingScreen);
     $.__views.artistsScreen = Ti.UI.createView({
         id: "artistsScreen",
         backgroundColor: "#48b"
     });
-    __alloyId8.push($.__views.artistsScreen);
+    __alloyId9.push($.__views.artistsScreen);
     $.__views.scrollableView = Ti.UI.createScrollableView({
         height: "80%",
         top: "7%",
-        views: __alloyId8,
+        views: __alloyId9,
         id: "scrollableView"
     });
-    $.__views.feedWin.add($.__views.scrollableView);
+    $.__views.__alloyId8.add($.__views.scrollableView);
+    $.__views.__alloyId7 = Ti.UI.createTab({
+        window: $.__views.__alloyId8,
+        title: "Tab 1",
+        icon: "KS_nav_ui.png",
+        id: "__alloyId7"
+    });
+    $.__views.feedWin.addTab($.__views.__alloyId7);
+    $.__views.__alloyId11 = Ti.UI.createWindow({
+        backgroundColor: "#fff",
+        title: "Tab 2",
+        id: "__alloyId11"
+    });
+    var __alloyId12 = [];
+    $.__views.categoriesScreen = Ti.UI.createView({
+        id: "categoriesScreen",
+        backgroundColor: "#123"
+    });
+    __alloyId12.push($.__views.categoriesScreen);
+    $.__views.activity = Ti.UI.createActivityIndicator({
+        color: "#6cb1d5",
+        font: {
+            fontFamily: "Helvetica Neue",
+            fontSize: 26,
+            fontWeight: "bold"
+        },
+        message: "Loading...",
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        id: "activity"
+    });
+    $.__views.categoriesScreen.add($.__views.activity);
+    $.__views.data = Ti.UI.createTableView({
+        separatorColor: "#fff",
+        id: "data"
+    });
+    $.__views.categoriesScreen.add($.__views.data);
+    $.__views.videosScreen = Ti.UI.createView({
+        id: "videosScreen",
+        backgroundColor: "#246"
+    });
+    __alloyId12.push($.__views.videosScreen);
+    $.__views.campaignsScreen = Ti.UI.createView({
+        id: "campaignsScreen",
+        backgroundColor: "#48b"
+    });
+    __alloyId12.push($.__views.campaignsScreen);
+    $.__views.upcomingScreen = Ti.UI.createView({
+        id: "upcomingScreen",
+        backgroundColor: "#246"
+    });
+    __alloyId12.push($.__views.upcomingScreen);
+    $.__views.artistsScreen = Ti.UI.createView({
+        id: "artistsScreen",
+        backgroundColor: "#48b"
+    });
+    __alloyId12.push($.__views.artistsScreen);
+    $.__views.scrollableView = Ti.UI.createScrollableView({
+        height: "80%",
+        top: "7%",
+        views: __alloyId12,
+        id: "scrollableView"
+    });
+    $.__views.__alloyId11.add($.__views.scrollableView);
+    $.__views.__alloyId10 = Ti.UI.createTab({
+        window: $.__views.__alloyId11,
+        title: "Tab 2",
+        icon: "KS_nav_views.png",
+        id: "__alloyId10"
+    });
+    $.__views.feedWin.addTab($.__views.__alloyId10);
+    $.__views.__alloyId14 = Ti.UI.createWindow({
+        backgroundColor: "#fff",
+        title: "Tab 2",
+        id: "__alloyId14"
+    });
+    var __alloyId15 = [];
+    $.__views.categoriesScreen = Ti.UI.createView({
+        id: "categoriesScreen",
+        backgroundColor: "#123"
+    });
+    __alloyId15.push($.__views.categoriesScreen);
+    $.__views.activity = Ti.UI.createActivityIndicator({
+        color: "#6cb1d5",
+        font: {
+            fontFamily: "Helvetica Neue",
+            fontSize: 26,
+            fontWeight: "bold"
+        },
+        message: "Loading...",
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        id: "activity"
+    });
+    $.__views.categoriesScreen.add($.__views.activity);
+    $.__views.data = Ti.UI.createTableView({
+        separatorColor: "#fff",
+        id: "data"
+    });
+    $.__views.categoriesScreen.add($.__views.data);
+    $.__views.videosScreen = Ti.UI.createView({
+        id: "videosScreen",
+        backgroundColor: "#246"
+    });
+    __alloyId15.push($.__views.videosScreen);
+    $.__views.campaignsScreen = Ti.UI.createView({
+        id: "campaignsScreen",
+        backgroundColor: "#48b"
+    });
+    __alloyId15.push($.__views.campaignsScreen);
+    $.__views.upcomingScreen = Ti.UI.createView({
+        id: "upcomingScreen",
+        backgroundColor: "#246"
+    });
+    __alloyId15.push($.__views.upcomingScreen);
+    $.__views.artistsScreen = Ti.UI.createView({
+        id: "artistsScreen",
+        backgroundColor: "#48b"
+    });
+    __alloyId15.push($.__views.artistsScreen);
+    $.__views.scrollableView = Ti.UI.createScrollableView({
+        height: "80%",
+        top: "7%",
+        views: __alloyId15,
+        id: "scrollableView"
+    });
+    $.__views.__alloyId14.add($.__views.scrollableView);
+    $.__views.__alloyId13 = Ti.UI.createTab({
+        window: $.__views.__alloyId14,
+        title: "Tab 3",
+        icon: "KS_nav_views.png",
+        id: "__alloyId13"
+    });
+    $.__views.feedWin.addTab($.__views.__alloyId13);
+    $.__views.__alloyId17 = Ti.UI.createWindow({
+        backgroundColor: "#fff",
+        title: "Tab 2",
+        id: "__alloyId17"
+    });
+    var __alloyId18 = [];
+    $.__views.categoriesScreen = Ti.UI.createView({
+        id: "categoriesScreen",
+        backgroundColor: "#123"
+    });
+    __alloyId18.push($.__views.categoriesScreen);
+    $.__views.activity = Ti.UI.createActivityIndicator({
+        color: "#6cb1d5",
+        font: {
+            fontFamily: "Helvetica Neue",
+            fontSize: 26,
+            fontWeight: "bold"
+        },
+        message: "Loading...",
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        id: "activity"
+    });
+    $.__views.categoriesScreen.add($.__views.activity);
+    $.__views.data = Ti.UI.createTableView({
+        separatorColor: "#fff",
+        id: "data"
+    });
+    $.__views.categoriesScreen.add($.__views.data);
+    $.__views.videosScreen = Ti.UI.createView({
+        id: "videosScreen",
+        backgroundColor: "#246"
+    });
+    __alloyId18.push($.__views.videosScreen);
+    $.__views.campaignsScreen = Ti.UI.createView({
+        id: "campaignsScreen",
+        backgroundColor: "#48b"
+    });
+    __alloyId18.push($.__views.campaignsScreen);
+    $.__views.upcomingScreen = Ti.UI.createView({
+        id: "upcomingScreen",
+        backgroundColor: "#246"
+    });
+    __alloyId18.push($.__views.upcomingScreen);
+    $.__views.artistsScreen = Ti.UI.createView({
+        id: "artistsScreen",
+        backgroundColor: "#48b"
+    });
+    __alloyId18.push($.__views.artistsScreen);
+    $.__views.scrollableView = Ti.UI.createScrollableView({
+        height: "80%",
+        top: "7%",
+        views: __alloyId18,
+        id: "scrollableView"
+    });
+    $.__views.__alloyId17.add($.__views.scrollableView);
+    $.__views.__alloyId16 = Ti.UI.createTab({
+        window: $.__views.__alloyId17,
+        title: "Tab 4",
+        icon: "KS_nav_views.png",
+        id: "__alloyId16"
+    });
+    $.__views.feedWin.addTab($.__views.__alloyId16);
+    $.__views.__alloyId20 = Ti.UI.createWindow({
+        backgroundColor: "#fff",
+        title: "Tab 2",
+        id: "__alloyId20"
+    });
+    var __alloyId21 = [];
+    $.__views.categoriesScreen = Ti.UI.createView({
+        id: "categoriesScreen",
+        backgroundColor: "#123"
+    });
+    __alloyId21.push($.__views.categoriesScreen);
+    $.__views.activity = Ti.UI.createActivityIndicator({
+        color: "#6cb1d5",
+        font: {
+            fontFamily: "Helvetica Neue",
+            fontSize: 26,
+            fontWeight: "bold"
+        },
+        message: "Loading...",
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        id: "activity"
+    });
+    $.__views.categoriesScreen.add($.__views.activity);
+    $.__views.data = Ti.UI.createTableView({
+        separatorColor: "#fff",
+        id: "data"
+    });
+    $.__views.categoriesScreen.add($.__views.data);
+    $.__views.videosScreen = Ti.UI.createView({
+        id: "videosScreen",
+        backgroundColor: "#246"
+    });
+    __alloyId21.push($.__views.videosScreen);
+    $.__views.campaignsScreen = Ti.UI.createView({
+        id: "campaignsScreen",
+        backgroundColor: "#48b"
+    });
+    __alloyId21.push($.__views.campaignsScreen);
+    $.__views.upcomingScreen = Ti.UI.createView({
+        id: "upcomingScreen",
+        backgroundColor: "#246"
+    });
+    __alloyId21.push($.__views.upcomingScreen);
+    $.__views.artistsScreen = Ti.UI.createView({
+        id: "artistsScreen",
+        backgroundColor: "#48b"
+    });
+    __alloyId21.push($.__views.artistsScreen);
+    $.__views.scrollableView = Ti.UI.createScrollableView({
+        height: "80%",
+        top: "7%",
+        views: __alloyId21,
+        id: "scrollableView"
+    });
+    $.__views.__alloyId20.add($.__views.scrollableView);
+    $.__views.__alloyId19 = Ti.UI.createTab({
+        window: $.__views.__alloyId20,
+        title: "Tab 5",
+        icon: "KS_nav_views.png",
+        id: "__alloyId19"
+    });
+    $.__views.feedWin.addTab($.__views.__alloyId19);
+    $.__views.feedWin && $.addTopLevelView($.__views.feedWin);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var win = Alloy.createController("tabs").getView();
     $.feedWin.add(win);
     getDataFeed(0, 0, 0, 0, 0);
     $.feedWin.open();
-    $.scrollableView.currentPage = 1;
-    var osname = "android", height = Ti.Platform.displayCaps.platformHeight, width = Ti.Platform.displayCaps.platformWidth;
-    scrollunit = width / 5;
-    var isTablet = "ipad" === osname || "android" === osname && (width > 899 || height > 899);
-    if (isTablet) {
-        $.NavContainer.width = width;
-        $.barContainer.width = "100%";
-        $.topNav.setScrollingEnabled = false;
-    } else $.topNav.scrollTo(60, 0);
-    var cualquiera = $.NavContainer.width - width;
-    scrollunit += cualquiera / 5;
-    $.menuBar.scrollTo(-scrollunit, 0);
-    $.categories.addEventListener("click", function() {
-        $.scrollableView.scrollToView(0);
-    });
-    $.videos.addEventListener("click", function() {
-        $.scrollableView.scrollToView(1);
-    });
-    $.campaigns.addEventListener("click", function() {
-        $.scrollableView.scrollToView(2);
-    });
-    $.upcoming.addEventListener("click", function() {
-        $.scrollableView.scrollToView(3);
-    });
-    $.artists.addEventListener("click", function() {
-        $.scrollableView.scrollToView(4);
-    });
-    $.scrollableView.addEventListener("scroll", function() {
-        if (isTablet) {
-            0 == $.scrollableView.currentPage && $.menuBar.scrollTo(0, 0);
-            1 == $.scrollableView.currentPage && $.menuBar.scrollTo(-scrollunit, 0);
-            2 == $.scrollableView.currentPage && $.menuBar.scrollTo(2 * -scrollunit, 0);
-            3 == $.scrollableView.currentPage && $.menuBar.scrollTo(3 * -scrollunit, 0);
-            4 == $.scrollableView.currentPage && $.menuBar.scrollTo(4 * -scrollunit, 0);
-        } else {
-            if (0 == $.scrollableView.currentPage) {
-                $.topNav.scrollTo(0, 0);
-                $.menuBar.scrollTo(0, 0);
-            }
-            if (1 == $.scrollableView.currentPage) {
-                $.topNav.scrollTo(60, 0);
-                $.menuBar.scrollTo(-100, 0);
-            }
-            if (2 == $.scrollableView.currentPage) {
-                $.topNav.scrollTo(160, 0);
-                $.menuBar.scrollTo(-200, 0);
-            }
-            if (3 == $.scrollableView.currentPage) {
-                $.topNav.scrollTo(180, 0);
-                $.menuBar.scrollTo(-300, 0);
-            }
-            4 == $.scrollableView.currentPage && $.menuBar.scrollTo(-400, 0);
-        }
-    });
     _.extend($, exports);
 }
 

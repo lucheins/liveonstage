@@ -1,5 +1,6 @@
 <Alloy>
 	<Window id="index">
-		<Widget id="buttongrid" src="com.appcelerator.buttongrid"/>
+			<Widget id="buttongrid" src="com.appcelerator.buttongrid"/>
+			
 	</Window>
 </Alloy>

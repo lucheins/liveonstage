@@ -5,7 +5,7 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.index = Ti.UI.createWindow({
-        backgroundColor: "#fff",
+        backgroundColor: "black",
         title: Alloy.Globals.NAME_PAGE,
         id: "index"
     });
@@ -17,33 +17,18 @@ function Controller() {
     $.__views.buttongrid.setParent($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var red = "#900A05";
-    var brightred = "#B00C07";
-    var black = "#000000";
-    var gray = "#888888";
+    var width = (Ti.Platform.displayCaps.platformWidth - 30) / 2;
+    var height = (Ti.Platform.displayCaps.platformWidth - 30) / 4;
     $.buttongrid.init({
         buttons: [ {
             id: "Cloudy",
-            title: "Cloudy",
-            backgroundColor: black,
-            backgroundSelectedColor: gray
+            title: "Cloudy"
         }, {
             id: "Drizzle",
             title: "Drizzle"
         }, {
             id: "Haze",
             title: "Haze"
-        }, {
-            id: "MostlyCloudy",
-            title: "Mostly Cloudy"
-        }, {
-            id: "SlightDrizzle"
-        }, {
-            id: "Snow",
-            title: "Snow"
-        }, {
-            id: "Sunny",
-            title: "Sunny"
         }, {
             id: "Thunderstorms",
             title: "Thunderstorms",
@@ -52,10 +37,11 @@ function Controller() {
                 win.open();
             }
         } ],
-        buttonWidth: Alloy.isTablet ? 200 : 100,
-        buttonHeight: Alloy.isTablet ? 200 : 100,
-        backgroundColor: red,
-        backgroundSelectedColor: brightred
+        buttonWidth: width,
+        buttonHeight: height,
+        duration: 50,
+        backgroundColor: "#fff",
+        backgroundSelectedColor: "#f2f2f2"
     });
     $.index.open();
     _.extend($, exports);
