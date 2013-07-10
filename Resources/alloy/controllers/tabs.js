@@ -6,8 +6,8 @@ function Controller() {
     var exports = {};
     $.__views.tabs = Ti.UI.createView({
         width: "100%",
-        bottom: 0,
-        height: "5%",
+        bottom: "0%",
+        height: "13%",
         id: "tabs"
     });
     $.__views.tabs && $.addTopLevelView($.__views.tabs);
@@ -20,18 +20,18 @@ function Controller() {
         id: "browse"
     });
     $.__views.tabs.add($.__views.browse);
-    $.__views.__alloyId12 = Ti.UI.createLabel({
+    $.__views.__alloyId10 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#000000",
         font: {
-            fontSize: 12,
+            fontSize: 10,
             fontFamily: "Helvetica Neue"
         },
         bottom: "0dp",
         text: "Browse",
-        id: "__alloyId12"
+        id: "__alloyId10"
     });
-    $.__views.browse.add($.__views.__alloyId12);
+    $.__views.browse.add($.__views.__alloyId10);
     $.__views.artist = Ti.UI.createView({
         bottom: "0dp",
         left: "33%",
@@ -41,18 +41,18 @@ function Controller() {
         id: "artist"
     });
     $.__views.tabs.add($.__views.artist);
-    $.__views.__alloyId13 = Ti.UI.createLabel({
+    $.__views.__alloyId11 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#000000",
         font: {
-            fontSize: 12,
+            fontSize: 10,
             fontFamily: "Helvetica Neue"
         },
         bottom: "0dp",
         text: "Artist Search",
-        id: "__alloyId13"
+        id: "__alloyId11"
     });
-    $.__views.artist.add($.__views.__alloyId13);
+    $.__views.artist.add($.__views.__alloyId11);
     $.__views.stage = Ti.UI.createView({
         bottom: "0dp",
         width: "33%",
@@ -62,18 +62,18 @@ function Controller() {
         id: "stage"
     });
     $.__views.tabs.add($.__views.stage);
-    $.__views.__alloyId14 = Ti.UI.createLabel({
+    $.__views.__alloyId12 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#000000",
         font: {
-            fontSize: 12,
+            fontSize: 10,
             fontFamily: "Helvetica Neue"
         },
         bottom: "0dp",
         text: "My Stage",
-        id: "__alloyId14"
+        id: "__alloyId12"
     });
-    $.__views.stage.add($.__views.__alloyId14);
+    $.__views.stage.add($.__views.__alloyId12);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.artist.addEventListener("click", function() {

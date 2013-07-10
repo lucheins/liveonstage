@@ -108,7 +108,7 @@ function Controller() {
     $.__views.feedWin = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: Alloy.Globals.NAME_PAGE,
-        height: "95%",
+        height: "100%",
         top: "0%",
         id: "feedWin"
     });
@@ -125,7 +125,7 @@ function Controller() {
     });
     $.__views.feedWin.add($.__views.topNav);
     $.__views.NavContainer = Ti.UI.createView({
-        width: "500dp",
+        width: 500,
         height: "90%",
         top: "0%",
         id: "NavContainer"
@@ -231,15 +231,32 @@ function Controller() {
         id: "__alloyId7"
     });
     $.__views.artists.add($.__views.__alloyId7);
-    $.__views.barra = Ti.UI.createView({
+    $.__views.menuBar = Ti.UI.createScrollView({
         height: "10%",
+        bottom: "0%",
+        id: "menuBar",
+        showVerticalScrollIndicator: "false",
+        showHorizontalScrollIndicator: "false",
+        scrollType: "horizontal"
+    });
+    $.__views.topNav.add($.__views.menuBar);
+    $.__views.barContainer = Ti.UI.createView({
+        width: "100%",
+        height: "100%",
+        bottom: "0%",
+        left: "0%",
+        id: "barContainer"
+    });
+    $.__views.menuBar.add($.__views.barContainer);
+    $.__views.barra = Ti.UI.createView({
+        height: "100%",
         width: "20%",
         backgroundColor: "green",
         bottom: "0%",
-        left: 0,
+        left: "0%",
         id: "barra"
     });
-    $.__views.topNav.add($.__views.barra);
+    $.__views.barContainer.add($.__views.barra);
     var __alloyId8 = [];
     $.__views.categoriesScreen = Ti.UI.createView({
         id: "categoriesScreen",
@@ -293,15 +310,22 @@ function Controller() {
     $.__views.feedWin.add($.__views.scrollableView);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var osname = "android", height = Ti.Platform.displayCaps.platformHeight, width = Ti.Platform.displayCaps.platformWidth;
-    var isTablet = "ipad" === osname || "android" === osname && (width > 899 || height > 899);
-    if (isTablet) {
-        $.NavContainer.width = "100%";
-        $.topNav.setScrollingEnabled = false;
-    } else $.topNav.scrollTo(60, 0);
+    var win = Alloy.createController("tabs").getView();
+    $.feedWin.add(win);
     getDataFeed(0, 0, 0, 0, 0);
     $.feedWin.open();
     $.scrollableView.currentPage = 1;
+    var osname = "android", height = Ti.Platform.displayCaps.platformHeight, width = Ti.Platform.displayCaps.platformWidth;
+    scrollunit = width / 5;
+    var isTablet = "ipad" === osname || "android" === osname && (width > 899 || height > 899);
+    if (isTablet) {
+        $.NavContainer.width = width;
+        $.barContainer.width = "100%";
+        $.topNav.setScrollingEnabled = false;
+    } else $.topNav.scrollTo(60, 0);
+    var cualquiera = $.NavContainer.width - width;
+    scrollunit += cualquiera / 5;
+    $.menuBar.scrollTo(-scrollunit, 0);
     $.categories.addEventListener("click", function() {
         $.scrollableView.scrollToView(0);
     });
@@ -318,30 +342,31 @@ function Controller() {
         $.scrollableView.scrollToView(4);
     });
     $.scrollableView.addEventListener("scroll", function() {
-        var convert = 1;
-        convert = Titanium.Platform.displayCaps.dpi / 160;
-        var scrollTo = 0;
-        var leftPercent = "0%";
-        if (1 == $.scrollableView.currentPage) {
-            scrollTo = 60 * convert;
-            leftPercent = "20%";
+        if (isTablet) {
+            0 == $.scrollableView.currentPage && $.menuBar.scrollTo(0, 0);
+            1 == $.scrollableView.currentPage && $.menuBar.scrollTo(-scrollunit, 0);
+            2 == $.scrollableView.currentPage && $.menuBar.scrollTo(2 * -scrollunit, 0);
+            3 == $.scrollableView.currentPage && $.menuBar.scrollTo(3 * -scrollunit, 0);
+            4 == $.scrollableView.currentPage && $.menuBar.scrollTo(4 * -scrollunit, 0);
+        } else {
+            if (0 == $.scrollableView.currentPage) {
+                $.topNav.scrollTo(0, 0);
+                $.menuBar.scrollTo(0, 0);
+            }
+            if (1 == $.scrollableView.currentPage) {
+                $.topNav.scrollTo(60, 0);
+                $.menuBar.scrollTo(-100, 0);
+            }
+            if (2 == $.scrollableView.currentPage) {
+                $.topNav.scrollTo(160, 0);
+                $.menuBar.scrollTo(-200, 0);
+            }
+            if (3 == $.scrollableView.currentPage) {
+                $.topNav.scrollTo(180, 0);
+                $.menuBar.scrollTo(-300, 0);
+            }
+            4 == $.scrollableView.currentPage && $.menuBar.scrollTo(-400, 0);
         }
-        if (2 == $.scrollableView.currentPage) {
-            scrollTo = 160 * convert;
-            leftPercent = "40%";
-        }
-        if (3 == $.scrollableView.currentPage) {
-            scrollTo = 180 * convert;
-            leftPercent = "60%";
-        }
-        4 == $.scrollableView.currentPage && (leftPercent = "80%");
-        $.barra.left != leftPercent && $.barra.animate({
-            left: leftPercent,
-            duration: 50
-        }, function() {
-            $.barra.left = leftPercent;
-        });
-        isTablet || 4 == $.scrollableView.currentPage || $.topNav.scrollTo(scrollTo, 0);
     });
     _.extend($, exports);
 }

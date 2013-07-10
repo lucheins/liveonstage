@@ -10,19 +10,53 @@ function Controller() {
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
-    $.__views.__alloyId9 = Ti.UI.createView({
-        id: "__alloyId9"
+    $.__views.buttongrid = Alloy.createWidget("com.appcelerator.buttongrid", "widget", {
+        id: "buttongrid",
+        __parentSymbol: $.__views.index
     });
-    $.__views.index.add($.__views.__alloyId9);
-    $.__views.__alloyId10 = Ti.UI.createLabel({
-        text: "Soy Pantalla 1",
-        id: "__alloyId10"
-    });
-    $.__views.__alloyId9.add($.__views.__alloyId10);
+    $.__views.buttongrid.setParent($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var win = Alloy.createController("tabs").getView();
-    $.index.add(win);
+    var red = "#900A05";
+    var brightred = "#B00C07";
+    var black = "#000000";
+    var gray = "#888888";
+    $.buttongrid.init({
+        buttons: [ {
+            id: "Cloudy",
+            title: "Cloudy",
+            backgroundColor: black,
+            backgroundSelectedColor: gray
+        }, {
+            id: "Drizzle",
+            title: "Drizzle"
+        }, {
+            id: "Haze",
+            title: "Haze"
+        }, {
+            id: "MostlyCloudy",
+            title: "Mostly Cloudy"
+        }, {
+            id: "SlightDrizzle"
+        }, {
+            id: "Snow",
+            title: "Snow"
+        }, {
+            id: "Sunny",
+            title: "Sunny"
+        }, {
+            id: "Thunderstorms",
+            title: "Thunderstorms",
+            click: function() {
+                var win = Alloy.createController("feed").getView();
+                win.open();
+            }
+        } ],
+        buttonWidth: Alloy.isTablet ? 200 : 100,
+        buttonHeight: Alloy.isTablet ? 200 : 100,
+        backgroundColor: red,
+        backgroundSelectedColor: brightred
+    });
     $.index.open();
     _.extend($, exports);
 }

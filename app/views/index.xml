@@ -1,7 +1,5 @@
 <Alloy>
 	<Window id="index">
-		<View>
-			<Label>Soy Pantalla 1</Label>
-		</View>	
+		<Widget id="buttongrid" src="com.appcelerator.buttongrid"/>
 	</Window>
 </Alloy>

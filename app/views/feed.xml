@@ -1,6 +1,6 @@
-
 <Alloy>
     <Window id="feedWin">
+    	
     	<ScrollView id="topNav" showVerticalScrollIndicator="false" showHorizontalScrollIndicator="false" scrollType="horizontal">
 			<View id="NavContainer">
 				<View id="categories" class="navItem">
@@ -18,8 +18,16 @@
 				<View id="artists" class="navItem">
 					<Label class="navLabel">Artists</Label>
 				</View>  
-			</View>
-			<View id="barra"> </View>
+			</View> 
+
+			<ScrollView id="menuBar" showVerticalScrollIndicator="false" showHorizontalScrollIndicator="false" scrollType="horizontal">
+				<View id="barContainer">
+					<View id="barra">
+
+			    </View>
+			    </View>
+		    </ScrollView>
+    
     </ScrollView>
     
         <ScrollableView id="scrollableView">
@@ -31,4 +39,5 @@
            
         </ScrollableView>
     </Window>
+   
 </Alloy>

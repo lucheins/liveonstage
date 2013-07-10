@@ -2,6 +2,7 @@
 	backgroundColor: "#fff",
 	title: Alloy.Globals.NAME_PAGE
 },
+
 "#activity":{
 	color: '#6cb1d5',
 	font: {
@@ -39,11 +40,11 @@
 	textAlign: 'center',
 	color: '#000000',
 	font: {
-		fontSize: 12,
+		fontSize: 10,
 		fontFamily: 'Helvetica Neue'
 	},
 	bottom: '0dp'
-	
+
 },
 ".navLabel":{
 	textAlign: 'center',
@@ -53,10 +54,10 @@
 		fontFamily: 'Helvetica Neue'
 	},
 	bottom: '20%'
-	
+
 },
 ".navItem":{
-	
+
 	height: '100%'
 	},
 
@@ -71,22 +72,22 @@
 	top: '7%'
 	},
 "#NavContainer": {
-	width: '500dp',
+	width: 500,
 	height: '90%',
 	top: '0%'
 	},
 
 "#feedWin": {
-	height: "95%",
+	height: "100%",
 	top: '0%'
 },
 
 "#tabs":{
 	width: '100%',
-	bottom: 0,
-	height: '5%'
+	bottom: '0%',
+	height: '13%'
 	},
-	
+
 "#categories":{
 	width: '20%',
 	bottom: '0%',
@@ -114,14 +115,20 @@
 	left:'80%'
 	},
 "#barra": {
-	height:'10%',
+	height:'100%',
 	width: '20%',
 	backgroundColor: 'green',
 	bottom: '0%',
-	left: 0
+	left: '0%'
 	},
 "#menuBar":{
 	height: '10%',
+	bottom: '0%'
+	},
+"#barContainer": {
+	width: '100%',
+	height: '100%',
 	bottom: '0%',
-	width: '100%'
+	left: '0%'
+	
 	}
