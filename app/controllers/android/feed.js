@@ -3,8 +3,16 @@ $.feedWin.add(win);
 var module = require('net.bajawa.pager');
 
 var data = require('dataExport');
-var table = Ti.UI.createTableView()
-var categories1 = data.getCategories($.activity, table);
+var table = Ti.UI.createTableView();
+var table1 = Ti.UI.createTableView();
+var table2 = Ti.UI.createTableView();
+var table3 = Ti.UI.createTableView();
+var table4 = Ti.UI.createTableView();
+data.getCategories($.activity, table);
+data.getDataEvents($.activity, table1,0,0,0,0);
+data.getDataEvents($.activity, table2,0,0,1,0);
+data.getDataLists($.activity, table3,0,0,'Videos',0);
+data.getDataLists($.activity, table4,0,0,'Artists',0);
 
 var dummyTableData = (function () {
 		var a = [];
@@ -14,10 +22,10 @@ var dummyTableData = (function () {
 	
 var pagerDataScrolling = [
 		{ title: "Categories",	view: table },
-		{ title: "Live Shows",	view: Ti.UI.createTableView({ data: dummyTableData }) },
-		{ title: "Campaigns",	view: Ti.UI.createTableView({ data: dummyTableData }) },
-		{ title: "Upcomming",	view: Ti.UI.createTableView({ data: dummyTableData }) },
-		{ title: "Artist",	view: Ti.UI.createTableView({ data: dummyTableData }) }		
+		{ title: "Live Shows",	view: table3 },
+		{ title: "Campaigns",	view: table2 },
+		{ title: "Upcomming",	view: table1 },
+		{ title: "Artist",		view: table4 }		
 	];
 
 var viewPager = module.createViewPager(

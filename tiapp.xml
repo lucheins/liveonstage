@@ -34,6 +34,7 @@
         <manifest>
             <uses-sdk android:maxSdkVersion="17"
                 android:minSdkVersion="14" android:targetSdkVersion="16"/>
+                <application android:theme="@android:style/Theme.Holo.Light"/>
         </manifest>
     </android>
     <mobileweb>

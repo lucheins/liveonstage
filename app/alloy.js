@@ -12,11 +12,10 @@
 
 Alloy.Globals.NAME_PAGE = 'Live On Stage';
 Alloy.Globals.DOMAIN = 'http://www.liveonstage.com/';
-Alloy.Globals.URL_FEED = 'index.php?option=com_mobile';
+Alloy.Globals.URL_BASE = 'index.php?option=com_mobile';
 Alloy.Globals.URL_VIDEO = 'index.php?option=com_mobile&task=video';
 Alloy.Globals.URL_EVENT = 'index.php?option=com_mobile&task=event';
 Alloy.Globals.URL_CATEGORIES = 'index.php?option=com_mobile&task=categories';
-Alloy.Globals.URL_UPCOMING = 'index.php?option=com_mobile&task=events';
 Alloy.Globals.LIMIT = 5;
 Alloy.Globals.TOP_LIMIT = 50;
 Alloy.Globals.IMAGE_EVENT_DEFAULT='components/com_community/assets/event.png'

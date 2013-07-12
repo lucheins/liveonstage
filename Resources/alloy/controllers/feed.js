@@ -33,37 +33,37 @@ function Controller() {
     var module = require("net.bajawa.pager");
     var data = require("dataExport");
     var table = Ti.UI.createTableView();
+    var table1 = Ti.UI.createTableView();
+    var table2 = Ti.UI.createTableView();
+    var table3 = Ti.UI.createTableView();
+    var table4 = Ti.UI.createTableView();
     data.getCategories($.activity, table);
-    var dummyTableData = function() {
+    data.getDataEvents($.activity, table1, 0, 0, 0, 0);
+    data.getDataEvents($.activity, table2, 0, 0, 1, 0);
+    data.getDataLists($.activity, table3, 0, 0, "Videos", 0);
+    data.getDataLists($.activity, table4, 0, 0, "Artists", 0);
+    (function() {
         var a = [];
         for (var i = 0; 100 > i; i++) a.push({
             title: "I am item " + i
         });
         return a;
-    }();
+    })();
     var pagerDataScrolling = [ {
         title: "Categories",
         view: table
     }, {
         title: "Live Shows",
-        view: Ti.UI.createTableView({
-            data: dummyTableData
-        })
+        view: table3
     }, {
         title: "Campaigns",
-        view: Ti.UI.createTableView({
-            data: dummyTableData
-        })
+        view: table2
     }, {
         title: "Upcomming",
-        view: Ti.UI.createTableView({
-            data: dummyTableData
-        })
+        view: table1
     }, {
         title: "Artist",
-        view: Ti.UI.createTableView({
-            data: dummyTableData
-        })
+        view: table4
     } ];
     var viewPager = module.createViewPager({
         data: pagerDataScrolling,
