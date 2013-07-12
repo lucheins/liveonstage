@@ -133,4 +133,9 @@
 	},
 "#index": {
 	backgroundColor: "black"
-	}
+	},
+"#rowCategories":{
+	height: '30dp',
+	touchEnabled: true,				 	
+	hasChild: true
+}

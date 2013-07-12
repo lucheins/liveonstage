@@ -1,0 +1,14 @@
+"#title": {	
+	font:{
+	       fontSize:'14dp',
+	       fontWeight:'bold'
+	    },
+	height:'auto',
+	color: "#6cb1d5",
+	left: '0dp'
+},
+"#rowCategories":{
+	height: '30dp',
+	touchEnabled: true,				 	
+	hasChild: true
+}

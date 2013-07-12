@@ -13,11 +13,27 @@ function Controller() {
         id: "feedWin"
     });
     $.__views.feedWin && $.addTopLevelView($.__views.feedWin);
+    $.__views.activity = Ti.UI.createActivityIndicator({
+        color: "#6cb1d5",
+        font: {
+            fontFamily: "Helvetica Neue",
+            fontSize: 26,
+            fontWeight: "bold"
+        },
+        message: "Loading...",
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        id: "activity"
+    });
+    $.__views.feedWin.add($.__views.activity);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var win = Alloy.createController("tabs").getView();
     $.feedWin.add(win);
     var module = require("net.bajawa.pager");
+    var data = require("dataExport");
+    var table = Ti.UI.createTableView();
+    data.getCategories($.activity, table);
     var dummyTableData = function() {
         var a = [];
         for (var i = 0; 100 > i; i++) a.push({
@@ -25,50 +41,26 @@ function Controller() {
         });
         return a;
     }();
-    var dummyTableData1 = function() {
-        var a = [];
-        for (var i = 0; 100 > i; i++) a.push({
-            title: "you am item " + i
-        });
-        return a;
-    }();
     var pagerDataScrolling = [ {
-        title: "First tab",
+        title: "Categories",
+        view: table
+    }, {
+        title: "Live Shows",
         view: Ti.UI.createTableView({
             data: dummyTableData
         })
     }, {
-        title: "Second tab",
+        title: "Campaigns",
         view: Ti.UI.createTableView({
             data: dummyTableData
         })
     }, {
-        title: "Third tab",
+        title: "Upcomming",
         view: Ti.UI.createTableView({
             data: dummyTableData
         })
     }, {
-        title: "Fourth tab",
-        view: Ti.UI.createTableView({
-            data: dummyTableData1
-        })
-    }, {
-        title: "Fifth tab",
-        view: Ti.UI.createTableView({
-            data: dummyTableData
-        })
-    }, {
-        title: "Sixth tab",
-        view: Ti.UI.createTableView({
-            data: dummyTableData
-        })
-    }, {
-        title: "Seventh tab",
-        view: Ti.UI.createTableView({
-            data: dummyTableData
-        })
-    }, {
-        title: "Eight tab",
+        title: "Artist",
         view: Ti.UI.createTableView({
             data: dummyTableData
         })
