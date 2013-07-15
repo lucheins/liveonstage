@@ -6,11 +6,12 @@ function Controller() {
     var exports = {};
     $.__views.feedWin = Ti.UI.createWindow({
         backgroundColor: "#fff",
-        title: Alloy.Globals.NAME_PAGE,
+        title: "Live On Stage - Categories",
         height: "100%",
         top: "0%",
         width: "100%",
-        id: "feedWin"
+        id: "feedWin",
+        navBarHidden: "false"
     });
     $.__views.feedWin && $.addTopLevelView($.__views.feedWin);
     $.__views.activity = Ti.UI.createActivityIndicator({
@@ -68,8 +69,38 @@ function Controller() {
     var viewPager = module.createViewPager({
         data: pagerDataScrolling,
         tabs: {
-            style: module.SCROLLING
+            style: module.SCROLLING,
+            backgroundColor: "#ffffff",
+            backgroundColorSelected: "#f2f2f2",
+            lineColor: "#e4473e",
+            lineColorSelected: "#e4473e",
+            lineHeight: 2,
+            lineHeightSelected: 7,
+            font: {
+                size: 16,
+                color: "#000000"
+            },
+            padding: {
+                left: 20,
+                top: 12,
+                right: 20,
+                bottom: 12
+            }
         }
+    });
+    var actionBar;
+    $.feedWin.addEventListener("open", function() {
+        if ($.feedWin.activity) {
+            actionBar = $.feedWin.activity.actionBar;
+            if (actionBar) {
+                actionBar.backgroundImage = "/bg.png";
+                actionBar.title = "Categories";
+                actionBar.displayHomeAsUp = true;
+                actionBar.onHomeIconItemSelected = function() {
+                    Ti.API.info("Home icon clicked!");
+                };
+            }
+        } else Ti.API.error("Can't access action bar on a lightweight window.");
     });
     $.feedWin.add(viewPager);
     $.feedWin.open();
