@@ -3,34 +3,26 @@ $.feedWin.add(win);
 var module = require('net.bajawa.pager');
 
 var data = require('dataExport');
-var table = Ti.UI.createTableView();
-var table1 = Ti.UI.createTableView();
-var table2 = Ti.UI.createTableView();
-var table3 = Ti.UI.createTableView();
-var table4 = Ti.UI.createTableView();
-data.getCategories($.activity, table);
-data.getDataEvents($.activity, table1,0,0,0,0);
-data.getDataEvents($.activity, table2,0,0,1,0);
-data.getDataLists($.activity, table3,0,0,'Videos',0);
-data.getDataLists($.activity, table4,0,0,'Artists',0);
+var categories = Ti.UI.createTableView();
+var live = Ti.UI.createTableView();
+var campaigns = Ti.UI.createTableView();
+var upcomming = Ti.UI.createTableView();
+var artists = Ti.UI.createTableView();
+data.getDataLists($.activity, live,0,0,'Videos',0);
 
-var dummyTableData = (function () {
-		var a = [];
-		for (var i=0; i < 100; i++) a.push({ title: "I am item " + i });
-		return a;
-	}());
-	
+
 var pagerDataScrolling = [
-		{ title: "Categories",	view: table },
-		{ title: "Live Shows",	view: table3 },
-		{ title: "Campaigns",	view: table2 },
-		{ title: "Upcomming",	view: table1 },
-		{ title: "Artist",		view: table4 }		
+		{ title: "Categories",	view: categories },
+		{ title: "Live Shows",	view: live },
+		{ title: "Campaigns",	view: campaigns },
+		{ title: "Upcomming",	view: upcomming },
+		{ title: "Artist",		view: artists }		
 	];
-
+	
 var viewPager = module.createViewPager(
  {
 	data: pagerDataScrolling,
+	initialPage: 1,
 	tabs: {
 		style: module.SCROLLING,
 		backgroundColor: "#ffffff",
@@ -55,7 +47,6 @@ var viewPager = module.createViewPager(
 );
 
 var actionBar;
-
 $.feedWin.addEventListener("open", function() {
     
         if (! $.feedWin.activity) {
@@ -78,6 +69,28 @@ $.feedWin.addEventListener("open", function() {
 $.feedWin.add(viewPager);
 $.feedWin.open();
 
+viewPager.addEventListener("pageChange", function (e) 
+{
+	if((e.to == 0) && (categories.data.length == 0))
+	{
+		data.getCategories($.activity, categories);
+	}
+    
+   if((e.to == 2) && (campaigns.data.length == 0))
+	{
+		data.getDataEvents($.activity, campaigns,0,0,1,0);
+	}
+    
+    if((e.to == 3) && (upcomming.data.length == 0))
+	{
+		data.getDataEvents($.activity, upcomming,0,0,0,0);
+	}
+
+	if((e.to == 4) && (artists.data.length == 0))
+	{
+		data.getDataLists($.activity, artists,0,0,'Artists',0);
+	}
+});
 
 
 

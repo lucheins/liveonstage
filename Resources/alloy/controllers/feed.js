@@ -33,41 +33,31 @@ function Controller() {
     $.feedWin.add(win);
     var module = require("net.bajawa.pager");
     var data = require("dataExport");
-    var table = Ti.UI.createTableView();
-    var table1 = Ti.UI.createTableView();
-    var table2 = Ti.UI.createTableView();
-    var table3 = Ti.UI.createTableView();
-    var table4 = Ti.UI.createTableView();
-    data.getCategories($.activity, table);
-    data.getDataEvents($.activity, table1, 0, 0, 0, 0);
-    data.getDataEvents($.activity, table2, 0, 0, 1, 0);
-    data.getDataLists($.activity, table3, 0, 0, "Videos", 0);
-    data.getDataLists($.activity, table4, 0, 0, "Artists", 0);
-    (function() {
-        var a = [];
-        for (var i = 0; 100 > i; i++) a.push({
-            title: "I am item " + i
-        });
-        return a;
-    })();
+    var categories = Ti.UI.createTableView();
+    var live = Ti.UI.createTableView();
+    var campaigns = Ti.UI.createTableView();
+    var upcomming = Ti.UI.createTableView();
+    var artists = Ti.UI.createTableView();
+    data.getDataLists($.activity, live, 0, 0, "Videos", 0);
     var pagerDataScrolling = [ {
         title: "Categories",
-        view: table
+        view: categories
     }, {
         title: "Live Shows",
-        view: table3
+        view: live
     }, {
         title: "Campaigns",
-        view: table2
+        view: campaigns
     }, {
         title: "Upcomming",
-        view: table1
+        view: upcomming
     }, {
         title: "Artist",
-        view: table4
+        view: artists
     } ];
     var viewPager = module.createViewPager({
         data: pagerDataScrolling,
+        initialPage: 1,
         tabs: {
             style: module.SCROLLING,
             backgroundColor: "#ffffff",
@@ -78,7 +68,8 @@ function Controller() {
             lineHeightSelected: 7,
             font: {
                 size: 16,
-                color: "#000000"
+                color: "#000000",
+                colorSelected: "#000000"
             },
             padding: {
                 left: 20,
@@ -104,6 +95,12 @@ function Controller() {
     });
     $.feedWin.add(viewPager);
     $.feedWin.open();
+    viewPager.addEventListener("pageChange", function(e) {
+        0 == e.to && 0 == categories.data.length && data.getCategories($.activity, categories);
+        2 == e.to && 0 == campaigns.data.length && data.getDataEvents($.activity, campaigns, 0, 0, 1, 0);
+        3 == e.to && 0 == upcomming.data.length && data.getDataEvents($.activity, upcomming, 0, 0, 0, 0);
+        4 == e.to && 0 == artists.data.length && data.getDataLists($.activity, artists, 0, 0, "Artists", 0);
+    });
     _.extend($, exports);
 }
 
