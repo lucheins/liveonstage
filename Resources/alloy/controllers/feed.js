@@ -1,4 +1,14 @@
 function Controller() {
+    function resetInitPage(catId, title) {
+        categoryId = catId;
+        actionBar.title = title;
+        live.setData([]);
+        campaigns.setData([]);
+        upcomming.setData([]);
+        artists.setData([]);
+        data.getDataLists($.activity, live, 0, 0, "Videos", categoryId);
+        viewPager.scrollTo(1);
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
@@ -32,6 +42,7 @@ function Controller() {
     var win = Alloy.createController("tabs").getView();
     $.feedWin.add(win);
     var module = require("net.bajawa.pager");
+    var categoryId = 0;
     var data = require("dataExport");
     var categories = Ti.UI.createTableView();
     var live = Ti.UI.createTableView();
@@ -97,9 +108,14 @@ function Controller() {
     $.feedWin.open();
     viewPager.addEventListener("pageChange", function(e) {
         0 == e.to && 0 == categories.data.length && data.getCategories($.activity, categories);
-        2 == e.to && 0 == campaigns.data.length && data.getDataEvents($.activity, campaigns, 0, 0, 1, 0);
-        3 == e.to && 0 == upcomming.data.length && data.getDataEvents($.activity, upcomming, 0, 0, 0, 0);
-        4 == e.to && 0 == artists.data.length && data.getDataLists($.activity, artists, 0, 0, "Artists", 0);
+        2 == e.to && 0 == campaigns.data.length && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
+        3 == e.to && 0 == upcomming.data.length && data.getDataEvents($.activity, upcomming, 0, 0, 0, categoryId);
+        4 == e.to && 0 == artists.data.length && data.getDataLists($.activity, artists, 0, 0, "Artists", categoryId);
+    });
+    categories.addEventListener("click", function(e) {
+        var title = "Categories";
+        e.source.link > 0 && (title = e.source.text);
+        resetInitPage(e.source.link, title);
     });
     _.extend($, exports);
 }

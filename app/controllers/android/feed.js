@@ -1,7 +1,7 @@
 var win = Alloy.createController('tabs').getView();
 $.feedWin.add(win);
 var module = require('net.bajawa.pager');
-
+var categoryId = 0;
 var data = require('dataExport');
 var categories = Ti.UI.createTableView();
 var live = Ti.UI.createTableView();
@@ -78,19 +78,39 @@ viewPager.addEventListener("pageChange", function (e)
     
    if((e.to == 2) && (campaigns.data.length == 0))
 	{
-		data.getDataEvents($.activity, campaigns,0,0,1,0);
+		data.getCampaigns($.activity, campaigns,0,0,categoryId);
 	}
     
     if((e.to == 3) && (upcomming.data.length == 0))
 	{
-		data.getDataEvents($.activity, upcomming,0,0,0,0);
+		data.getDataEvents($.activity, upcomming,0,0,0,categoryId);
 	}
 
 	if((e.to == 4) && (artists.data.length == 0))
 	{
-		data.getDataLists($.activity, artists,0,0,'Artists',0);
+		data.getDataLists($.activity, artists,0,0,'Artists',categoryId);
 	}
 });
 
 
+categories.addEventListener('click', function(e){
+		
+		var title = 'Categories';
+		if(e.source.link > 0)
+		{
+			title = e.source.text
+		}		
+		resetInitPage(e.source.link, title);
+	});
 
+function resetInitPage(catId, title)
+{
+	categoryId = catId;
+	actionBar.title = title;
+	live.setData([]);
+	campaigns.setData([]);
+	upcomming.setData([]);
+	artists.setData([]);
+	data.getDataLists($.activity, live,0,0,'Videos',categoryId);
+	viewPager.scrollTo(1);	
+}

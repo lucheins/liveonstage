@@ -1,3 +1,40 @@
+exports.getCampaigns = function(activity, table, offsetHome, pageHome, category) {
+    var tableData = [];
+    var client = Ti.Network.createHTTPClient();
+    var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_BASE;
+    client.open("POST", url);
+    client.ondatastream = function() {
+        activity.show();
+    };
+    client.onload = function() {
+        var responses = JSON.parse(this.responseText);
+        for (var i = 0; responses.length > i; i++) {
+            var link = responses[i].id;
+            var args = {
+                name: responses[i].title,
+                link: link,
+                isOdd: i % 2
+            };
+            var row = Alloy.createController("rowCategories", args).getView();
+            tableData.push(row);
+        }
+        table.setData(tableData);
+        activity.hide();
+    };
+    client.onerror = function(e) {
+        alert("Transmission error: " + e.error);
+    };
+    var params = {
+        tc: Alloy.Globals.USER_MOBILE.toString(),
+        name: "Campaigns",
+        offset: offsetHome,
+        limit: Alloy.Globals.LIMIT,
+        top: Alloy.Globals.TOP_LIMIT,
+        category: category
+    };
+    client.send(params);
+};
+
 exports.getDataEvents = function(activity, table, offsetHome, pageHome, campaigns, category) {
     var tableData = [];
     var client = Ti.Network.createHTTPClient();
