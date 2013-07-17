@@ -145,7 +145,8 @@ exports.getDataLists = function(activity, table, offsetHome, pageHome, name, cat
             var link = responses[i].id;
             var args = {
                 name: responses[i].name,
-                link: link
+                link: link,
+                isOdd: i % 2
             };
             var row = Alloy.createController("rowCategories", args).getView();
             tableData.push(row);

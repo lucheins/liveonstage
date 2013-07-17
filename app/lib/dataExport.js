@@ -148,6 +148,7 @@ exports.getCategories=function(activity, table)
 		        var args = {
 	        			name: responses[i].name,	        			
 	        			link: link,
+	        			
 	      		};
 		        var row = Alloy.createController('rowCategories',args).getView(); 	
 		        
@@ -185,6 +186,7 @@ exports.getDataLists=function(activity, table,offsetHome, pageHome, name, catego
 		        var args = {
 	        			name: responses[i].name,	        			
 	        			link: link,
+	        			isOdd: i%2,
 	      		};
 		        var row = Alloy.createController('rowCategories',args).getView(); 	
 		        

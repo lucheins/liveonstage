@@ -19,7 +19,7 @@
 
 <resources>
 
-    <style name="Theme.Liveonbar" parent="@android:style/Theme.Holo.Light">
+    <style name="Theme.Liveonbar" parent="@style/Liveonapp">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_liveonbar</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Liveonbar</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Liveonbar</item>

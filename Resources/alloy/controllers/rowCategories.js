@@ -5,20 +5,20 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.rowCategories = Ti.UI.createTableViewRow({
-        height: "30dp",
+        height: "60dp",
         touchEnabled: true,
-        hasChild: true,
+        hasChild: false,
         id: "rowCategories"
     });
     $.__views.rowCategories && $.addTopLevelView($.__views.rowCategories);
     $.__views.title = Ti.UI.createLabel({
+        left: "60dp",
+        height: "60dp",
+        width: "230dp",
+        color: "black",
         font: {
-            fontSize: "14dp",
-            fontWeight: "bold"
+            fontSize: "17dp"
         },
-        height: "auto",
-        color: "#6cb1d5",
-        left: "0dp",
         id: "title"
     });
     $.__views.rowCategories.add($.__views.title);
@@ -27,6 +27,7 @@ function Controller() {
     var args = arguments[0] || {};
     $.title.text = args.name || "";
     $.title.link = args.link;
+    $.rowCategories.backgroundColor = args.isOdd ? "#f2f2f2" : "#ffffff";
     _.extend($, exports);
 }
 

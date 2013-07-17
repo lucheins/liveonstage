@@ -7,7 +7,7 @@ function Controller() {
     $.__views.rowFeed = Ti.UI.createTableViewRow({
         height: "100dp",
         touchEnabled: true,
-        hasChild: true,
+        hasChild: false,
         id: "rowFeed"
     });
     $.__views.rowFeed && $.addTopLevelView($.__views.rowFeed);
@@ -19,7 +19,6 @@ function Controller() {
         height: "auto",
         left: "110dp",
         top: "5dp",
-        color: "#6cb1d5",
         id: "title"
     });
     $.__views.rowFeed.add($.__views.title);
@@ -31,7 +30,6 @@ function Controller() {
         height: "auto",
         left: "110dp",
         top: "40dp",
-        color: "#717777",
         id: "author"
     });
     $.__views.rowFeed.add($.__views.author);
@@ -42,7 +40,6 @@ function Controller() {
         },
         left: "110dp",
         top: "60dp",
-        color: "#717777",
         id: "date"
     });
     $.__views.rowFeed.add($.__views.date);
@@ -61,7 +58,6 @@ function Controller() {
         },
         left: "130dp",
         bottom: "5dp",
-        color: "#6cb1d5",
         id: "guest"
     });
     $.__views.rowFeed.add($.__views.guest);

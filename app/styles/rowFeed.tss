@@ -5,8 +5,7 @@
 		},
 	height:'auto',
 	left:'110dp',
-	top:'5dp',
-	color: "#6cb1d5"
+	top:'5dp'
 },
 "#author":{
    	font: {
@@ -15,8 +14,7 @@
 		},
 	height:'auto',
 	left:'110dp',
-	top:'40dp',
-	color:'#717777'
+	top:'40dp'
 },
 "#date":{
 	font: {
@@ -24,8 +22,8 @@
 		height:'auto'
 		},
 	left:'110dp',
-	top:'60dp',
-	color:'#717777'
+	top:'60dp'
+	
 },
 "#guest":{
 	font: {
@@ -33,15 +31,15 @@
 		height:'auto'
 		},
 	left:'130dp',
-	bottom: '5dp',
-	color: "#6cb1d5"	
+	bottom: '5dp'	
 },
 "#image":{
 	width: '98dp',
 	height: '80dp',
 	left: '5dp',
 	top: '10dp'
-},"#imageGuest":{
+},
+"#imageGuest":{
 	image: '/images/guest.png',
 	left:'110dp',
 	bottom: '5dp',
@@ -51,7 +49,7 @@
 "#rowFeed":{
 	height: '100dp',
 	touchEnabled: true,
-	hasChild: true
+	hasChild: false
 },
 "#viewBar":{
 	width: '80dp',
