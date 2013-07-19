@@ -1,0 +1,34 @@
+"#title": {	
+	font: {
+		fontSize:'16dp',
+		fontWeight:'bold' 
+		},
+	left:'110dp',
+	top:'5dp'
+},
+"#author":{
+   	font: {
+	   	fontSize:'14dp'
+		},
+	left:'110dp',
+	bottom:'20dp'
+}
+"#footMessage":{
+	font: {
+		fontSize:'14dp',
+		fontWeight:'bold' 
+		},
+	left:'110dp',
+	bottom: '5dp'	
+},
+"#image":{
+	width: '100dp',
+	height: '70dp',
+	left: '5dp',
+	top: '5dp'
+},
+"#rowListItems":{
+	height: '80dp',
+	touchEnabled: true,
+	hasChild: false
+}

@@ -8,7 +8,7 @@ var live = Ti.UI.createTableView();
 var campaigns = Ti.UI.createTableView();
 var upcomming = Ti.UI.createTableView();
 var artists = Ti.UI.createTableView();
-data.getDataLists($.activity, live,0,0,'Videos',0);
+data.getListItems($.activity, live,0,0,categoryId,0,'Videos');
 
 
 var pagerDataScrolling = [
@@ -65,7 +65,8 @@ $.feedWin.addEventListener("open", function() {
     
 });
 	
-
+viewPager.height = '95%';
+viewPager.top = '0';
 $.feedWin.add(viewPager);
 $.feedWin.open();
 
@@ -83,7 +84,7 @@ viewPager.addEventListener("pageChange", function (e)
     
     if((e.to == 3) && (upcomming.data.length == 0))
 	{
-		data.getDataEvents($.activity, upcomming,0,0,0,categoryId);
+		data.getListItems($.activity, upcomming,0,0,categoryId,0,'Events');
 	}
 
 	if((e.to == 4) && (artists.data.length == 0))
@@ -111,6 +112,35 @@ function resetInitPage(catId, title)
 	campaigns.setData([]);
 	upcomming.setData([]);
 	artists.setData([]);
-	data.getDataLists($.activity, live,0,0,'Videos',categoryId);
+	data.getListItems($.activity, live,0,0,categoryId,0,'Videos');
 	viewPager.scrollTo(1);	
 }
+
+live.addEventListener('click', function(e){
+		if(e.source.link > 0)
+		{
+			var win = Alloy.createController('viewVideo', e.source.link).getView();
+		    win.open({
+		        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+		        activityExitAnimation: Ti.Android.R.anim.fade_out
+		    });			
+		}		
+	});
+
+upcomming.addEventListener('click', function(e){
+		if(e.source.link > 0)
+		{
+			var win = Alloy.createController('viewEvent', e.source.link).getView();			
+			//$.feedWin.add(win);
+			win.open({
+		        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+		        activityExitAnimation: Ti.Android.R.anim.fade_out
+		    });									
+		}		
+	});
+	
+
+
+
+
+

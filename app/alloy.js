@@ -11,7 +11,7 @@
 // Alloy.Globals.someGlobalFunction = function(){};
 
 Alloy.Globals.NAME_PAGE = 'Live On Stage';
-Alloy.Globals.DOMAIN = 'http://www.liveonstage.com/';
+Alloy.Globals.DOMAIN = 'http://192.168.1.4/liveonstage/';
 Alloy.Globals.URL_BASE = 'index.php?option=com_mobile';
 Alloy.Globals.URL_VIDEO = 'index.php?option=com_mobile&task=video';
 Alloy.Globals.URL_EVENT = 'index.php?option=com_mobile&task=event';
@@ -28,3 +28,4 @@ Alloy.Globals.URL_IOS = 'http://liveonstage.com:1935/videowhisper/_definst_/';
 Alloy.Globals.URL_IOS_END = '/playlist.m3u8';
 Alloy.Globals.URL_ANDROID_END = '.mp4';
 Alloy.Globals.RESOLUCION_VIDEO = '240p'
+Alloy.Globals.TITLE_SIZE = 30;

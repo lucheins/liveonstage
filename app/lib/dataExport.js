@@ -37,6 +37,82 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 	client.send(params);
 }
 
+exports.getListItems=function(activity, table,offsetHome, pageHome, category, author, name)
+{
+	var index = table.getIndexByName('rowMore');
+	if(index > 0)
+	{
+		table.deleteRow(index);
+	}	
+	var tableData = table.getData();
+	var client = Ti.Network.createHTTPClient();
+	var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_BASE;
+	client.open('POST',url);
+	client.ondatastream = function(e){
+     	activity.show(); 
+	};
+	client.onload = function(){
+		var responses = JSON.parse(this.responseText);
+		var more = false;
+		for (var i=0; i < responses.length; i++) {	
+		        if(responses[i].title != 'more')
+		        {
+		        	 var args = {
+	        			name: responses[i].name,	        			
+	        			link: responses[i].id,
+	        			isOdd: i%2,
+	        			page: name,
+	        			title: responses[i].title,	        			
+	        			message: responses[i].message,
+	        			image: responses[i].image	        			
+		      		};
+			        var row = Alloy.createController('rowListItems',args).getView(); 	
+		        } else {
+		        	var row = Alloy.createController('rowMore').getView();
+		        	more = true;
+		        }		        
+				tableData.push(row);		 	
+			 }
+			 if(tableData.length == 0)
+			 {
+			 	var row = Alloy.createController('rowEmpty').getView();	
+			 	tableData.push(row);
+			 }
+	        table.setData(tableData);
+	        activity.hide(); 
+	      	if(more)
+			{
+				row.addEventListener('click', function(){
+				pageHome = pageHome + 1;
+				var offset = pageHome * Alloy.Globals.LIMIT;		
+				exports.getListItems(activity, table,offset,pageHome,category,name);
+				});
+			}  
+		};
+
+	client.onerror = function(e){alert('Transmission error: ' + e.error);};
+	var params = {
+        tc: Alloy.Globals.USER_MOBILE.toString(),
+        name: name,
+        offset : offsetHome,
+        limit: Alloy.Globals.LIMIT,
+        top: Alloy.Globals.TOP_LIMIT,
+        category: category,
+        author: author       
+    };
+	client.send(params);  
+}
+
+
+
+
+
+
+
+
+
+
+
 
 exports.getDataEvents=function(activity,table,offsetHome, pageHome,campaigns,category)
 {

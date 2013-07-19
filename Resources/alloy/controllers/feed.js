@@ -6,7 +6,7 @@ function Controller() {
         campaigns.setData([]);
         upcomming.setData([]);
         artists.setData([]);
-        data.getDataLists($.activity, live, 0, 0, "Videos", categoryId);
+        data.getListItems($.activity, live, 0, 0, categoryId, 0, "Videos");
         viewPager.scrollTo(1);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -49,7 +49,7 @@ function Controller() {
     var campaigns = Ti.UI.createTableView();
     var upcomming = Ti.UI.createTableView();
     var artists = Ti.UI.createTableView();
-    data.getDataLists($.activity, live, 0, 0, "Videos", 0);
+    data.getListItems($.activity, live, 0, 0, categoryId, 0, "Videos");
     var pagerDataScrolling = [ {
         title: "Categories",
         view: categories
@@ -104,18 +104,38 @@ function Controller() {
             }
         } else Ti.API.error("Can't access action bar on a lightweight window.");
     });
+    viewPager.height = "95%";
+    viewPager.top = "0";
     $.feedWin.add(viewPager);
     $.feedWin.open();
     viewPager.addEventListener("pageChange", function(e) {
         0 == e.to && 0 == categories.data.length && data.getCategories($.activity, categories);
         2 == e.to && 0 == campaigns.data.length && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
-        3 == e.to && 0 == upcomming.data.length && data.getDataEvents($.activity, upcomming, 0, 0, 0, categoryId);
+        3 == e.to && 0 == upcomming.data.length && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, "Events");
         4 == e.to && 0 == artists.data.length && data.getDataLists($.activity, artists, 0, 0, "Artists", categoryId);
     });
     categories.addEventListener("click", function(e) {
         var title = "Categories";
         e.source.link > 0 && (title = e.source.text);
         resetInitPage(e.source.link, title);
+    });
+    live.addEventListener("click", function(e) {
+        if (e.source.link > 0) {
+            var win = Alloy.createController("viewVideo", e.source.link).getView();
+            win.open({
+                activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                activityExitAnimation: Ti.Android.R.anim.fade_out
+            });
+        }
+    });
+    upcomming.addEventListener("click", function(e) {
+        if (e.source.link > 0) {
+            var win = Alloy.createController("viewEvent", e.source.link).getView();
+            win.open({
+                activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                activityExitAnimation: Ti.Android.R.anim.fade_out
+            });
+        }
     });
     _.extend($, exports);
 }

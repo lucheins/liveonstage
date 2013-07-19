@@ -20,7 +20,8 @@ function Controller() {
     $.__views.viewVideo = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: Alloy.Globals.NAME_PAGE,
-        id: "viewVideo"
+        id: "viewVideo",
+        navBarHidden: "true"
     });
     $.__views.viewVideo && $.addTopLevelView($.__views.viewVideo);
     $.__views.activity = Ti.UI.createActivityIndicator({
@@ -73,7 +74,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
-    alert(id);
     var client = Ti.Network.createHTTPClient();
     var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_VIDEO;
     client.open("POST", url);
@@ -96,7 +96,7 @@ function Controller() {
         alert("Transmission error: " + e.error);
     };
     var params = {
-        video_id: id,
+        item_id: id,
         tc: Alloy.Globals.USER_MOBILE.toString()
     };
     client.send(params);

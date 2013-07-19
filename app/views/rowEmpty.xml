@@ -1,0 +1,5 @@
+<Alloy>
+	<TableViewRow id="rowEmpty">
+    <Label id="title">No found Items</Label>
+  </TableViewRow>
+</Alloy>

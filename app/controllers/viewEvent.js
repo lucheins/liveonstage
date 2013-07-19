@@ -1,5 +1,5 @@
 var id = arguments[0] || {};
-
+var author = 0;
 function closeView()
 {
 	$.viewEvent.close();
@@ -15,13 +15,46 @@ client.ondatastream = function(e){
 client.onload = function(){	
 	var json = this.responseText;
 	var responses = JSON.parse(json);
-	$.labelId.text = responses.title;	
+	$.title.text = responses.title;	
+	var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
+	if(responses.thumb != null)
+	{
+		imageLink = responses.thumb;
+		if(imageLink.substring(0,4) != 'http')
+		{
+			imageLink = Alloy.Globals.DOMAIN + imageLink;
+		}
+	}
+	$.image.image = imageLink;
+	$.author.text = responses.name;
+	$.date.text = responses.message;
+	$.views.text = responses.confirmed;
+	$.description.text = responses.description;	
+	author = responses.creator;
 	$.activity.hide(); 
 };
 client.onerror = function(e){alert('Transmission error: ' + e.error);};
 var params = {
-	event_id : id,
+	item_id : id,
     tc: Alloy.Globals.USER_MOBILE.toString(),
 };
 client.send(params);
-$.viewEvent.open();
+
+var data = require('dataExport');
+var categoryId = 0;
+data.getListItems($.activity, $.table,0,0,categoryId,author,'Events');
+
+$.table.addEventListener('click', function(e){
+		if(e.source.link > 0)
+		{
+			$.viewEvent.close();
+			var win = Alloy.createController('viewEvent', e.source.link).getView();			
+			//$.feedWin.add(win);
+			win.open({
+		        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+		        activityExitAnimation: Ti.Android.R.anim.fade_out
+		    });									
+		}		
+	});
+	    
+

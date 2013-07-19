@@ -1,5 +1,4 @@
 var id = arguments[0] || {};
-alert(id);
 function closeView()
 {
 	$.vp.hide();
@@ -51,7 +50,7 @@ client.onload = function(){
 };
 client.onerror = function(e){alert('Transmission error: ' + e.error);};
 var params = {
-	video_id : id,
+	item_id : id,
     tc: Alloy.Globals.USER_MOBILE.toString(),
 };
 client.send(params);
