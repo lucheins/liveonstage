@@ -1,0 +1,13 @@
+<Alloy>
+    <View id="tile">
+    	<View id="videocover">
+	    	<ImageView id="cover"/>
+	    	<ImageView id="coverEfect"/>
+    	</View>
+    	<Label id="title"/>
+    	<ProgressBar width="100%">90</ProgressBar>
+    	<Label>12</Label>
+    	<Label>13</Label>
+    	<Label>14</Label>
+    </View> 
+</Alloy>

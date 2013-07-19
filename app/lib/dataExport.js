@@ -16,12 +16,17 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 		        var args = {
 	        			name: responses[i].title,	        			
 	        			link: link,
-	        			isOdd: i%2,
+	        			image: responses[i].image_video,
+	        			id: responses[i].campaign,
+	        			received:  responses[i].received,
+	        			row: i,
+	        			isOdd: i%2
 	      		};
-		        var row = Alloy.createController('rowCategories',args).getView(); 	        
-				tableData.push(row);	 	
+		        var row = Alloy.createController('tileCampaigns',args).getView(); 
+		        	        
+				table.add(row);	 	
 			 }
-	        table.setData(tableData);
+	     //   table.setData(tableData);
 	        activity.hide(); 
 		};
 
@@ -36,6 +41,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
     };
 	client.send(params);
 }
+
 
 exports.getListItems=function(activity, table,offsetHome, pageHome, category, author, name)
 {

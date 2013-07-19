@@ -3,7 +3,7 @@ function Controller() {
         categoryId = catId;
         actionBar.title = title;
         live.setData([]);
-        campaigns.setData([]);
+        campaigns.removeAllChildren();
         upcomming.setData([]);
         artists.setData([]);
         data.getListItems($.activity, live, 0, 0, categoryId, 0, "Videos");
@@ -46,7 +46,14 @@ function Controller() {
     var data = require("dataExport");
     var categories = Ti.UI.createTableView();
     var live = Ti.UI.createTableView();
-    var campaigns = Ti.UI.createTableView();
+    var campaigns = Ti.UI.createScrollView({
+        width: "100%",
+        height: "100%",
+        contentWidth: "auto",
+        contentHeight: "auto",
+        top: 0,
+        left: 0
+    });
     var upcomming = Ti.UI.createTableView();
     var artists = Ti.UI.createTableView();
     data.getListItems($.activity, live, 0, 0, categoryId, 0, "Videos");
@@ -110,7 +117,7 @@ function Controller() {
     $.feedWin.open();
     viewPager.addEventListener("pageChange", function(e) {
         0 == e.to && 0 == categories.data.length && data.getCategories($.activity, categories);
-        2 == e.to && 0 == campaigns.data.length && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
+        2 == e.to && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
         3 == e.to && 0 == upcomming.data.length && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, "Events");
         4 == e.to && 0 == artists.data.length && data.getDataLists($.activity, artists, 0, 0, "Artists", categoryId);
     });

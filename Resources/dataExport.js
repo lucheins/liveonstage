@@ -1,5 +1,4 @@
 exports.getCampaigns = function(activity, table, offsetHome, pageHome, category) {
-    var tableData = [];
     var client = Ti.Network.createHTTPClient();
     var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_BASE;
     client.open("POST", url);
@@ -13,12 +12,15 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
             var args = {
                 name: responses[i].title,
                 link: link,
+                image: responses[i].image_video,
+                id: responses[i].campaign,
+                received: responses[i].received,
+                row: i,
                 isOdd: i % 2
             };
-            var row = Alloy.createController("rowCategories", args).getView();
-            tableData.push(row);
+            var row = Alloy.createController("tileCampaigns", args).getView();
+            table.add(row);
         }
-        table.setData(tableData);
         activity.hide();
     };
     client.onerror = function(e) {

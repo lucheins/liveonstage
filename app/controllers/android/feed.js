@@ -5,7 +5,14 @@ var categoryId = 0;
 var data = require('dataExport');
 var categories = Ti.UI.createTableView();
 var live = Ti.UI.createTableView();
-var campaigns = Ti.UI.createTableView();
+var campaigns = Ti.UI.createScrollView({
+			width:"100%",
+			height:"100%",
+			contentWidth:"auto",
+			contentHeight:"auto",
+			top:0,
+			left:0
+		})
 var upcomming = Ti.UI.createTableView();
 var artists = Ti.UI.createTableView();
 data.getListItems($.activity, live,0,0,categoryId,0,'Videos');
@@ -77,7 +84,7 @@ viewPager.addEventListener("pageChange", function (e)
 		data.getCategories($.activity, categories);
 	}
     
-   if((e.to == 2) && (campaigns.data.length == 0))
+   if((e.to == 2))
 	{
 		data.getCampaigns($.activity, campaigns,0,0,categoryId);
 	}
@@ -109,7 +116,8 @@ function resetInitPage(catId, title)
 	categoryId = catId;
 	actionBar.title = title;
 	live.setData([]);
-	campaigns.setData([]);
+	//campaigns.setData([]);
+	campaigns.removeAllChildren();
 	upcomming.setData([]);
 	artists.setData([]);
 	data.getListItems($.activity, live,0,0,categoryId,0,'Videos');
