@@ -1,9 +1,16 @@
 <Alloy>
 	<Window id="viewVideo" navBarHidden="true" >	
 		<ActivityIndicator id="activity"/>
-		<Label id="labelId" />
-		<Label id="name" />
-		<Button onClick="closeView" id="btnClose">close</Button>
+		<Button onClick="closeView" id="btnClose" title="Close" />
 		<VideoPlayer id="vp" />
+		<View id="data">	
+			<Label id="title" />
+			<Label id="author" />
+			<Label id="views"/>
+		</View>	
+		<View id="other">
+		<Label id="otherEvents">Other videos from this Artist:</Label>
+		</View>	
+		<TableView id="table" />		
 	</Window>
 </Alloy>
