@@ -1,25 +1,65 @@
-"#labelId": {
+"#btnClose":{
+	top: '2dp',
+	left: '80%',
+	height: '20dp',
+	width: '50dp'
+},
+"#vp": {
+ 	top : '25dp',
+    autoplay : true,
+    backgroundColor : "black",
+    height : '50%',
+    width : '95%'
+},
+"#data":{
+	top: "55%",
+	height: "20%"
+}
+"#title": {
 	font: {
-	   	fontSize:'12dp',
+	   	fontSize:'16dp',
 		fontWeight:'bold'
 		},
 	height:'auto',
-	left:'0dp',
-	top:'0dp',
+	left:'5dp',
+	top:'5dp',
 	color:'#717777'
 },
-"#btnClose":{
-	top: 0,
-	left: '80%'
+"#author":{
+	font: {
+	   	fontSize:'14dp'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'45dp',
+	color:'#717777'
 },
-"#vp": {
- 	top : '45dp',
-    autoplay : true,
-    backgroundColor : "black",
-    height : '60%',
-    width : '90%'
+"#views":{
+	font: {
+	   	fontSize:'14dp'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'65dp',
+	color:'#717777'
 },
-"#name": {
-	top: 20	
+"#otherEvents":{
+	font: {
+	   	fontSize:'14dp',
+	   	fontWeight:'bold'
+		},
+	height:'auto',
+	left:'10dp',
+	top:'0dp',
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+},
+"#other":{
+	top:'71%',
+	left: '0dp',
+	backgroundColor: "#f2f2f2",
+	height: '22dp'
+},
+"#table":{
+	top:'75%'
 }
 

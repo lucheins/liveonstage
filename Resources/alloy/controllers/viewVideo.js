@@ -5,11 +5,14 @@ function Controller() {
         $.vp = null;
         $.viewVideo.close();
     }
-    function getName(name) {
-        var names = name.split("_");
-        name = names[0] + "_" + Alloy.Globals.RESOLUCION_VIDEO;
-        null != names[1] && (name = name + "_" + names[1]);
-        return name;
+    function getPathVideo(type, path) {
+        if ("vod" == type || "live" == type) {
+            $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
+            url = "live" == responses.type ? Alloy.Globals.URL_LIVE_ANDROID : Alloy.Globals.URL_VOD_ANDROID;
+            url = url + name + Alloy.Globals.URL_ANDROID_END;
+            return url;
+        }
+        return path;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -37,43 +40,97 @@ function Controller() {
         id: "activity"
     });
     $.__views.viewVideo.add($.__views.activity);
-    $.__views.labelId = Ti.UI.createLabel({
-        font: {
-            fontSize: "12dp",
-            fontWeight: "bold"
-        },
-        height: "auto",
-        left: "0dp",
-        top: "0dp",
-        color: "#717777",
-        id: "labelId"
-    });
-    $.__views.viewVideo.add($.__views.labelId);
-    $.__views.name = Ti.UI.createLabel({
-        top: 20,
-        id: "name"
-    });
-    $.__views.viewVideo.add($.__views.name);
     $.__views.btnClose = Ti.UI.createButton({
-        top: 0,
+        top: "2dp",
         left: "80%",
-        title: "close",
-        id: "btnClose"
+        height: "20dp",
+        width: "50dp",
+        id: "btnClose",
+        title: "Close"
     });
     $.__views.viewVideo.add($.__views.btnClose);
     closeView ? $.__views.btnClose.addEventListener("click", closeView) : __defers["$.__views.btnClose!click!closeView"] = true;
     $.__views.vp = Ti.Media.createVideoPlayer({
-        top: "45dp",
+        top: "25dp",
         autoplay: true,
         backgroundColor: "black",
-        height: "60%",
-        width: "90%",
+        height: "50%",
+        width: "95%",
         id: "vp"
     });
     $.__views.viewVideo.add($.__views.vp);
+    $.__views.data = Ti.UI.createView({
+        top: "55%",
+        height: "20%",
+        id: "data"
+    });
+    $.__views.viewVideo.add($.__views.data);
+    $.__views.title = Ti.UI.createLabel({
+        font: {
+            fontSize: "16dp",
+            fontWeight: "bold"
+        },
+        height: "auto",
+        left: "5dp",
+        top: "5dp",
+        color: "#717777",
+        id: "title"
+    });
+    $.__views.data.add($.__views.title);
+    $.__views.author = Ti.UI.createLabel({
+        font: {
+            fontSize: "14dp"
+        },
+        height: "auto",
+        left: "5dp",
+        top: "45dp",
+        color: "#717777",
+        id: "author"
+    });
+    $.__views.data.add($.__views.author);
+    $.__views.views = Ti.UI.createLabel({
+        font: {
+            fontSize: "14dp"
+        },
+        height: "auto",
+        left: "5dp",
+        top: "65dp",
+        color: "#717777",
+        id: "views"
+    });
+    $.__views.data.add($.__views.views);
+    $.__views.other = Ti.UI.createView({
+        top: "71%",
+        left: "0dp",
+        backgroundColor: "#f2f2f2",
+        height: "22dp",
+        id: "other"
+    });
+    $.__views.viewVideo.add($.__views.other);
+    $.__views.otherEvents = Ti.UI.createLabel({
+        font: {
+            fontSize: "14dp",
+            fontWeight: "bold"
+        },
+        height: "auto",
+        left: "10dp",
+        top: "0dp",
+        textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
+        text: "Other videos from this Artist:",
+        id: "otherEvents"
+    });
+    $.__views.other.add($.__views.otherEvents);
+    $.__views.table = Ti.UI.createTableView({
+        top: "75%",
+        id: "table"
+    });
+    $.__views.viewVideo.add($.__views.table);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
+    id = 99;
+    var data = require("dataExport");
+    var categoryId = 0;
     var client = Ti.Network.createHTTPClient();
     var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_VIDEO;
     client.open("POST", url);
@@ -83,12 +140,12 @@ function Controller() {
     client.onload = function() {
         var json = this.responseText;
         var responses = JSON.parse(json);
-        $.labelId.text = responses.title;
         var url = "";
-        var name = getName(responses.path);
-        $.name.text = name;
-        url = "live" == responses.type ? Alloy.Globals.URL_LIVE_ANDROID : Alloy.Globals.URL_VOD_ANDROID;
-        url = url + name + Alloy.Globals.URL_ANDROID_END;
+        url = getPathVideo(responses.type, responses.path);
+        $.author.text = responses.name;
+        $.title.text = responses.title;
+        $.views.text = responses.views;
+        data.getListItems($.activity, $.table, 0, 0, categoryId, responses.creator, responses.id, "Videos");
         $.vp.url = url;
         $.activity.hide();
     };
@@ -102,8 +159,17 @@ function Controller() {
     client.send(params);
     $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
     $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-    $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
     $.viewVideo.open();
+    $.table.addEventListener("click", function(e) {
+        if (e.source.link > 0) {
+            $.viewVideo.close();
+            var win = Alloy.createController("viewVideo", e.source.link).getView();
+            win.open({
+                activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                activityExitAnimation: Ti.Android.R.anim.fade_out
+            });
+        }
+    });
     __defers["$.__views.btnClose!click!closeView"] && $.__views.btnClose.addEventListener("click", closeView);
     _.extend($, exports);
 }
