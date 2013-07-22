@@ -2,7 +2,7 @@ var Alloy = require("alloy"), _ = Alloy._, Backbone = Alloy.Backbone;
 
 Alloy.Globals.NAME_PAGE = "Live On Stage";
 
-Alloy.Globals.DOMAIN = "http://192.168.1.2/liveonstage/";
+Alloy.Globals.DOMAIN = "http://liveonstage.com/";
 
 Alloy.Globals.URL_BASE = "index.php?option=com_mobile";
 
@@ -28,11 +28,15 @@ Alloy.Globals.URL_VOD_ANDROID = "rtsp://liveonstage.com:1935/vod/_definst_/";
 
 Alloy.Globals.URL_LIVE_ANDROID = "rtsp://liveonstage.com:1935/vod/_definst_/";
 
-Alloy.Globals.URL_IOS = "http://liveonstage.com:1935/videowhisper/_definst_/";
+Alloy.Globals.URL_IOS = "http://liveonstage.com:1935/vod/_definst_/mp4:";
 
-Alloy.Globals.URL_IOS_END = "/playlist.m3u8";
+Alloy.Globals.URL_LIVE = "http://liveonstage.com:1935/videowhisper/_definst_/";
 
-Alloy.Globals.URL_ANDROID_END = ".mp4";
+Alloy.Globals.URL_VOD = "http://liveonstage.com:1935/vod/_definst_/mp4:";
+
+Alloy.Globals.URL_VIDEO_END = "/playlist.m3u8";
+
+Alloy.Globals.URL_VOD_END = ".mp4";
 
 Alloy.Globals.RESOLUCION_VIDEO = "240p";
 

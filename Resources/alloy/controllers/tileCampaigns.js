@@ -158,7 +158,7 @@ function Controller() {
         top: shadowTop,
         left: 0,
         touchEnabled: false,
-        width: "100%",
+        width: "250dp",
         height: "100%",
         zIndex: 5
     });

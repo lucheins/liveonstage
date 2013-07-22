@@ -1,6 +1,6 @@
 var id = arguments[0] || {};
 
-id = 99;
+
 function closeView()
 {
 	$.vp.hide();
@@ -29,7 +29,7 @@ client.onload = function(){
 	$.views.text = responses.views;
 
 	data.getListItems($.activity, $.table,0,0,categoryId,responses.creator,responses.id,'Videos');
-	//$.vp.url = url;
+	$.vp.url = url;
 	
 	$.activity.hide(); 
 };
@@ -71,7 +71,7 @@ function getName(name)
 
 function getPathVideo(type,path)
 {
-	if(type == 'vod' || type == 'live')
+	/*if(type == 'vod' || type == 'live')
 	{
 		$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
 		$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
@@ -84,12 +84,14 @@ function getPathVideo(type,path)
 				url = Alloy.Globals.URL_VOD_ANDROID;
 			}
 			url = url + name + Alloy.Globals.URL_ANDROID_END;
-		} else {
+		} else {*/
+			var name = getName(path);
+			alert(name);
 			url = Alloy.Globals.URL_IOS + name + Alloy.Globals.URL_IOS_END;
-		}
+		//}
 		return url;
-	}
+	/*}
 	
 	return path;
-	
+	*/
 }

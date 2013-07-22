@@ -5,14 +5,17 @@ function Controller() {
         $.vp = null;
         $.viewVideo.close();
     }
+    function getName(name) {
+        var names = name.split("_");
+        name = names[0] + "_" + Alloy.Globals.RESOLUCION_VIDEO;
+        null != names[1] && (name = name + "_" + names[1]);
+        return name;
+    }
     function getPathVideo(type, path) {
-        if ("vod" == type || "live" == type) {
-            $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
-            url = "live" == responses.type ? Alloy.Globals.URL_LIVE_ANDROID : Alloy.Globals.URL_VOD_ANDROID;
-            url = url + name + Alloy.Globals.URL_ANDROID_END;
-            return url;
-        }
-        return path;
+        var name = getName(path);
+        alert(name);
+        url = Alloy.Globals.URL_IOS + name + Alloy.Globals.URL_IOS_END;
+        return url;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -128,7 +131,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
-    id = 99;
     var data = require("dataExport");
     var categoryId = 0;
     var client = Ti.Network.createHTTPClient();
@@ -141,20 +143,11 @@ function Controller() {
         var json = this.responseText;
         var responses = JSON.parse(json);
         var url = "";
-<<<<<<< HEAD
-        var name = getName(responses.path);
-        $.name.text = name;
-        if ("android" == Ti.Platform.osname) {
-            url = "live" == responses.type ? Alloy.Globals.URL_LIVE_ANDROID : Alloy.Globals.URL_VOD_ANDROID;
-            url = url + name + Alloy.Globals.URL_ANDROID_END;
-        } else url = Alloy.Globals.URL_IOS + name + Alloy.Globals.URL_IOS_END;
-=======
         url = getPathVideo(responses.type, responses.path);
         $.author.text = responses.name;
         $.title.text = responses.title;
         $.views.text = responses.views;
         data.getListItems($.activity, $.table, 0, 0, categoryId, responses.creator, responses.id, "Videos");
->>>>>>> cff50deefba91c98b6bc868f957cded79fbd66e1
         $.vp.url = url;
         $.activity.hide();
     };
@@ -167,7 +160,6 @@ function Controller() {
     };
     client.send(params);
     $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
-    $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
     $.viewVideo.open();
     $.table.addEventListener("click", function(e) {
         if (e.source.link > 0) {
