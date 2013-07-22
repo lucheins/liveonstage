@@ -15,7 +15,7 @@ var campaigns = Ti.UI.createScrollView({
 		})
 var upcomming = Ti.UI.createTableView();
 var artists = Ti.UI.createTableView();
-data.getListItems($.activity, live,0,0,categoryId,0,'Videos');
+data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
 
 
 
@@ -113,7 +113,7 @@ $.scrollableView.addEventListener("scrollend", function(e){
     
     if(($.scrollableView.currentPage == 3) && (upcomming.data.length == 0))
 	{
-		data.getListItems($.activity, upcomming,0,0,categoryId,0,'Events');
+		data.getListItems($.activity, upcomming,0,0,categoryId,0,0,'Events');
 	}
 
 	if(($.scrollableView.currentPage == 4) && (artists.data.length == 0))
@@ -141,7 +141,7 @@ function resetInitPage(catId, title)
 	campaigns.removeAllChildren();
 	upcomming.setData([]);
 	artists.setData([]);
-	data.getListItems($.activity, live,0,0,categoryId,0,'Videos');
+	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
 	$.scrollableView.scrollToView(1);	
 }
 

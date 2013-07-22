@@ -37,7 +37,7 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
     client.send(params);
 };
 
-exports.getListItems = function(activity, table, offsetHome, pageHome, category, author, name) {
+exports.getListItems = function(activity, table, offsetHome, pageHome, category, author, item_id, name) {
     var index = table.getIndexByName("rowMore");
     index > 0 && table.deleteRow(index);
     var tableData = table.getData();
@@ -90,7 +90,8 @@ exports.getListItems = function(activity, table, offsetHome, pageHome, category,
         limit: Alloy.Globals.LIMIT,
         top: Alloy.Globals.TOP_LIMIT,
         category: category,
-        author: author
+        author: author,
+        item_id: item_id
     };
     client.send(params);
 };

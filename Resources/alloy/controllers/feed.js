@@ -6,7 +6,7 @@ function Controller() {
         campaigns.removeAllChildren();
         upcomming.setData([]);
         artists.setData([]);
-        data.getListItems($.activity, live, 0, 0, categoryId, 0, "Videos");
+        data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
         viewPager.scrollTo(1);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -56,7 +56,7 @@ function Controller() {
     });
     var upcomming = Ti.UI.createTableView();
     var artists = Ti.UI.createTableView();
-    data.getListItems($.activity, live, 0, 0, categoryId, 0, "Videos");
+    data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
     var pagerDataScrolling = [ {
         title: "Categories",
         view: categories
@@ -118,7 +118,7 @@ function Controller() {
     viewPager.addEventListener("pageChange", function(e) {
         0 == e.to && 0 == categories.data.length && data.getCategories($.activity, categories);
         2 == e.to && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
-        3 == e.to && 0 == upcomming.data.length && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, "Events");
+        3 == e.to && 0 == upcomming.data.length && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, 0, "Events");
         4 == e.to && 0 == artists.data.length && data.getDataLists($.activity, artists, 0, 0, "Artists", categoryId);
     });
     categories.addEventListener("click", function(e) {

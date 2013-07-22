@@ -151,7 +151,8 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
-    var author = 0;
+    var data = require("dataExport");
+    var categoryId = 0;
     var client = Ti.Network.createHTTPClient();
     var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_EVENT;
     client.open("POST", url);
@@ -172,7 +173,7 @@ function Controller() {
         $.date.text = responses.message;
         $.views.text = responses.confirmed;
         $.description.text = responses.description;
-        author = responses.creator;
+        data.getListItems($.activity, $.table, 0, 0, categoryId, responses.creator, responses.id, "Events");
         $.activity.hide();
     };
     client.onerror = function(e) {
@@ -183,9 +184,6 @@ function Controller() {
         tc: Alloy.Globals.USER_MOBILE.toString()
     };
     client.send(params);
-    var data = require("dataExport");
-    var categoryId = 0;
-    data.getListItems($.activity, $.table, 0, 0, categoryId, author, "Events");
     $.table.addEventListener("click", function(e) {
         if (e.source.link > 0) {
             $.viewEvent.close();
