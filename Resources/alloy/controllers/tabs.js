@@ -5,9 +5,6 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.tabs = Ti.UI.createView({
-        width: "100%",
-        bottom: "0%",
-        height: "13%",
         id: "tabs"
     });
     $.__views.tabs && $.addTopLevelView($.__views.tabs);

@@ -1,13 +1,18 @@
 <Alloy>
-    <View id="tile">
-    	<View id="videocover">
-	    	<ImageView id="cover"/>
-	    	<ImageView id="coverEfect"/>
-    	</View>
-    	<Label id="title"/>
-    	<ProgressBar width="100%">90</ProgressBar>
-    	<Label>12</Label>
-    	<Label>13</Label>
-    	<Label>14</Label>
-    </View> 
+	<View id="container">
+    	<View id="tile">
+	    	<View id="videocover">
+		    	<ImageView id="cover"/>
+	    	</View>
+	    	<View id="videoinfo">
+		    	<Label id="title"/>
+		    	<View id="progressBar"/>
+			    	<View id="progressInfo">
+				    	<Label id="accomplished">$500 Pledged</Label>
+				    	<Label id="percentage">18% Funded</Label>
+				    	<Label id="days">14 Days to go</Label>
+			    	</View>
+	    	</View>
+	    </View> 
+    </View>
 </Alloy>

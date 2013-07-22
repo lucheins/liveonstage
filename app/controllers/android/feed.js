@@ -1,5 +1,5 @@
-var win = Alloy.createController('tabs').getView();
-$.feedWin.add(win);
+/*var win = Alloy.createController('tabs').getView();
+$.feedWin.add(win);*/
 var module = require('net.bajawa.pager');
 var categoryId = 0;
 var data = require('dataExport');
@@ -11,7 +11,8 @@ var campaigns = Ti.UI.createScrollView({
 			contentWidth:"auto",
 			contentHeight:"auto",
 			top:0,
-			left:0
+			left:0,
+			backgroundColor: '#f2f2f2'
 		})
 var upcomming = Ti.UI.createTableView();
 var artists = Ti.UI.createTableView();

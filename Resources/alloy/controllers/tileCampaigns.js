@@ -4,15 +4,31 @@ function Controller() {
     arguments[0] ? arguments[0]["$model"] : null;
     var $ = this;
     var exports = {};
+    $.__views.container = Ti.UI.createView({
+        left: "3%",
+        width: "94%",
+        id: "container"
+    });
+    $.__views.container && $.addTopLevelView($.__views.container);
     $.__views.tile = Ti.UI.createView({
+        width: "100%",
+        left: 0,
+        top: "2%",
+        height: "96%",
+        backgroundColor: "white",
+        borderRadius: 4,
+        borderWidth: .5,
+        borderColor: "#c3c3c3",
         id: "tile"
     });
-    $.__views.tile && $.addTopLevelView($.__views.tile);
+    $.__views.container.add($.__views.tile);
     $.__views.videocover = Ti.UI.createView({
         width: "100%",
-        height: "90%",
+        height: "67%",
         top: 0,
+        borderRadius: 4,
         left: 0,
+        zIndex: 1,
         id: "videocover"
     });
     $.__views.tile.add($.__views.videocover);
@@ -24,47 +40,94 @@ function Controller() {
         id: "cover"
     });
     $.__views.videocover.add($.__views.cover);
-    $.__views.coverEfect = Ti.UI.createImageView({
-        id: "coverEfect"
+    $.__views.videoinfo = Ti.UI.createView({
+        width: "100%",
+        height: "34%",
+        top: "66%",
+        left: 0,
+        backgroundColor: "white",
+        zIndex: 10,
+        id: "videoinfo"
     });
-    $.__views.videocover.add($.__views.coverEfect);
+    $.__views.tile.add($.__views.videoinfo);
     $.__views.title = Ti.UI.createLabel({
-        height: "10%",
-        top: "90%",
+        top: "2%",
+        height: "60%",
+        textAlign: "center",
+        font: {
+            fontSize: 14
+        },
         id: "title"
     });
-    $.__views.tile.add($.__views.title);
-    $.__views.__alloyId6 = Ti.UI.createProgressBar({
-        width: "100%",
-        id: "__alloyId6"
+    $.__views.videoinfo.add($.__views.title);
+    $.__views.progressBar = Ti.UI.createView({
+        top: "62%",
+        height: "5%",
+        id: "progressBar"
     });
-    $.__views.tile.add($.__views.__alloyId6);
-    $.__views.__alloyId7 = Ti.UI.createLabel({
-        text: "12",
-        id: "__alloyId7"
+    $.__views.videoinfo.add($.__views.progressBar);
+    $.__views.progressInfo = Ti.UI.createView({
+        top: "67%",
+        height: "33%",
+        width: "95%",
+        font: {
+            fontSize: 11
+        },
+        id: "progressInfo"
     });
-    $.__views.tile.add($.__views.__alloyId7);
-    $.__views.__alloyId8 = Ti.UI.createLabel({
-        text: "13",
-        id: "__alloyId8"
+    $.__views.videoinfo.add($.__views.progressInfo);
+    $.__views.accomplished = Ti.UI.createLabel({
+        top: "10%",
+        height: "100%",
+        width: "30%",
+        color: "gray",
+        font: {
+            fontSize: 11
+        },
+        textAlign: "left",
+        left: "3%",
+        text: "$500 Pledged",
+        id: "accomplished"
     });
-    $.__views.tile.add($.__views.__alloyId8);
-    $.__views.__alloyId9 = Ti.UI.createLabel({
-        text: "14",
-        id: "__alloyId9"
+    $.__views.progressInfo.add($.__views.accomplished);
+    $.__views.percentage = Ti.UI.createLabel({
+        top: "10%",
+        height: "100%",
+        width: "33%",
+        color: "gray",
+        font: {
+            fontSize: 11
+        },
+        textAlign: "center",
+        left: "33%",
+        text: "18% Funded",
+        id: "percentage"
     });
-    $.__views.tile.add($.__views.__alloyId9);
+    $.__views.progressInfo.add($.__views.percentage);
+    $.__views.days = Ti.UI.createLabel({
+        top: "10%",
+        height: "100%",
+        width: "32%",
+        color: "gray",
+        font: {
+            fontSize: 11
+        },
+        textAlign: "right",
+        left: "66%",
+        text: "14 Days to go",
+        id: "days"
+    });
+    $.__views.progressInfo.add($.__views.days);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
     $.title.text = args.name || "";
     $.title.link = args.link;
-    $.tile.width = "100%";
     Ti.Platform.displayCaps.platformHeight;
     Ti.Platform.displayCaps.platformWidth;
-    var height = 240;
-    $.tile.height = height + "dp";
-    $.tile.top = height * args.row;
+    var height = 360;
+    $.container.height = height + "dp";
+    $.container.top = height * args.row + "dp";
     var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
     if (null != args.image) {
         imageLink = args.image;
@@ -72,6 +135,34 @@ function Controller() {
     }
     $.cover.image = imageLink;
     $.cover.touchEnabled = false;
+    var pB = Titanium.UI.createProgressBar({
+        top: 0,
+        width: "95%",
+        height: "auto",
+        min: 0,
+        max: 10,
+        value: 4,
+        color: "#000",
+        font: {
+            fontSize: 14,
+            fontWeight: "bold"
+        },
+        style: Titanium.UI.iPhone.ProgressBarStyle.PLAIN
+    });
+    $.progressBar.add(pB);
+    pB.show();
+    var shadowTop = "0dp";
+    "android" == Ti.Platform && (shadowTop = "7dp");
+    var theImageShadow = Ti.UI.createImageView({
+        image: "/videoCover.png",
+        top: shadowTop,
+        left: 0,
+        touchEnabled: false,
+        width: "100%",
+        height: "100%",
+        zIndex: 5
+    });
+    $.videocover.add(theImageShadow);
     _.extend($, exports);
 }
 

@@ -1,5 +1,5 @@
-var win = Alloy.createController('tabs').getView();
-$.feedWin.add(win);
+/*var win = Alloy.createController('tabs').getView();
+$.feedWin.add(win);*/
 
 var categoryId = 0;
 var data = require('dataExport');

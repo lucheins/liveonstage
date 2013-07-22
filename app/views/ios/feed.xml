@@ -32,11 +32,11 @@
     </ScrollView>
     
         <ScrollableView id="scrollableView">
-            <View id="categoriesScreen" backgroundColor="#123" ><ActivityIndicator id="activity"/></View>
-            <View id="videosScreen" backgroundColor="#246"><ActivityIndicator id="activity"/></View>
-            <View id="campaignsScreen" backgroundColor="#48b"><ActivityIndicator id="activity"/></View>
-            <View id="upcomingScreen" backgroundColor="#246"><ActivityIndicator id="activity"/></View>
-            <View id="artistsScreen" backgroundColor="#48b"><ActivityIndicator id="activity"/></View>
+            <View id="categoriesScreen"><ActivityIndicator id="activity"/></View>
+            <View id="videosScreen"><ActivityIndicator id="activity"/></View>
+            <View id="campaignsScreen"><ActivityIndicator id="activity"/></View>
+            <View id="upcomingScreen"><ActivityIndicator id="activity"/></View>
+            <View id="artistsScreen"><ActivityIndicator id="activity"/></View>
            
         </ScrollableView>
     </Window>
