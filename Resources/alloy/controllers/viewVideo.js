@@ -153,11 +153,17 @@ function Controller() {
             $.title.text = responses.title;
             $.views.text = responses.views;
             data.getListItems($.activity, $.table, 0, 0, categoryId, responses.creator, responses.id, "Videos");
+            $.viewVideo.open();
         } else {
+            $.viewVideo.close();
             var webview = Titanium.UI.createWebView({
                 url: responses.path
             });
-            $.viewVideo.add(webview);
+            var window = Titanium.UI.createWindow();
+            window.add(webview);
+            window.open({
+                modal: true
+            });
         }
         $.activity.hide();
     };
@@ -169,7 +175,6 @@ function Controller() {
         tc: Alloy.Globals.USER_MOBILE.toString()
     };
     client.send(params);
-    $.viewVideo.open();
     $.table.addEventListener("click", function(e) {
         if (e.source.link > 0) {
             $.viewVideo.close();

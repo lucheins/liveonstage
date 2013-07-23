@@ -29,11 +29,14 @@ client.onload = function(){
 		$.title.text = responses.title;
 		$.views.text = responses.views;	
 		data.getListItems($.activity, $.table,0,0,categoryId,responses.creator,responses.id,'Videos');
-
+		$.viewVideo.open();
 	} else {
 		//$.vp.url = responses.path;	
+		$.viewVideo.close();
 		var webview = Titanium.UI.createWebView({url: responses.path });
-    	$.viewVideo.add(webview);
+		var window = Titanium.UI.createWindow();
+	    window.add(webview);
+	    window.open({modal:true});
 	}
 	
 	$.activity.hide(); 
@@ -45,7 +48,6 @@ var params = {
 };
 client.send(params);
 
-$.viewVideo.open();
 
 $.table.addEventListener('click', function(e){
 		if(e.source.link > 0)
