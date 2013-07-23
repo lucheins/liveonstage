@@ -1,6 +1,6 @@
 /*var win = Alloy.createController('tabs').getView();
 $.feedWin.add(win);*/
-
+var activeTab = arguments[0] || {};
 var categoryId = 0;
 var data = require('dataExport');
 var categories = Ti.UI.createTableView();
@@ -15,9 +15,20 @@ var campaigns = Ti.UI.createScrollView({
 		})
 var upcomming = Ti.UI.createTableView();
 var artists = Ti.UI.createTableView();
-data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
 
+if (activeTab == 1){
+	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
+}
 
+if (activeTab == 2){
+	data.getCampaigns($.activity, campaigns,0,0,categoryId);
+	}
+if (activeTab == 3){
+		data.getListItems($.activity, upcomming,0,0,categoryId,0,0,'Events');
+	}
+if (activeTab == 4){
+		data.getDataLists($.activity, artists,0,0,'Artists',categoryId);
+	}
 
 $.videosScreen.add(live);
 $.categoriesScreen.add(categories);
@@ -30,7 +41,7 @@ $.artistsScreen.add(artists);
 $.feedWin.open();
 
 
-$.scrollableView.currentPage = 1;
+$.scrollableView.currentPage = activeTab;
 var osname = Ti.Platform.osname,
      height = Ti.Platform.displayCaps.platformHeight,
      width = Ti.Platform.displayCaps.platformWidth;     
@@ -48,7 +59,8 @@ var osname = Ti.Platform.osname,
     
     var cualquiera = $.NavContainer.width - width;
     scrollunit = scrollunit + (cualquiera/5);   
-    $.menuBar.scrollTo(-scrollunit , 0);
+    $.menuBar.scrollTo(-scrollunit * activeTab, 0);
+    
     
 
 
@@ -104,6 +116,11 @@ $.scrollableView.addEventListener("scrollend", function(e){
 	if(($.scrollableView.currentPage == 0) && (categories.data.length == 0))
 	{
 		data.getCategories($.activity, categories);
+	}
+	
+	if(($.scrollableView.currentPage == 1) && (live.data.length == 0))
+	{
+		data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
 	}
     
    if(($.scrollableView.currentPage == 2))

@@ -19,6 +19,24 @@ function Controller() {
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
     }
+    function getUrlYoutube(video_id, vp) {
+        vdldr = Ti.Network.createHTTPClient();
+        vdldr.onload = function() {
+            x = decodeURIComponent(decodeURIComponent(decodeURIComponent(decodeURIComponent(this.responseText.substring(4, this.responseText.length)))));
+            y = JSON.parse(x).content.video["fmt_stream_map"][0].url;
+            vp.url = y;
+        };
+        if ("android" != Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
+        }
+        vdldr.open("GET", "http://m.youtube.com/watch?ajax=1&feature=related&layout=mobile&tsp=1&&v=" + video_id);
+        if ("android" == Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        }
+        vdldr.send();
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
@@ -133,7 +151,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
-    id = 99;
+    id = 100;
     var data = require("dataExport");
     var categoryId = 0;
     var client = Ti.Network.createHTTPClient();
@@ -149,22 +167,11 @@ function Controller() {
         if ("vod" == responses.type || "live" == responses.type) {
             url = getPathVideo(responses.type, responses.path);
             $.vp.url = url;
-            $.author.text = responses.name;
-            $.title.text = responses.title;
-            $.views.text = responses.views;
-            data.getListItems($.activity, $.table, 0, 0, categoryId, responses.creator, responses.id, "Videos");
-            $.viewVideo.open();
-        } else {
-            $.viewVideo.close();
-            var webview = Titanium.UI.createWebView({
-                url: responses.path
-            });
-            var window = Titanium.UI.createWindow();
-            window.add(webview);
-            window.open({
-                modal: true
-            });
-        }
+        } else url = getUrlYoutube(responses.video_id, $.vp);
+        $.author.text = responses.name;
+        $.title.text = responses.title;
+        $.views.text = responses.views;
+        data.getListItems($.activity, $.table, 0, 0, categoryId, responses.creator, responses.id, "Videos");
         $.activity.hide();
     };
     client.onerror = function(e) {

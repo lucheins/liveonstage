@@ -1,23 +1,79 @@
 "#Navigation":{
 	height: '8%',
 	top: '0%',
-	backgroundColor: '#fff'
-	
+	backgroundColor: '#16011e',
+	backgroundImage: '/light-diagonal-strips.png',
+	backgroundRepeat: true	
 },
 ".navigationBottomBorder":{
 	height: '5%',
-	backgroundColor: '#d0d0d0',
+	backgroundColor: 'gray',
 	width: '100%',
 	bottom: 0
+	},
+".buttonsTopBorder":{
+	height: '1%',
+	backgroundColor: '#d0d0d0',
+	width: '100%',
+	top: '0%'
 	},
 
 "#banner":{
 	height: '54%',
 	top: '8%',
-	backgroundColor:'red'
+	backgroundImage:'/app-cover.jpg'
 	},
+"#overlay":{
+	
+	opacity: 0.7
+	}
 "#buttoncontainer":{
 	height: '38%',
 	top: '62%',
-	backgroundColor:'green'
-	}
+	backgroundColor: 'white',
+	backgroundImage: '/light-diagonal-strips.png',
+	backgroundRepeat: true
+	},
+".topButtons":{
+	height: '45%',
+	top: '5%',
+	width: "100%"
+	
+	},
+".bottomButtons":{
+	height: '45%',
+	top: '51%',
+	width: "100%"
+	
+	},
+".first": {
+	width: '48%',
+	left: '2%',
+	borderWidth: 1,
+	borderColor: '#d0d0d0',
+	backgroundColor: '#e4473e'
+	
+},
+".second": {
+	width: '47%',
+	left: '51%',
+	borderWidth: 1,
+	borderColor: '#d0d0d0',
+	backgroundColor: '#e4473e'
+		
+},
+"#logo":{
+	top: '5%',
+	height: '90%'
+	},
+".promo":{
+	color: 'white',
+	font: {
+		fontSize: '25dp',
+		fontWeight: 'bold'
+	},
+	bottom: '5%',
+	left: '4%',
+	width: '92%',
+	textAlign: 'center'
+}
