@@ -29,7 +29,7 @@ function Controller() {
         color: "#6cb1d5",
         font: {
             fontFamily: "Helvetica Neue",
-            fontSize: 26,
+            fontSize: 20,
             fontWeight: "bold"
         },
         message: "Loading...",

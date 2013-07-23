@@ -1,12 +1,12 @@
 "#title": {	
 		left:"60dp",
-		height:'60dp',
+		height:'55dp',
 		width:'230dp',
 		color:"black",
-		font:{fontSize:"17dp"}
+		font:{fontSize:15}
 },
 "#rowCategories":{
-	height: '60dp',
+	height: '55dp',
 	touchEnabled: true,				 	
 	hasChild: false
 }

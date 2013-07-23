@@ -27,7 +27,7 @@ $.cover.touchEnabled = false;
 
 var pB=Titanium.UI.createProgressBar({
     top:0,
-    width:'95%',
+    width:'90%',
     height:'auto',
     min:0,
     max:10,
@@ -47,7 +47,7 @@ pB.show();
 		top:shadowTop,
 		left: 0,
 		touchEnabled:false,
-		width:'250dp',
+		width:'100%',
 		height: '100%',
 		zIndex: 5
 	});

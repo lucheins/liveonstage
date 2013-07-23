@@ -1,6 +1,11 @@
 <Alloy>
 	<Window id="index">
+		<View id="Navigation">
+    		<View class="navigationBottomBorder"/>
+    	</View>
+		<View id="banner"></View>
+		<View id="buttoncontainer">
 			<Widget id="buttongrid" src="com.appcelerator.buttongrid"/>
-			
+		</View>
 	</Window>
 </Alloy>

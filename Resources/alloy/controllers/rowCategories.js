@@ -5,7 +5,7 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.rowCategories = Ti.UI.createTableViewRow({
-        height: "60dp",
+        height: "55dp",
         touchEnabled: true,
         hasChild: false,
         id: "rowCategories"
@@ -13,11 +13,11 @@ function Controller() {
     $.__views.rowCategories && $.addTopLevelView($.__views.rowCategories);
     $.__views.title = Ti.UI.createLabel({
         left: "60dp",
-        height: "60dp",
+        height: "55dp",
         width: "230dp",
         color: "black",
         font: {
-            fontSize: "17dp"
+            fontSize: 15
         },
         id: "title"
     });

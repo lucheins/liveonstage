@@ -16,11 +16,9 @@ $.buttongrid.init({
     ],
     buttonWidth: width,
     buttonHeight: height,
-    
     duration: 50,
     backgroundColor: "#fff",
     backgroundSelectedColor: "#f2f2f2"
 });
-
 
 $.index.open();

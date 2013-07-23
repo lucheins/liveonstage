@@ -1,0 +1,23 @@
+"#Navigation":{
+	height: '8%',
+	top: '0%',
+	backgroundColor: '#fff'
+	
+},
+".navigationBottomBorder":{
+	height: '5%',
+	backgroundColor: '#d0d0d0',
+	width: '100%',
+	bottom: 0
+	},
+
+"#banner":{
+	height: '54%',
+	top: '8%',
+	backgroundColor:'red'
+	},
+"#buttoncontainer":{
+	height: '38%',
+	top: '62%',
+	backgroundColor:'green'
+	}

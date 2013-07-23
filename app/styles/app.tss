@@ -7,7 +7,7 @@
 	color: '#6cb1d5',
 	font: {
 	  	fontFamily:'Helvetica Neue', 
-	  	fontSize:26, 
+	  	fontSize:20, 
 	  	fontWeight:'bold'
 	  	},
 	message: 'Loading...',  
@@ -46,38 +46,10 @@
 	bottom: '0dp'
 
 },
-".navLabel":{
-	textAlign: 'center',
-	color: 'red',
-	font: {
-		fontSize: 12,
-		fontFamily: 'Helvetica Neue'
-	},
-	bottom: '20%'
-},
-".navItem":{
-
-	height: '100%'
-	},
-
-"#topNav":{
-	height: '7%',
-	top: '0%',
-	width: '100%',
-	left: '0%'
-	},
-"#scrollableView": {
-	height: '93%',
-	top: '7%'
-	},
 "#campaignsScreen": {
 	backgroundColor: '#f2f2f2'
 	}
-"#NavContainer": {
-	width: 500,
-	height: '90%',
-	top: '0%'
-	},
+
 
 "#feedWin": {
 	height: "100%",
@@ -91,49 +63,7 @@
 	height: '13%'
 	},*/
 
-"#categories":{
-	width: '20%',
-	bottom: '0%',
-	left:'0%'
-	},
-"#videos":{
-	bottom: '0%',
-	width: '20%',
-	left:'20%'
-	},
-"#campaigns":{
-	width: '20%',
-	bottom: '0%',
-	left:'40%'
-	},
-"#upcoming":{
-	width: '20%',
-	bottom: '0%',
-	left:'60%'
-	},
 
-"#artists":{
-	width: '20%',
-	bottom: '0%',
-	left:'80%'
-	},
-"#barra": {
-	height:'100%',
-	width: '20%',
-	backgroundColor: 'green',
-	bottom: '0%',
-	left: '0%'
-	},
-"#menuBar":{
-	height: '10%',
-	bottom: '0%'
-	},
-"#barContainer": {
-	width: '100%',
-	height: '100%',
-	bottom: '0%',
-	left: '0%'
-	},
 "#index": {
 	backgroundColor: "black"
 	},

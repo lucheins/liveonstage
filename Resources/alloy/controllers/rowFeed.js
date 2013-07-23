@@ -13,7 +13,7 @@ function Controller() {
     $.__views.rowFeed && $.addTopLevelView($.__views.rowFeed);
     $.__views.title = Ti.UI.createLabel({
         font: {
-            fontSize: "14dp",
+            fontSize: 15,
             fontWeight: "bold"
         },
         height: "auto",
