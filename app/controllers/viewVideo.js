@@ -1,6 +1,5 @@
 var id = arguments[0] || {};
-
-
+id= 99;
 function closeView()
 {
 	$.vp.hide();
@@ -22,8 +21,14 @@ client.onload = function(){
 	var json = this.responseText;
 	var responses = JSON.parse(json);
 	var url ='';
+	if(responses.type == 'vod' || responses.type == 'live')
+	{
+		url = getPathVideo(responses.type, responses.path);
+	} else {
+		url = getUrlYoutube(responses.video_id);
+		
+	}
 
-	url = getPathVideo(responses.type, responses.path);
 	$.author.text = responses.name;
 	$.title.text = responses.title;
 	$.views.text = responses.views;
@@ -71,27 +76,71 @@ function getName(name)
 
 function getPathVideo(type,path)
 {
-	/*if(type == 'vod' || type == 'live')
+	$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
+	$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
+	var name = getName(path);		
+	if(type == 'vod')
 	{
-		$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
-		$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-		if(Ti.Platform.osname == 'android')
-		{
-			if (responses.type == 'live')
-			{
-				url = Alloy.Globals.URL_LIVE_ANDROID;
-			} else {
-				url = Alloy.Globals.URL_VOD_ANDROID;
-			}
-			url = url + name + Alloy.Globals.URL_ANDROID_END;
-		} else {*/
-			var name = getName(path);
-			alert(name);
-			url = Alloy.Globals.URL_IOS + name + Alloy.Globals.URL_IOS_END;
-		//}
-		return url;
-	/*}
-	
-	return path;
-	*/
+		url = Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END;
+	} else {
+		url = Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
+	}
+	return url;	
+}
+
+function getUrlYoutube(video_id)
+{
+	var y = 'video';
+	vdldr = Ti.Network.createHTTPClient();
+	 //vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+   // vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
+    vdldr.open("GET", "http://www.youtube.com/get_video_info?video_id=" + video_id);
+    vdldr.onload = function () {
+    	/*alert('entro10');
+    x = decodeURIComponent(decodeURIComponent(decodeURIComponent(decodeURIComponent(this.responseText.substring(4, this.responseText.length)))));
+  //  y = JSON.parse(x).content.video["stream_url"];
+    alert(JSON.parse(x).content.video);
+    return y;*/
+   
+   			var qualities = {};
+            var response = this.responseText;
+            var args = getURLArgs(response);
+            if (!args.hasOwnProperty('url_encoded_fmt_stream_map'))
+            {
+                alert('No hay');
+            }
+            else
+            {
+                var fmtstring = args['url_encoded_fmt_stream_map'];
+                var fmtarray = fmtstring.split(',');
+                for(var i=0,j=fmtarray.length; i<j; i++){
+                    var args2 = getURLArgs(fmtarray[i]);
+                    var type = decodeURIComponent(args2['type']);
+                    if (type.indexOf('mp4') >= 0)
+                    {
+                        var url = decodeURIComponent(args2['url']);
+                        var quality = decodeURIComponent(args2['quality']);
+                        qualities[quality] = url;
+ 						alert(url);
+                    }
+ 
+                }
+            }   
+    };
+   
+    vdldr.send();
+    return y;
+}
+
+function getURLArgs(_string) {
+    var args = {};
+    var pairs = _string.split("&");
+    for(var i = 0; i < pairs.length; i++) {
+        var pos = pairs[i].indexOf('=');
+        if (pos == -1) continue;
+        var argname = pairs[i].substring(0,pos);
+        var value = pairs[i].substring(pos+1);
+        args[argname] = unescape(value);
+    }
+    return args;
 }
