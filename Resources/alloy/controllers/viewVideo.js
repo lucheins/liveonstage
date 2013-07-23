@@ -14,47 +14,10 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
+        $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
-    }
-    function getUrlYoutube(video_id) {
-        var y = "video";
-        vdldr = Ti.Network.createHTTPClient();
-        vdldr.open("GET", "http://www.youtube.com/get_video_info?video_id=" + video_id);
-        vdldr.onload = function() {
-            var qualities = {};
-            var response = this.responseText;
-            var args = getURLArgs(response);
-            if (args.hasOwnProperty("url_encoded_fmt_stream_map")) {
-                var fmtstring = args["url_encoded_fmt_stream_map"];
-                var fmtarray = fmtstring.split(",");
-                for (var i = 0, j = fmtarray.length; j > i; i++) {
-                    var args2 = getURLArgs(fmtarray[i]);
-                    var type = decodeURIComponent(args2["type"]);
-                    if (type.indexOf("mp4") >= 0) {
-                        var url = decodeURIComponent(args2["url"]);
-                        var quality = decodeURIComponent(args2["quality"]);
-                        qualities[quality] = url;
-                        alert(url);
-                    }
-                }
-            } else alert("No hay");
-        };
-        vdldr.send();
-        return y;
-    }
-    function getURLArgs(_string) {
-        var args = {};
-        var pairs = _string.split("&");
-        for (var i = 0; pairs.length > i; i++) {
-            var pos = pairs[i].indexOf("=");
-            if (-1 == pos) continue;
-            var argname = pairs[i].substring(0, pos);
-            var value = pairs[i].substring(pos + 1);
-            args[argname] = unescape(value);
-        }
-        return args;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -183,12 +146,19 @@ function Controller() {
         var json = this.responseText;
         var responses = JSON.parse(json);
         var url = "";
-        url = "vod" == responses.type || "live" == responses.type ? getPathVideo(responses.type, responses.path) : getUrlYoutube(responses.video_id);
-        $.author.text = responses.name;
-        $.title.text = responses.title;
-        $.views.text = responses.views;
-        data.getListItems($.activity, $.table, 0, 0, categoryId, responses.creator, responses.id, "Videos");
-        $.vp.url = url;
+        if ("vod" == responses.type || "live" == responses.type) {
+            url = getPathVideo(responses.type, responses.path);
+            $.vp.url = url;
+            $.author.text = responses.name;
+            $.title.text = responses.title;
+            $.views.text = responses.views;
+            data.getListItems($.activity, $.table, 0, 0, categoryId, responses.creator, responses.id, "Videos");
+        } else {
+            var webview = Titanium.UI.createWebView({
+                url: responses.path
+            });
+            $.viewVideo.add(webview);
+        }
         $.activity.hide();
     };
     client.onerror = function(e) {
@@ -199,7 +169,6 @@ function Controller() {
         tc: Alloy.Globals.USER_MOBILE.toString()
     };
     client.send(params);
-    $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
     $.viewVideo.open();
     $.table.addEventListener("click", function(e) {
         if (e.source.link > 0) {

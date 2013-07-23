@@ -24,17 +24,17 @@ client.onload = function(){
 	if(responses.type == 'vod' || responses.type == 'live')
 	{
 		url = getPathVideo(responses.type, responses.path);
+		$.vp.url = url;
+		$.author.text = responses.name;
+		$.title.text = responses.title;
+		$.views.text = responses.views;	
+		data.getListItems($.activity, $.table,0,0,categoryId,responses.creator,responses.id,'Videos');
+
 	} else {
-		url = getUrlYoutube(responses.video_id);
-		
+		//$.vp.url = responses.path;	
+		var webview = Titanium.UI.createWebView({url: responses.path });
+    	$.viewVideo.add(webview);
 	}
-
-	$.author.text = responses.name;
-	$.title.text = responses.title;
-	$.views.text = responses.views;
-
-	data.getListItems($.activity, $.table,0,0,categoryId,responses.creator,responses.id,'Videos');
-	$.vp.url = url;
 	
 	$.activity.hide(); 
 };
@@ -44,8 +44,6 @@ var params = {
     tc: Alloy.Globals.USER_MOBILE.toString(),
 };
 client.send(params);
-
-$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
 
 $.viewVideo.open();
 
@@ -78,6 +76,7 @@ function getPathVideo(type,path)
 {
 	$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
 	$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
+	$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
 	var name = getName(path);		
 	if(type == 'vod')
 	{
@@ -86,61 +85,4 @@ function getPathVideo(type,path)
 		url = Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
 	}
 	return url;	
-}
-
-function getUrlYoutube(video_id)
-{
-	var y = 'video';
-	vdldr = Ti.Network.createHTTPClient();
-	 //vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-   // vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
-    vdldr.open("GET", "http://www.youtube.com/get_video_info?video_id=" + video_id);
-    vdldr.onload = function () {
-    	/*alert('entro10');
-    x = decodeURIComponent(decodeURIComponent(decodeURIComponent(decodeURIComponent(this.responseText.substring(4, this.responseText.length)))));
-  //  y = JSON.parse(x).content.video["stream_url"];
-    alert(JSON.parse(x).content.video);
-    return y;*/
-   
-   			var qualities = {};
-            var response = this.responseText;
-            var args = getURLArgs(response);
-            if (!args.hasOwnProperty('url_encoded_fmt_stream_map'))
-            {
-                alert('No hay');
-            }
-            else
-            {
-                var fmtstring = args['url_encoded_fmt_stream_map'];
-                var fmtarray = fmtstring.split(',');
-                for(var i=0,j=fmtarray.length; i<j; i++){
-                    var args2 = getURLArgs(fmtarray[i]);
-                    var type = decodeURIComponent(args2['type']);
-                    if (type.indexOf('mp4') >= 0)
-                    {
-                        var url = decodeURIComponent(args2['url']);
-                        var quality = decodeURIComponent(args2['quality']);
-                        qualities[quality] = url;
- 						alert(url);
-                    }
- 
-                }
-            }   
-    };
-   
-    vdldr.send();
-    return y;
-}
-
-function getURLArgs(_string) {
-    var args = {};
-    var pairs = _string.split("&");
-    for(var i = 0; i < pairs.length; i++) {
-        var pos = pairs[i].indexOf('=');
-        if (pos == -1) continue;
-        var argname = pairs[i].substring(0,pos);
-        var value = pairs[i].substring(pos+1);
-        args[argname] = unescape(value);
-    }
-    return args;
 }
