@@ -1,5 +1,4 @@
-/*var win = Alloy.createController('tabs').getView();
-$.feedWin.add(win);*/
+
 var activeTab = arguments[0] || {};
 var categoryId = 0;
 var data = require('dataExport');
@@ -15,6 +14,20 @@ var campaigns = Ti.UI.createScrollView({
 		})
 var upcomming = Ti.UI.createTableView();
 var artists = Ti.UI.createTableView();
+
+var backArrow = Ti.UI.createLabel({
+  color:'Gray',
+  text: '\u25c3',
+});
+
+$.backArrow.add(backArrow);
+
+$.actionIos.addEventListener("click",function(e){
+    var back = Alloy.createController('index').getView();
+  	back.open();
+	
+});
+
 
 if (activeTab == 1){
 	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');

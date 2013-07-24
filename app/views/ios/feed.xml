@@ -1,7 +1,12 @@
 <Alloy>
     
     <Window id="feedWin">
+    	
     	<View id="Navigation">
+    		<View id="actionIos">
+	    		<Label id="backArrow"/>
+	    		<ImageView id="icon" image="/icon-small.png"/>
+    		</View>
     		<View class="navigationBottomBorder"/>
     	</View>
     	<ScrollView id="topNav" showVerticalScrollIndicator="false" showHorizontalScrollIndicator="false" scrollType="horizontal">

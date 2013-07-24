@@ -1,0 +1,25 @@
+<Alloy>
+	<Window id="viewVideo" navBarHidden="true" >	
+		<ActivityIndicator id="activity"/>
+		<View id="Navigation">
+    		<View id="actionIos" onClick="closeView">
+	    		<Label id="backArrow"/>
+	    		<ImageView id="icon" image="/icon-small.png"/>
+    		</View>
+    		<Label id="current">Live Shows</Label>
+    		<View class="navigationBottomBorder"/>
+    	</View>
+    	<View id="container">
+			<VideoPlayer id="vp" />
+			<View id="data">	
+				<Label id="title" />
+				<Label id="author" />
+				<Label id="views"/>
+			</View>	
+			<View id="other">
+			<Label id="otherEvents">Other videos from this Artist:</Label>
+			</View>	
+			<TableView id="table" />
+		</View>		
+	</Window>
+</Alloy>

@@ -63,7 +63,7 @@ $.feedWin.addEventListener("open", function() {
             actionBar = $.feedWin.activity.actionBar;
             if (actionBar) {
                 actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Categories";
+                //actionBar.title = "Categories";
                 actionBar.displayHomeAsUp = true;
                 actionBar.onHomeIconItemSelected = function() {
                     Ti.API.info("Home icon clicked!");

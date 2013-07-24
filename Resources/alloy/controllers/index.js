@@ -97,6 +97,25 @@ function Controller() {
         id: "liveShows"
     });
     $.__views.__alloyId5.add($.__views.liveShows);
+    $.__views.__alloyId6 = Ti.UI.createImageView({
+        top: "32%",
+        height: "36%",
+        left: "3%",
+        image: "/images/bolt.png",
+        id: "__alloyId6"
+    });
+    $.__views.liveShows.add($.__views.__alloyId6);
+    $.__views.__alloyId7 = Ti.UI.createLabel({
+        left: "35%",
+        color: "white",
+        font: {
+            fontWeight: "bold",
+            fontSize: "15dp"
+        },
+        text: "Live Shows",
+        id: "__alloyId7"
+    });
+    $.__views.liveShows.add($.__views.__alloyId7);
     $.__views.Campaigns = Ti.UI.createView({
         width: "47%",
         left: "51%",
@@ -106,13 +125,32 @@ function Controller() {
         id: "Campaigns"
     });
     $.__views.__alloyId5.add($.__views.Campaigns);
-    $.__views.__alloyId6 = Ti.UI.createView({
+    $.__views.__alloyId8 = Ti.UI.createImageView({
+        top: "32%",
+        height: "36%",
+        left: "3%",
+        image: "/images/campaigns.png",
+        id: "__alloyId8"
+    });
+    $.__views.Campaigns.add($.__views.__alloyId8);
+    $.__views.__alloyId9 = Ti.UI.createLabel({
+        left: "35%",
+        color: "white",
+        font: {
+            fontWeight: "bold",
+            fontSize: "15dp"
+        },
+        text: "Campaigns",
+        id: "__alloyId9"
+    });
+    $.__views.Campaigns.add($.__views.__alloyId9);
+    $.__views.__alloyId10 = Ti.UI.createView({
         height: "45%",
         top: "51%",
         width: "100%",
-        id: "__alloyId6"
+        id: "__alloyId10"
     });
-    $.__views.buttoncontainer.add($.__views.__alloyId6);
+    $.__views.buttoncontainer.add($.__views.__alloyId10);
     $.__views.upcomingEvents = Ti.UI.createView({
         width: "48%",
         left: "2%",
@@ -121,7 +159,26 @@ function Controller() {
         backgroundColor: "#e4473e",
         id: "upcomingEvents"
     });
-    $.__views.__alloyId6.add($.__views.upcomingEvents);
+    $.__views.__alloyId10.add($.__views.upcomingEvents);
+    $.__views.__alloyId11 = Ti.UI.createImageView({
+        top: "32%",
+        height: "36%",
+        left: "3%",
+        image: "/images/upcoming.png",
+        id: "__alloyId11"
+    });
+    $.__views.upcomingEvents.add($.__views.__alloyId11);
+    $.__views.__alloyId12 = Ti.UI.createLabel({
+        left: "35%",
+        color: "white",
+        font: {
+            fontWeight: "bold",
+            fontSize: "15dp"
+        },
+        text: "Upcoming",
+        id: "__alloyId12"
+    });
+    $.__views.upcomingEvents.add($.__views.__alloyId12);
     $.__views.artists = Ti.UI.createView({
         width: "47%",
         left: "51%",
@@ -130,11 +187,37 @@ function Controller() {
         backgroundColor: "#e4473e",
         id: "artists"
     });
-    $.__views.__alloyId6.add($.__views.artists);
+    $.__views.__alloyId10.add($.__views.artists);
+    $.__views.__alloyId13 = Ti.UI.createImageView({
+        top: "32%",
+        height: "36%",
+        left: "3%",
+        image: "/images/artists.png",
+        id: "__alloyId13"
+    });
+    $.__views.artists.add($.__views.__alloyId13);
+    $.__views.__alloyId14 = Ti.UI.createLabel({
+        left: "35%",
+        color: "white",
+        font: {
+            fontWeight: "bold",
+            fontSize: "15dp"
+        },
+        text: "Artists",
+        id: "__alloyId14"
+    });
+    $.__views.artists.add($.__views.__alloyId14);
     exports.destroy = function() {};
     _.extend($, $.__views);
     (Ti.Platform.displayCaps.platformWidth - 30) / 2;
     (Ti.Platform.displayCaps.platformWidth - 30) / 4;
+    var actionBar;
+    $.index.addEventListener("open", function() {
+        if ($.index.activity) {
+            actionBar = $.index.activity.actionBar;
+            actionBar && actionBar.hide();
+        } else Ti.API.error("Can't access action bar on a lightweight window.");
+    });
     $.liveShows.addEventListener("click", function() {
         var win = Alloy.createController("feed", 1).getView();
         win.open();

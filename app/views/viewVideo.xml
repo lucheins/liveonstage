@@ -1,7 +1,7 @@
 <Alloy>
-	<Window id="viewVideo" navBarHidden="true" >	
+	<Window id="viewVideo">	
 		<ActivityIndicator id="activity"/>
-		<Button onClick="closeView" id="btnClose" title="Close" />
+		<View id="container">
 		<VideoPlayer id="vp" />
 		<View id="data">	
 			<Label id="title" />
@@ -11,6 +11,7 @@
 		<View id="other">
 		<Label id="otherEvents">Other videos from this Artist:</Label>
 		</View>	
-		<TableView id="table" />		
+		<TableView id="table" />
+		</View>		
 	</Window>
 </Alloy>

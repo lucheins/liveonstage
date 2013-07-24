@@ -1,0 +1,72 @@
+"#actionIos": {
+	zIndex: 10,
+	height: '100%'
+	}
+"#container": {
+	height: '91%',
+	top: '9%'
+	},
+".menuBarBottomBorder":{
+	height: '2%',
+	backgroundColor: '#e4473e',
+	width: '100%',
+	bottom: '0%'
+	},
+"#vp": {
+ 	top : '2%',
+    autoplay : true,
+    backgroundColor : "black",
+    height : '50%',
+    width : '95%'
+},
+"#data":{
+	top: "52%",
+	height: "20%"
+}
+"#title": {
+	font: {
+	   	fontSize:'16dp',
+		fontWeight:'bold'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'5dp',
+	color:'#717777'
+},
+"#author":{
+	font: {
+	   	fontSize:'14dp'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'45dp',
+	color:'#717777'
+},
+"#views":{
+	font: {
+	   	fontSize:'14dp'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'65dp',
+	color:'#717777'
+},
+"#otherEvents":{
+	font: {
+	   	fontSize:'14dp',
+	   	fontWeight:'bold'
+		},
+	height:'auto',
+	left:'10dp',
+	top:'0dp',
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+},
+"#other":{
+	top:'74%',
+	left: '0dp',
+	backgroundColor: "#f2f2f2",
+	height: '4%'
+},
+"#table":{
+	top:'78%'
+}

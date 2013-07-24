@@ -9,11 +9,11 @@
     <copyright>2013 by fabian</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
-    <prerendered-icon>false</prerendered-icon>
+    <prerendered-icon>true</prerendered-icon>
     <statusbar-style>default</statusbar-style>
     <statusbar-hidden>false</statusbar-hidden>
     <fullscreen>false</fullscreen>
-    <navbar-hidden>false</navbar-hidden>
+    <navbar-hidden>true</navbar-hidden>
     <analytics>true</analytics>
     <guid>ceec9269-f866-4fe1-b28c-178b4b1b507f</guid>
     <property name="ti.ui.defaultunit" type="string">system</property>

@@ -23,7 +23,7 @@ function Controller() {
     });
     $.__views.feedWin && $.addTopLevelView($.__views.feedWin);
     $.__views.Navigation = Ti.UI.createView({
-        height: "8%",
+        height: "9%",
         top: "0%",
         backgroundColor: "#f2f2f2",
         backgroundImage: "/light-diagonal-strips.png",
@@ -31,17 +31,40 @@ function Controller() {
         id: "Navigation"
     });
     $.__views.feedWin.add($.__views.Navigation);
-    $.__views.__alloyId11 = Ti.UI.createView({
+    $.__views.actionIos = Ti.UI.createView({
+        id: "actionIos"
+    });
+    $.__views.Navigation.add($.__views.actionIos);
+    $.__views.backArrow = Ti.UI.createLabel({
+        left: "0%",
+        width: "5%",
+        font: {
+            fontSize: "20dp"
+        },
+        color: "gray",
+        id: "backArrow"
+    });
+    $.__views.actionIos.add($.__views.backArrow);
+    $.__views.icon = Ti.UI.createImageView({
+        left: "5%",
+        width: "12%",
+        height: "90%",
+        top: "5%",
+        id: "icon",
+        image: "/icon-small.png"
+    });
+    $.__views.actionIos.add($.__views.icon);
+    $.__views.__alloyId20 = Ti.UI.createView({
         height: "5%",
         backgroundColor: "#d0d0d0",
         width: "100%",
         bottom: 0,
-        id: "__alloyId11"
+        id: "__alloyId20"
     });
-    $.__views.Navigation.add($.__views.__alloyId11);
+    $.__views.Navigation.add($.__views.__alloyId20);
     $.__views.topNav = Ti.UI.createScrollView({
-        height: "9%",
-        top: "8%",
+        height: "11%",
+        top: "9%",
         width: "100%",
         left: "0%",
         id: "topNav",
@@ -65,7 +88,7 @@ function Controller() {
         id: "categories"
     });
     $.__views.NavContainer.add($.__views.categories);
-    $.__views.__alloyId12 = Ti.UI.createLabel({
+    $.__views.__alloyId21 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#3b3b3b",
         font: {
@@ -74,18 +97,18 @@ function Controller() {
         },
         bottom: "20%",
         text: "Categories",
-        id: "__alloyId12"
+        id: "__alloyId21"
     });
-    $.__views.categories.add($.__views.__alloyId12);
-    $.__views.__alloyId13 = Ti.UI.createView({
+    $.__views.categories.add($.__views.__alloyId21);
+    $.__views.__alloyId22 = Ti.UI.createView({
         width: 1,
         backgroundColor: "#dfdfdf",
         right: 0,
         top: "12%",
         height: "76%",
-        id: "__alloyId13"
+        id: "__alloyId22"
     });
-    $.__views.categories.add($.__views.__alloyId13);
+    $.__views.categories.add($.__views.__alloyId22);
     $.__views.videos = Ti.UI.createView({
         height: "100%",
         bottom: "0%",
@@ -94,7 +117,7 @@ function Controller() {
         id: "videos"
     });
     $.__views.NavContainer.add($.__views.videos);
-    $.__views.__alloyId14 = Ti.UI.createLabel({
+    $.__views.__alloyId23 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#3b3b3b",
         font: {
@@ -103,18 +126,18 @@ function Controller() {
         },
         bottom: "20%",
         text: "Live Shows",
-        id: "__alloyId14"
+        id: "__alloyId23"
     });
-    $.__views.videos.add($.__views.__alloyId14);
-    $.__views.__alloyId15 = Ti.UI.createView({
+    $.__views.videos.add($.__views.__alloyId23);
+    $.__views.__alloyId24 = Ti.UI.createView({
         width: 1,
         backgroundColor: "#dfdfdf",
         right: 0,
         top: "12%",
         height: "76%",
-        id: "__alloyId15"
+        id: "__alloyId24"
     });
-    $.__views.videos.add($.__views.__alloyId15);
+    $.__views.videos.add($.__views.__alloyId24);
     $.__views.campaigns = Ti.UI.createView({
         height: "100%",
         width: "20%",
@@ -123,7 +146,7 @@ function Controller() {
         id: "campaigns"
     });
     $.__views.NavContainer.add($.__views.campaigns);
-    $.__views.__alloyId16 = Ti.UI.createLabel({
+    $.__views.__alloyId25 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#3b3b3b",
         font: {
@@ -132,18 +155,18 @@ function Controller() {
         },
         bottom: "20%",
         text: "Campaigns",
-        id: "__alloyId16"
+        id: "__alloyId25"
     });
-    $.__views.campaigns.add($.__views.__alloyId16);
-    $.__views.__alloyId17 = Ti.UI.createView({
+    $.__views.campaigns.add($.__views.__alloyId25);
+    $.__views.__alloyId26 = Ti.UI.createView({
         width: 1,
         backgroundColor: "#dfdfdf",
         right: 0,
         top: "12%",
         height: "76%",
-        id: "__alloyId17"
+        id: "__alloyId26"
     });
-    $.__views.campaigns.add($.__views.__alloyId17);
+    $.__views.campaigns.add($.__views.__alloyId26);
     $.__views.upcoming = Ti.UI.createView({
         height: "100%",
         width: "20%",
@@ -152,7 +175,7 @@ function Controller() {
         id: "upcoming"
     });
     $.__views.NavContainer.add($.__views.upcoming);
-    $.__views.__alloyId18 = Ti.UI.createLabel({
+    $.__views.__alloyId27 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#3b3b3b",
         font: {
@@ -161,18 +184,18 @@ function Controller() {
         },
         bottom: "20%",
         text: "Upcoming",
-        id: "__alloyId18"
+        id: "__alloyId27"
     });
-    $.__views.upcoming.add($.__views.__alloyId18);
-    $.__views.__alloyId19 = Ti.UI.createView({
+    $.__views.upcoming.add($.__views.__alloyId27);
+    $.__views.__alloyId28 = Ti.UI.createView({
         width: 1,
         backgroundColor: "#dfdfdf",
         right: 0,
         top: "12%",
         height: "76%",
-        id: "__alloyId19"
+        id: "__alloyId28"
     });
-    $.__views.upcoming.add($.__views.__alloyId19);
+    $.__views.upcoming.add($.__views.__alloyId28);
     $.__views.artists = Ti.UI.createView({
         height: "100%",
         width: "20%",
@@ -181,7 +204,7 @@ function Controller() {
         id: "artists"
     });
     $.__views.NavContainer.add($.__views.artists);
-    $.__views.__alloyId20 = Ti.UI.createLabel({
+    $.__views.__alloyId29 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#3b3b3b",
         font: {
@@ -190,9 +213,9 @@ function Controller() {
         },
         bottom: "20%",
         text: "Artists",
-        id: "__alloyId20"
+        id: "__alloyId29"
     });
-    $.__views.artists.add($.__views.__alloyId20);
+    $.__views.artists.add($.__views.__alloyId29);
     $.__views.menuBar = Ti.UI.createScrollView({
         height: "12%",
         bottom: "2%",
@@ -219,19 +242,19 @@ function Controller() {
         id: "barra"
     });
     $.__views.barContainer.add($.__views.barra);
-    $.__views.__alloyId21 = Ti.UI.createView({
+    $.__views.__alloyId30 = Ti.UI.createView({
         height: "2%",
         backgroundColor: "#e4473e",
         width: "100%",
         bottom: "0%",
-        id: "__alloyId21"
+        id: "__alloyId30"
     });
-    $.__views.topNav.add($.__views.__alloyId21);
-    var __alloyId22 = [];
+    $.__views.topNav.add($.__views.__alloyId30);
+    var __alloyId31 = [];
     $.__views.categoriesScreen = Ti.UI.createView({
         id: "categoriesScreen"
     });
-    __alloyId22.push($.__views.categoriesScreen);
+    __alloyId31.push($.__views.categoriesScreen);
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -248,7 +271,7 @@ function Controller() {
     $.__views.videosScreen = Ti.UI.createView({
         id: "videosScreen"
     });
-    __alloyId22.push($.__views.videosScreen);
+    __alloyId31.push($.__views.videosScreen);
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -266,7 +289,7 @@ function Controller() {
         backgroundColor: "#f2f2f2",
         id: "campaignsScreen"
     });
-    __alloyId22.push($.__views.campaignsScreen);
+    __alloyId31.push($.__views.campaignsScreen);
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -283,7 +306,7 @@ function Controller() {
     $.__views.upcomingScreen = Ti.UI.createView({
         id: "upcomingScreen"
     });
-    __alloyId22.push($.__views.upcomingScreen);
+    __alloyId31.push($.__views.upcomingScreen);
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -300,7 +323,7 @@ function Controller() {
     $.__views.artistsScreen = Ti.UI.createView({
         id: "artistsScreen"
     });
-    __alloyId22.push($.__views.artistsScreen);
+    __alloyId31.push($.__views.artistsScreen);
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -315,9 +338,9 @@ function Controller() {
     });
     $.__views.artistsScreen.add($.__views.activity);
     $.__views.scrollableView = Ti.UI.createScrollableView({
-        height: "83%",
-        top: "17%",
-        views: __alloyId22,
+        height: "80%",
+        top: "20%",
+        views: __alloyId31,
         id: "scrollableView"
     });
     $.__views.feedWin.add($.__views.scrollableView);
@@ -338,6 +361,15 @@ function Controller() {
     });
     var upcomming = Ti.UI.createTableView();
     var artists = Ti.UI.createTableView();
+    var backArrow = Ti.UI.createLabel({
+        color: "Gray",
+        text: "◃"
+    });
+    $.backArrow.add(backArrow);
+    $.actionIos.addEventListener("click", function() {
+        var back = Alloy.createController("index").getView();
+        back.open();
+    });
     1 == activeTab && data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
     2 == activeTab && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
     3 == activeTab && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, 0, "Events");

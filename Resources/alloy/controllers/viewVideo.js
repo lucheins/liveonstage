@@ -63,31 +63,72 @@ function Controller() {
         id: "activity"
     });
     $.__views.viewVideo.add($.__views.activity);
-    $.__views.btnClose = Ti.UI.createButton({
-        top: "2dp",
-        left: "80%",
-        height: "20dp",
-        width: "50dp",
-        id: "btnClose",
-        title: "Close"
+    $.__views.Navigation = Ti.UI.createView({
+        height: "9%",
+        top: "0%",
+        backgroundColor: "#f2f2f2",
+        backgroundImage: "/light-diagonal-strips.png",
+        backgroundRepeat: true,
+        id: "Navigation"
     });
-    $.__views.viewVideo.add($.__views.btnClose);
-    closeView ? $.__views.btnClose.addEventListener("click", closeView) : __defers["$.__views.btnClose!click!closeView"] = true;
+    $.__views.viewVideo.add($.__views.Navigation);
+    $.__views.actionIos = Ti.UI.createView({
+        zIndex: 10,
+        height: "100%",
+        id: "actionIos"
+    });
+    $.__views.Navigation.add($.__views.actionIos);
+    closeView ? $.__views.actionIos.addEventListener("click", closeView) : __defers["$.__views.actionIos!click!closeView"] = true;
+    $.__views.backArrow = Ti.UI.createLabel({
+        left: "0%",
+        width: "5%",
+        font: {
+            fontSize: "20dp"
+        },
+        color: "gray",
+        id: "backArrow"
+    });
+    $.__views.actionIos.add($.__views.backArrow);
+    $.__views.icon = Ti.UI.createImageView({
+        left: "5%",
+        width: "12%",
+        height: "90%",
+        top: "5%",
+        id: "icon",
+        image: "/icon-small.png"
+    });
+    $.__views.actionIos.add($.__views.icon);
+    $.__views.current = Ti.UI.createLabel({
+        left: "19%",
+        text: "Live Shows",
+        id: "current"
+    });
+    $.__views.Navigation.add($.__views.current);
+    $.__views.__alloyId32 = Ti.UI.createView({
+        id: "__alloyId32"
+    });
+    $.__views.Navigation.add($.__views.__alloyId32);
+    $.__views.container = Ti.UI.createView({
+        height: "91%",
+        top: "9%",
+        id: "container"
+    });
+    $.__views.viewVideo.add($.__views.container);
     $.__views.vp = Ti.Media.createVideoPlayer({
-        top: "25dp",
+        top: "2%",
         autoplay: true,
         backgroundColor: "black",
         height: "50%",
         width: "95%",
         id: "vp"
     });
-    $.__views.viewVideo.add($.__views.vp);
+    $.__views.container.add($.__views.vp);
     $.__views.data = Ti.UI.createView({
-        top: "55%",
+        top: "52%",
         height: "20%",
         id: "data"
     });
-    $.__views.viewVideo.add($.__views.data);
+    $.__views.container.add($.__views.data);
     $.__views.title = Ti.UI.createLabel({
         font: {
             fontSize: "16dp",
@@ -123,13 +164,13 @@ function Controller() {
     });
     $.__views.data.add($.__views.views);
     $.__views.other = Ti.UI.createView({
-        top: "71%",
+        top: "74%",
         left: "0dp",
         backgroundColor: "#f2f2f2",
-        height: "22dp",
+        height: "4%",
         id: "other"
     });
-    $.__views.viewVideo.add($.__views.other);
+    $.__views.container.add($.__views.other);
     $.__views.otherEvents = Ti.UI.createLabel({
         font: {
             fontSize: "14dp",
@@ -144,14 +185,44 @@ function Controller() {
     });
     $.__views.other.add($.__views.otherEvents);
     $.__views.table = Ti.UI.createTableView({
-        top: "75%",
+        top: "78%",
         id: "table"
     });
-    $.__views.viewVideo.add($.__views.table);
+    $.__views.container.add($.__views.table);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
     id = 100;
+    if ("android" == Ti.Platform.osname) {
+        var actionBar;
+        $.viewVideo.addEventListener("open", function() {
+            if ($.viewVideo.activity) {
+                actionBar = $.viewVideo.activity.actionBar;
+                if (actionBar) {
+                    actionBar.backgroundImage = "/bg.png";
+                    actionBar.title = "Live Shows";
+                    actionBar.displayHomeAsUp = true;
+                    actionBar.onHomeIconItemSelected = function() {
+                        $.vp.hide();
+                        $.vp.release();
+                        $.vp = null;
+                        $.viewVideo.close();
+                    };
+                }
+            } else Ti.API.error("Can't access action bar on a lightweight window.");
+        });
+    } else {
+        var backArrow = Ti.UI.createLabel({
+            color: "Gray",
+            text: "◃"
+        });
+        $.backArrow.add(backArrow);
+    }
+    Ti.Gesture.addEventListener("orientationchange", function() {
+        var orientation = Ti.Gesture.orientation;
+        (3 === orientation || 4 === orientation) && ($.vp.fullscreen = true);
+        (1 === orientation || 2 === orientation) && ($.vp.fullscreen = false);
+    });
     var data = require("dataExport");
     var categoryId = 0;
     var client = Ti.Network.createHTTPClient();
@@ -192,7 +263,7 @@ function Controller() {
             });
         }
     });
-    __defers["$.__views.btnClose!click!closeView"] && $.__views.btnClose.addEventListener("click", closeView);
+    __defers["$.__views.actionIos!click!closeView"] && $.__views.actionIos.addEventListener("click", closeView);
     _.extend($, exports);
 }
 

@@ -13,12 +13,24 @@
 		<View id="buttoncontainer">
 			<View class="buttonsTopBorder"/>
 			<View class="topButtons">
-				<View id="liveShows" class="first"></View>
-				<View id="Campaigns" class="second"></View>
+				<View id="liveShows" class="first">
+					<ImageView class="menu-icon" image="/images/bolt.png" />
+					<Label class="menu-label">Live Shows</Label>
+				</View>
+				<View id="Campaigns" class="second">
+					<ImageView class="menu-icon" image="/images/campaigns.png" />
+					<Label class="menu-label">Campaigns</Label>
+				</View>
 			</View>
 			<View class="bottomButtons">
-				<View id="upcomingEvents" class="first"></View>
-				<View id="artists" class="second"></View>
+				<View id="upcomingEvents" class="first">
+					<ImageView class="menu-icon" image="/images/upcoming.png" />
+					<Label class="menu-label">Upcoming</Label>
+				</View>
+				<View id="artists" class="second">
+					<ImageView class="menu-icon" image="/images/artists.png" />
+					<Label class="menu-label">Artists</Label>
+				</View>
 			</View>
 		</View>
 	</Window>

@@ -21,8 +21,30 @@ var height = (Ti.Platform.displayCaps.platformWidth-30)/4;
     backgroundColor: "#fff",
     backgroundSelectedColor: "#f2f2f2"
 });*/
+
+var actionBar;
+$.index.addEventListener("open", function() {
+    
+        if (! $.index.activity) {
+            Ti.API.error("Can't access action bar on a lightweight window.");
+        } else {
+            actionBar = $.index.activity.actionBar;
+            if (actionBar) {
+                /*actionBar.backgroundImage = "/bg.png";
+                actionBar.title = "Categories";
+                actionBar.displayHomeAsUp = true;
+                actionBar.onHomeIconItemSelected = function() {
+                    Ti.API.info("Home icon clicked!");
+                };*/
+               actionBar.hide();
+            }
+        }
+    
+});
+
 $.liveShows.addEventListener('click', function (e) { 
 	var win = Alloy.createController('feed', 1).getView();
+	
 	win.open(); 
 	});
 	

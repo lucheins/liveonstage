@@ -6,7 +6,49 @@ function closeView()
     $.vp.release();
     $.vp = null;
 	$.viewVideo.close();
+};
+
+if (Ti.Platform.osname == 'android'){
+var actionBar;
+$.viewVideo.addEventListener("open", function() {
+    
+        if (! $.viewVideo.activity) {
+            Ti.API.error("Can't access action bar on a lightweight window.");
+        } else {
+            actionBar = $.viewVideo.activity.actionBar;
+            if (actionBar) {
+                actionBar.backgroundImage = "/bg.png";
+                actionBar.title = "Live Shows";
+                actionBar.displayHomeAsUp = true;
+                actionBar.onHomeIconItemSelected = function() {
+                    $.vp.hide();
+				    $.vp.release();
+				    $.vp = null;
+					$.viewVideo.close();
+                };
+            }
+        }
+    
+});
 }
+else {
+var backArrow = Ti.UI.createLabel({
+  color:'Gray',
+  text: '\u25c3',
+});
+
+$.backArrow.add(backArrow);
+}
+
+Ti.Gesture.addEventListener("orientationchange", function(e){
+	var orientation = Ti.Gesture.orientation;
+	if(orientation === 3 || orientation === 4){
+		$.vp.fullscreen = true
+	}
+	if(orientation === 1 || orientation === 2){
+		$.vp.fullscreen = false
+	}
+});
 
 var data = require('dataExport');
 var categoryId = 0;
@@ -102,6 +144,5 @@ function getUrlYoutube(video_id, vp)
     	vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
     	vdldr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1');
     }
-    vdldr.send()
-        
+    vdldr.send()      
 }
