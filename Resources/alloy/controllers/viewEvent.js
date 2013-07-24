@@ -1,30 +1,15 @@
 function Controller() {
-    function closeView() {
-        $.viewEvent.close();
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
     var $ = this;
     var exports = {};
-    var __defers = {};
     $.__views.viewEvent = Ti.UI.createWindow({
         backgroundColor: "white",
         title: Alloy.Globals.NAME_PAGE,
-        id: "viewEvent",
-        navBarHidden: "true"
+        id: "viewEvent"
     });
     $.__views.viewEvent && $.addTopLevelView($.__views.viewEvent);
-    $.__views.btnClose = Ti.UI.createButton({
-        top: "2dp",
-        left: "80%",
-        height: "20dp",
-        width: "50dp",
-        id: "btnClose",
-        title: "Close"
-    });
-    $.__views.viewEvent.add($.__views.btnClose);
-    closeView ? $.__views.btnClose.addEventListener("click", closeView) : __defers["$.__views.btnClose!click!closeView"] = true;
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -151,6 +136,19 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
+    var actionBar;
+    $.viewEvent.addEventListener("open", function() {
+        if ($.viewEvent.activity) {
+            actionBar = $.viewEvent.activity.actionBar;
+            if (actionBar) {
+                actionBar.backgroundImage = "/bg.png";
+                actionBar.title = Alloy.Globals.NAME_PAGE + " - View Upcoming";
+                actionBar.onHomeIconItemSelected = function() {
+                    $.viewEvent.close();
+                };
+            }
+        } else Ti.API.error("Can't access action bar on a lightweight window.");
+    });
     var data = require("dataExport");
     var categoryId = 0;
     var client = Ti.Network.createHTTPClient();
@@ -188,13 +186,13 @@ function Controller() {
         if (e.source.link > 0) {
             $.viewEvent.close();
             var win = Alloy.createController("viewEvent", e.source.link).getView();
+            win.fullscreen = false;
             win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
             });
         }
     });
-    __defers["$.__views.btnClose!click!closeView"] && $.__views.btnClose.addEventListener("click", closeView);
     _.extend($, exports);
 }
 

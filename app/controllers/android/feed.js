@@ -1,5 +1,6 @@
 /*var win = Alloy.createController('tabs').getView();
 $.feedWin.add(win);*/
+var activeTab = arguments[0] || {};
 var module = require('net.bajawa.pager');
 var categoryId = 0;
 var data = require('dataExport');
@@ -16,8 +17,25 @@ var campaigns = Ti.UI.createScrollView({
 		})
 var upcomming = Ti.UI.createTableView();
 var artists = Ti.UI.createTableView();
-data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
+	if(activeTab == 1)
+	{
+    	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
+    }
+    
+    if(activeTab == 2)
+	{
+		data.getCampaigns($.activity, campaigns,0,0,categoryId);
+	}
+    
+    if(activeTab == 3)	
+    {
+		data.getListItems($.activity, upcomming,0,0,categoryId,0,0,'Events');
+	}
 
+	if(activeTab == 4)
+	{
+		data.getDataLists($.activity, artists,0,0,'Artists',categoryId);
+	}
 
 var pagerDataScrolling = [
 		{ title: "Categories",	view: categories },
@@ -30,7 +48,7 @@ var pagerDataScrolling = [
 var viewPager = module.createViewPager(
  {
 	data: pagerDataScrolling,
-	initialPage: 1,
+	initialPage: activeTab,
 	tabs: {
 		style: module.SCROLLING,
 		backgroundColor: "#ffffff",
@@ -66,7 +84,7 @@ $.feedWin.addEventListener("open", function() {
                 //actionBar.title = "Categories";
                 actionBar.displayHomeAsUp = true;
                 actionBar.onHomeIconItemSelected = function() {
-                    Ti.API.info("Home icon clicked!");
+                    resetInitPage(0, 'Categories');
                 };
             }
         }
@@ -84,7 +102,10 @@ viewPager.addEventListener("pageChange", function (e)
 	{
 		data.getCategories($.activity, categories);
 	}
-    
+    if((e.to == 1) && (live.data.length == 0))
+	{
+    	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
+    }
    if((e.to == 2))
 	{
 		data.getCampaigns($.activity, campaigns,0,0,categoryId);
@@ -115,7 +136,7 @@ categories.addEventListener('click', function(e){
 function resetInitPage(catId, title)
 {
 	categoryId = catId;
-	actionBar.title = title;
+	actionBar.title = Alloy.Globals.NAME_PAGE + ' - ' + title;
 	live.setData([]);
 	//campaigns.setData([]);
 	campaigns.removeAllChildren();
@@ -129,22 +150,35 @@ live.addEventListener('click', function(e){
 		if(e.source.link > 0)
 		{
 			var win = Alloy.createController('viewVideo', e.source.link).getView();
-		    win.open({
-		        activityEnterAnimation: Ti.Android.R.anim.fade_in,
-		        activityExitAnimation: Ti.Android.R.anim.fade_out
-		    });			
+			win.fullscreen= false;
+		   if(Ti.Platform.osname == 'android')
+			{
+				win.open({
+				        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+				        activityExitAnimation: Ti.Android.R.anim.fade_out
+				    });	
+			} else {
+				var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+				win.open({transition:t});
+			}		
 		}		
 	});
 
 upcomming.addEventListener('click', function(e){
 		if(e.source.link > 0)
 		{
-			var win = Alloy.createController('viewEvent', e.source.link).getView();			
-			//$.feedWin.add(win);
-			win.open({
-		        activityEnterAnimation: Ti.Android.R.anim.fade_in,
-		        activityExitAnimation: Ti.Android.R.anim.fade_out
-		    });									
+			var win = Alloy.createController('viewEvent', e.source.link).getView();		
+			win.fullscreen= false;	
+			if(Ti.Platform.osname == 'android')
+			{
+				win.open({
+				        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+				        activityExitAnimation: Ti.Android.R.anim.fade_out
+				    });	
+			} else {
+				var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+				win.open({transition:t});
+			}								
 		}		
 	});
 	

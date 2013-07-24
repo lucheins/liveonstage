@@ -10,6 +10,8 @@ Alloy.Globals.URL_VIDEO = "index.php?option=com_mobile&task=video";
 
 Alloy.Globals.URL_EVENT = "index.php?option=com_mobile&task=event";
 
+Alloy.Globals.URL_CAMPAIGN = "index.php?option=com_mobile&task=campaign";
+
 Alloy.Globals.URL_CATEGORIES = "index.php?option=com_mobile&task=categories";
 
 Alloy.Globals.LIMIT = 5;
@@ -35,5 +37,7 @@ Alloy.Globals.URL_VOD_END = ".mp4";
 Alloy.Globals.RESOLUCION_VIDEO = "240p";
 
 Alloy.Globals.TITLE_SIZE = 30;
+
+Alloy.Globals.DESCRIPTION_SIZE = 160;
 
 Alloy.createController("index");

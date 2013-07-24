@@ -1,9 +1,24 @@
 var id = arguments[0] || {};
-
-function closeView()
+if(Ti.Platform.osname == 'android')
 {
-	$.viewEvent.close();
+	var actionBar;
+	$.viewEvent.addEventListener("open", function() {	
+   if (! $.viewEvent.activity) {
+	            Ti.API.error("Can't access action bar on a lightweight window.");
+	        } else {
+	            actionBar = $.viewEvent.activity.actionBar;
+	            if (actionBar) {
+	                actionBar.backgroundImage = "/bg.png";
+	                actionBar.title = Alloy.Globals.NAME_PAGE + " - View Upcoming";	                
+	                actionBar.onHomeIconItemSelected = function() {
+						$.viewEvent.close();
+	                };
+	            }
+	        }
+	    
+	});
 }
+
 var data = require('dataExport');
 var categoryId = 0;
 
@@ -48,11 +63,17 @@ $.table.addEventListener('click', function(e){
 		{
 			$.viewEvent.close();
 			var win = Alloy.createController('viewEvent', e.source.link).getView();			
-			//$.feedWin.add(win);
-			win.open({
-		        activityEnterAnimation: Ti.Android.R.anim.fade_in,
-		        activityExitAnimation: Ti.Android.R.anim.fade_out
-		    });									
+			if(Ti.Platform.osname == 'android')
+			{
+				win.fullscreen= false;
+				win.open({
+				        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+				        activityExitAnimation: Ti.Android.R.anim.fade_out
+				    });	
+			} else {
+				var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+				win.open({transition:t});
+			}							
 		}		
 	});
 	    

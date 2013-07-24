@@ -163,6 +163,14 @@ function Controller() {
         zIndex: 5
     });
     $.videocover.add(theImageShadow);
+    $.videocover.addEventListener("click", function() {
+        var win = Alloy.createController("viewCampaign", args.link).getView();
+        win.fullscreen = false;
+        win.open({
+            activityEnterAnimation: Ti.Android.R.anim.fade_in,
+            activityExitAnimation: Ti.Android.R.anim.fade_out
+        });
+    });
     _.extend($, exports);
 }
 

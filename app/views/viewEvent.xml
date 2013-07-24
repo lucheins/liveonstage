@@ -1,6 +1,5 @@
 <Alloy>
-	<Window id="viewEvent" backgroundColor="white" navBarHidden="true" >	
-		<Button onClick="closeView" id="btnClose" title="Close" />
+	<Window id="viewEvent" backgroundColor="white" >	
 		<ActivityIndicator id="activity"/>
 		<Label id="title" />
 		<ImageView id="image"/>

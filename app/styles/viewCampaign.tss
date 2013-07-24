@@ -1,0 +1,133 @@
+"#vp": {
+ 	top : '10dp',
+    autoplay : true,
+    backgroundColor : "black",
+    height : '40%',
+    width : '95%'
+},
+"#data":{
+	top: "45%",
+	height: "40%"
+}
+"#title": {
+	font: {
+	   	fontSize:'16dp',
+		fontWeight:'bold'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'5dp',
+	color:'#717777'
+},
+"#author":{
+	font: {
+	   	fontSize:'14dp'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'45dp',
+	color:'#717777'
+},
+"#content":{
+	top:'65dp',
+	height: "80dp",
+	backgroundColor: "#f0f0f0"
+},
+"#description":{
+	font: {
+	   	fontSize:'12dp'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'20dp',
+	width: "90%"
+},
+"#titleDescription":{
+	font: {
+	   	fontSize:'14dp',
+	   	fontWeight:'bold'
+		},
+	left:'5dp',
+	top:'0dp'
+},
+"#readmore":{
+	font: {
+	   	fontSize:'12dp',
+	   	fontWeight:'bold'
+		},
+	left:'5dp',
+	bottom:'0dp'
+},
+"#categoryName": {
+	font: {
+	   	fontSize:'14dp'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'150dp',
+	color:'#717777'
+},
+"#campaignInfo":{
+	top:'170dp',
+	height: "40dp",
+	width: '100%'
+},
+"#accomplished":{
+	top: '5dp',
+	width: "25%",
+	left: '0dp',
+	font: {
+	   	fontSize:'14dp'
+		}
+},
+"#percentage":{
+	top: '5dp',
+	width: "25%",
+	left: '25%',
+	font: {
+	   	fontSize:'14dp'
+		}
+},
+"#days":{
+	top: '5dp',
+	width: "25%",
+	left: '50%',
+	font: {
+	   	fontSize:'14dp'
+		}
+},
+"#total":{
+	top: '5dp',
+	width: "25%",
+	left: '75%',
+	font: {
+	   	fontSize:'14dp'
+		}
+},
+"#givebacksTitle":{
+	font: {
+	   	fontSize:'14dp',
+	   	fontWeight:'bold'
+		},
+	height:'auto',
+	left:'10dp',
+	top:'0dp',
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+},
+"#givebacks":{
+	top:'76%',
+	left: '0dp'
+},
+"#table": {
+	top: '20dp',
+	left: '0dp'
+}
+"#donate":{
+	bottom: '0dp',
+	height: '40dp'
+},
+"#buttonDonate":{
+	top: '10dp',
+	height: '30dp',
+	width: '50dp'
+}

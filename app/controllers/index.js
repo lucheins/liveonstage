@@ -5,23 +5,6 @@ var gray = '#888888';
 var width = (Ti.Platform.displayCaps.platformWidth-30)/2;
 var height = (Ti.Platform.displayCaps.platformWidth-30)/4;
 
-
-/*$.buttongrid.init({
-    buttons: [
-        { id: 'Cloudy', title: "Cloudy" },
-        { id: 'Drizzle', title: "Drizzle" },
-        { id: 'Haze', title: 'Haze' },
-        { id: 'Thunderstorms', title: 'Thunderstorms', click: function (e) { var win = Alloy.createController('feed').getView();
-	win.open(); } }
-    ],
-    buttonWidth: width,
-    buttonHeight: height,
-    borderColor: '#000',
-    duration: 50,
-    backgroundColor: "#fff",
-    backgroundSelectedColor: "#f2f2f2"
-});*/
-
 var actionBar;
 $.index.addEventListener("open", function() {
     
@@ -30,12 +13,6 @@ $.index.addEventListener("open", function() {
         } else {
             actionBar = $.index.activity.actionBar;
             if (actionBar) {
-                /*actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Categories";
-                actionBar.displayHomeAsUp = true;
-                actionBar.onHomeIconItemSelected = function() {
-                    Ti.API.info("Home icon clicked!");
-                };*/
                actionBar.hide();
             }
         }
