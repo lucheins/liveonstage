@@ -14,29 +14,18 @@ var campaigns = Ti.UI.createScrollView({
 			top:0,
 			left:0,
 			backgroundColor: '#f2f2f2'
-		})
+	});
 var upcomming = Ti.UI.createTableView();
-var artists = Ti.UI.createTableView();
-	if(activeTab == 1)
-	{
-    	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
-    }
-    
-    if(activeTab == 2)
-	{
-		data.getCampaigns($.activity, campaigns,0,0,categoryId);
-	}
-    
-    if(activeTab == 3)	
-    {
-		data.getListItems($.activity, upcomming,0,0,categoryId,0,0,'Events');
-	}
-
-	if(activeTab == 4)
-	{
-		data.getDataLists($.activity, artists,0,0,'Artists',categoryId);
-	}
-
+var artists = Ti.UI.createScrollView({
+			width:"100%",
+			height:"100%",
+			contentWidth:"auto",
+			contentHeight:"auto",
+			top:0,
+			left:0,
+			backgroundColor: '#f2f2f2'
+		});
+	
 var pagerDataScrolling = [
 		{ title: "Categories",	view: categories },
 		{ title: "Live Shows",	view: live },
@@ -106,7 +95,7 @@ viewPager.addEventListener("pageChange", function (e)
 	{
     	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
     }
-   if((e.to == 2))
+   if((e.to == 2)&&(campaigns.children.length == 0))
 	{
 		data.getCampaigns($.activity, campaigns,0,0,categoryId);
 	}
@@ -116,9 +105,9 @@ viewPager.addEventListener("pageChange", function (e)
 		data.getListItems($.activity, upcomming,0,0,categoryId,0,0,'Events');
 	}
 
-	if((e.to == 4) && (artists.data.length == 0))
+	if((e.to == 4)&&(artists.children.length == 0) )
 	{
-		data.getDataLists($.activity, artists,0,0,'Artists',categoryId);
+		data.getArtists($.activity, artists,0,0,categoryId);
 	}
 });
 
@@ -138,10 +127,10 @@ function resetInitPage(catId, title)
 	categoryId = catId;
 	actionBar.title = Alloy.Globals.NAME_PAGE + ' - ' + title;
 	live.setData([]);
-	//campaigns.setData([]);
+	campaigns.removeAllChildren();
 	campaigns.removeAllChildren();
 	upcomming.setData([]);
-	artists.setData([]);
+	artists.removeAllChildren();
 	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
 	viewPager.scrollTo(1);	
 }

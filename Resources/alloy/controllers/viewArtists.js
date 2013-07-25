@@ -115,11 +115,21 @@ function Controller() {
         id: "days"
     });
     $.__views.progressInfo.add($.__views.days);
+    $.__views.videos = Ti.UI.createLabel({
+        top: "10%",
+        font: {
+            fontSize: 11
+        },
+        height: "100%",
+        color: "gray",
+        left: "3%",
+        id: "videos"
+    });
+    $.__views.videoinfo.add($.__views.videos);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
     $.title.text = args.name || "";
-    $.title.link = args.link;
     Ti.Platform.displayCaps.platformHeight;
     Ti.Platform.displayCaps.platformWidth;
     var height = 360;
@@ -131,40 +141,29 @@ function Controller() {
         "http" != imageLink.substring(0, 4) && (imageLink = Alloy.Globals.DOMAIN + imageLink);
     }
     $.cover.image = imageLink;
-    $.cover.touchEnabled = false;
-    var pB = Titanium.UI.createProgressBar({
-        top: 0,
-        width: "90%",
-        height: "auto",
-        min: 0,
-        max: 10,
-        value: 4,
-        color: "#000",
-        font: {
-            fontSize: 14,
-            fontWeight: "bold"
-        },
-        style: Titanium.UI.iPhone.ProgressBarStyle.PLAIN
-    });
-    $.progressBar.add(pB);
-    pB.show();
-    $.accomplished.text = "$" + args.received + " Pledged";
-    $.days.text = args.days + " Days to go";
-    $.percentage.text = args.percent + " % Funded";
-    var shadowTop = "0dp";
-    "android" == Ti.Platform && (shadowTop = "7dp");
-    var theImageShadow = Ti.UI.createImageView({
-        image: "/videoCover.png",
-        top: shadowTop,
-        left: 0,
-        touchEnabled: false,
-        width: "100%",
-        height: "100%",
-        zIndex: 5
-    });
-    $.videocover.add(theImageShadow);
+    if (null != args.campaing) {
+        var pB = Titanium.UI.createProgressBar({
+            top: 0,
+            width: "90%",
+            height: "auto",
+            min: 0,
+            max: 10,
+            value: 4,
+            color: "#000",
+            font: {
+                fontSize: 14,
+                fontWeight: "bold"
+            },
+            style: Titanium.UI.iPhone.ProgressBarStyle.PLAIN
+        });
+        $.progressBar.add(pB);
+        pB.show();
+        $.accomplished.text = "$" + args.received + " Pledged";
+        $.days.text = args.days + " Days to go";
+        $.percentage.text = args.percent + " % Funded";
+    } else $.videos.text = args.videos + " videos publised.";
     $.videocover.addEventListener("click", function() {
-        var win = Alloy.createController("viewCampaign", args.link).getView();
+        var win = Alloy.createController("viewProfile", args.link).getView();
         if ("android" == Ti.Platform.osname) {
             win.fullscreen = false;
             win.open({

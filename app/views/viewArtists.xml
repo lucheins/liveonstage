@@ -10,8 +10,9 @@
 			    	<View id="progressInfo">
 				    	<Label id="accomplished" />
 				    	<Label id="percentage" />
-				    	<Label id="days" /> 
+				    	<Label id="days" />
 			    	</View>
+			    	<Label id="videos" />
 	    	</View>
 	    </View> 
     </View>

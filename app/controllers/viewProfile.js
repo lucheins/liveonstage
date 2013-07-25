@@ -1,29 +1,22 @@
 var id = arguments[0] || {};
 
-function closeView (){
-	$.vp.hide();
-	$.vp.release();
-	$.vp = null;
-	$.viewVideo.close();
-}
-
 if (Ti.Platform.osname == 'android'){
 var actionBar;
-$.viewVideo.addEventListener("open", function() {
+$.viewProfile.addEventListener("open", function() {
     
-        if (! $.viewVideo.activity) {
+        if (! $.viewProfile.activity) {
             Ti.API.error("Can't access action bar on a lightweight window.");
         } else {
-            actionBar = $.viewVideo.activity.actionBar;
+            actionBar = $.viewProfile.activity.actionBar;
             if (actionBar) {
                 actionBar.backgroundImage = "/bg.png";
-                actionBar.title = Alloy.Globals.NAME_PAGE + " - Live Show";
+                actionBar.title = Alloy.Globals.NAME_PAGE + " - Artist";
                 actionBar.displayHomeAsUp = true;
                 actionBar.onHomeIconItemSelected = function() {
                     $.vp.hide();
 				    $.vp.release();
 				    $.vp = null;
-					$.viewVideo.close();
+					$.viewProfile.close();
                 };
             }
         }
@@ -49,15 +42,12 @@ Ti.Gesture.addEventListener("orientationchange", function(e){
 	}
 });
 
-var data = require('dataExport');
-var categoryId = 0;
 var client = Ti.Network.createHTTPClient();
-var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_VIDEO;
+var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_PROFILE;
 client.open('POST',url);
 client.ondatastream = function(e){
      $.activity.show(); 
 };
-
 client.onload = function(){	
 	var json = this.responseText;
 	var responses = JSON.parse(json);
@@ -70,11 +60,32 @@ client.onload = function(){
 	   url = getUrlYoutube(responses.video_id, $.vp);
 	}
 	$.author.text = responses.name;
-	$.title.text = responses.title;
+	$.videos.text = responses.num_videos + ' videos publised.';
 	$.views.text = responses.views;	
-	data.getListItems($.activity, $.table,0,0,categoryId,responses.creator,responses.id,'Videos');
-		
 	$.activity.hide(); 
+	
+	$.event.addEventListener('click', function(e){
+		var args = {       		
+	        			author: responses.creator,
+	        			view: 'Events'
+	      		};						
+		openWindows(args);		
+	});
+	
+	$.video.addEventListener('click', function(e){
+		var args = {       		
+	        			author: responses.creator,
+	        			view: 'Videos'
+	      		};						
+		openWindows(args);		
+	});
+	$.campaign.addEventListener('click', function(e){
+		var args = {       		
+	        			author: responses.creator,
+	        			view: 'Campaigns'
+	      		};						
+		openWindows(args);		
+	});
 };
 client.onerror = function(e){alert('Transmission error: ' + e.error);};
 var params = {
@@ -82,27 +93,6 @@ var params = {
     tc: Alloy.Globals.USER_MOBILE.toString(),
 };
 client.send(params);
-
-
-$.table.addEventListener('click', function(e){
-		if(e.source.link > 0)
-		{
-			$.viewVideo.close();
-			var win = Alloy.createController('viewVideo', e.source.link).getView();		
-			win.fullscreen= false;	
-			if(Ti.Platform.osname == 'android')
-			{
-				win.open({
-				        activityEnterAnimation: Ti.Android.R.anim.fade_in,
-				        activityExitAnimation: Ti.Android.R.anim.fade_out
-				    });	
-			} else {
-				var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-				win.open({transition:t});
-			}									
-		}		
-	});
-	
 
 function getName(name)
 {
@@ -127,7 +117,7 @@ function getPathVideo(type,path)
 	} else {
 		url = Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
 	}
-	return url;	 
+	return url;	
 }
 
 function getUrlYoutube(video_id, vp)
@@ -151,3 +141,21 @@ function getUrlYoutube(video_id, vp)
     }
     vdldr.send()      
 }
+
+	
+function openWindows(arg)
+{
+	var win = Alloy.createController('viewListOfProfile', arg).getView();		
+		win.fullscreen= false;	
+		if(Ti.Platform.osname == 'android')
+		{
+			win.open({
+			        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+		        activityExitAnimation: Ti.Android.R.anim.fade_out
+			    });	
+		} else {
+			var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+			win.open({transition:t});
+		}			
+}
+	

@@ -1,17 +1,17 @@
 "#title": {	
 	font: {
-		fontSize:15,
+		fontSize:14,
 		fontWeight:'bold' 
 		},
 	left:'110dp',
-	top:'5dp'
+	top:'2dp'
 },
 "#author":{
    	font: {
 	   	fontSize:'14dp'
 		},
 	left:'110dp',
-	bottom:'20dp'
+	bottom:'18dp'
 }
 "#footMessage":{
 	font: {
@@ -19,7 +19,7 @@
 		fontWeight:'bold' 
 		},
 	left:'110dp',
-	bottom: '5dp'	
+	bottom: '3dp'	
 },
 "#image":{
 	width: '100dp',

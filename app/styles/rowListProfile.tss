@@ -1,0 +1,11 @@
+"#title": {	
+		left:"10dp",
+		height:'50dp',
+		color:"black",
+		font:{fontSize:14}
+},
+"#rowListProfile":{
+	height: '50dp',
+	touchEnabled: true,				 	
+	hasChild: false
+}
