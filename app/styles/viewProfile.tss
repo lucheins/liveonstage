@@ -1,0 +1,72 @@
+"#vp": {
+ 	top : '25dp',
+    autoplay : true,
+    backgroundColor : "black",
+    height : '55%',
+    width : '95%'
+},
+"#data":{
+	top: "61%",
+	height: "20%"
+}
+"#author": {
+	font: {
+	   	fontSize:'16dp',
+		fontWeight:'bold'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'5dp',
+	color:'#717777'
+},
+"#views":{
+	font: {
+	   	fontSize:'14dp'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'45dp',
+	color:'#717777'
+},
+"#videos":{
+	font: {
+	   	fontSize:'14dp'
+		},
+	height:'auto',
+	left:'5dp',
+	top:'65dp',
+	color:'#717777'
+},
+"#labelLink":{
+	font: {
+	   	fontSize:'14dp',
+	   	fontWeight:'bold'
+		},
+	height:'auto',
+	top:'0dp',
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
+"#links":{
+	top:'80%',
+	left: '0dp',
+	height: '22dp'
+},
+"#event":{
+	top:'0',
+	left: '0dp',
+	backgroundColor: "#f2f2f2",
+	width: '32%'
+},
+"#video":{
+	top:'0',
+	left: '33%',
+	backgroundColor: "#f2f2f2",
+	width: '32%'
+},
+"#campaign":{
+	top:'0',
+	left: '66%',
+	backgroundColor: "#f2f2f2",
+	width: '32%'
+},
+

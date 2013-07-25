@@ -4,8 +4,9 @@ function Controller() {
         actionBar.title = Alloy.Globals.NAME_PAGE + " - " + title;
         live.setData([]);
         campaigns.removeAllChildren();
+        campaigns.removeAllChildren();
         upcomming.setData([]);
-        artists.setData([]);
+        artists.removeAllChildren();
         data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
         viewPager.scrollTo(1);
     }
@@ -55,11 +56,15 @@ function Controller() {
         backgroundColor: "#f2f2f2"
     });
     var upcomming = Ti.UI.createTableView();
-    var artists = Ti.UI.createTableView();
-    1 == activeTab && data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
-    2 == activeTab && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
-    3 == activeTab && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, 0, "Events");
-    4 == activeTab && data.getDataLists($.activity, artists, 0, 0, "Artists", categoryId);
+    var artists = Ti.UI.createScrollView({
+        width: "100%",
+        height: "100%",
+        contentWidth: "auto",
+        contentHeight: "auto",
+        top: 0,
+        left: 0,
+        backgroundColor: "#f2f2f2"
+    });
     var pagerDataScrolling = [ {
         title: "Categories",
         view: categories
@@ -120,9 +125,9 @@ function Controller() {
     viewPager.addEventListener("pageChange", function(e) {
         0 == e.to && 0 == categories.data.length && data.getCategories($.activity, categories);
         1 == e.to && 0 == live.data.length && data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
-        2 == e.to && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
+        2 == e.to && 0 == campaigns.children.length && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
         3 == e.to && 0 == upcomming.data.length && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, 0, "Events");
-        4 == e.to && 0 == artists.data.length && data.getDataLists($.activity, artists, 0, 0, "Artists", categoryId);
+        4 == e.to && 0 == artists.children.length && data.getArtists($.activity, artists, 0, 0, categoryId);
     });
     categories.addEventListener("click", function(e) {
         var title = "Categories";

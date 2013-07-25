@@ -1,7 +1,5 @@
 var args = arguments[0] || {};
 $.title.text = args.name || '';
-$.title.link = args.link
-
 
 var isTablet = (width > 899 || height > 899);
 var deviceHeight = Ti.Platform.displayCaps.platformHeight;
@@ -23,9 +21,10 @@ if(args.image != null)
 };
 
 $.cover.image = imageLink;
-$.cover.touchEnabled = false;
 
-var pB=Titanium.UI.createProgressBar({
+if (args.campaing != null)
+{
+	var pB=Titanium.UI.createProgressBar({
     top:0,
     width:'90%',
     height:'auto',
@@ -41,23 +40,14 @@ pB.show();
 $.accomplished.text = '$' + args.received + ' Pledged';
 $.days.text = args.days + ' Days to go';
 $.percentage.text = args.percent + ' % Funded';
-//The cover view
-	var shadowTop="0dp"
-	if(Ti.Platform=='android'){shadowTop="7dp"}
-	var theImageShadow=Ti.UI.createImageView({
-		image:"/videoCover.png",
-		top:shadowTop,
-		left: 0,
-		touchEnabled:false,
-		width:'100%',
-		height: '100%',
-		zIndex: 5
-	});
-	
-		$.videocover.add(theImageShadow);
+} else {
+	$.videos.text = args.videos + ' videos publised.';
+}
+
+
 	
 $.videocover.addEventListener('click', function(e){
-	var win = Alloy.createController('viewCampaign', args.link).getView();	
+	var win = Alloy.createController('viewProfile', args.link).getView();	
 	if(Ti.Platform.osname == 'android')
 	{
 		win.fullscreen= false;

@@ -256,6 +256,11 @@ function Controller() {
             }
         } else Ti.API.error("Can't access action bar on a lightweight window.");
     });
+    Ti.Gesture.addEventListener("orientationchange", function() {
+        var orientation = Ti.Gesture.orientation;
+        (3 === orientation || 4 === orientation) && ($.vp.fullscreen = true);
+        (1 === orientation || 2 === orientation) && ($.vp.fullscreen = false);
+    });
     var client = Ti.Network.createHTTPClient();
     var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_CAMPAIGN;
     client.open("POST", url);

@@ -13,11 +13,11 @@ function Controller() {
     $.__views.rowListItems && $.addTopLevelView($.__views.rowListItems);
     $.__views.title = Ti.UI.createLabel({
         font: {
-            fontSize: 15,
+            fontSize: 14,
             fontWeight: "bold"
         },
         left: "110dp",
-        top: "5dp",
+        top: "2dp",
         id: "title"
     });
     $.__views.rowListItems.add($.__views.title);
@@ -26,7 +26,7 @@ function Controller() {
             fontSize: "14dp"
         },
         left: "110dp",
-        bottom: "20dp",
+        bottom: "18dp",
         id: "author"
     });
     $.__views.rowListItems.add($.__views.author);
@@ -36,7 +36,7 @@ function Controller() {
             fontWeight: "bold"
         },
         left: "110dp",
-        bottom: "5dp",
+        bottom: "3dp",
         id: "footMessage"
     });
     $.__views.rowListItems.add($.__views.footMessage);
