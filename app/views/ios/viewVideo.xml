@@ -1,5 +1,5 @@
 <Alloy>
-	<Window id="viewVideo" navBarHidden="true" >	
+	<Window id="viewVideo" navBarHidden="true">	
 		<ActivityIndicator id="activity"/>
 		<View id="Navigation">
     		<View id="actionIos" onClick="closeView">

@@ -1,6 +1,6 @@
 "#Navigation":{
 	height: '8%',
-	top: '0%',
+	top: '-8%',
 	backgroundColor: '#16011e',
 	backgroundImage: '/light-diagonal-strips.png',
 	backgroundRepeat: true	
@@ -21,7 +21,8 @@
 "#banner":{
 	height: '54%',
 	top: '8%',
-	backgroundImage:'/app-cover.jpg'
+	backgroundImage:'/app-cover.jpg',
+	left: '-100%'
 	},
 "#overlay":{
 	
@@ -29,7 +30,7 @@
 	}
 "#buttoncontainer":{
 	height: '38%',
-	top: '62%',
+	top: '100%',
 	backgroundColor: 'white',
 	backgroundImage: '/light-diagonal-strips.png',
 	backgroundRepeat: true

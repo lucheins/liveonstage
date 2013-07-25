@@ -17,7 +17,7 @@ function Controller() {
         id: "browse"
     });
     $.__views.tabs.add($.__views.browse);
-    $.__views.__alloyId16 = Ti.UI.createLabel({
+    $.__views.__alloyId14 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#000000",
         font: {
@@ -26,9 +26,9 @@ function Controller() {
         },
         bottom: "0dp",
         text: "Browse",
-        id: "__alloyId16"
+        id: "__alloyId14"
     });
-    $.__views.browse.add($.__views.__alloyId16);
+    $.__views.browse.add($.__views.__alloyId14);
     $.__views.artist = Ti.UI.createView({
         bottom: "0dp",
         left: "33%",
@@ -38,7 +38,7 @@ function Controller() {
         id: "artist"
     });
     $.__views.tabs.add($.__views.artist);
-    $.__views.__alloyId17 = Ti.UI.createLabel({
+    $.__views.__alloyId15 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#000000",
         font: {
@@ -47,9 +47,9 @@ function Controller() {
         },
         bottom: "0dp",
         text: "Artist Search",
-        id: "__alloyId17"
+        id: "__alloyId15"
     });
-    $.__views.artist.add($.__views.__alloyId17);
+    $.__views.artist.add($.__views.__alloyId15);
     $.__views.stage = Ti.UI.createView({
         bottom: "0dp",
         width: "33%",
@@ -59,7 +59,7 @@ function Controller() {
         id: "stage"
     });
     $.__views.tabs.add($.__views.stage);
-    $.__views.__alloyId18 = Ti.UI.createLabel({
+    $.__views.__alloyId16 = Ti.UI.createLabel({
         textAlign: "center",
         color: "#000000",
         font: {
@@ -68,9 +68,9 @@ function Controller() {
         },
         bottom: "0dp",
         text: "My Stage",
-        id: "__alloyId18"
+        id: "__alloyId16"
     });
-    $.__views.stage.add($.__views.__alloyId18);
+    $.__views.stage.add($.__views.__alloyId16);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.artist.addEventListener("click", function() {

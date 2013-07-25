@@ -1,5 +1,12 @@
 var id = arguments[0] || {};
 
+function closeView (){
+					$.vp.hide();
+				    $.vp.release();
+				    $.vp = null;
+					$.viewVideo.close();
+}
+
 if (Ti.Platform.osname == 'android'){
 var actionBar;
 $.viewVideo.addEventListener("open", function() {
