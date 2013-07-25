@@ -21,6 +21,16 @@ if(Ti.Platform.osname == 'android')
 	    
 	});
 }
+Ti.Gesture.addEventListener("orientationchange", function(e){
+	var orientation = Ti.Gesture.orientation;
+	if(orientation === 3 || orientation === 4){
+		$.vp.fullscreen = true
+	}
+	if(orientation === 1 || orientation === 2){
+		$.vp.fullscreen = false
+	}
+});
+
 
 var client = Ti.Network.createHTTPClient();
 var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_CAMPAIGN;
