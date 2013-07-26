@@ -1,8 +1,9 @@
 <Alloy>
 	<Window id="viewCampaign" >	
-	<ScrollView id="scroll" width="100%" height="90%" top="0dp" scrollType="vertical">
+	<ScrollView id="scroll" width="100%" scrollType="vertical">
 		<View height="Ti.Platform.displayCaps.platformHeight + 100" id="viewScroll">
 			<ActivityIndicator id="activity"/>
+			
 			<VideoPlayer id="vp" />
 			<View id="data">	
 				<Label id="title" />

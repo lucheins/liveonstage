@@ -1,11 +1,6 @@
 var id = arguments[0] || {};
 
-function closeView (){
-	$.vp.hide();
-	$.vp.release();
-	$.vp = null;
-	$.viewVideo.close();
-}
+
 
 if (Ti.Platform.osname == 'android'){
 var actionBar;
@@ -17,7 +12,7 @@ $.viewVideo.addEventListener("open", function() {
             actionBar = $.viewVideo.activity.actionBar;
             if (actionBar) {
                 actionBar.backgroundImage = "/bg.png";
-                actionBar.title = Alloy.Globals.NAME_PAGE + " - Live Show";
+                actionBar.title = "Live Shows";
                 actionBar.displayHomeAsUp = true;
                 actionBar.onHomeIconItemSelected = function() {
                     $.vp.hide();
@@ -30,22 +25,32 @@ $.viewVideo.addEventListener("open", function() {
     
 });
 }
-else {
-var backArrow = Ti.UI.createLabel({
-  color:'Gray',
-  text: '\u25c3',
-});
 
-$.backArrow.add(backArrow);
+else {	
+	$.container.top = '9%',
+	$.container.height = '91%'	
+var args = {
+	ventana: $.viewVideo,
+	vp: $.vp,
+	container: $.container,
+	title: "Live Shows"       	        			
+	};
+
+
+      		
+var win = Alloy.createController('actionbarIos',args).getView();
+$.viewVideo.add(win);
 }
 
 Ti.Gesture.addEventListener("orientationchange", function(e){
 	var orientation = Ti.Gesture.orientation;
-	if(orientation === 3 || orientation === 4){
-		$.vp.fullscreen = true
-	}
-	if(orientation === 1 || orientation === 2){
-		$.vp.fullscreen = false
+	if(orientation!=0){
+		if(orientation === 3 || orientation === 4){
+			$.vp.fullscreen = true;	
+		}
+		if(orientation === 1 || orientation === 2){
+			$.vp.fullscreen = false
+		}
 	}
 });
 
@@ -119,7 +124,12 @@ function getPathVideo(type,path)
 {
 	$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
 	$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-	$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+	if (Ti.Platform.osname == 'android'){
+	$.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+	}
+	else {
+		$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+	}
 	var name = getName(path);		
 	if(type == 'vod')
 	{

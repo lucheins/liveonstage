@@ -32,6 +32,8 @@ function Controller() {
     });
     $.__views.feedWin.add($.__views.Navigation);
     $.__views.actionIos = Ti.UI.createView({
+        zIndex: 10,
+        height: "100%",
         id: "actionIos"
     });
     $.__views.Navigation.add($.__views.actionIos);
@@ -360,7 +362,15 @@ function Controller() {
         left: 0
     });
     var upcomming = Ti.UI.createTableView();
-    var artists = Ti.UI.createTableView();
+    var artists = Ti.UI.createScrollView({
+        width: "100%",
+        height: "100%",
+        contentWidth: "auto",
+        contentHeight: "auto",
+        top: 0,
+        left: 0,
+        backgroundColor: "#f2f2f2"
+    });
     var backArrow = Ti.UI.createLabel({
         color: "Gray",
         text: "◃"
@@ -373,7 +383,7 @@ function Controller() {
     1 == activeTab && data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
     2 == activeTab && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
     3 == activeTab && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, 0, "Events");
-    4 == activeTab && data.getDataLists($.activity, artists, 0, 0, "Artists", categoryId);
+    4 == activeTab && data.getArtists($.activity, artists, 0, 0, categoryId);
     $.videosScreen.add(live);
     $.categoriesScreen.add(categories);
     $.campaignsScreen.add(campaigns);
@@ -420,9 +430,9 @@ function Controller() {
     $.scrollableView.addEventListener("scrollend", function() {
         0 == $.scrollableView.currentPage && 0 == categories.data.length && data.getCategories($.activity, categories);
         1 == $.scrollableView.currentPage && 0 == live.data.length && data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
-        2 == $.scrollableView.currentPage && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
+        2 == $.scrollableView.currentPage && 0 == campaigns.children.length && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
         3 == $.scrollableView.currentPage && 0 == upcomming.data.length && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, 0, "Events");
-        4 == $.scrollableView.currentPage && 0 == artists.data.length && data.getDataLists($.activity, artists, 0, 0, "Artists", categoryId);
+        4 == $.scrollableView.currentPage && 0 == artists.children.length && data.getArtists($.activity, artists, 0, 0, categoryId);
     });
     categories.addEventListener("click", function(e) {
         var title = "Categories";

@@ -1,10 +1,4 @@
 function Controller() {
-    function closeView() {
-        $.vp.hide();
-        $.vp.release();
-        $.vp = null;
-        $.viewVideo.close();
-    }
     function getName(name) {
         var names = name.split("_");
         name = names[0] + "_" + Alloy.Globals.RESOLUCION_VIDEO;
@@ -14,7 +8,7 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+        "android" == Ti.Platform.osname ? $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT : $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
@@ -42,12 +36,10 @@ function Controller() {
     arguments[0] ? arguments[0]["$model"] : null;
     var $ = this;
     var exports = {};
-    var __defers = {};
     $.__views.viewVideo = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: Alloy.Globals.NAME_PAGE,
-        id: "viewVideo",
-        navBarHidden: "true"
+        id: "viewVideo"
     });
     $.__views.viewVideo && $.addTopLevelView($.__views.viewVideo);
     $.__views.activity = Ti.UI.createActivityIndicator({
@@ -63,54 +55,7 @@ function Controller() {
         id: "activity"
     });
     $.__views.viewVideo.add($.__views.activity);
-    $.__views.Navigation = Ti.UI.createView({
-        height: "9%",
-        top: "0%",
-        backgroundColor: "#f2f2f2",
-        backgroundImage: "/light-diagonal-strips.png",
-        backgroundRepeat: true,
-        id: "Navigation"
-    });
-    $.__views.viewVideo.add($.__views.Navigation);
-    $.__views.actionIos = Ti.UI.createView({
-        zIndex: 10,
-        height: "100%",
-        id: "actionIos"
-    });
-    $.__views.Navigation.add($.__views.actionIos);
-    closeView ? $.__views.actionIos.addEventListener("click", closeView) : __defers["$.__views.actionIos!click!closeView"] = true;
-    $.__views.backArrow = Ti.UI.createLabel({
-        left: "0%",
-        width: "5%",
-        font: {
-            fontSize: "20dp"
-        },
-        color: "gray",
-        id: "backArrow"
-    });
-    $.__views.actionIos.add($.__views.backArrow);
-    $.__views.icon = Ti.UI.createImageView({
-        left: "5%",
-        width: "12%",
-        height: "90%",
-        top: "5%",
-        id: "icon",
-        image: "/icon-small.png"
-    });
-    $.__views.actionIos.add($.__views.icon);
-    $.__views.current = Ti.UI.createLabel({
-        left: "19%",
-        text: "Live Shows",
-        id: "current"
-    });
-    $.__views.Navigation.add($.__views.current);
-    $.__views.__alloyId30 = Ti.UI.createView({
-        id: "__alloyId30"
-    });
-    $.__views.Navigation.add($.__views.__alloyId30);
     $.__views.container = Ti.UI.createView({
-        height: "91%",
-        top: "9%",
         id: "container"
     });
     $.__views.viewVideo.add($.__views.container);
@@ -199,7 +144,7 @@ function Controller() {
                 actionBar = $.viewVideo.activity.actionBar;
                 if (actionBar) {
                     actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = Alloy.Globals.NAME_PAGE + " - Live Show";
+                    actionBar.title = "Live Shows";
                     actionBar.displayHomeAsUp = true;
                     actionBar.onHomeIconItemSelected = function() {
                         $.vp.hide();
@@ -211,16 +156,22 @@ function Controller() {
             } else Ti.API.error("Can't access action bar on a lightweight window.");
         });
     } else {
-        var backArrow = Ti.UI.createLabel({
-            color: "Gray",
-            text: "◃"
-        });
-        $.backArrow.add(backArrow);
+        $.container.top = "9%", $.container.height = "91%";
+        var args = {
+            ventana: $.viewVideo,
+            vp: $.vp,
+            container: $.container,
+            title: "Live Shows"
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.viewVideo.add(win);
     }
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
-        (3 === orientation || 4 === orientation) && ($.vp.fullscreen = true);
-        (1 === orientation || 2 === orientation) && ($.vp.fullscreen = false);
+        if (0 != orientation) {
+            (3 === orientation || 4 === orientation) && ($.vp.fullscreen = true);
+            (1 === orientation || 2 === orientation) && ($.vp.fullscreen = false);
+        }
     });
     var data = require("dataExport");
     var categoryId = 0;
@@ -268,7 +219,6 @@ function Controller() {
             }
         }
     });
-    __defers["$.__views.actionIos!click!closeView"] && $.__views.actionIos.addEventListener("click", closeView);
     _.extend($, exports);
 }
 

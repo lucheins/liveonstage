@@ -1,6 +1,8 @@
 <Alloy>
 	<Window id="viewListOfProfile">	
 		<ActivityIndicator id="activity"/>
-				<TableView id="table" />	
+				<View id="container">
+				<TableView id="table" />
+				</View>	
 	</Window>
 </Alloy>

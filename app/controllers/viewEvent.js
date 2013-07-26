@@ -9,7 +9,7 @@ if(Ti.Platform.osname == 'android')
 	            actionBar = $.viewEvent.activity.actionBar;
 	            if (actionBar) {
 	                actionBar.backgroundImage = "/bg.png";
-	                actionBar.title = Alloy.Globals.NAME_PAGE + " - View Upcoming";	                
+	                actionBar.title = "Upcoming Events";	                
 	                actionBar.onHomeIconItemSelected = function() {
 						$.viewEvent.close();
 	                };
@@ -17,6 +17,20 @@ if(Ti.Platform.osname == 'android')
 	        }
 	    
 	});
+}
+
+else {	
+	$.container.top = '9%',
+	$.container.height = '91%'	
+var args = {
+	ventana: $.viewEvent,
+	vp: $.vp,
+	
+	title: "Upcoming Events"       			
+	};
+	      		
+var win = Alloy.createController('actionbarIos',args).getView();
+$.viewEvent.add(win);
 }
 
 var data = require('dataExport');

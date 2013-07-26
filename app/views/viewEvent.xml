@@ -1,6 +1,7 @@
 <Alloy>
 	<Window id="viewEvent" backgroundColor="white" >	
 		<ActivityIndicator id="activity"/>
+		<View id="container">
 		<Label id="title" />
 		<ImageView id="image"/>
 		<Label id="author" />
@@ -13,6 +14,7 @@
 		<View id="other">
 		<Label id="otherEvents">Other events from this Artist:</Label>
 		</View>	
-		<TableView id="table" />		
+		<TableView id="table" />
+		</View>		
 	</Window>
 </Alloy>

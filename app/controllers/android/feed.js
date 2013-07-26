@@ -25,13 +25,14 @@ var artists = Ti.UI.createScrollView({
 			left:0,
 			backgroundColor: '#f2f2f2'
 		});
+
 	
 var pagerDataScrolling = [
 		{ title: "Categories",	view: categories },
 		{ title: "Live Shows",	view: live },
 		{ title: "Campaigns",	view: campaigns },
 		{ title: "Upcomming",	view: upcomming },
-		{ title: "Artist",		view: artists }		
+		{ title: "Artists",		view: artists }		
 	];
 	
 var viewPager = module.createViewPager(
@@ -70,7 +71,7 @@ $.feedWin.addEventListener("open", function() {
             actionBar = $.feedWin.activity.actionBar;
             if (actionBar) {
                 actionBar.backgroundImage = "/bg.png";
-                //actionBar.title = "Categories";
+                actionBar.title = '';
                 actionBar.displayHomeAsUp = true;
                 actionBar.onHomeIconItemSelected = function() {
                     resetInitPage(0, 'Categories');

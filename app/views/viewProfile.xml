@@ -1,6 +1,7 @@
 <Alloy>
 	<Window id="viewProfile">	
 		<ActivityIndicator id="activity"/>
+		
 		<View id="container">
 		<VideoPlayer id="vp" />
 		<View id="data">	

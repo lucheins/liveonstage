@@ -8,7 +8,7 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+        "android" == Ti.Platform.osname ? $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT : $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
@@ -198,7 +198,7 @@ function Controller() {
                 actionBar = $.viewProfile.activity.actionBar;
                 if (actionBar) {
                     actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = Alloy.Globals.NAME_PAGE + " - Artist";
+                    actionBar.title = "Artists";
                     actionBar.displayHomeAsUp = true;
                     actionBar.onHomeIconItemSelected = function() {
                         $.vp.hide();
@@ -210,11 +210,14 @@ function Controller() {
             } else Ti.API.error("Can't access action bar on a lightweight window.");
         });
     } else {
-        var backArrow = Ti.UI.createLabel({
-            color: "Gray",
-            text: "◃"
-        });
-        $.backArrow.add(backArrow);
+        $.container.top = "9%", $.container.height = "91%";
+        var args = {
+            ventana: $.viewProfile,
+            vp: $.vp,
+            title: "Artists"
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.viewProfile.add(win);
     }
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
@@ -242,22 +245,28 @@ function Controller() {
         $.event.addEventListener("click", function() {
             var args = {
                 author: responses.creator,
+                authorname: responses.name,
                 view: "Events"
             };
+            $.vp.pause();
             openWindows(args);
         });
         $.video.addEventListener("click", function() {
             var args = {
                 author: responses.creator,
+                authorname: responses.name,
                 view: "Videos"
             };
+            $.vp.pause();
             openWindows(args);
         });
         $.campaign.addEventListener("click", function() {
             var args = {
                 author: responses.creator,
+                authorname: responses.name,
                 view: "Campaigns"
             };
+            $.vp.pause();
             openWindows(args);
         });
     };

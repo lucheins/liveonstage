@@ -11,7 +11,7 @@ $.viewListOfProfile.addEventListener("open", function() {
             actionBar = $.viewListOfProfile.activity.actionBar;
             if (actionBar) {
                 actionBar.backgroundImage = "/bg.png";
-                actionBar.title = Alloy.Globals.NAME_PAGE + " - " + args.view;
+                actionBar.title = args.authorname + " - " + args.view;
                 actionBar.displayHomeAsUp = true;
                 actionBar.onHomeIconItemSelected = function() {
 					$.viewListOfProfile.close();
@@ -22,12 +22,17 @@ $.viewListOfProfile.addEventListener("open", function() {
 });
 }
 else {
-var backArrow = Ti.UI.createLabel({
-  color:'Gray',
-  text: '\u25c3',
-});
-
-$.backArrow.add(backArrow);
+	$.container.top = '9%',
+	$.container.height = '91%'	
+var args = {
+	ventana: $.viewListOfProfile,
+	vp: $.vp,
+	
+	title: args.authorname + "-" + args.view       	        			
+	};
+	      		
+var win = Alloy.createController('actionbarIos',args).getView();
+$.viewListOfProfile.add(win);
 }
 
 data.getListOfProfile($.activity, $.table,0,0, args.author, args.view);

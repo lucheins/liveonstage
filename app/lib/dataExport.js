@@ -11,6 +11,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 	client.onload = function(){
 		var responses = JSON.parse(this.responseText);
 		var band = true;
+		var more = false;
 		for (var i=0; i < responses.length; i++) {	
 			if(responses[i].title != 'more')
 			{
@@ -25,6 +26,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 	        			isOdd: i%2,
 	        			percent: responses[i].percent,
 	        			days: responses[i].days,
+	        		
 	      		};
 		        var row = Alloy.createController('tileCampaigns',args).getView(); 
 		       band = false;

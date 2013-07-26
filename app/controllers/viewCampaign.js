@@ -1,33 +1,52 @@
 var id = arguments[0] || {};
-if(Ti.Platform.osname == 'android')
-{
-	var actionBar;
-	$.viewCampaign.addEventListener("open", function() {	
-   if (! $.viewCampaign.activity) {
-	            Ti.API.error("Can't access action bar on a lightweight window.");
-	        } else {
-	            actionBar = $.viewCampaign.activity.actionBar;
-	            if (actionBar) {
-	                actionBar.backgroundImage = "/bg.png";
-	                actionBar.title = Alloy.Globals.NAME_PAGE + " - View Campaign";	                
-	                actionBar.onHomeIconItemSelected = function() {
-	                   $.vp.hide();
-					    $.vp.release();
-					    $.vp = null;
-						$.viewCampaign.close();
-	                };
-	            }
-	        }
-	    
-	});
+
+if (Ti.Platform.osname == 'android'){
+var actionBar;
+$.viewCampaign.addEventListener("open", function() {
+    
+        if (! $.viewCampaign.activity) {
+            Ti.API.error("Can't access action bar on a lightweight window.");
+        } else {
+            actionBar = $.viewCampaign.activity.actionBar;
+            if (actionBar) {
+                actionBar.backgroundImage = "/bg.png";
+                actionBar.title = "Campaigns";
+                actionBar.displayHomeAsUp = true;
+                actionBar.onHomeIconItemSelected = function() {
+                    $.vp.hide();
+				    $.vp.release();
+				    $.vp = null;
+					$.viewCampaign.close();
+                };
+            }
+        }
+    
+});
 }
+
+else {
+	$.scroll.top = '8%',
+	$.scroll.height = '81%'	
+var args = {
+	ventana: $.viewCampaign,
+	vp: $.vp,
+	
+	title: "Campaigns"       	        			
+	};
+	      		
+var win = Alloy.createController('actionbarIos',args).getView();
+$.viewCampaign.add(win);
+}
+
 Ti.Gesture.addEventListener("orientationchange", function(e){
 	var orientation = Ti.Gesture.orientation;
-	if(orientation === 3 || orientation === 4){
-		$.vp.fullscreen = true
-	}
-	if(orientation === 1 || orientation === 2){
-		$.vp.fullscreen = false
+	if(orientation!=0){
+		if(orientation === 3 || orientation === 4){
+			$.vp.fullscreen = true;	
+		}
+		if(orientation === 1 || orientation === 2){
+			$.vp.fullscreen = false
+		}
 	}
 });
 
@@ -112,7 +131,12 @@ function getPathVideo(type,path)
 {
 	$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
 	$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-	$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+	if (Ti.Platform.osname == 'android'){
+	$.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+	}
+	else {
+		$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+	}
 	var name = getName(path);		
 	if(type == 'vod')
 	{

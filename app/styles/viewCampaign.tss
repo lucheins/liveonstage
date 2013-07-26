@@ -1,3 +1,7 @@
+"#scroll": {
+	top:'0%',
+	height: '90%'
+	},
 "#vp": {
  	top : '10dp',
     autoplay : true,

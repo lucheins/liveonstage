@@ -1,17 +1,6 @@
-"#actionIos": {
-	zIndex: 10,
-	height: '100%'
-	}
-"#container": {
-	height: '91%',
-	top: '9%'
-	},
-".menuBarBottomBorder":{
-	height: '2%',
-	backgroundColor: '#e4473e',
-	width: '100%',
-	bottom: '0%'
-	},
+
+
+
 "#vp": {
  	top : '2%',
     autoplay : true,

@@ -13,7 +13,15 @@ var campaigns = Ti.UI.createScrollView({
 			left:0
 		})
 var upcomming = Ti.UI.createTableView();
-var artists = Ti.UI.createTableView();
+var artists = Ti.UI.createScrollView({
+			width:"100%",
+			height:"100%",
+			contentWidth:"auto",
+			contentHeight:"auto",
+			top:0,
+			left:0,
+			backgroundColor: '#f2f2f2'
+		});
 
 var backArrow = Ti.UI.createLabel({
   color:'Gray',
@@ -40,7 +48,7 @@ if (activeTab == 3){
 		data.getListItems($.activity, upcomming,0,0,categoryId,0,0,'Events');
 	}
 if (activeTab == 4){
-		data.getDataLists($.activity, artists,0,0,'Artists',categoryId);
+		data.getArtists($.activity, artists,0,0,categoryId);
 	}
 
 $.videosScreen.add(live);
@@ -136,7 +144,7 @@ $.scrollableView.addEventListener("scrollend", function(e){
 		data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
 	}
     
-   if(($.scrollableView.currentPage == 2))
+   if(($.scrollableView.currentPage == 2) && (campaigns.children.length == 0) )
 	{
 		data.getCampaigns($.activity, campaigns,0,0,categoryId);
 	}
@@ -146,9 +154,9 @@ $.scrollableView.addEventListener("scrollend", function(e){
 		data.getListItems($.activity, upcomming,0,0,categoryId,0,0,'Events');
 	}
 
-	if(($.scrollableView.currentPage == 4) && (artists.data.length == 0))
+	if(($.scrollableView.currentPage == 4) && (artists.children.length == 0) )
 	{
-		data.getDataLists($.activity, artists,0,0,'Artists',categoryId);
+		data.getArtists($.activity, artists,0,0,categoryId);
 	}
 });
 

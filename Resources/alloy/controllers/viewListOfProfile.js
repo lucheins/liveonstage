@@ -23,11 +23,15 @@ function Controller() {
         id: "activity"
     });
     $.__views.viewListOfProfile.add($.__views.activity);
+    $.__views.container = Ti.UI.createView({
+        id: "container"
+    });
+    $.__views.viewListOfProfile.add($.__views.container);
     $.__views.table = Ti.UI.createTableView({
         top: "0dp",
         id: "table"
     });
-    $.__views.viewListOfProfile.add($.__views.table);
+    $.__views.container.add($.__views.table);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
@@ -39,7 +43,7 @@ function Controller() {
                 actionBar = $.viewListOfProfile.activity.actionBar;
                 if (actionBar) {
                     actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = Alloy.Globals.NAME_PAGE + " - " + args.view;
+                    actionBar.title = args.authorname + " - " + args.view;
                     actionBar.displayHomeAsUp = true;
                     actionBar.onHomeIconItemSelected = function() {
                         $.viewListOfProfile.close();
@@ -48,11 +52,14 @@ function Controller() {
             } else Ti.API.error("Can't access action bar on a lightweight window.");
         });
     } else {
-        var backArrow = Ti.UI.createLabel({
-            color: "Gray",
-            text: "◃"
-        });
-        $.backArrow.add(backArrow);
+        $.container.top = "9%", $.container.height = "91%";
+        var args = {
+            ventana: $.viewListOfProfile,
+            vp: $.vp,
+            title: args.authorname + "-" + args.view
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.viewListOfProfile.add(win);
     }
     data.getListOfProfile($.activity, $.table, 0, 0, args.author, args.view);
     $.table.addEventListener("click", function(e) {

@@ -9,6 +9,7 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
     client.onload = function() {
         var responses = JSON.parse(this.responseText);
         var band = true;
+        var more = false;
         for (var i = 0; responses.length > i; i++) {
             if ("more" != responses[i].title) {
                 var link = responses[i].id;

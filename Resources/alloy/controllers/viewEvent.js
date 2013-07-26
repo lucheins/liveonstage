@@ -23,6 +23,10 @@ function Controller() {
         id: "activity"
     });
     $.__views.viewEvent.add($.__views.activity);
+    $.__views.container = Ti.UI.createView({
+        id: "container"
+    });
+    $.__views.viewEvent.add($.__views.container);
     $.__views.title = Ti.UI.createLabel({
         font: {
             fontSize: "16dp",
@@ -34,7 +38,7 @@ function Controller() {
         color: "#717777",
         id: "title"
     });
-    $.__views.viewEvent.add($.__views.title);
+    $.__views.container.add($.__views.title);
     $.__views.image = Ti.UI.createImageView({
         top: "25dp",
         width: "45%",
@@ -42,7 +46,7 @@ function Controller() {
         left: "10dp",
         id: "image"
     });
-    $.__views.viewEvent.add($.__views.image);
+    $.__views.container.add($.__views.image);
     $.__views.author = Ti.UI.createLabel({
         font: {
             fontSize: "14dp"
@@ -53,7 +57,7 @@ function Controller() {
         color: "#717777",
         id: "author"
     });
-    $.__views.viewEvent.add($.__views.author);
+    $.__views.container.add($.__views.author);
     $.__views.date = Ti.UI.createLabel({
         font: {
             fontSize: "14dp"
@@ -64,7 +68,7 @@ function Controller() {
         color: "#717777",
         id: "date"
     });
-    $.__views.viewEvent.add($.__views.date);
+    $.__views.container.add($.__views.date);
     $.__views.views = Ti.UI.createLabel({
         font: {
             fontSize: "14dp"
@@ -75,14 +79,14 @@ function Controller() {
         color: "#717777",
         id: "views"
     });
-    $.__views.viewEvent.add($.__views.views);
+    $.__views.container.add($.__views.views);
     $.__views.content = Ti.UI.createView({
         top: "25%",
         left: "0dp",
         height: "15%",
         id: "content"
     });
-    $.__views.viewEvent.add($.__views.content);
+    $.__views.container.add($.__views.content);
     $.__views.titleDescription = Ti.UI.createLabel({
         font: {
             fontSize: "14dp",
@@ -114,7 +118,7 @@ function Controller() {
         height: "22dp",
         id: "other"
     });
-    $.__views.viewEvent.add($.__views.other);
+    $.__views.container.add($.__views.other);
     $.__views.otherEvents = Ti.UI.createLabel({
         font: {
             fontSize: "14dp",
@@ -132,7 +136,7 @@ function Controller() {
         top: "45%",
         id: "table"
     });
-    $.__views.viewEvent.add($.__views.table);
+    $.__views.container.add($.__views.table);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
@@ -143,13 +147,22 @@ function Controller() {
                 actionBar = $.viewEvent.activity.actionBar;
                 if (actionBar) {
                     actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = Alloy.Globals.NAME_PAGE + " - View Upcoming";
+                    actionBar.title = "Upcoming Events";
                     actionBar.onHomeIconItemSelected = function() {
                         $.viewEvent.close();
                     };
                 }
             } else Ti.API.error("Can't access action bar on a lightweight window.");
         });
+    } else {
+        $.container.top = "9%", $.container.height = "91%";
+        var args = {
+            ventana: $.viewEvent,
+            vp: $.vp,
+            title: "Upcoming Events"
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.viewEvent.add(win);
     }
     var data = require("dataExport");
     var categoryId = 0;

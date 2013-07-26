@@ -8,7 +8,7 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+        "android" == Ti.Platform.osname ? $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT : $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
@@ -43,10 +43,10 @@ function Controller() {
     });
     $.__views.viewCampaign && $.addTopLevelView($.__views.viewCampaign);
     $.__views.scroll = Ti.UI.createScrollView({
+        top: "0%",
+        height: "90%",
         id: "scroll",
         width: "100%",
-        height: "90%",
-        top: "0dp",
         scrollType: "vertical"
     });
     $.__views.viewCampaign.add($.__views.scroll);
@@ -253,7 +253,8 @@ function Controller() {
                 actionBar = $.viewCampaign.activity.actionBar;
                 if (actionBar) {
                     actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = Alloy.Globals.NAME_PAGE + " - View Campaign";
+                    actionBar.title = "Campaigns";
+                    actionBar.displayHomeAsUp = true;
                     actionBar.onHomeIconItemSelected = function() {
                         $.vp.hide();
                         $.vp.release();
@@ -263,6 +264,15 @@ function Controller() {
                 }
             } else Ti.API.error("Can't access action bar on a lightweight window.");
         });
+    } else {
+        $.scroll.top = "8%", $.scroll.height = "81%";
+        var args = {
+            ventana: $.viewCampaign,
+            vp: $.vp,
+            title: "Campaigns"
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.viewCampaign.add(win);
     }
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
