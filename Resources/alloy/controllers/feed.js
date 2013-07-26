@@ -1,7 +1,7 @@
 function Controller() {
     function resetInitPage(catId, title) {
         categoryId = catId;
-        actionBar.title = Alloy.Globals.NAME_PAGE + " - " + title;
+        actionBar.title = title;
         live.setData([]);
         campaigns.removeAllChildren();
         campaigns.removeAllChildren();
@@ -111,7 +111,7 @@ function Controller() {
             actionBar = $.feedWin.activity.actionBar;
             if (actionBar) {
                 actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "";
+                actionBar.title = Alloy.Globals.NAME_PAGE;
                 actionBar.displayHomeAsUp = true;
                 actionBar.onHomeIconItemSelected = function() {
                     resetInitPage(0, "Categories");
