@@ -133,13 +133,15 @@ function Controller() {
     $.cover.image = imageLink;
     $.cover.touchEnabled = false;
     var pB = Titanium.UI.createProgressBar({
-        top: 0,
+        top: "0%",
         width: "90%",
-        height: "auto",
+        height: "20%",
+        left: "5%",
         min: 0,
         max: 10,
         value: 4,
         color: "#000",
+        zIndex: 20,
         font: {
             fontSize: 14,
             fontWeight: "bold"
@@ -165,18 +167,11 @@ function Controller() {
     $.videocover.add(theImageShadow);
     $.videocover.addEventListener("click", function() {
         var win = Alloy.createController("viewCampaign", args.link).getView();
-        if ("android" == Ti.Platform.osname) {
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
-        } else {
-            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-            win.open({
-                transition: t
-            });
-        }
+        win.fullscreen = false;
+        win.open({
+            activityEnterAnimation: Ti.Android.R.anim.fade_in,
+            activityExitAnimation: Ti.Android.R.anim.fade_out
+        });
     });
     _.extend($, exports);
 }

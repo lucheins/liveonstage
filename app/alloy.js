@@ -31,3 +31,4 @@ Alloy.Globals.URL_VOD_END = '.mp4';
 Alloy.Globals.RESOLUCION_VIDEO = '240p';
 Alloy.Globals.TITLE_SIZE = 30;
 Alloy.Globals.DESCRIPTION_SIZE = 160;
+Alloy.Globals.ABOUT = 150;

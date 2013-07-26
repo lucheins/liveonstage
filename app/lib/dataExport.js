@@ -162,7 +162,7 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 		        var args = {
 	        			name: responses[i].title,	        			
 	        			link: link,
-	        			image: responses[i].thumb,
+	        			image: responses[i].avatar,
 	        			id: responses[i].campaign,
 	        			received:  responses[i].received,
 	        			days: responses[i].days,
@@ -171,7 +171,11 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 	        			percent: responses[i].percent,
 	        			videos: responses[i].num_videos,
 	        			row: i + item,
-	        			isOdd: i%2
+	        			isOdd: i%2,
+	        			views: responses[i].view,
+	        			status: responses[i].status,
+	        			about: responses[i].about,
+	        			id: responses[i].id
 	      		};
 		        var row = Alloy.createController('viewArtists',args).getView(); 
 		        band = false;

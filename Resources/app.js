@@ -42,4 +42,6 @@ Alloy.Globals.TITLE_SIZE = 30;
 
 Alloy.Globals.DESCRIPTION_SIZE = 160;
 
+Alloy.Globals.ABOUT = 150;
+
 Alloy.createController("index");

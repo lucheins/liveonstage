@@ -6,13 +6,17 @@
 	    	</View>
 	    	<View id="videoinfo">
 		    	<Label id="title"/>
+		    	<View id="data">
+		    		<Label id="about" />
+		    		<Label id="views" />		    		
+		    		<Label id="videos" />
+		    	</View>		    	
 		    	<View id="progressBar"/>
 			    	<View id="progressInfo">
 				    	<Label id="accomplished" />
 				    	<Label id="percentage" />
 				    	<Label id="days" />
-			    	</View>
-			    	<Label id="videos" />
+			    	</View>			    
 	    	</View>
 	    </View> 
     </View>

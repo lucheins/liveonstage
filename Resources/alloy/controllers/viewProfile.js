@@ -8,7 +8,7 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        "android" == Ti.Platform.osname ? $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT : $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+        $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
@@ -20,29 +20,18 @@ function Controller() {
             y = JSON.parse(x).content.video["fmt_stream_map"][0].url;
             vp.url = y;
         };
-        if ("android" != Ti.Platform.osname) {
-            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
-        }
         vdldr.open("GET", "http://m.youtube.com/watch?ajax=1&feature=related&layout=mobile&tsp=1&&v=" + video_id);
-        if ("android" == Ti.Platform.osname) {
-            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
-        }
+        vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+        vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
         vdldr.send();
     }
     function openWindows(arg) {
         var win = Alloy.createController("viewListOfProfile", arg).getView();
         win.fullscreen = false;
-        if ("android" == Ti.Platform.osname) win.open({
+        win.open({
             activityEnterAnimation: Ti.Android.R.anim.fade_in,
             activityExitAnimation: Ti.Android.R.anim.fade_out
-        }); else {
-            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-            win.open({
-                transition: t
-            });
-        }
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -81,6 +70,13 @@ function Controller() {
         id: "vp"
     });
     $.__views.container.add($.__views.vp);
+    $.__views.cover = Ti.UI.createImageView({
+        top: "25dp",
+        height: "55%",
+        width: "95%",
+        id: "cover"
+    });
+    $.__views.container.add($.__views.cover);
     $.__views.data = Ti.UI.createView({
         top: "61%",
         height: "20%",
@@ -190,39 +186,33 @@ function Controller() {
     $.__views.campaign.add($.__views.labelLink);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var id = arguments[0] || {};
-    if ("android" == Ti.Platform.osname) {
-        var actionBar;
-        $.viewProfile.addEventListener("open", function() {
-            if ($.viewProfile.activity) {
-                actionBar = $.viewProfile.activity.actionBar;
-                if (actionBar) {
-                    actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = "Artists";
-                    actionBar.displayHomeAsUp = true;
-                    actionBar.onHomeIconItemSelected = function() {
-                        $.vp.hide();
-                        $.vp.release();
-                        $.vp = null;
-                        $.viewProfile.close();
-                    };
-                }
-            } else Ti.API.error("Can't access action bar on a lightweight window.");
-        });
-    } else {
-        $.container.top = "9%", $.container.height = "91%";
-        var args = {
-            ventana: $.viewProfile,
-            vp: $.vp,
-            title: "Artists"
-        };
-        var win = Alloy.createController("actionbarIos", args).getView();
-        $.viewProfile.add(win);
-    }
+    var args = arguments[0] || {};
+    id = args.video;
+    author = args.author;
+    var args;
+    var actionBar;
+    $.viewProfile.addEventListener("open", function() {
+        if ($.viewProfile.activity) {
+            actionBar = $.viewProfile.activity.actionBar;
+            if (actionBar) {
+                actionBar.backgroundImage = "/bg.png";
+                actionBar.title = "Artists";
+                actionBar.displayHomeAsUp = true;
+                actionBar.onHomeIconItemSelected = function() {
+                    $.vp.hide();
+                    $.vp.release();
+                    $.vp = null;
+                    $.viewProfile.close();
+                };
+            }
+        } else Ti.API.error("Can't access action bar on a lightweight window.");
+    });
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
-        (3 === orientation || 4 === orientation) && ($.vp.fullscreen = true);
-        (1 === orientation || 2 === orientation) && ($.vp.fullscreen = false);
+        if (0 != orientation) {
+            (3 === orientation || 4 === orientation) && ($.vp.fullscreen = true);
+            (1 === orientation || 2 === orientation) && ($.vp.fullscreen = false);
+        }
     });
     var client = Ti.Network.createHTTPClient();
     var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_PROFILE;
@@ -237,10 +227,17 @@ function Controller() {
         if ("vod" == responses.type || "live" == responses.type) {
             url = getPathVideo(responses.type, responses.path);
             $.vp.url = url;
-        } else url = getUrlYoutube(responses.video_id, $.vp);
+        } else if (responses.type) url = getUrlYoutube(responses.video_id, $.vp); else {
+            var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
+            if (responses.avatar.length > 0) {
+                imageLink = responses.avatar;
+                "http" != imageLink.substring(0, 4) && (imageLink = Alloy.Globals.DOMAIN + imageLink);
+            }
+            $.cover.image = imageLink;
+        }
         $.author.text = responses.name;
         $.videos.text = responses.num_videos + " videos publised.";
-        $.views.text = responses.views;
+        $.views.text = responses.view + " Profile views";
         $.activity.hide();
         $.event.addEventListener("click", function() {
             var args = {
@@ -275,7 +272,8 @@ function Controller() {
     };
     var params = {
         item_id: id,
-        tc: Alloy.Globals.USER_MOBILE.toString()
+        tc: Alloy.Globals.USER_MOBILE.toString(),
+        author: author
     };
     client.send(params);
     _.extend($, exports);

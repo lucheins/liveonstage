@@ -4,6 +4,7 @@
 		
 		<View id="container">
 		<VideoPlayer id="vp" />
+		<ImageView id="cover"/>
 		<View id="data">	
 			<Label id="author" />
 			<Label id="views" />

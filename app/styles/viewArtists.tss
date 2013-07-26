@@ -38,7 +38,6 @@
 	},
 "#title": {
 	top: '2%',
-	height: '60%',
 	textAlign: 'center',
 	font:{fontSize:14}
 	},
@@ -82,10 +81,26 @@
 	},
 "#videos":
 {
-	top: '10%',
 	font:{fontSize:11},
-	height: '100%',
 	color: 'gray',
 	left: '3%'
 }
+"#data": {
+	top: '30%'
+	},
+"#views":
+{
+	font:{fontSize:11},
+	color: 'gray',
+	left: '3%'
+}
+
+"#about":
+{
+	font:{fontSize:11},
+	color: 'gray',
+	left: '3%',
+	height: '27'
+}
+
 

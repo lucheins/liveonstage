@@ -52,7 +52,6 @@ function Controller() {
     $.__views.tile.add($.__views.videoinfo);
     $.__views.title = Ti.UI.createLabel({
         top: "2%",
-        height: "60%",
         textAlign: "center",
         font: {
             fontSize: 14
@@ -60,6 +59,39 @@ function Controller() {
         id: "title"
     });
     $.__views.videoinfo.add($.__views.title);
+    $.__views.data = Ti.UI.createView({
+        top: "30%",
+        id: "data"
+    });
+    $.__views.videoinfo.add($.__views.data);
+    $.__views.about = Ti.UI.createLabel({
+        font: {
+            fontSize: 11
+        },
+        color: "gray",
+        left: "3%",
+        height: "27",
+        id: "about"
+    });
+    $.__views.data.add($.__views.about);
+    $.__views.views = Ti.UI.createLabel({
+        font: {
+            fontSize: 11
+        },
+        color: "gray",
+        left: "3%",
+        id: "views"
+    });
+    $.__views.data.add($.__views.views);
+    $.__views.videos = Ti.UI.createLabel({
+        font: {
+            fontSize: 11
+        },
+        color: "gray",
+        left: "3%",
+        id: "videos"
+    });
+    $.__views.data.add($.__views.videos);
     $.__views.progressBar = Ti.UI.createView({
         top: "62%",
         height: "5%",
@@ -115,17 +147,6 @@ function Controller() {
         id: "days"
     });
     $.__views.progressInfo.add($.__views.days);
-    $.__views.videos = Ti.UI.createLabel({
-        top: "10%",
-        font: {
-            fontSize: 11
-        },
-        height: "100%",
-        color: "gray",
-        left: "3%",
-        id: "videos"
-    });
-    $.__views.videoinfo.add($.__views.videos);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
@@ -136,7 +157,7 @@ function Controller() {
     $.container.height = height + "dp";
     $.container.top = height * args.row + "dp";
     var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
-    if (null != args.image) {
+    if (args.image.length > 0) {
         imageLink = args.image;
         "http" != imageLink.substring(0, 4) && (imageLink = Alloy.Globals.DOMAIN + imageLink);
     }
@@ -161,21 +182,33 @@ function Controller() {
         $.accomplished.text = "$" + args.received + " Pledged";
         $.days.text = args.days + " Days to go";
         $.percentage.text = args.percent + " % Funded";
-    } else $.videos.text = args.videos + " videos publised.";
-    $.videocover.addEventListener("click", function() {
-        var win = Alloy.createController("viewProfile", args.link).getView();
-        if ("android" == Ti.Platform.osname) {
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
-        } else {
-            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-            win.open({
-                transition: t
-            });
+    } else {
+        $.videos.text = args.videos + " videos publised.";
+        var textInfo = "";
+        args.status && (textInfo = args.status);
+        args.about && "" == textInfo && (textInfo = args.about);
+        var top = 5;
+        if ("" != textInfo) {
+            textInfo.length > Alloy.Globals.ABOUT && (textInfo = textInfo.substring(0, Alloy.Globals.ABOUT - 2) + "...");
+            $.about.text = textInfo;
+            $.about.top = 0;
+            top = 25;
         }
+        $.views.text = args.views + " Profile views";
+        $.videos.top = top;
+        $.views.top = top + 15;
+    }
+    $.videocover.addEventListener("click", function() {
+        var args1 = {
+            video: args.link,
+            author: args.id
+        };
+        var win = Alloy.createController("viewProfile", args1).getView();
+        win.fullscreen = false;
+        win.open({
+            activityEnterAnimation: Ti.Android.R.anim.fade_in,
+            activityExitAnimation: Ti.Android.R.anim.fade_out
+        });
     });
     _.extend($, exports);
 }

@@ -26,16 +26,19 @@ $.cover.image = imageLink;
 $.cover.touchEnabled = false;
 
 var pB=Titanium.UI.createProgressBar({
-    top:0,
+    top:'0%',
     width:'90%',
-    height:'auto',
+    height:'20%',
+    left:'5%',
     min:0,
     max:10,
     value:4,
     color:'#000',
+    zIndex:20,
     font:{fontSize:14, fontWeight:'bold'},
     style:Titanium.UI.iPhone.ProgressBarStyle.PLAIN,
 });
+
 $.progressBar.add(pB);
 pB.show();
 $.accomplished.text = '$' + args.received + ' Pledged';

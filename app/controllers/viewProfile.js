@@ -1,6 +1,6 @@
-var id = arguments[0] || {};
-
-
+var args  = arguments[0] || {};
+id = args.video;
+author = args.author;
 
 if (Ti.Platform.osname == 'android'){
 var actionBar;
@@ -68,11 +68,26 @@ client.onload = function(){
 		url = getPathVideo(responses.type, responses.path);
 		$.vp.url = url;
 	} else {
-	   url = getUrlYoutube(responses.video_id, $.vp);
+		if(!responses.type)
+	    {
+	    	var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
+			if(responses.avatar.length > 0)
+			{
+				imageLink = responses.avatar;
+				if(imageLink.substring(0,4) != 'http')
+				{
+					imageLink = Alloy.Globals.DOMAIN + imageLink;
+				}
+			}
+
+	    	$.cover.image = imageLink;
+	    } else {
+	    	url = getUrlYoutube(responses.video_id, $.vp);
+	    }
 	}
 	$.author.text = responses.name;
 	$.videos.text = responses.num_videos + ' videos publised.';
-	$.views.text = responses.views;	
+	$.views.text = responses.view + ' Profile views';	
 	$.activity.hide(); 
 	
 	$.event.addEventListener('click', function(e){
@@ -109,6 +124,7 @@ client.onerror = function(e){alert('Transmission error: ' + e.error);};
 var params = {
 	item_id : id,
     tc: Alloy.Globals.USER_MOBILE.toString(),
+    author: author
 };
 client.send(params);
 
