@@ -17,7 +17,7 @@ function Controller() {
         width: "230dp",
         color: "black",
         font: {
-            fontSize: 15
+            fontSize: "16dp"
         },
         id: "title"
     });

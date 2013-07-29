@@ -54,7 +54,7 @@ function Controller() {
         top: "2%",
         textAlign: "center",
         font: {
-            fontSize: 14
+            fontSize: "14dp"
         },
         id: "title"
     });
@@ -66,7 +66,7 @@ function Controller() {
     $.__views.videoinfo.add($.__views.data);
     $.__views.about = Ti.UI.createLabel({
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         color: "gray",
         left: "3%",
@@ -76,7 +76,7 @@ function Controller() {
     $.__views.data.add($.__views.about);
     $.__views.views = Ti.UI.createLabel({
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         color: "gray",
         left: "3%",
@@ -85,7 +85,7 @@ function Controller() {
     $.__views.data.add($.__views.views);
     $.__views.videos = Ti.UI.createLabel({
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         color: "gray",
         left: "3%",
@@ -103,7 +103,7 @@ function Controller() {
         height: "33%",
         width: "90%",
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         id: "progressInfo"
     });
@@ -114,7 +114,7 @@ function Controller() {
         width: "30%",
         color: "gray",
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         textAlign: "left",
         left: "3%",
@@ -127,7 +127,7 @@ function Controller() {
         width: "33%",
         color: "gray",
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         textAlign: "center",
         left: "33%",
@@ -140,7 +140,7 @@ function Controller() {
         width: "32%",
         color: "gray",
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         textAlign: "right",
         left: "66%",

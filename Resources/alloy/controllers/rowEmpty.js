@@ -9,6 +9,9 @@ function Controller() {
     });
     $.__views.rowEmpty && $.addTopLevelView($.__views.rowEmpty);
     $.__views.title = Ti.UI.createLabel({
+        font: {
+            fontSize: "14dp"
+        },
         text: "No found Items",
         id: "title"
     });

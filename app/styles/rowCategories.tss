@@ -3,7 +3,7 @@
 		height:'55dp',
 		width:'230dp',
 		color:"black",
-		font:{fontSize:15}
+		font:{fontSize:'16dp'}
 },
 "#rowCategories":{
 	height: '55dp',

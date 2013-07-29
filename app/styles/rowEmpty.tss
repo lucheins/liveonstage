@@ -1,3 +1,5 @@
-".container": {
-	backgroundColor: "white"
+"#title":{
+   	font: {
+	   	fontSize:'14dp'
+		}
 }

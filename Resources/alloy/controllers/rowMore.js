@@ -10,6 +10,9 @@ function Controller() {
     });
     $.__views.rowMore && $.addTopLevelView($.__views.rowMore);
     $.__views.title = Ti.UI.createLabel({
+        font: {
+            fontSize: "14dp"
+        },
         text: "More",
         id: "title"
     });

@@ -55,7 +55,7 @@ function Controller() {
         height: "60%",
         textAlign: "center",
         font: {
-            fontSize: 14
+            fontSize: "14dp"
         },
         id: "title"
     });
@@ -71,7 +71,7 @@ function Controller() {
         height: "33%",
         width: "90%",
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         id: "progressInfo"
     });
@@ -82,7 +82,7 @@ function Controller() {
         width: "30%",
         color: "gray",
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         textAlign: "left",
         left: "3%",
@@ -95,7 +95,7 @@ function Controller() {
         width: "33%",
         color: "gray",
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         textAlign: "center",
         left: "33%",
@@ -108,7 +108,7 @@ function Controller() {
         width: "32%",
         color: "gray",
         font: {
-            fontSize: 11
+            fontSize: "11dp"
         },
         textAlign: "right",
         left: "66%",

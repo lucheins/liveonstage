@@ -1,6 +1,6 @@
 "#title": {	
 	font: {
-		fontSize:14,
+		fontSize:'16dp',
 		fontWeight:'bold' 
 		},
 	left:'110dp',
