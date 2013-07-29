@@ -22,7 +22,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 	        			image: responses[i].image_video,
 	        			id: responses[i].campaign,
 	        			received:  responses[i].received,
-	        			row: i + row,
+	        			row: i + item,
 	        			isOdd: i%2,
 	        			percent: responses[i].percent,
 	        			days: responses[i].days,
@@ -122,7 +122,7 @@ exports.getListItems=function(activity, table,offsetHome, pageHome, category, au
 				row.addEventListener('click', function(){
 				pageHome = pageHome + 1;
 				var offset = pageHome * Alloy.Globals.LIMIT;		
-				exports.getListItems(activity, table,offset,pageHome,category,name);
+				exports.getListItems(activity, table,offset,pageHome,category,author, item_id,name);
 				});
 			}  
 		};
