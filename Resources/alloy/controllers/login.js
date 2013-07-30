@@ -10,11 +10,11 @@ function Controller() {
         id: "login"
     });
     $.__views.login && $.addTopLevelView($.__views.login);
-    $.__views.__alloyId13 = Ti.UI.createLabel({
+    $.__views.__alloyId12 = Ti.UI.createLabel({
         text: "I am Login",
-        id: "__alloyId13"
+        id: "__alloyId12"
     });
-    $.__views.login.add($.__views.__alloyId13);
+    $.__views.login.add($.__views.__alloyId12);
     exports.destroy = function() {};
     _.extend($, $.__views);
     _.extend($, exports);

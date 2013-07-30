@@ -3,7 +3,8 @@
     autoplay : true,
     backgroundColor : "black",
     height : '55%',
-    width : '95%'
+    width : '95%',
+    zIndex: 10
 },
 "#data":{
 	top: "61%",

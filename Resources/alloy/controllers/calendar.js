@@ -10,11 +10,11 @@ function Controller() {
         id: "calendar"
     });
     $.__views.calendar && $.addTopLevelView($.__views.calendar);
-    $.__views.__alloyId1 = Ti.UI.createLabel({
+    $.__views.__alloyId0 = Ti.UI.createLabel({
         text: "I am Calendar",
-        id: "__alloyId1"
+        id: "__alloyId0"
     });
-    $.__views.calendar.add($.__views.__alloyId1);
+    $.__views.calendar.add($.__views.__alloyId0);
     exports.destroy = function() {};
     _.extend($, $.__views);
     _.extend($, exports);

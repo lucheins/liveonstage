@@ -5,13 +5,18 @@
 		    	<ImageView id="cover"/>
 	    	</View>
 	    	<View id="videoinfo">
-		    	<Label id="title"/>
+	    		<View id="header">
+		    		<Label id="title"/>
+		    	</View>
 		    	<View id="data">
 		    		<Label id="about" />
 		    		<Label id="views" />		    		
 		    		<Label id="videos" />
 		    	</View>		    	
-		    	<View id="progressBar"/>
+		    	<View id="progressBar">
+			    	<View id="campaignBar"/>
+			    	<View id="porcentaje"/>
+			    </View>
 			    	<View id="progressInfo">
 				    	<Label id="accomplished" />
 				    	<Label id="percentage" />

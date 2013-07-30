@@ -25,27 +25,20 @@ if(args.image != null)
 $.cover.image = imageLink;
 $.cover.touchEnabled = false;
 
-var pB=Titanium.UI.createProgressBar({
-    top:'0%',
-    width:'90%',
-    height:'20%',
-    left:'5%',
-    min:0,
-    max:10,
-    value:4,
-    color:'#000',
-    zIndex:20,
-    font:{fontSize:14, fontWeight:'bold'},
-    style:Titanium.UI.iPhone.ProgressBarStyle.PLAIN,
-});
+$.porcentaje.width = args.percent+'%';
 
-$.progressBar.add(pB);
-pB.show();
+var textInfo = args.shortdesc;
+if(textInfo.length > Alloy.Globals.ABOUT)
+		{
+			textInfo = textInfo.substring(0,Alloy.Globals.ABOUT - 2) + '...';			
+		}
+		$.about.text = textInfo;
+
 $.accomplished.text = '$' + args.received + ' Pledged';
 $.days.text = args.days + ' Days to go';
 $.percentage.text = args.percent + ' % Funded';
 //The cover view
-	var shadowTop="0dp"
+	var shadowTop="0%"
 	if(Ti.Platform=='android'){shadowTop="7dp"}
 	var theImageShadow=Ti.UI.createImageView({
 		image:"/videoCover.png",

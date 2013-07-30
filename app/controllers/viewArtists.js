@@ -22,27 +22,7 @@ if(args.image.length > 0)
 
 $.cover.image = imageLink;
 
-if (args.campaing != null)
-{
-	var pB=Titanium.UI.createProgressBar({
-    top:0,
-    width:'90%',
-    height:'auto',
-    min:0,
-    max:10,
-    value:4,
-    color:'#000',
-    font:{fontSize:14, fontWeight:'bold'},
-    style:Titanium.UI.iPhone.ProgressBarStyle.PLAIN,
-});
-$.progressBar.add(pB);
-pB.show();
-$.accomplished.text = '$' + args.received + ' Pledged';
-$.days.text = args.days + ' Days to go';
-$.percentage.text = args.percent + ' % Funded';
-} else {
-	$.videos.text = args.videos + ' videos publised.';
-	var textInfo = '';  
+var textInfo = '';  
 	if(args.status){
 		textInfo = args.status;
 	}	
@@ -60,7 +40,19 @@ $.percentage.text = args.percent + ' % Funded';
 		$.about.text = textInfo;
 		$.about.top = 0;
 		top = 25;
-	}	
+	}
+
+if (args.campaing != null)
+{
+	$.porcentaje.width = args.percent+'%';
+	$.accomplished.text = '$' + args.received + ' Pledged';
+	$.days.text = args.days + ' Days to go';
+	$.percentage.text = args.percent + ' % Funded';
+	
+} else {
+	
+	$.videoinfo.remove($.progressBar);
+	$.videos.text = args.videos + ' videos publised.';	
 	$.views.text = args.views + ' Profile views';
 	$.videos.top = top;
 	$.views.top = top + 15;	

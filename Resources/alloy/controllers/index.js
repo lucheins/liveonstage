@@ -26,14 +26,14 @@ function Controller() {
         image: "/images/logo-liveon.png"
     });
     $.__views.Navigation.add($.__views.logo);
-    $.__views.__alloyId2 = Ti.UI.createView({
+    $.__views.__alloyId1 = Ti.UI.createView({
         height: "5%",
         backgroundColor: "gray",
         width: "100%",
         bottom: 0,
-        id: "__alloyId2"
+        id: "__alloyId1"
     });
-    $.__views.Navigation.add($.__views.__alloyId2);
+    $.__views.Navigation.add($.__views.__alloyId1);
     $.__views.banner = Ti.UI.createView({
         height: "54%",
         top: "8%",
@@ -51,7 +51,7 @@ function Controller() {
         id: "gradient"
     });
     $.__views.overlay.add($.__views.gradient);
-    $.__views.__alloyId3 = Ti.UI.createLabel({
+    $.__views.__alloyId2 = Ti.UI.createLabel({
         color: "white",
         font: {
             fontSize: "25dp",
@@ -62,9 +62,9 @@ function Controller() {
         width: "92%",
         textAlign: "center",
         text: "Promoting your music with Live Video",
-        id: "__alloyId3"
+        id: "__alloyId2"
     });
-    $.__views.banner.add($.__views.__alloyId3);
+    $.__views.banner.add($.__views.__alloyId2);
     $.__views.buttoncontainer = Ti.UI.createView({
         height: "38%",
         top: "100%",
@@ -74,14 +74,14 @@ function Controller() {
         id: "buttoncontainer"
     });
     $.__views.index.add($.__views.buttoncontainer);
-    $.__views.__alloyId4 = Ti.UI.createView({
+    $.__views.__alloyId3 = Ti.UI.createView({
         height: "1%",
         backgroundColor: "#d0d0d0",
         width: "100%",
         top: "0%",
-        id: "__alloyId4"
+        id: "__alloyId3"
     });
-    $.__views.buttoncontainer.add($.__views.__alloyId4);
+    $.__views.buttoncontainer.add($.__views.__alloyId3);
     $.__views.topButtons = Ti.UI.createView({
         height: "45%",
         top: "5%",
@@ -98,15 +98,15 @@ function Controller() {
         id: "liveShows"
     });
     $.__views.topButtons.add($.__views.liveShows);
-    $.__views.__alloyId5 = Ti.UI.createImageView({
+    $.__views.__alloyId4 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/bolt.png",
-        id: "__alloyId5"
+        id: "__alloyId4"
     });
-    $.__views.liveShows.add($.__views.__alloyId5);
-    $.__views.__alloyId6 = Ti.UI.createLabel({
+    $.__views.liveShows.add($.__views.__alloyId4);
+    $.__views.__alloyId5 = Ti.UI.createLabel({
         left: "35%",
         color: "white",
         font: {
@@ -114,9 +114,9 @@ function Controller() {
             fontSize: "15dp"
         },
         text: "Live Shows",
-        id: "__alloyId6"
+        id: "__alloyId5"
     });
-    $.__views.liveShows.add($.__views.__alloyId6);
+    $.__views.liveShows.add($.__views.__alloyId5);
     $.__views.Campaigns = Ti.UI.createView({
         width: "47%",
         left: "51%",
@@ -126,15 +126,15 @@ function Controller() {
         id: "Campaigns"
     });
     $.__views.topButtons.add($.__views.Campaigns);
-    $.__views.__alloyId7 = Ti.UI.createImageView({
+    $.__views.__alloyId6 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/campaigns.png",
-        id: "__alloyId7"
+        id: "__alloyId6"
     });
-    $.__views.Campaigns.add($.__views.__alloyId7);
-    $.__views.__alloyId8 = Ti.UI.createLabel({
+    $.__views.Campaigns.add($.__views.__alloyId6);
+    $.__views.__alloyId7 = Ti.UI.createLabel({
         left: "35%",
         color: "white",
         font: {
@@ -142,9 +142,9 @@ function Controller() {
             fontSize: "15dp"
         },
         text: "Campaigns",
-        id: "__alloyId8"
+        id: "__alloyId7"
     });
-    $.__views.Campaigns.add($.__views.__alloyId8);
+    $.__views.Campaigns.add($.__views.__alloyId7);
     $.__views.bottomButtons = Ti.UI.createView({
         height: "45%",
         top: "51%",
@@ -161,15 +161,15 @@ function Controller() {
         id: "upcomingEvents"
     });
     $.__views.bottomButtons.add($.__views.upcomingEvents);
-    $.__views.__alloyId9 = Ti.UI.createImageView({
+    $.__views.__alloyId8 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/upcoming.png",
-        id: "__alloyId9"
+        id: "__alloyId8"
     });
-    $.__views.upcomingEvents.add($.__views.__alloyId9);
-    $.__views.__alloyId10 = Ti.UI.createLabel({
+    $.__views.upcomingEvents.add($.__views.__alloyId8);
+    $.__views.__alloyId9 = Ti.UI.createLabel({
         left: "35%",
         color: "white",
         font: {
@@ -177,9 +177,9 @@ function Controller() {
             fontSize: "15dp"
         },
         text: "Upcoming",
-        id: "__alloyId10"
+        id: "__alloyId9"
     });
-    $.__views.upcomingEvents.add($.__views.__alloyId10);
+    $.__views.upcomingEvents.add($.__views.__alloyId9);
     $.__views.artists = Ti.UI.createView({
         width: "47%",
         left: "51%",
@@ -189,15 +189,15 @@ function Controller() {
         id: "artists"
     });
     $.__views.bottomButtons.add($.__views.artists);
-    $.__views.__alloyId11 = Ti.UI.createImageView({
+    $.__views.__alloyId10 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/artists.png",
-        id: "__alloyId11"
+        id: "__alloyId10"
     });
-    $.__views.artists.add($.__views.__alloyId11);
-    $.__views.__alloyId12 = Ti.UI.createLabel({
+    $.__views.artists.add($.__views.__alloyId10);
+    $.__views.__alloyId11 = Ti.UI.createLabel({
         left: "35%",
         color: "white",
         font: {
@@ -205,9 +205,9 @@ function Controller() {
             fontSize: "15dp"
         },
         text: "Artists",
-        id: "__alloyId12"
+        id: "__alloyId11"
     });
-    $.__views.artists.add($.__views.__alloyId12);
+    $.__views.artists.add($.__views.__alloyId11);
     exports.destroy = function() {};
     _.extend($, $.__views);
     (Ti.Platform.displayCaps.platformWidth - 30) / 2;

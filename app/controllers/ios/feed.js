@@ -50,6 +50,8 @@ if (activeTab == 3){
 if (activeTab == 4){
 		data.getArtists($.activity, artists,0,0,categoryId);
 	}
+	
+	
 
 $.videosScreen.add(live);
 $.categoriesScreen.add(categories);
@@ -82,6 +84,22 @@ var osname = Ti.Platform.osname,
     scrollunit = scrollunit + (cualquiera/5);   
     $.menuBar.scrollTo(-scrollunit * activeTab, 0);
     
+ var topScroll = 0;
+	if (!isTablet) {	
+		if (activeTab == 1){
+			topScroll = 60;
+		};
+		if (activeTab == 2){
+			topScroll = 160;
+		};
+		if (activeTab == 3 || activeTab == 4){
+			topScroll = 180;
+		};
+		
+			$.topNav.scrollTo(topScroll , 0);
+		
+	} 
+	//$.menuBar.scrollTo(-scrollunit * $.scrollableView.currentPage , 0);  
     
 
 
@@ -178,7 +196,7 @@ function resetInitPage(catId, title)
 	//campaigns.setData([]);
 	campaigns.removeAllChildren();
 	upcomming.setData([]);
-	artists.setData([]);
+	artists.removeAllChildren();
 	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
 	$.scrollableView.scrollToView(1);	
 }

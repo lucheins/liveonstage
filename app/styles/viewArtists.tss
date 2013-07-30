@@ -10,7 +10,10 @@
 	width: '100%',
 	height: '100%',
 	top:0,
-	left:0
+	left:0,
+	backgroundColor: '#c7c7c7',
+	backgroundImage: '/light-diagonal-strips.png',
+	backgroundRepeat: true
 },
 "#videoinfo": {
 	width: '100%',
@@ -36,18 +39,51 @@
 	borderWidth: 0.5,
 	borderColor: '#c3c3c3'
 	},
-"#title": {
+"#header": {
 	top: '2%',
-	textAlign: 'center',
-	font:{fontSize:'14dp'}
+	height: '57%',
+	font:{fontSize:'14dp'},
+	width: '94%',
+	left: '3%'
+	},
+	"#title":{
+	top: '3%',
+	width: '100%',
+	textAlign: 'center'
 	},
 "#progressBar": {
-	top: '62%',
-	height: '5%'
+	top: '59%',
+	height: '8%',
+	width: '90%',
+	left: '5%'
 	},
+	"#porcentaje": {
+		top: '0%',
+		height: '100%',
+		width: '90%',
+		left: '0%',
+		backgroundColor: '#745DA8',
+		zIndex: 10,
+		borderRadius: 4,
+		backgroundImage: '/bar-stripes.png',
+		backgroundRepeat: true
+		
+		},
+	"#campaignBar": {
+		top: '0%',
+		height: '100%',
+		width: '100%',
+		left: '0%',
+		backgroundColor: '#f2f2f2',
+		borderWidth: 1,
+		borderColor: '#c3c3c3',
+		borderRadius: 4,
+		backgroundImage: '/light-diagonal-strips.png',
+		backgroundRepeat: true	
+		},
 
 "#progressInfo": {
-	top: '67%',
+	top: '64%',
 	height: '33%',
 	width: '90%',
 	font:{fontSize:'11dp'}
@@ -86,7 +122,9 @@
 	left: '3%'
 }
 "#data": {
-	top: '30%'
+	top: '30%',
+	width: '94%',
+	left: '3%'
 	},
 "#views":
 {
@@ -99,8 +137,9 @@
 {
 	font:{fontSize:'11dp'},
 	color: 'gray',
-	left: '3%',
-	height: '27'
+	height: '27',
+	width: '100%',
+	textAlign: 'center'
 }
 
 

@@ -37,6 +37,9 @@ function Controller() {
         height: "100%",
         top: 0,
         left: 0,
+        backgroundColor: "#c7c7c7",
+        backgroundImage: "/light-diagonal-strips.png",
+        backgroundRepeat: true,
         id: "cover"
     });
     $.__views.videocover.add($.__views.cover);
@@ -50,17 +53,28 @@ function Controller() {
         id: "videoinfo"
     });
     $.__views.tile.add($.__views.videoinfo);
-    $.__views.title = Ti.UI.createLabel({
+    $.__views.header = Ti.UI.createView({
         top: "2%",
-        textAlign: "center",
+        height: "57%",
         font: {
             fontSize: "14dp"
         },
+        width: "94%",
+        left: "3%",
+        id: "header"
+    });
+    $.__views.videoinfo.add($.__views.header);
+    $.__views.title = Ti.UI.createLabel({
+        top: "3%",
+        width: "100%",
+        textAlign: "center",
         id: "title"
     });
-    $.__views.videoinfo.add($.__views.title);
+    $.__views.header.add($.__views.title);
     $.__views.data = Ti.UI.createView({
         top: "30%",
+        width: "94%",
+        left: "3%",
         id: "data"
     });
     $.__views.videoinfo.add($.__views.data);
@@ -69,8 +83,9 @@ function Controller() {
             fontSize: "11dp"
         },
         color: "gray",
-        left: "3%",
         height: "27",
+        width: "100%",
+        textAlign: "center",
         id: "about"
     });
     $.__views.data.add($.__views.about);
@@ -93,13 +108,42 @@ function Controller() {
     });
     $.__views.data.add($.__views.videos);
     $.__views.progressBar = Ti.UI.createView({
-        top: "62%",
-        height: "5%",
+        width: "90%",
+        left: "5%",
+        top: "59%",
+        height: "8%",
         id: "progressBar"
     });
     $.__views.videoinfo.add($.__views.progressBar);
+    $.__views.campaignBar = Ti.UI.createView({
+        top: "0%",
+        height: "100%",
+        width: "100%",
+        left: "0%",
+        backgroundColor: "#f2f2f2",
+        borderWidth: 1,
+        borderColor: "#c3c3c3",
+        borderRadius: 4,
+        backgroundImage: "/light-diagonal-strips.png",
+        backgroundRepeat: true,
+        id: "campaignBar"
+    });
+    $.__views.progressBar.add($.__views.campaignBar);
+    $.__views.porcentaje = Ti.UI.createView({
+        top: "0%",
+        height: "100%",
+        left: "0%",
+        backgroundColor: "#745DA8",
+        zIndex: 10,
+        borderRadius: 4,
+        backgroundImage: "/bar-stripes.png",
+        backgroundRepeat: true,
+        width: "90%",
+        id: "porcentaje"
+    });
+    $.__views.progressBar.add($.__views.porcentaje);
     $.__views.progressInfo = Ti.UI.createView({
-        top: "67%",
+        top: "64%",
         height: "33%",
         width: "90%",
         font: {
@@ -162,38 +206,24 @@ function Controller() {
         "http" != imageLink.substring(0, 4) && (imageLink = Alloy.Globals.DOMAIN + imageLink);
     }
     $.cover.image = imageLink;
+    var textInfo = "";
+    args.status && (textInfo = args.status);
+    args.about && "" == textInfo && (textInfo = args.about);
+    var top = 5;
+    if ("" != textInfo) {
+        textInfo.length > Alloy.Globals.ABOUT && (textInfo = textInfo.substring(0, Alloy.Globals.ABOUT - 2) + "...");
+        $.about.text = textInfo;
+        $.about.top = 0;
+        top = 25;
+    }
     if (null != args.campaing) {
-        var pB = Titanium.UI.createProgressBar({
-            top: 0,
-            width: "90%",
-            height: "auto",
-            min: 0,
-            max: 10,
-            value: 4,
-            color: "#000",
-            font: {
-                fontSize: 14,
-                fontWeight: "bold"
-            },
-            style: Titanium.UI.iPhone.ProgressBarStyle.PLAIN
-        });
-        $.progressBar.add(pB);
-        pB.show();
+        $.porcentaje.width = args.percent + "%";
         $.accomplished.text = "$" + args.received + " Pledged";
         $.days.text = args.days + " Days to go";
         $.percentage.text = args.percent + " % Funded";
     } else {
+        $.videoinfo.remove($.progressBar);
         $.videos.text = args.videos + " videos publised.";
-        var textInfo = "";
-        args.status && (textInfo = args.status);
-        args.about && "" == textInfo && (textInfo = args.about);
-        var top = 5;
-        if ("" != textInfo) {
-            textInfo.length > Alloy.Globals.ABOUT && (textInfo = textInfo.substring(0, Alloy.Globals.ABOUT - 2) + "...");
-            $.about.text = textInfo;
-            $.about.top = 0;
-            top = 25;
-        }
         $.views.text = args.views + " Profile views";
         $.videos.top = top;
         $.views.top = top + 15;
@@ -204,11 +234,18 @@ function Controller() {
             author: args.id
         };
         var win = Alloy.createController("viewProfile", args1).getView();
-        win.fullscreen = false;
-        win.open({
-            activityEnterAnimation: Ti.Android.R.anim.fade_in,
-            activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+        if ("android" == Ti.Platform.osname) {
+            win.fullscreen = false;
+            win.open({
+                activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                activityExitAnimation: Ti.Android.R.anim.fade_out
+            });
+        } else {
+            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+            win.open({
+                transition: t
+            });
+        }
     });
     _.extend($, exports);
 }

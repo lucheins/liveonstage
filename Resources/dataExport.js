@@ -22,7 +22,8 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
                     row: i + item,
                     isOdd: i % 2,
                     percent: responses[i].percent,
-                    days: responses[i].days
+                    days: responses[i].days,
+                    shortdesc: responses[i].short_description
                 };
                 var row = Alloy.createController("tileCampaigns", args).getView();
                 band = false;
