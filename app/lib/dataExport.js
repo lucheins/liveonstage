@@ -45,8 +45,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 	     	{
 	     		var args = {       		
 	        			row: i,
-	        			text: 'No find Campaigns',
-	        			font: {	fontSize:'14dp'	}
+	        			text: 'No find Campaigns'
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        table.add(row);	 
@@ -184,8 +183,7 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 			} else {
 				var args = {       		
 	        			row: i,
-	        			text: 'View More',
-	        			font: {	fontSize:'14dp'	}
+	        			text: 'View More'
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        more = true;
@@ -196,8 +194,7 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 	     	{
 	     		var args = {       		
 	        			row: i,
-	        			text: 'No find Artists',
-	        			font: {	fontSize:'14dp'	}
+	        			text: 'No find Artists'
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        table.add(row);	 

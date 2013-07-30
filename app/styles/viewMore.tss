@@ -3,6 +3,6 @@
 },
 "#text":{
 	textAlign: 'center',
-	font:{fontSize:14},
+	font:{fontSize:'14dp'},
 	height: "100%"
 }

@@ -12,7 +12,7 @@ function Controller() {
     $.__views.text = Ti.UI.createLabel({
         textAlign: "center",
         font: {
-            fontSize: 14
+            fontSize: "14dp"
         },
         height: "100%",
         id: "text"
