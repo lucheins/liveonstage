@@ -98,33 +98,33 @@
 	width: '90%',
 	font:{fontSize:'11dp'}
 	},
-"#accomplished": {
-	top: '10%',
-	height: '100%',
-	width: '30%',
-	color: 'gray',
-	font:{fontSize:'11dp'},
-	textAlign: 'left',
-	left: '3%'
-	},
-"#percentage": {
-	top: '10%',
-	height: '100%',
-	width: '33%',
-	color: 'gray',
-	font:{fontSize:'11dp'},
-	textAlign: 'center',
-	left: '33%'
-	},
-"#days": {
-	top: '10%',
-	height: '100%',
-	width: '32%',
-	color: 'gray',
-	font:{fontSize:'11dp'},
-	textAlign: 'right',
-	left: '66%'
-	}
+	"#accomplished": {
+		top: '10%',
+		height: '100%',
+		width: '30%',
+		color: 'gray',
+		font:{fontSize:'11dp'},
+		textAlign: 'left',
+		left: '3%'
+		},
+	"#percentage": {
+		top: '10%',
+		height: '100%',
+		width: '33%',
+		color: 'gray',
+		font:{fontSize:'11dp'},
+		textAlign: 'center',
+		left: '33%'
+		},
+	"#days": {
+		top: '10%',
+		height: '100%',
+		width: '32%',
+		color: 'gray',
+		font:{fontSize:'11dp'},
+		textAlign: 'right',
+		left: '66%'
+		}
 
 
 

@@ -59,6 +59,11 @@ client.ondatastream = function(e){
 };
 
 client.onload = function(){	
+	
+	var fixed = Ti.Platform.displayCaps.platformHeight - 50;
+	
+	$.fixed.height = fixed;
+	$.givebacks.top = fixed+1;
 	var json = this.responseText;
 	var responses = JSON.parse(json);
 	var url ='';
@@ -79,31 +84,65 @@ client.onload = function(){
 	
 	$.description.text = text;
 	$.categoryName.text = responses.campaign[0].category_name;
-	$.accomplished.text = '$' + responses.campaign[0].received + 'Pledged';
-	$.percentage.text = responses.campaign[0].percent + '% Funded';
-	$.days.text = responses.campaign[0].days + 'Days to go';
-	$.total.text = '$' + responses.campaign[0].goal_amount + ' Goal';
-	var tabledata = [];
+	$.accomplished.text = '$' + responses.campaign[0].received;
+	$.percentage.text = responses.campaign[0].percent + '%';
+	$.porcentaje.width = responses.campaign[0].percent+'%';
+	$.days.text = responses.campaign[0].days;
+	$.total.text = '$' + responses.campaign[0].goal_amount;
+	
 	for (var i=0; i < responses.givebacks.length; i++) {
-		
-		var row = Ti.UI.createTableViewRow({
-				 height: '40dp',
-				 title: responses.givebacks[i].amount + 'USD ' + responses.givebacks[i].description,
-				 left: '15dp',
-				 font: { fontSize:'14dp'}				 
-		});		
-		tabledata.push(row);		
-	}
-	if(tabledata.length == 0)
-	{
-		var row = Ti.UI.createTableViewRow({
-				 height: '20dp'	,
-				 title: 'No givebacks'			 
+		var moreperks = 80 * i;
+		var row = Ti.UI.createView({
+				 height: '75dp',
+				 top: moreperks +'dp',
+				 backgroundColor: '#e5f8e9',
+				 borderRadius: 5,
+				 borderWidth: 1,
+				 borderColor: '#c6c6c6'			 
+		});	
+		var insideLabel1 = Ti.UI.createLabel({
+			text: responses.givebacks[i].amount + ' USD',
+			left: '5%',
+			height: '25%',
+			top: '10%',
+			font: {
+			   	fontSize:'14dp',
+			   	fontWeight:'bold'
+			},
+			width: '90%'
+		});	
+		var insideLabel2 = Ti.UI.createLabel({
+			text: responses.givebacks[i].description,
+			left: '5%',
+			height: '65%',
+			top: '35%',
+			font: {
+			   	fontSize:'12dp',
+			   	fontWeight:'bold'
+			},
+			width: '70%',
+			color: 'gray'
 		});
-		tabledata.push(row);	
-		$.viewScroll.height = 	$.viewScroll.height + 10;
+		row.add(insideLabel1);
+		row.add(insideLabel2);
+		$.perks.add(row);	
+		var increase = 42 * i;
+		
+		$.viewScroll.height = 	$.viewScroll.height + increase;
+		$.givebacks.height = 120 + moreperks + 'dp';
 	}
-	$.table.setData(tabledata);
+	/*if($.perks.children.length == 0)
+	{
+		var row = Ti.UI.createView({
+				 height: '40dp'	,		 		 
+		});
+		var insideLabel = Ti.UI.createLabel({
+			text: 'There are no giveback available yet'
+		});
+		row.add(insideLabel);
+		$.perks.add(row);	
+		$.viewScroll.height = 	$.viewScroll.height + increase;
+	}*/
 	
 	$.activity.hide(); 
 };
