@@ -381,9 +381,15 @@ function Controller() {
         back.open();
     });
     1 == activeTab && data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
-    2 == activeTab && data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
+    if (2 == activeTab) {
+        campaigns.removeAllChildren();
+        data.getCampaigns($.activity, campaigns, 0, 0, categoryId);
+    }
     3 == activeTab && data.getListItems($.activity, upcomming, 0, 0, categoryId, 0, 0, "Events");
-    4 == activeTab && data.getArtists($.activity, artists, 0, 0, categoryId);
+    if (4 == activeTab) {
+        artists.removeAllChildren();
+        data.getArtists($.activity, artists, 0, 0, categoryId);
+    }
     $.videosScreen.add(live);
     $.categoriesScreen.add(categories);
     $.campaignsScreen.add(campaigns);

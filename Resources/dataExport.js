@@ -29,8 +29,8 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
                 band = false;
             } else {
                 var args = {
-                    row: i,
-                    text: "View More",
+                    row: i + item,
+                    text: "Load More",
                     font: {
                         fontSize: "14dp"
                     }
@@ -43,7 +43,7 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
         if (band) {
             var args = {
                 row: i,
-                text: "No find Campaigns"
+                text: "No Campaigns Found Here"
             };
             var row = Alloy.createController("viewMore", args).getView();
             table.add(row);
@@ -53,11 +53,13 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
             pageHome += 1;
             var offset = pageHome * Alloy.Globals.LIMIT;
             table.remove(row);
+            var posicion = table.getContentOffset();
+            table.scrollTo(0, posicion.y + 330);
             exports.getCampaigns(activity, table, offset, pageHome, category);
         });
     };
-    client.onerror = function(e) {
-        alert("Transmission error: " + e.error);
+    client.onerror = function() {
+        alert(Alloy.Globals.CONNECTION_ERROR);
     };
     var params = {
         tc: Alloy.Globals.USER_MOBILE.toString(),
@@ -113,8 +115,8 @@ exports.getListItems = function(activity, table, offsetHome, pageHome, category,
             exports.getListItems(activity, table, offset, pageHome, category, author, item_id, name);
         });
     };
-    client.onerror = function(e) {
-        alert("Transmission error: " + e.error);
+    client.onerror = function() {
+        alert(Alloy.Globals.CONNECTION_ERROR);
     };
     var params = {
         tc: Alloy.Globals.USER_MOBILE.toString(),
@@ -166,8 +168,8 @@ exports.getArtists = function(activity, table, offsetHome, pageHome, category) {
                 band = false;
             } else {
                 var args = {
-                    row: i,
-                    text: "View More"
+                    row: i + item,
+                    text: "Load More"
                 };
                 var row = Alloy.createController("viewMore", args).getView();
                 more = true;
@@ -177,7 +179,7 @@ exports.getArtists = function(activity, table, offsetHome, pageHome, category) {
         if (band) {
             var args = {
                 row: i,
-                text: "No find Artists"
+                text: "No Artists Found Here"
             };
             var row = Alloy.createController("viewMore", args).getView();
             table.add(row);
@@ -187,11 +189,13 @@ exports.getArtists = function(activity, table, offsetHome, pageHome, category) {
             pageHome += 1;
             var offset = pageHome * Alloy.Globals.LIMIT;
             table.remove(row);
+            var posicion = table.getContentOffset();
+            table.scrollTo(0, posicion.y + 330);
             exports.getArtists(activity, table, offset, pageHome, category);
         });
     };
-    client.onerror = function(e) {
-        alert("Transmission error: " + e.error);
+    client.onerror = function() {
+        alert(Alloy.Globals.CONNECTION_ERROR);
     };
     var params = {
         tc: Alloy.Globals.USER_MOBILE.toString(),
@@ -226,8 +230,8 @@ exports.getCategories = function(activity, table) {
         table.setData(tableData);
         activity.hide();
     };
-    client.onerror = function(e) {
-        alert("Transmission error: " + e.error);
+    client.onerror = function() {
+        alert(Alloy.Globals.CONNECTION_ERROR);
     };
     var params = {
         tc: Alloy.Globals.USER_MOBILE.toString()
@@ -274,8 +278,8 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
             exports.getListOfProfile(activity, table, offset, pageHome, author, name);
         });
     };
-    client.onerror = function(e) {
-        alert("Transmission error: " + e.error);
+    client.onerror = function() {
+        alert(Alloy.Globals.CONNECTION_ERROR);
     };
     var params = {
         tc: Alloy.Globals.USER_MOBILE.toString(),

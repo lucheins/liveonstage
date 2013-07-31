@@ -1,6 +1,7 @@
 exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 {
 	var item = table.children.length;
+	
 	var client = Ti.Network.createHTTPClient();
 	var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_BASE;
 	client.open('POST',url);
@@ -33,8 +34,8 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 		       band = false;
 			} else {
 				var args = {       		
-	        			row: i,
-	        			text: 'View More',
+	        			row: i + item,
+	        			text: 'Load More',
 	        			font: {	fontSize:'14dp'	}
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
@@ -46,7 +47,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 	     	{
 	     		var args = {       		
 	        			row: i,
-	        			text: 'No find Campaigns'
+	        			text: 'No Campaigns Found Here'
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        table.add(row);	 
@@ -54,16 +55,18 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 	        activity.hide(); 
 	        if(more)
 			{
-				row.addEventListener('click', function(){
+				row.addEventListener('click', function(e){
 				pageHome = pageHome + 1;
 				var offset = pageHome * Alloy.Globals.LIMIT;	
 				table.remove(row);
+				var posicion = table.getContentOffset();
+				table.scrollTo(0, posicion.y+330);
 				exports.getCampaigns(activity, table,offset,pageHome,category);
 				});
 			}  
 		};
 
-	client.onerror = function(e){alert('Transmission error: ' + e.error);};
+	client.onerror = function(e){alert(Alloy.Globals.CONNECTION_ERROR);};
 	var params = {
         tc: Alloy.Globals.USER_MOBILE.toString(),
         name: 'Campaigns',
@@ -129,7 +132,7 @@ exports.getListItems=function(activity, table,offsetHome, pageHome, category, au
 			}  
 		};
 
-	client.onerror = function(e){alert('Transmission error: ' + e.error);};
+	client.onerror = function(e){alert(Alloy.Globals.CONNECTION_ERROR);};
 	var params = {
         tc: Alloy.Globals.USER_MOBILE.toString(),
         name: name,
@@ -183,8 +186,8 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 		        band = false;
 			} else {
 				var args = {       		
-	        			row: i,
-	        			text: 'View More'
+	        			row: i + item,
+	        			text: 'Load More'
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        more = true;
@@ -195,7 +198,7 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 	     	{
 	     		var args = {       		
 	        			row: i,
-	        			text: 'No find Artists'
+	        			text: 'No Artists Found Here'
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        table.add(row);	 
@@ -205,14 +208,16 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 			{
 				row.addEventListener('click', function(){
 				pageHome = pageHome + 1;
-				var offset = pageHome * Alloy.Globals.LIMIT;	
+				var offset = pageHome * Alloy.Globals.LIMIT;
 				table.remove(row);
+				var posicion = table.getContentOffset();
+				table.scrollTo(0, posicion.y+330);	
 				exports.getArtists(activity, table,offset,pageHome,category);
 				});
 			}  
 		};
 
-	client.onerror = function(e){alert('Transmission error: ' + e.error);};
+	client.onerror = function(e){alert(Alloy.Globals.CONNECTION_ERROR);};
 	var params = {
         tc: Alloy.Globals.USER_MOBILE.toString(),
         name: 'Artists',
@@ -254,7 +259,7 @@ exports.getCategories=function(activity, table)
 	        activity.hide(); 
 		};
 
-	client.onerror = function(e){alert('Transmission error: ' + e.error);};
+	client.onerror = function(e){alert(Alloy.Globals.CONNECTION_ERROR);};
 	var params = {
         tc: Alloy.Globals.USER_MOBILE.toString()       
     };
@@ -311,7 +316,7 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 			}  
 		};
 
-	client.onerror = function(e){alert('Transmission error: ' + e.error);};
+	client.onerror = function(e){alert(Alloy.Globals.CONNECTION_ERROR);};
 	var params = {
         tc: Alloy.Globals.USER_MOBILE.toString(),
         name: name,

@@ -42,12 +42,14 @@ if (activeTab == 1){
 }
 
 if (activeTab == 2){
+	campaigns.removeAllChildren();
 	data.getCampaigns($.activity, campaigns,0,0,categoryId);
 	}
 if (activeTab == 3){
 		data.getListItems($.activity, upcomming,0,0,categoryId,0,0,'Events');
 	}
 if (activeTab == 4){
+	artists.removeAllChildren();
 		data.getArtists($.activity, artists,0,0,categoryId);
 	}
 	
