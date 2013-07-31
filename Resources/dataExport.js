@@ -1,5 +1,4 @@
 exports.getCampaigns = function(activity, table, offsetHome, pageHome, category) {
-    var item = table.children.length;
     var client = Ti.Network.createHTTPClient();
     var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_BASE;
     client.open("POST", url);
@@ -9,6 +8,7 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
     client.onload = function() {
         var responses = JSON.parse(this.responseText);
         var posicion = table.getContentOffset();
+        var item = table.children.length;
         var band = true;
         var more = false;
         for (var i = 0; responses.length > i; i++) {
@@ -56,7 +56,7 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
             table.remove(row);
             exports.getCampaigns(activity, table, offset, pageHome, category);
         });
-        if (null != posicion) {
+        if (null != posicion && posicion.y > 0) {
             var plus = 60 * Ti.Platform.displayCaps.platformHeight / 100;
             table.scrollTo(0, posicion.y + plus);
         }
@@ -135,7 +135,6 @@ exports.getListItems = function(activity, table, offsetHome, pageHome, category,
 };
 
 exports.getArtists = function(activity, table, offsetHome, pageHome, category) {
-    var item = table.children.length;
     var client = Ti.Network.createHTTPClient();
     var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_BASE;
     client.open("POST", url);
@@ -144,6 +143,7 @@ exports.getArtists = function(activity, table, offsetHome, pageHome, category) {
     };
     client.onload = function() {
         var responses = JSON.parse(this.responseText);
+        var item = table.children.length;
         var posicion = table.getContentOffset();
         var band = true;
         var more = false;
@@ -195,7 +195,7 @@ exports.getArtists = function(activity, table, offsetHome, pageHome, category) {
             table.remove(row);
             exports.getArtists(activity, table, offset, pageHome, category);
         });
-        if (null != posicion) {
+        if (null != posicion && posicion.y > 0) {
             var plus = 60 * Ti.Platform.displayCaps.platformHeight / 100;
             table.scrollTo(0, posicion.y + plus);
         }

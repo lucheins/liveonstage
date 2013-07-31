@@ -8,7 +8,7 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+        "android" == Ti.Platform.osname ? $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT : $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
@@ -20,9 +20,15 @@ function Controller() {
             y = JSON.parse(x).content.video["fmt_stream_map"][0].url;
             vp.url = y;
         };
+        if ("android" != Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
+        }
         vdldr.open("GET", "http://m.youtube.com/watch?ajax=1&feature=related&layout=mobile&tsp=1&&v=" + video_id);
-        vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-        vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        if ("android" == Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        }
         vdldr.send();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -388,23 +394,34 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
-    var actionBar;
-    $.viewCampaign.addEventListener("open", function() {
-        if ($.viewCampaign.activity) {
-            actionBar = $.viewCampaign.activity.actionBar;
-            if (actionBar) {
-                actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Campaigns";
-                actionBar.displayHomeAsUp = true;
-                actionBar.onHomeIconItemSelected = function() {
-                    $.vp.hide();
-                    $.vp.release();
-                    $.vp = null;
-                    $.viewCampaign.close();
-                };
-            }
-        } else Ti.API.error("Can't access action bar on a lightweight window.");
-    });
+    if ("android" == Ti.Platform.osname) {
+        var actionBar;
+        $.viewCampaign.addEventListener("open", function() {
+            if ($.viewCampaign.activity) {
+                actionBar = $.viewCampaign.activity.actionBar;
+                if (actionBar) {
+                    actionBar.backgroundImage = "/bg.png";
+                    actionBar.title = "Campaigns";
+                    actionBar.displayHomeAsUp = true;
+                    actionBar.onHomeIconItemSelected = function() {
+                        $.vp.hide();
+                        $.vp.release();
+                        $.vp = null;
+                        $.viewCampaign.close();
+                    };
+                }
+            } else Ti.API.error("Can't access action bar on a lightweight window.");
+        });
+    } else {
+        $.scroll.top = "8%", $.scroll.height = "81%";
+        var args = {
+            ventana: $.viewCampaign,
+            vp: $.vp,
+            title: "Campaigns"
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.viewCampaign.add(win);
+    }
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
         if (0 != orientation) {
@@ -440,6 +457,7 @@ function Controller() {
         $.porcentaje.width = responses.campaign[0].percent + "%";
         $.days.text = responses.campaign[0].days;
         $.total.text = "$" + responses.campaign[0].goal_amount;
+        var band = true;
         for (var i = 0; responses.givebacks.length > i; i++) {
             var moreperks = 80 * i;
             var row = Ti.UI.createView({
@@ -477,8 +495,9 @@ function Controller() {
             row.add(insideLabel2);
             $.perks.add(row);
             $.givebacks.height = 120 + moreperks + "dp";
+            band = false;
         }
-        if (0 == $.perks.children.length) {
+        if (band) {
             var row = Ti.UI.createView({
                 height: "40dp"
             });

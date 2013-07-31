@@ -89,7 +89,7 @@ client.onload = function(){
 	$.porcentaje.width = responses.campaign[0].percent+'%';
 	$.days.text = responses.campaign[0].days;
 	$.total.text = '$' + responses.campaign[0].goal_amount;
-	
+	var band = true;
 	for (var i=0; i < responses.givebacks.length; i++) {
 		var moreperks = 80 * i;
 		var row = Ti.UI.createView({
@@ -126,13 +126,14 @@ client.onload = function(){
 		row.add(insideLabel1);
 		row.add(insideLabel2);
 		$.perks.add(row);	
-		var increase = 40 * i;
+		var increase = 42 * i;
 		
 		//$.viewScroll.height = 	$.viewScroll.height + increase;
 		$.givebacks.height = 120 + moreperks + 'dp';
+		band = false;
 	}
 
-	if($.perks.children.length == 0)
+	if(band)
 	{
 		var row = Ti.UI.createView({
 				 height: '40dp'	,		 		 

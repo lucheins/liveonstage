@@ -1,6 +1,6 @@
 exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 {
-	var item = table.children.length;
+	
 	
 	var client = Ti.Network.createHTTPClient();
 	var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_BASE;
@@ -12,6 +12,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 	client.onload = function(){
 		var responses = JSON.parse(this.responseText);
 		var posicion = table.getContentOffset();
+		var item = table.children.length;
 		var band = true;
 		var more = false;
 		for (var i=0; i < responses.length; i++) {	
@@ -63,7 +64,8 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 				exports.getCampaigns(activity, table,offset,pageHome,category);
 				});
 			}  
-			if(posicion != null)
+			
+			if(posicion != null && posicion.y > 0)
 			{
 				var plus = (Ti.Platform.displayCaps.platformHeight * 60) / 100; 
 				table.scrollTo(0, posicion.y + plus);
@@ -152,7 +154,7 @@ exports.getListItems=function(activity, table,offsetHome, pageHome, category, au
 
 exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 {
-	var item = table.children.length;
+	
 	var client = Ti.Network.createHTTPClient();
 	var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_BASE;
 	client.open('POST',url);
@@ -162,6 +164,7 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 
 	client.onload = function(){
 		var responses = JSON.parse(this.responseText);
+		var item = table.children.length;
 		var posicion = table.getContentOffset();
 		var band = true;
 		var more = false;
@@ -218,7 +221,7 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 				exports.getArtists(activity, table,offset,pageHome,category);
 				});
 			}  
-			if(posicion != null)
+			if(posicion != null && posicion.y > 0)
 			{
 				var plus = (Ti.Platform.displayCaps.platformHeight * 60) / 100; 
 				table.scrollTo(0, posicion.y + plus);
