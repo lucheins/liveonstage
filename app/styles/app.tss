@@ -15,12 +15,13 @@
 	color: '#6cb1d5',
 	font: {
 	  	fontFamily:'Helvetica Neue', 
-	  	fontSize:20, 
+	  	fontSize:'20dp', 
 	  	fontWeight:'bold'
 	  	},
 	message: 'Loading...',  
 	height:Ti.UI.SIZE,
-	width:Ti.UI.SIZE
+	width:Ti.UI.SIZE,
+	zIndex: 100
 },
 "#browse":{
 	bottom: '0dp',

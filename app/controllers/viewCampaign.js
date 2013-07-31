@@ -126,12 +126,13 @@ client.onload = function(){
 		row.add(insideLabel1);
 		row.add(insideLabel2);
 		$.perks.add(row);	
-		var increase = 42 * i;
+		var increase = 40 * i;
 		
-		$.viewScroll.height = 	$.viewScroll.height + increase;
+		//$.viewScroll.height = 	$.viewScroll.height + increase;
 		$.givebacks.height = 120 + moreperks + 'dp';
 	}
-	/*if($.perks.children.length == 0)
+
+	if($.perks.children.length == 0)
 	{
 		var row = Ti.UI.createView({
 				 height: '40dp'	,		 		 
@@ -141,8 +142,8 @@ client.onload = function(){
 		});
 		row.add(insideLabel);
 		$.perks.add(row);	
-		$.viewScroll.height = 	$.viewScroll.height + increase;
-	}*/
+	//	$.viewScroll.height = 	$.viewScroll.height + increase;
+	}
 	
 	$.activity.hide(); 
 };

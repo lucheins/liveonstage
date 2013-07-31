@@ -8,7 +8,7 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        "android" == Ti.Platform.osname ? $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT : $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+        $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
@@ -20,15 +20,9 @@ function Controller() {
             y = JSON.parse(x).content.video["fmt_stream_map"][0].url;
             vp.url = y;
         };
-        if ("android" != Ti.Platform.osname) {
-            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
-        }
         vdldr.open("GET", "http://m.youtube.com/watch?ajax=1&feature=related&layout=mobile&tsp=1&&v=" + video_id);
-        if ("android" == Ti.Platform.osname) {
-            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
-        }
+        vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+        vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
         vdldr.send();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -46,12 +40,13 @@ function Controller() {
         color: "#6cb1d5",
         font: {
             fontFamily: "Helvetica Neue",
-            fontSize: 20,
+            fontSize: "20dp",
             fontWeight: "bold"
         },
         message: "Loading...",
         height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
+        zIndex: 100,
         id: "activity"
     });
     $.__views.viewVideo.add($.__views.activity);
@@ -60,7 +55,7 @@ function Controller() {
     });
     $.__views.viewVideo.add($.__views.container);
     $.__views.vp = Ti.Media.createVideoPlayer({
-        top: "2%",
+        top: "25dp",
         autoplay: true,
         backgroundColor: "black",
         height: "50%",
@@ -69,7 +64,7 @@ function Controller() {
     });
     $.__views.container.add($.__views.vp);
     $.__views.data = Ti.UI.createView({
-        top: "52%",
+        top: "55%",
         height: "20%",
         id: "data"
     });
@@ -109,10 +104,10 @@ function Controller() {
     });
     $.__views.data.add($.__views.views);
     $.__views.other = Ti.UI.createView({
-        top: "74%",
+        top: "71%",
         left: "0dp",
         backgroundColor: "#f2f2f2",
-        height: "4%",
+        height: "22dp",
         id: "other"
     });
     $.__views.container.add($.__views.other);
@@ -130,42 +125,30 @@ function Controller() {
     });
     $.__views.other.add($.__views.otherEvents);
     $.__views.table = Ti.UI.createTableView({
-        top: "78%",
+        top: "75%",
         id: "table"
     });
     $.__views.container.add($.__views.table);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
-    if ("android" == Ti.Platform.osname) {
-        var actionBar;
-        $.viewVideo.addEventListener("open", function() {
-            if ($.viewVideo.activity) {
-                actionBar = $.viewVideo.activity.actionBar;
-                if (actionBar) {
-                    actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = "Live Shows";
-                    actionBar.displayHomeAsUp = true;
-                    actionBar.onHomeIconItemSelected = function() {
-                        $.vp.hide();
-                        $.vp.release();
-                        $.vp = null;
-                        $.viewVideo.close();
-                    };
-                }
-            } else Ti.API.error("Can't access action bar on a lightweight window.");
-        });
-    } else {
-        $.container.top = "9%", $.container.height = "91%";
-        var args = {
-            ventana: $.viewVideo,
-            vp: $.vp,
-            container: $.container,
-            title: "Live Shows"
-        };
-        var win = Alloy.createController("actionbarIos", args).getView();
-        $.viewVideo.add(win);
-    }
+    var actionBar;
+    $.viewVideo.addEventListener("open", function() {
+        if ($.viewVideo.activity) {
+            actionBar = $.viewVideo.activity.actionBar;
+            if (actionBar) {
+                actionBar.backgroundImage = "/bg.png";
+                actionBar.title = "Live Shows";
+                actionBar.displayHomeAsUp = true;
+                actionBar.onHomeIconItemSelected = function() {
+                    $.vp.hide();
+                    $.vp.release();
+                    $.vp = null;
+                    $.viewVideo.close();
+                };
+            }
+        } else Ti.API.error("Can't access action bar on a lightweight window.");
+    });
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
         if (0 != orientation) {
@@ -208,15 +191,10 @@ function Controller() {
             $.viewVideo.close();
             var win = Alloy.createController("viewVideo", e.source.link).getView();
             win.fullscreen = false;
-            if ("android" == Ti.Platform.osname) win.open({
+            win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
-            }); else {
-                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-                win.open({
-                    transition: t
-                });
-            }
+            });
         }
     });
     _.extend($, exports);

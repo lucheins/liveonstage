@@ -11,6 +11,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 
 	client.onload = function(){
 		var responses = JSON.parse(this.responseText);
+		var posicion = table.getContentOffset();
 		var band = true;
 		var more = false;
 		for (var i=0; i < responses.length; i++) {	
@@ -59,11 +60,14 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 				pageHome = pageHome + 1;
 				var offset = pageHome * Alloy.Globals.LIMIT;	
 				table.remove(row);
-				var posicion = table.getContentOffset();
-				table.scrollTo(0, posicion.y+330);
 				exports.getCampaigns(activity, table,offset,pageHome,category);
 				});
 			}  
+			if(posicion != null)
+			{
+				var plus = (Ti.Platform.displayCaps.platformHeight * 60) / 100; 
+				table.scrollTo(0, posicion.y + plus);
+			}
 		};
 
 	client.onerror = function(e){alert(Alloy.Globals.CONNECTION_ERROR);};
@@ -158,6 +162,7 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 
 	client.onload = function(){
 		var responses = JSON.parse(this.responseText);
+		var posicion = table.getContentOffset();
 		var band = true;
 		var more = false;
 		for (var i=0; i < responses.length; i++) {	
@@ -210,11 +215,14 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 				pageHome = pageHome + 1;
 				var offset = pageHome * Alloy.Globals.LIMIT;
 				table.remove(row);
-				var posicion = table.getContentOffset();
-				table.scrollTo(0, posicion.y+330);	
 				exports.getArtists(activity, table,offset,pageHome,category);
 				});
 			}  
+			if(posicion != null)
+			{
+				var plus = (Ti.Platform.displayCaps.platformHeight * 60) / 100; 
+				table.scrollTo(0, posicion.y + plus);
+			}
 		};
 
 	client.onerror = function(e){alert(Alloy.Globals.CONNECTION_ERROR);};

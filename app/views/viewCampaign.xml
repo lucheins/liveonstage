@@ -1,7 +1,7 @@
 <Alloy>
 	<Window id="viewCampaign" >	
-	<ScrollView id="scroll" width="100%" scrollType="vertical">
-		<View height="Ti.Platform.displayCaps.platformHeight + 60" id="viewScroll">
+	<ScrollView id="scroll" width="100%" scrollType="vertical" top="0">
+		<View height="Ti.Platform.displayCaps.platformHeight + 60" id="viewScroll" top="0">
 			<ActivityIndicator id="activity"/>
 			<View id="fixed">
 				<VideoPlayer id="vp" />
@@ -35,13 +35,12 @@
 			    	</View>
 				</View>	
 				<View id="bottomBorder"/>
-			</View>
-			<View id="givebacks">
-				<Label id="givebacksTitle">Givebacks:</Label>
-				<View id="perks"/>
-					
-			</View>		
+			</View>				
 		</View>
+		<View id="givebacks">
+				<Label id="givebacksTitle">Givebacks:</Label>
+				<View id="perks"/>					
+			</View>	
 	</ScrollView>
 	<View id="donate">
 			<Button id="buttonDonate" title="Donate"/>

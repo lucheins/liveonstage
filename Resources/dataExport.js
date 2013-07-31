@@ -8,6 +8,7 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
     };
     client.onload = function() {
         var responses = JSON.parse(this.responseText);
+        var posicion = table.getContentOffset();
         var band = true;
         var more = false;
         for (var i = 0; responses.length > i; i++) {
@@ -53,10 +54,12 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
             pageHome += 1;
             var offset = pageHome * Alloy.Globals.LIMIT;
             table.remove(row);
-            var posicion = table.getContentOffset();
-            table.scrollTo(0, posicion.y + 330);
             exports.getCampaigns(activity, table, offset, pageHome, category);
         });
+        if (null != posicion) {
+            var plus = 60 * Ti.Platform.displayCaps.platformHeight / 100;
+            table.scrollTo(0, posicion.y + plus);
+        }
     };
     client.onerror = function() {
         alert(Alloy.Globals.CONNECTION_ERROR);
@@ -141,6 +144,7 @@ exports.getArtists = function(activity, table, offsetHome, pageHome, category) {
     };
     client.onload = function() {
         var responses = JSON.parse(this.responseText);
+        var posicion = table.getContentOffset();
         var band = true;
         var more = false;
         for (var i = 0; responses.length > i; i++) {
@@ -189,10 +193,12 @@ exports.getArtists = function(activity, table, offsetHome, pageHome, category) {
             pageHome += 1;
             var offset = pageHome * Alloy.Globals.LIMIT;
             table.remove(row);
-            var posicion = table.getContentOffset();
-            table.scrollTo(0, posicion.y + 330);
             exports.getArtists(activity, table, offset, pageHome, category);
         });
+        if (null != posicion) {
+            var plus = 60 * Ti.Platform.displayCaps.platformHeight / 100;
+            table.scrollTo(0, posicion.y + plus);
+        }
     };
     client.onerror = function() {
         alert(Alloy.Globals.CONNECTION_ERROR);
