@@ -75,7 +75,7 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
     client.send(params);
 };
 
-exports.getListItems = function(activity, table, offsetHome, pageHome, category, author, item_id, name) {
+exports.getListItems = function(activity, table, offsetHome, pageHome, category, author, item_id, name, scroll) {
     var index = table.getIndexByName("rowMore");
     index > 0 && table.deleteRow(index);
     var tableData = table.getData();
@@ -112,7 +112,7 @@ exports.getListItems = function(activity, table, offsetHome, pageHome, category,
         }
         table.setData(tableData);
         activity.hide();
-        more && row.addEventListener("click", function() {
+        more && !scroll && row.addEventListener("click", function() {
             pageHome += 1;
             var offset = pageHome * Alloy.Globals.LIMIT;
             exports.getListItems(activity, table, offset, pageHome, category, author, item_id, name);

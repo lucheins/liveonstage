@@ -1,7 +1,7 @@
 var id = arguments[0] || {};
+var pageHome = 0;
 
-
-
+var user_id = 0;
 if (Ti.Platform.osname == 'android'){
 var actionBar;
 $.viewVideo.addEventListener("open", function() {
@@ -22,7 +22,7 @@ $.viewVideo.addEventListener("open", function() {
                 };
             }
         }
-    
+
 });
 }
 
@@ -64,6 +64,10 @@ client.ondatastream = function(e){
 };
 
 client.onload = function(){	
+	
+	var height = (Ti.Platform.displayCaps.platformHeight * 65) / 100 ;	
+	$.container.height = height;
+	$.viewTable.top = height + 1;	
 	var json = this.responseText;
 	var responses = JSON.parse(json);
 	var url ='';
@@ -77,9 +81,10 @@ client.onload = function(){
 	$.author.text = responses.name;
 	$.title.text = responses.title;
 	$.views.text = responses.views;	
-	data.getListItems($.activity, $.table,0,0,categoryId,responses.creator,responses.id,'Videos');
-		
+	data.getListItems($.activity, $.table,0,0,categoryId,responses.creator,responses.id,'Videos',true);
+	//$.viewTable.height = (Alloy.Globals.LIMIT ) * ((Ti.Platform.displayCaps.platformHeight * 15) / 100);	
 	$.activity.hide(); 
+	user_id = responses.creator;
 };
 client.onerror = function(e){alert('Transmission error: ' + e.error);};
 var params = {
@@ -105,7 +110,16 @@ $.table.addEventListener('click', function(e){
 				var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
 				win.open({transition:t});
 			}									
-		}		
+		} else {
+			var index = $.table.getIndexByName('rowMore');
+			if(index > 0)
+			{
+				pageHome = pageHome + 1;
+				var offset = pageHome * Alloy.Globals.LIMIT;	
+				data.getListItems($.activity, $.table,offset,pageHome,categoryId,user_id,id,'Videos',true);
+				$.viewTable.height = $.viewTable.height + (Alloy.Globals.LIMIT ) * ((Ti.Platform.displayCaps.platformHeight * 15) / 100);
+			}
+		}
 	});
 	
 
@@ -161,3 +175,9 @@ function getUrlYoutube(video_id, vp)
     }
     vdldr.send()      
 }
+
+	    
+setTimeout(function(){
+		$.viewTable.height = (Alloy.Globals.LIMIT ) * ((Ti.Platform.displayCaps.platformHeight * 15) / 100);
+    	$.scroll.scrollTo(0,0);
+}, 3000);

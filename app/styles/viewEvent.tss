@@ -5,19 +5,13 @@
 		},
 	height:'auto',
 	left:'50%',
-	top:'25dp',
+	top:'5dp',
 	color:'#717777'
 },
-"#btnClose":{
-	top: '2dp',
-	left: '80%',
-	height: '20dp',
-	width: '50dp'
-},
 "#image": {
-	top: '25dp',
+	top: '10dp',
 	width: "45%",
-	height: "19%",
+	height: "45%",
 	left: '10dp'
 },
 "#author":{
@@ -26,7 +20,7 @@
 		},
 	height:'auto',
 	left:'50%',
-	top:'70dp',
+	top:'45dp',
 	color:'#717777'
 },
 "#date":{
@@ -35,7 +29,7 @@
 		},
 	height:'auto',
 	left:'50%',
-	top:'90dp',
+	top:'65dp',
 	color:'#717777'
 },
 "#views":{
@@ -44,13 +38,13 @@
 		},
 	height:'auto',
 	left:'50%',
-	top:'110dp',
+	top:'85dp',
 	color:'#717777'
 },
 "#content":{
-	top:'25%',
+	top:'50%',
 	left: '0dp',
-	height: "15%"
+	height: "40%"
 },
 "#description":{
 	font: {
@@ -83,11 +77,16 @@
 	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
 },
 "#other":{
-	top:'40%',
+	top:'90%',
 	left: '0dp',
 	backgroundColor: "#f2f2f2",
 	height: '22dp'
 },
 "#table":{
-	top:'45%'
+	top:'0'
+},
+"#viewTable":{
+	top:'0%',
+	left: '0dp'
 }
+

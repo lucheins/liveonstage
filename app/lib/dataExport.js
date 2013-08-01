@@ -85,7 +85,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 }
 
 
-exports.getListItems=function(activity, table,offsetHome, pageHome, category, author, item_id, name)
+exports.getListItems=function(activity, table,offsetHome, pageHome, category, author, item_id, name, scroll)
 {
 	var index = table.getIndexByName('rowMore');
 	if(index > 0)
@@ -128,7 +128,7 @@ exports.getListItems=function(activity, table,offsetHome, pageHome, category, au
 			 }
 	        table.setData(tableData);
 	        activity.hide(); 
-	      	if(more)
+	      	if(more && !scroll)
 			{
 				row.addEventListener('click', function(){
 				pageHome = pageHome + 1;
