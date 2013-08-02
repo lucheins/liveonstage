@@ -24,14 +24,14 @@ $.viewListOfProfile.addEventListener("open", function() {
 else {
 	$.container.top = '9%',
 	$.container.height = '91%'	
-var args = {
+var args1 = {
 	ventana: $.viewListOfProfile,
 	vp: $.vp,
 	
 	title: args.authorname + "-" + args.view       	        			
 	};
 	      		
-var win = Alloy.createController('actionbarIos',args).getView();
+var win = Alloy.createController('actionbarIos',args1).getView();
 $.viewListOfProfile.add(win);
 }
 

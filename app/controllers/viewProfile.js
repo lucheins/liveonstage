@@ -92,27 +92,26 @@ client.onload = function(){
 	
 	$.event.addEventListener('click', function(e){
 		var args = {       		
-	        			author: responses.creator,
+	        			author: author,
 	        			authorname: responses.name,
 	        			view: 'Events'
 	      		};
-	    $.vp.pause();
-								
+	    $.vp.pause();					
 		openWindows(args);		
 	});
 	
 	$.video.addEventListener('click', function(e){
 		var args = {       		
-	        			author: responses.creator,
+	        			author: author,
 	        			authorname: responses.name,
 	        			view: 'Videos'
 	      		};						
-		$.vp.pause();						
+		$.vp.pause();					
 		openWindows(args);		
 	});
 	$.campaign.addEventListener('click', function(e){
 		var args = {       		
-	        			author: responses.creator,
+	        			author: author,
 	        			authorname: responses.name,
 	        			view: 'Campaigns'
 	      		};						

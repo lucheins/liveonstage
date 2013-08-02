@@ -101,7 +101,7 @@ function Controller() {
     $.__views.__alloyId4 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/bolt.png",
         id: "__alloyId4"
     });
@@ -129,7 +129,7 @@ function Controller() {
     $.__views.__alloyId6 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/campaigns.png",
         id: "__alloyId6"
     });
@@ -164,7 +164,7 @@ function Controller() {
     $.__views.__alloyId8 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/upcoming.png",
         id: "__alloyId8"
     });
@@ -192,7 +192,7 @@ function Controller() {
     $.__views.__alloyId10 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/artists.png",
         id: "__alloyId10"
     });

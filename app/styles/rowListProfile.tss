@@ -2,7 +2,7 @@
 		left:"10dp",
 		height:'50dp',
 		color:"black",
-		font:{fontSize:14}
+		font:{fontSize:'14dp'}
 },
 "#rowListProfile":{
 	height: '50dp',

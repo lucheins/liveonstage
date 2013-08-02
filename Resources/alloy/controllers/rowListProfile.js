@@ -16,7 +16,7 @@ function Controller() {
         height: "50dp",
         color: "black",
         font: {
-            fontSize: 14
+            fontSize: "14dp"
         },
         id: "title"
     });
