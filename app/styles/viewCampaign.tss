@@ -243,8 +243,21 @@
 	bottom: '0dp',
 	height: '40dp'
 },
-"#buttonDonate":{
-	top: '10dp',
-	height: '30dp',
-	width: '50dp'
+	"#buttonMore":{
+	height:'40dp',
+	left: '33%',
+	width: '34%'
+},
+"#titleButton":{
+   	font: {
+		fontSize:'14dp',
+		fontWeight: 'bold'
+		},
+	top: '5%',
+	height: '90%',
+	width: '90%',
+	borderRadius: 5,
+	backgroundColor:'#e4473e',
+	color: 'white',
+	textAlign: 'center'
 }

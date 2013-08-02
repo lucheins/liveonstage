@@ -45,7 +45,7 @@
 			font: {
 			   	fontSize:'13dp'
 				},
-			height:'20%',
+			height:'28%',
 			left:'0%',
 			top:'32%',
 			color:'#717777'

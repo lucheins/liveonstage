@@ -95,7 +95,7 @@ function Controller() {
         font: {
             fontSize: "13dp"
         },
-        height: "20%",
+        height: "28%",
         left: "0%",
         top: "32%",
         color: "#717777",
@@ -190,30 +190,19 @@ function Controller() {
     _.extend($, $.__views);
     var id = arguments[0] || {};
     var user_id = 0;
-    if ("android" == Ti.Platform.osname) {
-        var actionBar;
-        $.viewEvent.addEventListener("open", function() {
-            if ($.viewEvent.activity) {
-                actionBar = $.viewEvent.activity.actionBar;
-                if (actionBar) {
-                    actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = "Upcoming Events";
-                    actionBar.onHomeIconItemSelected = function() {
-                        $.viewEvent.close();
-                    };
-                }
-            } else Ti.API.error("Can't access action bar on a lightweight window.");
-        });
-    } else {
-        $.scroll.top = "9%", $.scroll.height = "91%";
-        var args = {
-            ventana: $.viewEvent,
-            vp: $.vp,
-            title: "Upcoming Events"
-        };
-        var win = Alloy.createController("actionbarIos", args).getView();
-        $.viewEvent.add(win);
-    }
+    var actionBar;
+    $.viewEvent.addEventListener("open", function() {
+        if ($.viewEvent.activity) {
+            actionBar = $.viewEvent.activity.actionBar;
+            if (actionBar) {
+                actionBar.backgroundImage = "/bg.png";
+                actionBar.title = "Upcoming Events";
+                actionBar.onHomeIconItemSelected = function() {
+                    $.viewEvent.close();
+                };
+            }
+        } else Ti.API.error("Can't access action bar on a lightweight window.");
+    });
     var data = require("dataExport");
     var categoryId = 0;
     var client = Ti.Network.createHTTPClient();
@@ -255,18 +244,11 @@ function Controller() {
         if (e.source.link > 0) {
             $.viewEvent.close();
             var win = Alloy.createController("viewEvent", e.source.link).getView();
-            if ("android" == Ti.Platform.osname) {
-                win.fullscreen = false;
-                win.open({
-                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                    activityExitAnimation: Ti.Android.R.anim.fade_out
-                });
-            } else {
-                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-                win.open({
-                    transition: t
-                });
-            }
+            win.fullscreen = false;
+            win.open({
+                activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                activityExitAnimation: Ti.Android.R.anim.fade_out
+            });
         } else {
             var index = $.table.getIndexByName("rowMore");
             if (index > 0) {
@@ -280,7 +262,7 @@ function Controller() {
     setTimeout(function() {
         $.viewTable.height = Alloy.Globals.LIMIT * (18 * Ti.Platform.displayCaps.platformHeight / 100);
         $.scroll.scrollTo(0, 0);
-    }, 1e3);
+    }, 2e3);
     $.table.footerView = Ti.UI.createView({
         height: 1,
         backgroundColor: "transparent"

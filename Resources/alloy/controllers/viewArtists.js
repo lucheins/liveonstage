@@ -68,6 +68,9 @@ function Controller() {
         top: "3%",
         width: "100%",
         textAlign: "center",
+        font: {
+            fontSize: "16dp"
+        },
         id: "title"
     });
     $.__views.header.add($.__views.title);
@@ -234,18 +237,11 @@ function Controller() {
             author: args.id
         };
         var win = Alloy.createController("viewProfile", args1).getView();
-        if ("android" == Ti.Platform.osname) {
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
-        } else {
-            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-            win.open({
-                transition: t
-            });
-        }
+        win.fullscreen = false;
+        win.open({
+            activityEnterAnimation: Ti.Android.R.anim.fade_in,
+            activityExitAnimation: Ti.Android.R.anim.fade_out
+        });
     });
     _.extend($, exports);
 }

@@ -1,5 +1,7 @@
 <Alloy>
 	<View id="container">
-		<Label id="text"/>
+		<View id="buttonMore">
+    		<Label id="text">Load More</Label>
+    	</View>
 	</View>
 </Alloy>

@@ -112,7 +112,7 @@ $.table.addEventListener('click', function(e){
 setTimeout(function(){
 	$.viewTable.height = (Alloy.Globals.LIMIT ) * ((Ti.Platform.displayCaps.platformHeight * 18) / 100);
     $.scroll.scrollTo(0,0);
-}, 1000);
+}, 2000);
 $.table.footerView = Ti.UI.createView({
     height: 1,
     backgroundColor: 'transparent'

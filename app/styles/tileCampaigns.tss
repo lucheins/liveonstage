@@ -43,7 +43,8 @@
 	font:{fontSize:'14dp'}
 	},
 	"#title":{
-	top: '3%'
+	top: '3%',
+	font:{fontSize:'16dp'}
 	},
 "#data": {
 	top: '32%',

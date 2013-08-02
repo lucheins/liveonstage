@@ -63,3 +63,8 @@ $.table.addEventListener('click', function(e){
 			}		
 		}		
 	});
+
+$.table.footerView = Ti.UI.createView({
+    height: 1,
+    backgroundColor: 'transparent'
+});

@@ -43,7 +43,9 @@
 			</View>	
 	</ScrollView>
 	<View id="donate">
-			<Button id="buttonDonate" title="Donate"/>
+			<View id="buttonMore">
+    	<Label id="titleButton">Donate</Label>
+    </View>
 		</View>		
 	</Window>
 </Alloy>

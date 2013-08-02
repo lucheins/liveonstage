@@ -40,12 +40,16 @@
 },
 "#labelLink":{
 	font: {
-	   	fontSize:'14dp',
+	   	fontSize:'13dp',
 	   	fontWeight:'bold'
 		},
-	height:'auto',
-	top:'0dp',
-	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+	height:'95%',
+	bottom:'8%',
+	width: '98%',
+	borderRadius: 4,
+	backgroundColor:'#745DA8',
+	color: 'white',
+	textAlign: 'center'	
 },
 "#links":{
 	top:'80%',
@@ -55,19 +59,16 @@
 "#event":{
 	top:'0',
 	left: '0dp',
-	backgroundColor: "#f2f2f2",
 	width: '32%'
 },
 "#video":{
 	top:'0',
 	left: '33%',
-	backgroundColor: "#f2f2f2",
 	width: '32%'
 },
 "#campaign":{
 	top:'0',
 	left: '66%',
-	backgroundColor: "#f2f2f2",
 	width: '32%'
 },
 "#cover": {

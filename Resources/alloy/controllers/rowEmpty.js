@@ -12,7 +12,7 @@ function Controller() {
         font: {
             fontSize: "14dp"
         },
-        text: "No found Items",
+        text: "No items found",
         id: "title"
     });
     $.__views.rowEmpty.add($.__views.title);

@@ -62,6 +62,9 @@ function Controller() {
     $.__views.videoinfo.add($.__views.header);
     $.__views.title = Ti.UI.createLabel({
         top: "3%",
+        font: {
+            fontSize: "16dp"
+        },
         id: "title"
     });
     $.__views.header.add($.__views.title);
@@ -206,18 +209,11 @@ function Controller() {
     $.videocover.add(theImageShadow);
     $.videocover.addEventListener("click", function() {
         var win = Alloy.createController("viewCampaign", args.link).getView();
-        if ("android" == Ti.Platform.osname) {
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
-        } else {
-            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-            win.open({
-                transition: t
-            });
-        }
+        win.fullscreen = false;
+        win.open({
+            activityEnterAnimation: Ti.Android.R.anim.fade_in,
+            activityExitAnimation: Ti.Android.R.anim.fade_out
+        });
     });
     _.extend($, exports);
 }
