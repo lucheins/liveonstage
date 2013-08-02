@@ -224,7 +224,7 @@ upcomming.addEventListener('click', function(e){
 		}		
 	});
 	
-upcoming.footerView = Ti.UI.createView({
+upcomming.footerView = Ti.UI.createView({
     height: 1,
     backgroundColor: 'transparent'
 });

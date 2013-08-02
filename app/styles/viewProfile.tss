@@ -8,7 +8,7 @@
 },
 "#data":{
 	top: "61%",
-	height: "20%"
+	height: "21%"
 }
 "#author": {
 	font: {
@@ -43,7 +43,7 @@
 	   	fontSize:'13dp',
 	   	fontWeight:'bold'
 		},
-	height:'95%',
+	height:'90%',
 	bottom:'8%',
 	width: '98%',
 	borderRadius: 4,
@@ -52,24 +52,27 @@
 	textAlign: 'center'	
 },
 "#links":{
-	top:'80%',
+	top:'83%',
 	left: '0dp',
-	height: '22dp'
+	height: '30dp'
 },
 "#event":{
 	top:'0',
 	left: '0dp',
-	width: '32%'
+	width: '32%',
+	height: '25dp'
 },
 "#video":{
 	top:'0',
 	left: '33%',
-	width: '32%'
+	width: '32%',
+	height: '25dp'
 },
 "#campaign":{
 	top:'0',
 	left: '66%',
-	width: '32%'
+	width: '32%',
+	height: '25dp'
 },
 "#cover": {
  	top : '25dp',
