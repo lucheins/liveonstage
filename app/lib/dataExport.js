@@ -38,7 +38,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 				var args = {       		
 	        			row: i + item,
 	        			text: 'Load More',
-	        			font: {	fontSize:'14dp'	}
+	        			item: 1
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        more = true;
@@ -49,7 +49,8 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 	     	{
 	     		var args = {       		
 	        			row: i,
-	        			text: 'No Campaigns Found Here'
+	        			text: 'No Campaigns Found Here',
+	        			item: 0
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        table.add(row);	 
@@ -195,7 +196,8 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 			} else {
 				var args = {       		
 	        			row: i + item,
-	        			text: 'Load More'
+	        			text: 'Load More',
+	        			item: 1
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        more = true;
@@ -206,7 +208,8 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 	     	{
 	     		var args = {       		
 	        			row: i,
-	        			text: 'No Artists Found Here'
+	        			text: 'No Artists Found Here',
+	        			item: 0
 	      		};
 		        var row = Alloy.createController('viewMore',args).getView(); 
 		        table.add(row);	 

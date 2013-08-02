@@ -77,5 +77,6 @@
 "#cover": {
  	top : '25dp',
     height : '55%',
-    width : '95%'
+    width : '95%',
+    zIndex: 20
 }

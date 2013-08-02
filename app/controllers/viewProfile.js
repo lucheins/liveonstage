@@ -68,7 +68,7 @@ client.onload = function(){
 		url = getPathVideo(responses.type, responses.path);
 		$.vp.url = url;
 	} else {
-		if(!responses.type)
+		if(responses.type == '' || responses.type == null)
 	    {
 	    	var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
 			if(responses.avatar.length > 0)

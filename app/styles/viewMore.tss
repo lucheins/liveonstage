@@ -18,4 +18,10 @@
 	backgroundColor:'#745DA8',
 	color: 'white',
 	textAlign: 'center'
+},
+"#message":{
+   	font: {
+		fontSize:'14dp'
+		},
+		color: "#000000"
 }

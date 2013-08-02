@@ -28,17 +28,32 @@ function Controller() {
         backgroundColor: "#745DA8",
         color: "white",
         textAlign: "center",
-        text: "Load More",
         id: "text"
     });
     $.__views.buttonMore.add($.__views.text);
+    $.__views.message = Ti.UI.createLabel({
+        font: {
+            fontSize: "14dp"
+        },
+        color: "#000000",
+        id: "message"
+    });
+    $.__views.container.add($.__views.message);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
     var height = 360;
     $.container.height = "45dp";
     $.container.top = height * args.row + "dp";
-    $.text.text = args.text;
+    if (1 == args.item) {
+        $.text.text = args.text;
+        $.message.hide();
+    } else {
+        $.message.text = args.text;
+        $.buttonMore.hide();
+        $.text.hide();
+        $.text.backgroundColor = "#f2f2f2";
+    }
     _.extend($, exports);
 }
 

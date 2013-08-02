@@ -1,7 +1,7 @@
 function WPATH(s) {
     var index = s.lastIndexOf("/");
     var path = -1 === index ? "com.appcelerator.buttongrid/" + s : s.substring(0, index) + "/com.appcelerator.buttongrid/" + s.substring(index + 1);
-    return path;
+    return true && 0 !== path.indexOf("/") ? "/" + path : path;
 }
 
 function Controller() {
@@ -50,6 +50,16 @@ function Controller() {
                 height: $._params.buttonHeight,
                 click: $._params.click
             });
+            if (button.title) {
+                buttonProps.title = button.title;
+                buttonProps.textAlign = Ti.UI.TEXT_ALIGNMENT_CENTER;
+                buttonProps.verticalAlign = Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM;
+                buttonProps.font = {
+                    fontSize: $._params.textSize
+                };
+                buttonProps.color = $._params.textColor;
+                buttonProps.selectedColor = $._params.textSelectedColor;
+            }
             $._buttons[index].b = Ti.UI.createButton(buttonProps);
             button.click && $._buttons[index].b.addEventListener("click", function(e) {
                 var source = _.clone(e.source);
@@ -60,24 +70,6 @@ function Controller() {
                 e.source = temp;
             });
             $.scrollview.add($._buttons[index].b);
-            if (true && button.title) {
-                var theLabel = Ti.UI.createLabel({
-                    color: $._params.textColor,
-                    backgroundColor: "transparent",
-                    width: $._params.buttonWidth,
-                    height: Ti.UI.SIZE,
-                    bottom: TEXTSIZE / (button.title.split("\n").length - 1 ? 2 : 1) + "dp",
-                    font: {
-                        fontSize: $._params.textSize
-                    },
-                    text: button.title,
-                    textAlign: "center",
-                    touchEnabled: false
-                });
-                $._buttons[index].b.add(theLabel);
-                $._buttons[index].b._title = $._buttons[index].b.title;
-                $._buttons[index].b.title = "";
-            }
         });
         var autoLayout = $._params.autoLayout || "undefined" == typeof $._params.autoLayout;
         autoLayout && Ti.Gesture.addEventListener("orientationchange", exports.relayout);
