@@ -8,7 +8,7 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+        "android" == Ti.Platform.osname ? $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT : $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
@@ -20,9 +20,15 @@ function Controller() {
             y = JSON.parse(x).content.video["fmt_stream_map"][0].url;
             vp.url = y;
         };
+        if ("android" != Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
+        }
         vdldr.open("GET", "http://m.youtube.com/watch?ajax=1&feature=related&layout=mobile&tsp=1&&v=" + video_id);
-        vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-        vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        if ("android" == Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        }
         vdldr.send();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -54,69 +60,77 @@ function Controller() {
         id: "scroll",
         width: "100%",
         height: "100%",
-        scrollType: "vertical",
-        top: "0"
+        scrollType: "vertical"
     });
     $.__views.viewVideo.add($.__views.scroll);
     $.__views.container = Ti.UI.createView({
-        id: "container",
-        top: "0"
+        top: "0%",
+        id: "container"
     });
     $.__views.scroll.add($.__views.container);
     $.__views.vp = Ti.Media.createVideoPlayer({
-        top: "5dp",
+        top: "3%",
         autoplay: true,
         backgroundColor: "black",
         height: "70%",
-        width: "95%",
+        width: "94%",
+        left: "3%",
         id: "vp"
     });
     $.__views.container.add($.__views.vp);
     $.__views.data = Ti.UI.createView({
-        top: "70%",
-        height: "23%",
+        top: "73%",
+        height: "20%",
+        width: "94%",
+        left: "3%",
         id: "data"
     });
     $.__views.container.add($.__views.data);
     $.__views.title = Ti.UI.createLabel({
         font: {
-            fontSize: "16dp",
+            fontSize: "14dp",
             fontWeight: "bold"
         },
-        height: "auto",
-        left: "5dp",
-        top: "5dp",
+        height: "50%",
+        left: "0%",
+        top: "2%",
         color: "#717777",
         id: "title"
     });
     $.__views.data.add($.__views.title);
     $.__views.author = Ti.UI.createLabel({
         font: {
-            fontSize: "14dp"
+            fontSize: "13dp"
         },
-        height: "auto",
-        left: "5dp",
-        top: "45dp",
+        height: "46%",
+        left: "0%",
+        bottom: "2%",
         color: "#717777",
+        width: "70%",
         id: "author"
     });
     $.__views.data.add($.__views.author);
     $.__views.views = Ti.UI.createLabel({
         font: {
-            fontSize: "14dp"
+            fontSize: "13dp",
+            fontWeight: "bold"
         },
-        height: "auto",
-        left: "5dp",
-        top: "65dp",
-        color: "#717777",
+        height: "30%",
+        right: "0%",
+        bottom: "8%",
+        width: "28%",
+        borderRadius: 4,
+        backgroundColor: "#745DA8",
+        color: "white",
+        textAlign: "center",
         id: "views"
     });
     $.__views.data.add($.__views.views);
     $.__views.other = Ti.UI.createView({
-        top: "94%",
-        left: "0dp",
+        top: "93%",
+        left: "0%",
         backgroundColor: "#f2f2f2",
-        height: "22dp",
+        height: "7%",
         id: "other"
     });
     $.__views.container.add($.__views.other);
@@ -125,21 +139,22 @@ function Controller() {
             fontSize: "14dp",
             fontWeight: "bold"
         },
-        height: "auto",
-        left: "10dp",
-        top: "0dp",
+        height: "100%",
+        left: "3%",
+        width: "94%",
+        top: "0%",
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
-        text: "Other videos from this Artist1:",
+        text: "Other videos from this Artist:",
         id: "otherEvents"
     });
     $.__views.other.add($.__views.otherEvents);
     $.__views.viewTable = Ti.UI.createView({
-        top: "60%",
-        left: "0dp",
+        left: "0%",
         id: "viewTable"
     });
     $.__views.scroll.add($.__views.viewTable);
     $.__views.table = Ti.UI.createTableView({
+        top: "0",
         id: "table"
     });
     $.__views.viewTable.add($.__views.table);
@@ -148,23 +163,33 @@ function Controller() {
     var id = arguments[0] || {};
     var pageHome = 0;
     var user_id = 0;
-    var actionBar;
-    $.viewVideo.addEventListener("open", function() {
-        if ($.viewVideo.activity) {
-            actionBar = $.viewVideo.activity.actionBar;
-            if (actionBar) {
-                actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Live Shows";
-                actionBar.displayHomeAsUp = true;
-                actionBar.onHomeIconItemSelected = function() {
-                    $.vp.hide();
-                    $.vp.release();
-                    $.vp = null;
-                    $.viewVideo.close();
-                };
-            }
-        } else Ti.API.error("Can't access action bar on a lightweight window.");
-    });
+    if ("android" == Ti.Platform.osname) {
+        var actionBar;
+        $.viewVideo.addEventListener("open", function() {
+            if ($.viewVideo.activity) {
+                actionBar = $.viewVideo.activity.actionBar;
+                if (actionBar) {
+                    actionBar.backgroundImage = "/bg.png";
+                    actionBar.title = "Live Shows";
+                    actionBar.displayHomeAsUp = true;
+                    actionBar.onHomeIconItemSelected = function() {
+                        $.vp.hide();
+                        $.vp.release();
+                        $.vp = null;
+                        $.viewVideo.close();
+                    };
+                }
+            } else Ti.API.error("Can't access action bar on a lightweight window.");
+        });
+    } else {
+        $.scroll.top = "9%", $.scroll.height = "91%";
+        var args = {
+            ventana: $.viewVideo,
+            title: "Live Shows"
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.viewVideo.add(win);
+    }
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
         if (0 != orientation) {
@@ -181,7 +206,7 @@ function Controller() {
         $.activity.show();
     };
     client.onload = function() {
-        var height = 65 * Ti.Platform.displayCaps.platformHeight / 100;
+        var height = Ti.Platform.displayCaps.platformHeight - 180;
         $.container.height = height;
         $.viewTable.top = height + 1;
         var json = this.responseText;
@@ -211,24 +236,35 @@ function Controller() {
             $.viewVideo.close();
             var win = Alloy.createController("viewVideo", e.source.link).getView();
             win.fullscreen = false;
-            win.open({
+            if ("android" == Ti.Platform.osname) win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            }); else {
+                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                win.open({
+                    transition: t
+                });
+            }
         } else {
             var index = $.table.getIndexByName("rowMore");
             if (index > 0) {
                 pageHome += 1;
                 var offset = pageHome * Alloy.Globals.LIMIT;
                 data.getListItems($.activity, $.table, offset, pageHome, categoryId, user_id, id, "Videos", true);
-                $.viewTable.height = $.viewTable.height + Alloy.Globals.LIMIT * (15 * Ti.Platform.displayCaps.platformHeight / 100);
+                $.viewTable.height = $.viewTable.height + Alloy.Globals.LIMIT * (19 * Ti.Platform.displayCaps.platformHeight / 100);
             }
         }
     });
     setTimeout(function() {
-        $.viewTable.height = Alloy.Globals.LIMIT * (15 * Ti.Platform.displayCaps.platformHeight / 100);
+        $.viewTable.height = Alloy.Globals.LIMIT * (19 * Ti.Platform.displayCaps.platformHeight / 100);
+        $.table.top = 0;
+        $.table.scrollable = false;
         $.scroll.scrollTo(0, 0);
     }, 3e3);
+    $.table.footerView = Ti.UI.createView({
+        height: 1,
+        backgroundColor: "transparent"
+    });
     _.extend($, exports);
 }
 

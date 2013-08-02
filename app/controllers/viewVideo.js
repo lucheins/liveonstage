@@ -27,12 +27,10 @@ $.viewVideo.addEventListener("open", function() {
 }
 
 else {	
-	$.container.top = '9%',
-	$.container.height = '91%'	
+	$.scroll.top = '9%',
+	$.scroll.height = '91%'	
 var args = {
 	ventana: $.viewVideo,
-	vp: $.vp,
-	container: $.container,
 	title: "Live Shows"       	        			
 	};
 
@@ -65,8 +63,8 @@ client.ondatastream = function(e){
 
 client.onload = function(){	
 	
-	var height = (Ti.Platform.displayCaps.platformHeight * 65) / 100 ;	
-	$.container.height = height;
+	var height = Ti.Platform.displayCaps.platformHeight - 180;
+	$.container.height = height ;
 	$.viewTable.top = height + 1;	
 	var json = this.responseText;
 	var responses = JSON.parse(json);
@@ -117,7 +115,7 @@ $.table.addEventListener('click', function(e){
 				pageHome = pageHome + 1;
 				var offset = pageHome * Alloy.Globals.LIMIT;	
 				data.getListItems($.activity, $.table,offset,pageHome,categoryId,user_id,id,'Videos',true);
-				$.viewTable.height = $.viewTable.height + (Alloy.Globals.LIMIT ) * ((Ti.Platform.displayCaps.platformHeight * 15) / 100);
+				$.viewTable.height = $.viewTable.height + (Alloy.Globals.LIMIT ) * ((Ti.Platform.displayCaps.platformHeight * 19) / 100);
 			}
 		}
 	});
@@ -178,6 +176,13 @@ function getUrlYoutube(video_id, vp)
 
 	    
 setTimeout(function(){
-		$.viewTable.height = (Alloy.Globals.LIMIT ) * ((Ti.Platform.displayCaps.platformHeight * 15) / 100);
+		$.viewTable.height = (Alloy.Globals.LIMIT ) * ((Ti.Platform.displayCaps.platformHeight * 19) / 100);
+    	$.table.top = 0;
+    	$.table.scrollable =  false;
     	$.scroll.scrollTo(0,0);
 }, 3000);
+
+$.table.footerView = Ti.UI.createView({
+    height: 1,
+    backgroundColor: 'transparent'
+});

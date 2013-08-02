@@ -13,11 +13,17 @@ function Controller() {
     $.__views.rowListItems && $.addTopLevelView($.__views.rowListItems);
     $.__views.title = Ti.UI.createLabel({
         font: {
-            fontSize: "16dp",
+            fontSize: "15dp",
             fontWeight: "bold"
         },
         left: "110dp",
-        top: "2dp",
+        top: "3%",
+        color: "#2B2B2B",
+        shadowColor: "#f2f2f2",
+        shadowOffset: {
+            x: 1,
+            y: 1
+        },
         id: "title"
     });
     $.__views.rowListItems.add($.__views.title);
@@ -27,16 +33,17 @@ function Controller() {
         },
         left: "110dp",
         bottom: "18dp",
+        color: "#717777",
         id: "author"
     });
     $.__views.rowListItems.add($.__views.author);
     $.__views.footMessage = Ti.UI.createLabel({
         font: {
-            fontSize: "14dp",
-            fontWeight: "bold"
+            fontSize: "13dp"
         },
         left: "110dp",
         bottom: "3dp",
+        color: "#909090",
         id: "footMessage"
     });
     $.__views.rowListItems.add($.__views.footMessage);

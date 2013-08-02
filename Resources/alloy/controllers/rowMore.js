@@ -9,14 +9,29 @@ function Controller() {
         name: "rowMore"
     });
     $.__views.rowMore && $.addTopLevelView($.__views.rowMore);
+    $.__views.buttonMore = Ti.UI.createView({
+        height: "40dp",
+        left: "33%",
+        width: "34%",
+        id: "buttonMore"
+    });
+    $.__views.rowMore.add($.__views.buttonMore);
     $.__views.title = Ti.UI.createLabel({
         font: {
-            fontSize: "14dp"
+            fontSize: "12dp",
+            fontWeight: "bold"
         },
-        text: "More",
+        top: "5%",
+        height: "90%",
+        width: "90%",
+        borderRadius: 5,
+        backgroundColor: "#745DA8",
+        color: "white",
+        textAlign: "center",
+        text: "Load More",
         id: "title"
     });
-    $.__views.rowMore.add($.__views.title);
+    $.__views.buttonMore.add($.__views.title);
     exports.destroy = function() {};
     _.extend($, $.__views);
     _.extend($, exports);

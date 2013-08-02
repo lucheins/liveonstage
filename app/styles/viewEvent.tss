@@ -1,60 +1,89 @@
-"#title": {
-	font: {
-	   	fontSize:'16dp',
-		fontWeight:'bold'
+"#data":{
+	top: '3%',
+	height: '45%',
+	left: '1%',
+	width: '98%'
+},
+	"#image": {
+		top: '0%',
+		width: "50%",
+		height: '100%',
+		left: '0%'
+	},
+	"#topdata":{
+			height:'48%',
+			left:'52%',
+			top:'0%',
+			width: '48%'
+	},
+		"#title": {
+			font: {
+			   	fontSize:'15dp',
+				fontWeight:'bold'
+				},
+			height:'100%',
+			left:'0%',
+			top:'0%',
+			color:'#e4473e'
 		},
-	height:'auto',
-	left:'50%',
-	top:'5dp',
-	color:'#717777'
-},
-"#image": {
-	top: '10dp',
-	width: "45%",
-	height: "45%",
-	left: '10dp'
-},
-"#author":{
-	font: {
-	   	fontSize:'14dp'
+	"#bottomdata":{
+			height:'50%',
+			left:'52%',
+			top:'50%'
+	},
+	
+		"#author":{
+			font: {
+			   	fontSize:'13dp'
+				},
+			height:'30%',
+			top:'0%',
+			left: '0%',
+			color:'#717777'
 		},
-	height:'auto',
-	left:'50%',
-	top:'45dp',
-	color:'#717777'
-},
-"#date":{
-	font: {
-	   	fontSize:'14dp'
+		"#date":{
+			font: {
+			   	fontSize:'13dp'
+				},
+			height:'20%',
+			left:'0%',
+			top:'32%',
+			color:'#717777'
 		},
-	height:'auto',
-	left:'50%',
-	top:'65dp',
-	color:'#717777'
-},
-"#views":{
-	font: {
-	   	fontSize:'14dp'
+		"#views":{
+			font: {
+			   	fontSize:'12dp',
+			   	fontWeight: 'bold'
+				},
+			height:'32%',
+			left:'0%',
+			bottom:'5%%',
+			color:'#717777',
+			width: '98%',
+			borderRadius: 4,
+			backgroundColor:'#745DA8',
+			color: 'white',
+			textAlign: 'center'
 		},
-	height:'auto',
-	left:'50%',
-	top:'85dp',
-	color:'#717777'
-},
 "#content":{
 	top:'50%',
 	left: '0dp',
-	height: "40%"
+	height: "40%",
+	borderColor: '#c3c3c3',
+	backgroundImage: '/light-diagonal-strips.png',
+	backgroundRepeat: true,
+	borderWidth: 0	
 },
 "#description":{
 	font: {
 	   	fontSize:'12dp'
 		},
 	height:'auto',
-	left:'10dp',
-	top:'10dp',
-	width: "90%",
-	height : "90%"
+	left:'3%',
+	top:'9%',
+	width: "94%",
+	height : "90%",
+	color: 'gray'
 },
 "#titleDescription":{
 	font: {
@@ -62,9 +91,9 @@
 	   	fontWeight:'bold'
 		},
 	height:'auto',
-	left:'10dp',
-	top:'0dp',
-	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+	left:'3%',
+	width: "94%",
+	top:'4%'
 },
 "#otherEvents":{
 	font: {

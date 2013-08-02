@@ -37,63 +37,95 @@ function Controller() {
         top: "0"
     });
     $.__views.scroll.add($.__views.container);
-    $.__views.title = Ti.UI.createLabel({
-        font: {
-            fontSize: "16dp",
-            fontWeight: "bold"
-        },
-        height: "auto",
-        left: "50%",
-        top: "5dp",
-        color: "#717777",
-        id: "title"
-    });
-    $.__views.container.add($.__views.title);
-    $.__views.image = Ti.UI.createImageView({
-        top: "10dp",
-        width: "45%",
+    $.__views.data = Ti.UI.createView({
+        top: "3%",
         height: "45%",
-        left: "10dp",
+        left: "1%",
+        width: "98%",
+        id: "data"
+    });
+    $.__views.container.add($.__views.data);
+    $.__views.image = Ti.UI.createImageView({
+        top: "0%",
+        width: "50%",
+        height: "100%",
+        left: "0%",
         id: "image"
     });
-    $.__views.container.add($.__views.image);
+    $.__views.data.add($.__views.image);
+    $.__views.topdata = Ti.UI.createView({
+        height: "48%",
+        left: "52%",
+        top: "0%",
+        width: "48%",
+        id: "topdata"
+    });
+    $.__views.data.add($.__views.topdata);
+    $.__views.title = Ti.UI.createLabel({
+        font: {
+            fontSize: "15dp",
+            fontWeight: "bold"
+        },
+        height: "100%",
+        left: "0%",
+        top: "0%",
+        color: "#e4473e",
+        id: "title"
+    });
+    $.__views.topdata.add($.__views.title);
+    $.__views.bottomdata = Ti.UI.createView({
+        height: "50%",
+        left: "52%",
+        top: "50%",
+        id: "bottomdata"
+    });
+    $.__views.data.add($.__views.bottomdata);
     $.__views.author = Ti.UI.createLabel({
         font: {
-            fontSize: "14dp"
+            fontSize: "13dp"
         },
-        height: "auto",
-        left: "50%",
-        top: "45dp",
+        height: "30%",
+        top: "0%",
+        left: "0%",
         color: "#717777",
         id: "author"
     });
-    $.__views.container.add($.__views.author);
+    $.__views.bottomdata.add($.__views.author);
     $.__views.date = Ti.UI.createLabel({
         font: {
-            fontSize: "14dp"
+            fontSize: "13dp"
         },
-        height: "auto",
-        left: "50%",
-        top: "65dp",
+        height: "20%",
+        left: "0%",
+        top: "32%",
         color: "#717777",
         id: "date"
     });
-    $.__views.container.add($.__views.date);
+    $.__views.bottomdata.add($.__views.date);
     $.__views.views = Ti.UI.createLabel({
         font: {
-            fontSize: "14dp"
+            fontSize: "12dp",
+            fontWeight: "bold"
         },
-        height: "auto",
-        left: "50%",
-        top: "85dp",
-        color: "#717777",
+        height: "32%",
+        left: "0%",
+        bottom: "5%%",
+        color: "white",
+        width: "98%",
+        borderRadius: 4,
+        backgroundColor: "#745DA8",
+        textAlign: "center",
         id: "views"
     });
-    $.__views.container.add($.__views.views);
+    $.__views.bottomdata.add($.__views.views);
     $.__views.content = Ti.UI.createView({
         top: "50%",
         left: "0dp",
         height: "40%",
+        borderColor: "#c3c3c3",
+        backgroundImage: "/light-diagonal-strips.png",
+        backgroundRepeat: true,
+        borderWidth: 0,
         id: "content"
     });
     $.__views.container.add($.__views.content);
@@ -103,9 +135,9 @@ function Controller() {
             fontWeight: "bold"
         },
         height: "auto",
-        left: "10dp",
-        top: "0dp",
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        left: "3%",
+        width: "94%",
+        top: "4%",
         text: "Description:",
         id: "titleDescription"
     });
@@ -115,9 +147,10 @@ function Controller() {
             fontSize: "12dp"
         },
         height: "90%",
-        left: "10dp",
-        top: "10dp",
-        width: "90%",
+        left: "3%",
+        top: "9%",
+        width: "94%",
+        color: "gray",
         id: "description"
     });
     $.__views.content.add($.__views.description);
@@ -157,19 +190,30 @@ function Controller() {
     _.extend($, $.__views);
     var id = arguments[0] || {};
     var user_id = 0;
-    var actionBar;
-    $.viewEvent.addEventListener("open", function() {
-        if ($.viewEvent.activity) {
-            actionBar = $.viewEvent.activity.actionBar;
-            if (actionBar) {
-                actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Upcoming Events";
-                actionBar.onHomeIconItemSelected = function() {
-                    $.viewEvent.close();
-                };
-            }
-        } else Ti.API.error("Can't access action bar on a lightweight window.");
-    });
+    if ("android" == Ti.Platform.osname) {
+        var actionBar;
+        $.viewEvent.addEventListener("open", function() {
+            if ($.viewEvent.activity) {
+                actionBar = $.viewEvent.activity.actionBar;
+                if (actionBar) {
+                    actionBar.backgroundImage = "/bg.png";
+                    actionBar.title = "Upcoming Events";
+                    actionBar.onHomeIconItemSelected = function() {
+                        $.viewEvent.close();
+                    };
+                }
+            } else Ti.API.error("Can't access action bar on a lightweight window.");
+        });
+    } else {
+        $.scroll.top = "9%", $.scroll.height = "91%";
+        var args = {
+            ventana: $.viewEvent,
+            vp: $.vp,
+            title: "Upcoming Events"
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.viewEvent.add(win);
+    }
     var data = require("dataExport");
     var categoryId = 0;
     var client = Ti.Network.createHTTPClient();
@@ -179,7 +223,7 @@ function Controller() {
         $.activity.show();
     };
     client.onload = function() {
-        var height = 40 * Ti.Platform.displayCaps.platformHeight / 100;
+        var height = Ti.Platform.displayCaps.platformHeight - 210;
         $.container.height = height;
         $.viewTable.top = height + 1;
         var json = this.responseText;
@@ -211,25 +255,36 @@ function Controller() {
         if (e.source.link > 0) {
             $.viewEvent.close();
             var win = Alloy.createController("viewEvent", e.source.link).getView();
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            if ("android" == Ti.Platform.osname) {
+                win.fullscreen = false;
+                win.open({
+                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                    activityExitAnimation: Ti.Android.R.anim.fade_out
+                });
+            } else {
+                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                win.open({
+                    transition: t
+                });
+            }
         } else {
             var index = $.table.getIndexByName("rowMore");
             if (index > 0) {
                 pageHome += 1;
                 var offset = pageHome * Alloy.Globals.LIMIT;
                 data.getListItems($.activity, $.table, offset, pageHome, categoryId, user_id, id, "Events", true);
-                $.viewTable.height = $.viewTable.height + Alloy.Globals.LIMIT * (15 * Ti.Platform.displayCaps.platformHeight / 100);
+                $.viewTable.height = $.viewTable.height + Alloy.Globals.LIMIT * (18 * Ti.Platform.displayCaps.platformHeight / 100);
             }
         }
     });
     setTimeout(function() {
-        $.viewTable.height = Alloy.Globals.LIMIT * (15 * Ti.Platform.displayCaps.platformHeight / 100);
+        $.viewTable.height = Alloy.Globals.LIMIT * (18 * Ti.Platform.displayCaps.platformHeight / 100);
         $.scroll.scrollTo(0, 0);
-    }, 3e3);
+    }, 1e3);
+    $.table.footerView = Ti.UI.createView({
+        height: 1,
+        backgroundColor: "transparent"
+    });
     _.extend($, exports);
 }
 
