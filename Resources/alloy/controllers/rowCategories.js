@@ -22,12 +22,23 @@ function Controller() {
         id: "title"
     });
     $.__views.rowCategories.add($.__views.title);
+    $.__views.imageCat = Ti.UI.createImageView({
+        left: "5dp",
+        height: "45dp",
+        width: "50dp",
+        top: "5dp",
+        id: "imageCat"
+    });
+    $.__views.rowCategories.add($.__views.imageCat);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
     $.title.text = args.name || "";
     $.title.link = args.link;
     $.rowCategories.backgroundColor = args.isOdd ? "#f2f2f2" : "#ffffff";
+    var name = args.name || "";
+    name = name.toLowerCase();
+    $.imageCat.image = "/images/categories/" + name + ".jpg";
     _.extend($, exports);
 }
 

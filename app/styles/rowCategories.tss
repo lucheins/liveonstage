@@ -9,5 +9,11 @@
 	height: '55dp',
 	touchEnabled: true,				 	
 	hasChild: false
+},
+".categories-icon":{
+	left: '5dp',
+	height: '45dp',
+	width: '50dp',
+	top: '5dp'
 }
 
