@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.xenn.liveonstage</id>
-    <name>liveonstage</name>
-    <version>1.0</version>
-    <publisher>fabian</publisher>
-    <url>http://</url>
-    <description>not specified</description>
-    <copyright>2013 by fabian</copyright>
-    <icon>appicon.png</icon>
+    <name>LiveOnStage</name>
+    <version>1.0.2</version>
+    <publisher>Xenn Marketing</publisher>
+    <url>http://xenn.com</url>
+    <description>LiveOnStage.com - The place where artists can fund their projects.</description>
+    <copyright>2013 by Xenn Marketing</copyright>
+    <icon>Icon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>true</prerendered-icon>
     <statusbar-style>default</statusbar-style>
@@ -32,7 +32,8 @@
     <android xmlns:android="http://schemas.android.com/apk/res/android">
         <tool-api-level>17</tool-api-level>
         <manifest android:installLocation="auto">
-            <uses-sdk android:maxSdkVersion="17" android:minSdkVersion="14" android:targetSdkVersion="16"/>
+            <uses-sdk android:maxSdkVersion="17"
+                android:minSdkVersion="14" android:targetSdkVersion="16"/>
             <application android:theme="@style/Theme.Liveonbar"/>
         </manifest>
     </android>

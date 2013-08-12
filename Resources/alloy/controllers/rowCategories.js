@@ -23,10 +23,10 @@ function Controller() {
     });
     $.__views.rowCategories.add($.__views.title);
     $.__views.imageCat = Ti.UI.createImageView({
-        left: "5dp",
-        height: "45dp",
-        width: "50dp",
-        top: "5dp",
+        left: "5%",
+        height: "35dp",
+        width: "35dp",
+        top: "18%",
         id: "imageCat"
     });
     $.__views.rowCategories.add($.__views.imageCat);

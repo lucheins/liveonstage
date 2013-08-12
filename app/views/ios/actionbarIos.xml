@@ -2,7 +2,7 @@
 	<View id="Navigation">
     		<View id="actionIos" onClick="closeView">
 	    		<Label id="backArrow"/>
-	    		<ImageView id="icon" image="/icon-small.png"/>
+	    		<View id="iconSmall"/>
     		</View>
     		<Label id="current"/>
     		<View class="navigationBottomBorder"/>

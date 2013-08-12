@@ -17,3 +17,5 @@ var backArrow = Ti.UI.createLabel({
 });
 $.current.text = args.title;
 $.backArrow.add(backArrow);
+
+

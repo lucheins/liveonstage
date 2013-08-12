@@ -110,9 +110,11 @@
 	},
 	color: 'gray'
 	},
-"#icon":{
+"#iconSmall":{
 	left: '5%',
 	width: '12%',
 	height: '90%',
-	top: '5%'
-	}
+	top: '5%',
+	backgroundImage:'/Icon-Small.png',
+	backgroundRepeat: false
+	},

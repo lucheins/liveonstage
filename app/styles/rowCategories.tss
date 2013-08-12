@@ -11,9 +11,9 @@
 	hasChild: false
 },
 ".categories-icon":{
-	left: '5dp',
-	height: '45dp',
-	width: '50dp',
-	top: '5dp'
+	left: '5%',
+	height: '35dp',
+	width: '35dp',
+	top: '18%'
 }
 
