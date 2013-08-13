@@ -42,10 +42,8 @@
 				<View id="perks"/>					
 			</View>	
 	</ScrollView>
-	<View id="donate">
-			<View id="buttonMore">
-    	<Label id="titleButton">Donate</Label>
-    </View>
+	<View id="donate">			
+    	
 		</View>		
 	</Window>
 </Alloy>

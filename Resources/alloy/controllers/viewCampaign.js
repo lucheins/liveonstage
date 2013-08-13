@@ -8,7 +8,7 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        "android" == Ti.Platform.osname ? $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT : $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+        $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
@@ -20,16 +20,62 @@ function Controller() {
             y = JSON.parse(x).content.video["fmt_stream_map"][0].url;
             vp.url = y;
         };
-        if ("android" != Ti.Platform.osname) {
-            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
-        }
         vdldr.open("GET", "http://m.youtube.com/watch?ajax=1&feature=related&layout=mobile&tsp=1&&v=" + video_id);
-        if ("android" == Ti.Platform.osname) {
-            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
-        }
+        vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+        vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
         vdldr.send();
+    }
+    function addButtonToWindow() {
+        if (button) {
+            donate.remove(button);
+            button = null;
+        }
+        button = Paypal.createPaypalButton({
+            width: "194dp",
+            height: "37dp",
+            buttonStyle: Paypal.BUTTON_194x37,
+            language: "en_US",
+            textStyle: Paypal.PAYPAL_TEXT_DONATE,
+            appID: "APP-80W284485P519543T",
+            paypalEnvironment: Paypal.PAYPAL_ENV_SANDBOX,
+            feePaidByReceiver: false,
+            enableShipping: false,
+            payment: {
+                paymentType: Paypal.PAYMENT_TYPE_SERVICE,
+                subtotal: 10,
+                tax: 0,
+                shipping: 0,
+                currency: "USD",
+                recipient: "efaby10@hotmail.com",
+                customID: "anythingYouWant",
+                invoiceItems: [ {
+                    name: "Shoes",
+                    totalPrice: 8,
+                    itemPrice: 2,
+                    itemCount: 4
+                }, {
+                    name: "Hats",
+                    totalPrice: 2,
+                    itemPrice: .5,
+                    itemCount: 4
+                } ],
+                ipnUrl: "http://www.appcelerator.com/",
+                merchantName: "Dev Tools",
+                memo: "For the orphans and widows in the world!"
+            }
+        });
+        button.addEventListener("paymentCancelled", function() {
+            addButtonToWindow();
+        });
+        button.addEventListener("paymentSuccess", function() {
+            addButtonToWindow();
+        });
+        button.addEventListener("paymentError", function() {
+            addButtonToWindow();
+        });
+        button.addEventListener("buttonDisplayed", function() {});
+        button.addEventListener("buttonError", function() {});
+        $.donate.add(button);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -383,60 +429,26 @@ function Controller() {
         id: "donate"
     });
     $.__views.viewCampaign.add($.__views.donate);
-    $.__views.buttonMore = Ti.UI.createView({
-        height: "40dp",
-        left: "33%",
-        width: "34%",
-        id: "buttonMore"
-    });
-    $.__views.donate.add($.__views.buttonMore);
-    $.__views.titleButton = Ti.UI.createLabel({
-        font: {
-            fontSize: "14dp",
-            fontWeight: "bold"
-        },
-        top: "5%",
-        height: "90%",
-        width: "90%",
-        borderRadius: 5,
-        backgroundColor: "#e4473e",
-        color: "white",
-        textAlign: "center",
-        text: "Donate",
-        id: "titleButton"
-    });
-    $.__views.buttonMore.add($.__views.titleButton);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
-    if ("android" == Ti.Platform.osname) {
-        var actionBar;
-        $.viewCampaign.addEventListener("open", function() {
-            if ($.viewCampaign.activity) {
-                actionBar = $.viewCampaign.activity.actionBar;
-                if (actionBar) {
-                    actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = "Campaigns";
-                    actionBar.displayHomeAsUp = true;
-                    actionBar.onHomeIconItemSelected = function() {
-                        $.vp.hide();
-                        $.vp.release();
-                        $.vp = null;
-                        $.viewCampaign.close();
-                    };
-                }
-            } else Ti.API.error("Can't access action bar on a lightweight window.");
-        });
-    } else {
-        $.scroll.top = "8%", $.scroll.height = "81%";
-        var args = {
-            ventana: $.viewCampaign,
-            vp: $.vp,
-            title: "Campaigns"
-        };
-        var win = Alloy.createController("actionbarIos", args).getView();
-        $.viewCampaign.add(win);
-    }
+    var actionBar;
+    $.viewCampaign.addEventListener("open", function() {
+        if ($.viewCampaign.activity) {
+            actionBar = $.viewCampaign.activity.actionBar;
+            if (actionBar) {
+                actionBar.backgroundImage = "/bg.png";
+                actionBar.title = "Campaigns";
+                actionBar.displayHomeAsUp = true;
+                actionBar.onHomeIconItemSelected = function() {
+                    $.vp.hide();
+                    $.vp.release();
+                    $.vp = null;
+                    $.viewCampaign.close();
+                };
+            }
+        } else Ti.API.error("Can't access action bar on a lightweight window.");
+    });
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
         if (0 != orientation) {
@@ -532,6 +544,9 @@ function Controller() {
         tc: Alloy.Globals.USER_MOBILE.toString()
     };
     client.send(params);
+    var Paypal = require("ti.paypal");
+    var button;
+    addButtonToWindow();
     _.extend($, exports);
 }
 
