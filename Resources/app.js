@@ -24,7 +24,7 @@ Alloy.Globals.IMAGE_EVENT_DEFAULT = "components/com_community/assets/event.png";
 
 Alloy.Globals.USER = "mobile";
 
-Alloy.Globals.PASS = "123456";
+Alloy.Globals.PASS = "LiveXenn2013!@coNNectApp";
 
 Alloy.Globals.USER_MOBILE = Ti.Utils.base64encode(Alloy.Globals.USER + "-" + Alloy.Globals.PASS);
 

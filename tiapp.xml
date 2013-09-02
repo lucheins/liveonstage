@@ -47,7 +47,7 @@
     </mobileweb>
     <modules>
         <module platform="android">net.bajawa.pager</module>
-        <module platform="android">ti.paypal</module>
+        <module platform="android" version="2.2.2">ti.paypal</module>
         <module platform="iphone">ti.paypal</module>
     </modules>
     <deployment-targets>
