@@ -20,7 +20,8 @@ Alloy.Globals.URL_CAMPAIGN = 'index.php?option=com_mobile&task=campaign';
 Alloy.Globals.URL_CATEGORIES = 'index.php?option=com_mobile&task=categories';
 Alloy.Globals.LIMIT = 5;
 Alloy.Globals.TOP_LIMIT = 50;
-Alloy.Globals.IMAGE_EVENT_DEFAULT='components/com_community/assets/event.png'
+Alloy.Globals.IMAGE_EVENT_DEFAULT='components/com_community/assets/event.png';
+Alloy.Globals.IMAGE_USER_DEFAULT='images/crowd-small.jpg'
 Alloy.Globals.USER = 'mobile';
 Alloy.Globals.PASS = 'LiveXenn2013!@coNNectApp';
 Alloy.Globals.USER_MOBILE = Ti.Utils.base64encode(Alloy.Globals.USER + '-' + Alloy.Globals.PASS);

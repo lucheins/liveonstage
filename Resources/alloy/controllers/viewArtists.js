@@ -205,7 +205,7 @@ function Controller() {
     var height = 360;
     $.container.height = height + "dp";
     $.container.top = height * args.row + "dp";
-    var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
+    var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;
     if (args.image.length > 0) {
         imageLink = args.image;
         "http" != imageLink.substring(0, 4) && (imageLink = Alloy.Globals.DOMAIN + imageLink);

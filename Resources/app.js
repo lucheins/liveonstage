@@ -22,6 +22,8 @@ Alloy.Globals.TOP_LIMIT = 50;
 
 Alloy.Globals.IMAGE_EVENT_DEFAULT = "components/com_community/assets/event.png";
 
+Alloy.Globals.IMAGE_USER_DEFAULT = "images/crowd-small.jpg";
+
 Alloy.Globals.USER = "mobile";
 
 Alloy.Globals.PASS = "LiveXenn2013!@coNNectApp";
