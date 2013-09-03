@@ -21,8 +21,8 @@ if(Ti.Platform.osname == 'android')
 }
 
 else {	
-	$.scroll.top = '9%',
-	$.scroll.height = '91%'	
+	$.scroll.top = '9%';
+	$.scroll.height = '91%';
 var args = {
 	ventana: $.viewEvent,
 	vp: $.vp,

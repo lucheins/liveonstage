@@ -1,6 +1,6 @@
 var args = arguments[0] || {};
 $.title.text = args.name || '';
-$.title.link = args.link
+$.title.link = args.link;
 
 
 var isTablet = (width > 899 || height > 899);
@@ -38,8 +38,8 @@ $.accomplished.text = '$' + args.received + ' Pledged';
 $.days.text = args.days + ' Days to go';
 $.percentage.text = args.percent + ' % Funded';
 //The cover view
-	var shadowTop="0%"
-	if(Ti.Platform=='android'){shadowTop="7dp"}
+	var shadowTop="0%";
+	if(Ti.Platform=='android'){shadowTop="7dp";}
 	var theImageShadow=Ti.UI.createImageView({
 		image:"/videoCover.png",
 		top:shadowTop,

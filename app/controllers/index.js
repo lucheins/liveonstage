@@ -6,7 +6,7 @@ var width = (Ti.Platform.displayCaps.platformWidth-30)/2;
 var height = (Ti.Platform.displayCaps.platformWidth-30)/4;
 
 $.index.addEventListener('open', function() {
-  var matrix = Ti.UI.create2DMatrix()
+  var matrix = Ti.UI.create2DMatrix();
   matrix = matrix.scale(1.1, 1);
   var a = Ti.UI.createAnimation({
     transform : matrix,

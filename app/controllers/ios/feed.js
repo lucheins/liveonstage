@@ -11,7 +11,7 @@ var campaigns = Ti.UI.createScrollView({
 			contentHeight:"auto",
 			top:0,
 			left:0
-		})
+	});
 var upcomming = Ti.UI.createTableView();
 var artists = Ti.UI.createScrollView({
 			width:"100%",
@@ -185,7 +185,7 @@ categories.addEventListener('click', function(e){
 		var title = 'Categories';
 		if(e.source.link > 0)
 		{
-			title = e.source.text
+			title = e.source.text;
 		}		
 		resetInitPage(e.source.link, title);
 	});

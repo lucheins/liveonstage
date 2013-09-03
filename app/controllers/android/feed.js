@@ -118,7 +118,7 @@ categories.addEventListener('click', function(e){
 		var title = 'Categories';
 		if(e.source.link > 0)
 		{
-			title = e.source.text
+			title = e.source.text;
 		}		
 		resetInitPage(e.source.link, title);
 	});

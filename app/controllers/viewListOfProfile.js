@@ -22,8 +22,8 @@ $.viewListOfProfile.addEventListener("open", function() {
 });
 }
 else {
-	$.container.top = '9%',
-	$.container.height = '91%'	
+	$.container.top = '9%';
+	$.container.height = '91%';	
 var args1 = {
 	ventana: $.viewListOfProfile,
 	vp: $.vp,

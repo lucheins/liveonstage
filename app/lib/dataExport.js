@@ -83,7 +83,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
         category: category       
     };
 	client.send(params);
-}
+};
 
 
 exports.getListItems=function(activity, table,offsetHome, pageHome, category, author, item_id, name, scroll)
@@ -151,7 +151,7 @@ exports.getListItems=function(activity, table,offsetHome, pageHome, category, au
         item_id: item_id       
     };
 	client.send(params);  
-}
+};
 
 exports.getArtists=function(activity, table,offsetHome, pageHome, category)
 {
@@ -241,7 +241,7 @@ exports.getArtists=function(activity, table,offsetHome, pageHome, category)
         category: category       
     };
 	client.send(params);
-}
+};
 
 exports.getCategories=function(activity, table)
 {
@@ -278,7 +278,7 @@ exports.getCategories=function(activity, table)
         tc: Alloy.Globals.USER_MOBILE.toString()       
     };
 	client.send(params);
-}
+};
 
 exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, name)
 {
@@ -343,4 +343,4 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
         all: 1
     };
 	client.send(params);  
-}
+};

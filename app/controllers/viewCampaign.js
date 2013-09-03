@@ -25,8 +25,8 @@ $.viewCampaign.addEventListener("open", function() {
 }
 
 else {
-	$.scroll.top = '8%',
-	$.scroll.height = '81%'	
+	$.scroll.top = '8%';
+	$.scroll.height = '81%';
 var args = {
 	ventana: $.viewCampaign,
 	vp: $.vp,
@@ -45,7 +45,7 @@ Ti.Gesture.addEventListener("orientationchange", function(e){
 			$.vp.fullscreen = true;	
 		}
 		if(orientation === 1 || orientation === 2){
-			$.vp.fullscreen = false
+			$.vp.fullscreen = false;
 		}
 	}
 });

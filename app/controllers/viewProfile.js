@@ -26,8 +26,8 @@ $.viewProfile.addEventListener("open", function() {
 });
 }
 else {	
-	$.container.top = '9%',
-	$.container.height = '91%'	
+	$.container.top = '9%';
+	$.container.height = '91%';	
 var args = {
 	ventana: $.viewProfile,
 	vp: $.vp,
@@ -44,12 +44,15 @@ $.viewProfile.add(win);
 Ti.Gesture.addEventListener("orientationchange", function(e){
 	var orientation = Ti.Gesture.orientation;
 	if(orientation!=0){
-		if(orientation === 3 || orientation === 4){
-			$.vp.fullscreen = true;	
-		}
-		if(orientation === 1 || orientation === 2){
-			$.vp.fullscreen = false
-		}
+		if($.vp != null)
+		{
+			if(orientation === 3 || orientation === 4){
+				$.vp.fullscreen = true;	
+			}
+			if(orientation === 1 || orientation === 2){
+				$.vp.fullscreen = false;
+			}
+		}		
 	}
 });
 
@@ -70,7 +73,7 @@ client.onload = function(){
 	} else {
 		if(responses.type == '' || responses.type == null)
 	    {
-	    	var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
+	    	var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;
 			if(responses.avatar.length > 0)
 			{
 				imageLink = responses.avatar;
@@ -177,7 +180,7 @@ function getUrlYoutube(video_id, vp)
     	vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
     	vdldr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1');
     }
-    vdldr.send()      
+    vdldr.send();
 }
 
 	

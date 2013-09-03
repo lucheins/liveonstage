@@ -10,5 +10,5 @@ if(args.item == 1)
 	$.message.text = args.text;
 	$.buttonMore.hide();
 	$.text.hide();
-	$.text.backgroundColor = '#f2f2f2'
+	$.text.backgroundColor = '#f2f2f2';
 }

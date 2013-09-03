@@ -21,7 +21,7 @@ Alloy.Globals.URL_CATEGORIES = 'index.php?option=com_mobile&task=categories';
 Alloy.Globals.LIMIT = 5;
 Alloy.Globals.TOP_LIMIT = 50;
 Alloy.Globals.IMAGE_EVENT_DEFAULT='components/com_community/assets/event.png';
-Alloy.Globals.IMAGE_USER_DEFAULT='images/crowd-small.jpg'
+Alloy.Globals.IMAGE_USER_DEFAULT='images/crowd-small.jpg';
 Alloy.Globals.USER = 'mobile';
 Alloy.Globals.PASS = 'LiveXenn2013!@coNNectApp';
 Alloy.Globals.USER_MOBILE = Ti.Utils.base64encode(Alloy.Globals.USER + '-' + Alloy.Globals.PASS);
@@ -33,4 +33,4 @@ Alloy.Globals.RESOLUCION_VIDEO = '240p';
 Alloy.Globals.TITLE_SIZE = 30;
 Alloy.Globals.DESCRIPTION_SIZE = 160;
 Alloy.Globals.ABOUT = 150;
-Alloy.Globals.CONNECTION_ERROR = 'You must be connected to the internet to be able to see this. Please connect and try again!'
+Alloy.Globals.CONNECTION_ERROR = 'You must be connected to the internet to be able to see this. Please connect and try again!';

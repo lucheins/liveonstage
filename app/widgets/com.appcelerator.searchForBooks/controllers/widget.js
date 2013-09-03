@@ -89,7 +89,7 @@ exports.setHandlers = function(args) {
 			handlers[h] = args[h];
 		}
 	});
-}	
+};	
 
 ///////////////////////////////////////
 ////////// private functions //////////

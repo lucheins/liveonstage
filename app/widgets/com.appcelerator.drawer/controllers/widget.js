@@ -167,7 +167,7 @@ exports.checkEnabled = function DrawerCheckEnabled() {
             }
         );
     }
-}
+};
 
 /**
  * @method init
@@ -274,6 +274,6 @@ exports.init = function DrawerInit(args) {
             );
         };
     }
-}
+};
 
 

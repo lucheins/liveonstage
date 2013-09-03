@@ -226,7 +226,7 @@ function Controller() {
     });
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
-        if (0 != orientation) {
+        if (0 != orientation && null != $.vp) {
             (3 === orientation || 4 === orientation) && ($.vp.fullscreen = true);
             (1 === orientation || 2 === orientation) && ($.vp.fullscreen = false);
         }
@@ -245,7 +245,7 @@ function Controller() {
             url = getPathVideo(responses.type, responses.path);
             $.vp.url = url;
         } else if ("" == responses.type || null == responses.type) {
-            var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_EVENT_DEFAULT;
+            var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;
             if (responses.avatar.length > 0) {
                 imageLink = responses.avatar;
                 "http" != imageLink.substring(0, 4) && (imageLink = Alloy.Globals.DOMAIN + imageLink);

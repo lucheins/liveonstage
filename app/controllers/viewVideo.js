@@ -27,8 +27,8 @@ $.viewVideo.addEventListener("open", function() {
 }
 
 else {	
-	$.scroll.top = '9%',
-	$.scroll.height = '91%'	
+	$.scroll.top = '9%';
+	$.scroll.height = '91%';	
 var args = {
 	ventana: $.viewVideo,
 	title: "Live Shows"       	        			
@@ -47,7 +47,7 @@ Ti.Gesture.addEventListener("orientationchange", function(e){
 			$.vp.fullscreen = true;	
 		}
 		if(orientation === 1 || orientation === 2){
-			$.vp.fullscreen = false
+			$.vp.fullscreen = false;
 		}
 	}
 });
@@ -171,7 +171,7 @@ function getUrlYoutube(video_id, vp)
     	vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
     	vdldr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1');
     }
-    vdldr.send()      
+    vdldr.send();      
 }
 
 	    
