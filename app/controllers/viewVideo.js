@@ -43,11 +43,14 @@ $.viewVideo.add(win);
 Ti.Gesture.addEventListener("orientationchange", function(e){
 	var orientation = Ti.Gesture.orientation;
 	if(orientation!=0){
-		if(orientation === 3 || orientation === 4){
-			$.vp.fullscreen = true;	
-		}
-		if(orientation === 1 || orientation === 2){
-			$.vp.fullscreen = false;
+		if($.vp != null)
+		{
+			if(orientation === 3 || orientation === 4){
+				$.vp.fullscreen = true;	
+			}
+			if(orientation === 1 || orientation === 2){
+				$.vp.fullscreen = false;
+			}
 		}
 	}
 });

@@ -14,10 +14,12 @@ exports.getCampaigns = function(activity, table, offsetHome, pageHome, category)
         for (var i = 0; responses.length > i; i++) {
             if ("more" != responses[i].title) {
                 var link = responses[i].id;
+                var image_campaign = responses[i].image_video;
+                if (null == image_campaign) var image_campaign = responses[i].image_campaign;
                 var args = {
                     name: responses[i].title,
                     link: link,
-                    image: responses[i].image_video,
+                    image: image_campaign,
                     id: responses[i].campaign,
                     received: responses[i].received,
                     row: i + item,

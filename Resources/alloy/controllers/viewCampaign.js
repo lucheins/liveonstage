@@ -129,9 +129,18 @@ function Controller() {
         backgroundColor: "black",
         height: "50%",
         width: "95%",
+        zIndex: 10,
         id: "vp"
     });
     $.__views.fixed.add($.__views.vp);
+    $.__views.cover = Ti.UI.createImageView({
+        height: "50%",
+        width: "95%",
+        zIndex: 20,
+        top: "2%",
+        id: "cover"
+    });
+    $.__views.fixed.add($.__views.cover);
     $.__views.data = Ti.UI.createView({
         top: "52%",
         height: "48%",
@@ -453,7 +462,7 @@ function Controller() {
     });
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
-        if (0 != orientation) {
+        if (0 != orientation && null != $.vp) {
             (3 === orientation || 4 === orientation) && ($.vp.fullscreen = true);
             (1 === orientation || 2 === orientation) && ($.vp.fullscreen = false);
         }
@@ -471,10 +480,17 @@ function Controller() {
         var json = this.responseText;
         var responses = JSON.parse(json);
         var url = "";
-        if ("vod" == responses.campaign[0].type || "live" == responses.campaign[0].type) {
+        if (null != responses.campaign[0].type) if ("vod" == responses.campaign[0].type || "live" == responses.campaign[0].type) {
             url = getPathVideo(responses.campaign[0].type, responses.campaign[0].path);
             $.vp.url = url;
-        } else url = getUrlYoutube(responses.campaign[0].video_id, $.vp);
+        } else url = getUrlYoutube(responses.campaign[0].video_id, $.vp); else {
+            var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;
+            if (responses.campaign[0].image.length > 0) {
+                imageLink = responses.campaign[0].image;
+                "http" != imageLink.substring(0, 4) && (imageLink = Alloy.Globals.DOMAIN + imageLink);
+            }
+            $.cover.image = imageLink;
+        }
         $.author.text = responses.campaign[0].name;
         $.title.text = responses.campaign[0].title;
         var text = responses.campaign[0].long_description;

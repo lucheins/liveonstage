@@ -19,10 +19,17 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
 			if(responses[i].title != 'more')
 			{
 				var link = responses[i].id;
+				var image_campaign = responses[i].image_video;
+				
+				if(image_campaign == null)
+				{
+					var image_campaign = responses[i].image_campaign;	
+				}				
+				
 		        var args = {
 	        			name: responses[i].title,	        			
 	        			link: link,
-	        			image: responses[i].image_video,
+	        			image: image_campaign,
 	        			id: responses[i].campaign,
 	        			received:  responses[i].received,
 	        			row: i + item,
@@ -82,6 +89,7 @@ exports.getCampaigns=function(activity, table,offsetHome, pageHome, category)
         top: Alloy.Globals.TOP_LIMIT,
         category: category       
     };
+
 	client.send(params);
 };
 

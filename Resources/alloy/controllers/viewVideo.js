@@ -178,7 +178,7 @@ function Controller() {
     });
     Ti.Gesture.addEventListener("orientationchange", function() {
         var orientation = Ti.Gesture.orientation;
-        if (0 != orientation) {
+        if (0 != orientation && null != $.vp) {
             (3 === orientation || 4 === orientation) && ($.vp.fullscreen = true);
             (1 === orientation || 2 === orientation) && ($.vp.fullscreen = false);
         }

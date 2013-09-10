@@ -41,11 +41,14 @@ $.viewCampaign.add(win);
 Ti.Gesture.addEventListener("orientationchange", function(e){
 	var orientation = Ti.Gesture.orientation;
 	if(orientation!=0){
-		if(orientation === 3 || orientation === 4){
-			$.vp.fullscreen = true;	
-		}
-		if(orientation === 1 || orientation === 2){
-			$.vp.fullscreen = false;
+		if($.vp != null)
+		{
+			if(orientation === 3 || orientation === 4){
+				$.vp.fullscreen = true;	
+			}
+			if(orientation === 1 || orientation === 2){
+				$.vp.fullscreen = false;
+			}
 		}
 	}
 });
@@ -67,13 +70,31 @@ client.onload = function(){
 	var json = this.responseText;
 	var responses = JSON.parse(json);
 	var url ='';
-	if(responses.campaign[0].type == 'vod' || responses.campaign[0].type == 'live')
+	
+	if(responses.campaign[0].type != null)
 	{
-		url = getPathVideo(responses.campaign[0].type, responses.campaign[0].path);
-		$.vp.url = url;
+		if(responses.campaign[0].type == 'vod' || responses.campaign[0].type == 'live')
+		{
+			url = getPathVideo(responses.campaign[0].type, responses.campaign[0].path);
+			$.vp.url = url;
+		} else {
+		    	url = getUrlYoutube(responses.campaign[0].video_id, $.vp);	   
+		}
 	} else {
-	   url = getUrlYoutube(responses.campaign[0].video_id, $.vp);
+		var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;
+		if(responses.campaign[0].image.length > 0)
+		{
+			imageLink = responses.campaign[0].image;
+			if(imageLink.substring(0,4) != 'http')
+			{
+				imageLink = Alloy.Globals.DOMAIN + imageLink;
+			}
+		}
+	
+		$.cover.image = imageLink;
 	}
+	
+	
 	$.author.text = responses.campaign[0].name;
 	$.title.text = responses.campaign[0].title;
 	var text = responses.campaign[0].long_description;

@@ -5,6 +5,7 @@
 			<ActivityIndicator id="activity"/>
 			<View id="fixed">
 				<VideoPlayer id="vp" />
+				<ImageView id="cover"/>
 				<View id="data">	
 					<View id="meta">
 						<Label id="title" />

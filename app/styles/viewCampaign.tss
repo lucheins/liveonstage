@@ -10,7 +10,8 @@
     autoplay : true,
     backgroundColor : "black",
     height : '50%',
-    width : '95%'
+    width : '95%',
+    zIndex: 10,
 },
 "#data":{
 	top: "52%",
@@ -260,4 +261,11 @@
 	backgroundColor:'#e4473e',
 	color: 'white',
 	textAlign: 'center'
+},
+"#cover": {
+    height : '50%',
+    width : '95%',
+    zIndex: 20,
+    top : '2%'
 }
+
