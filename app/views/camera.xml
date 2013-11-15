@@ -1,5 +1,6 @@
 <Alloy>
 	<Window id="camera">
+		<ActivityIndicator id="activity"/>
 		<Button id="btnStart" title="Start" />
         <Button id="btnStop" title="Stop"  />
 	</Window>

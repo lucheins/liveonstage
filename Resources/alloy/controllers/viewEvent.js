@@ -358,7 +358,7 @@ function Controller() {
     $.linkLive.addEventListener("click", function() {
         var args = {
             event_id: id,
-            video_id: 15,
+            video_id: 8,
             username: Ti.App.Properties.getString("username")
         };
         var win = Alloy.createController("camera", args).getView();

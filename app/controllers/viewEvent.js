@@ -29,8 +29,7 @@ else {
 	$.scroll.height = '91%';
 var args = {
 	ventana: $.viewEvent,
-	vp: $.vp,
-	
+	vp: $.vp,	
 	title: "Upcoming Events"       			
 	};
 	      		
@@ -172,7 +171,7 @@ $.linkClose.addEventListener('click', function(e){
 
 $.linkLive.addEventListener('click', function(e){
 	
-	/*var client = Ti.Network.createHTTPClient();
+	var client = Ti.Network.createHTTPClient();
 	var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
 	client.open('POST',url);
 	client.ondatastream = function(e){
@@ -182,12 +181,11 @@ $.linkLive.addEventListener('click', function(e){
 		var json = this.responseText;
 		var response = JSON.parse(json);
 		if(response.video_id > 0)
-		{*/
-			
+		{			
 			var args = {
 				event_id: id,
-				//video_id: response.video_id,  
-				video_id: 15,
+				video_id: response.video_id,  
+				//video_id: 8,  				
 				username: Ti.App.Properties.getString('username')  			
 			};
 			var win = Alloy.createController('camera',args).getView();	
@@ -203,7 +201,7 @@ $.linkLive.addEventListener('click', function(e){
 				win.open({transition:t});
 			}
 			$.viewEvent.close(); 
-/*
+
 		} else {
 			if(response.video_id == -1)
 			{
@@ -228,5 +226,5 @@ $.linkLive.addEventListener('click', function(e){
 		event_id: id,
 		time_user: getTimezone().toString()
 	};
-	client.send(params);   */    
+	client.send(params);    
 });		

@@ -12,6 +12,20 @@ function Controller() {
         id: "camera"
     });
     $.__views.camera && $.addTopLevelView($.__views.camera);
+    $.__views.activity = Ti.UI.createActivityIndicator({
+        color: "#6cb1d5",
+        font: {
+            fontFamily: "Helvetica Neue",
+            fontSize: "20dp",
+            fontWeight: "bold"
+        },
+        message: "Loading...",
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        zIndex: 100,
+        id: "activity"
+    });
+    $.__views.camera.add($.__views.activity);
     $.__views.btnStart = Ti.UI.createButton({
         font: {
             fontSize: "12dp"
@@ -45,8 +59,8 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
-    args.event_id;
-    args.video_id;
+    var id = args.event_id;
+    var video_id = args.video_id;
     var username = args.username;
     var liveStreaming = require("com.xenn.liveStreaming");
     var proxy = liveStreaming.createStreaming({
@@ -56,17 +70,44 @@ function Controller() {
         top: "10dp",
         left: "10dp"
     });
-    proxy.setUserRtsp(Alloy.Globals.URL_RTSP);
-    proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP);
-    proxy.setUrlRtsp(Alloy.Globals.URL_RTSP);
+    proxy.setUserRtsp(Alloy.Globals.URL_RTSP.toString());
+    proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
+    proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());
     proxy.setUsernameRtsp(username);
-    proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP);
+    proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
     $.camera.add(proxy);
     $.btnStart.addEventListener("click", function() {
         proxy.startStreaming();
     });
     $.btnStop.addEventListener("click", function() {
         proxy.stopStreaming();
+        var client = Ti.Network.createHTTPClient();
+        var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_STOP_STREAMING;
+        client.open("POST", url);
+        client.ondatastream = function() {
+            $.activity.show();
+        };
+        client.onload = function() {
+            var json = this.responseText;
+            var response = JSON.parse(json);
+            response.stop_video && alert("Video saved");
+            $.activity.hide();
+            var win = Alloy.createController("viewEvent", id).getView();
+            win.fullscreen = false;
+            win.open({
+                activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                activityExitAnimation: Ti.Android.R.anim.fade_out
+            });
+            $.camera.close();
+        };
+        client.onerror = function(e) {
+            alert("Transmission error: " + e.error);
+        };
+        var params = {
+            tc: Alloy.Globals.USER_MOBILE.toString(),
+            video_id: video_id
+        };
+        client.send(params);
     });
     _.extend($, exports);
 }
