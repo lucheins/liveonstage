@@ -1,4 +1,24 @@
-
-".container" : {
-  
+"#btnStart":{
+	font: {
+		   	fontSize:'12dp'
+			},		
+		width: '50dp',
+		backgroundColor:'#745DA8',
+		color: 'white',
+		top: '10dp',
+		height: '35dp',
+		left: '88%' ,
+		borderRadius: 4
+},
+"#btnStop":{
+	font: {
+		   	fontSize:'12dp'
+			},		
+		width: '50dp',
+		backgroundColor:'#745DA8',
+		color: 'white',
+		top: '50dp',
+		height: '35dp',
+		left: '88%' ,
+		borderRadius: 4
 }

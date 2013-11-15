@@ -49,7 +49,7 @@ function Controller() {
     $.__views.scroll.add($.__views.container);
     $.__views.data = Ti.UI.createView({
         top: "3%",
-        height: "45%",
+        height: "44%",
         left: "1%",
         width: "98%",
         id: "data"
@@ -129,9 +129,9 @@ function Controller() {
     });
     $.__views.bottomdata.add($.__views.views);
     $.__views.content = Ti.UI.createView({
-        top: "50%",
+        top: "48%",
         left: "0dp",
-        height: "40%",
+        height: "35%",
         borderColor: "#c3c3c3",
         backgroundImage: "/light-diagonal-strips.png",
         backgroundRepeat: true,
@@ -165,47 +165,45 @@ function Controller() {
     });
     $.__views.content.add($.__views.description);
     $.__views.login = Ti.UI.createView({
-        top: "90%",
+        top: "84%",
         left: "0dp",
-        height: "22dp",
+        height: "25dp",
         id: "login"
     });
     $.__views.container.add($.__views.login);
-    $.__views.linkLogin = Ti.UI.createLabel({
+    $.__views.linkLogin = Ti.UI.createButton({
         font: {
             fontSize: "12dp",
             fontWeight: "bold"
         },
         height: "90%",
         bottom: "8%",
-        width: "25%",
+        width: "30%",
         borderRadius: 4,
         backgroundColor: "#745DA8",
         color: "white",
-        textAlign: "center",
         left: "10dp",
-        text: "Start session",
-        id: "linkLogin"
+        id: "linkLogin",
+        title: "Start session"
     });
     $.__views.login.add($.__views.linkLogin);
-    $.__views.linkClose = Ti.UI.createLabel({
+    $.__views.linkClose = Ti.UI.createButton({
         font: {
             fontSize: "12dp",
             fontWeight: "bold"
         },
         height: "90%",
         bottom: "8%",
-        width: "25%",
+        width: "30%",
         borderRadius: 4,
         backgroundColor: "#745DA8",
         color: "white",
-        textAlign: "center",
         left: "10dp",
-        text: "Close session",
-        id: "linkClose"
+        id: "linkClose",
+        title: "Close session"
     });
     $.__views.login.add($.__views.linkClose);
-    $.__views.linkLive = Ti.UI.createLabel({
+    $.__views.linkLive = Ti.UI.createButton({
         font: {
             fontSize: "12dp",
             fontWeight: "bold"
@@ -216,13 +214,12 @@ function Controller() {
         borderRadius: 4,
         backgroundColor: "#745DA8",
         color: "white",
-        textAlign: "center",
-        text: "Live",
-        id: "linkLive"
+        id: "linkLive",
+        title: "Live"
     });
     $.__views.login.add($.__views.linkLive);
     $.__views.other = Ti.UI.createView({
-        top: "95%",
+        top: "92%",
         left: "0dp",
         backgroundColor: "#f2f2f2",
         height: "22dp",
@@ -281,7 +278,7 @@ function Controller() {
         $.activity.show();
     };
     client.onload = function() {
-        var height = Ti.Platform.displayCaps.platformHeight - 210;
+        var height = Ti.Platform.displayCaps.platformHeight - 160;
         $.container.height = height;
         $.viewTable.top = height + 1;
         var json = this.responseText;
@@ -353,49 +350,24 @@ function Controller() {
     });
     $.linkClose.addEventListener("click", function() {
         Ti.App.Properties.setString("user_id", null);
+        Ti.App.Properties.setString("username", null);
         $.linkLive.visible = false;
         $.linkClose.visible = false;
         $.linkLogin.visible = true;
     });
     $.linkLive.addEventListener("click", function() {
-        var client = Ti.Network.createHTTPClient();
-        var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
-        client.open("POST", url);
-        client.ondatastream = function() {
-            $.activity.show();
-        };
-        client.onload = function() {
-            var json = this.responseText;
-            var response = JSON.parse(json);
-            if (response.video_id > 0) {
-                alert("aca " + id);
-                var args = {
-                    event_id: id,
-                    video_id: response.video_id
-                };
-                var win = Alloy.createController("camera", args).getView();
-                win.fullscreen = false;
-                win.open({
-                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                    activityExitAnimation: Ti.Android.R.anim.fade_out
-                });
-                $.viewEvent.close();
-            } else {
-                -1 == response.video_id ? alert("The video has already been created") : 0 == response.video_id ? alert("The event does not exist") : alert("The start date is not in the allowed range");
-                $.linkLive.visible = false;
-            }
-            $.activity.hide();
-        };
-        client.onerror = function(e) {
-            alert("Transmission error: " + e.error);
-        };
-        var params = {
-            tc: Alloy.Globals.USER_MOBILE.toString(),
-            user_id: Ti.App.Properties.getString("user_id"),
+        var args = {
             event_id: id,
-            time_user: getTimezone().toString()
+            video_id: 15,
+            username: Ti.App.Properties.getString("username")
         };
-        client.send(params);
+        var win = Alloy.createController("camera", args).getView();
+        win.fullscreen = true;
+        win.open({
+            activityEnterAnimation: Ti.Android.R.anim.fade_in,
+            activityExitAnimation: Ti.Android.R.anim.fade_out
+        });
+        $.viewEvent.close();
     });
     _.extend($, exports);
 }

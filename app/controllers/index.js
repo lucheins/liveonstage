@@ -5,6 +5,7 @@ var gray = '#888888';
 var width = (Ti.Platform.displayCaps.platformWidth-30)/2;
 var height = (Ti.Platform.displayCaps.platformWidth-30)/4;
 Ti.App.Properties.setString('user_id', null);
+Ti.App.Properties.setString('username', null);
 $.index.addEventListener('open', function() {
   var matrix = Ti.UI.create2DMatrix();
   matrix = matrix.scale(1.1, 1);

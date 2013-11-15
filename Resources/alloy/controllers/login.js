@@ -57,7 +57,7 @@ function Controller() {
         id: "password"
     });
     $.__views.login.add($.__views.password);
-    $.__views.buttonLogin = Ti.UI.createLabel({
+    $.__views.buttonLogin = Ti.UI.createButton({
         font: {
             fontSize: "13dp",
             fontWeight: "bold"
@@ -69,8 +69,8 @@ function Controller() {
         top: "140dp",
         height: "35dp",
         textAlign: "center",
-        text: "Login",
-        id: "buttonLogin"
+        id: "buttonLogin",
+        title: "Login"
     });
     $.__views.login.add($.__views.buttonLogin);
     exports.destroy = function() {};
@@ -111,6 +111,7 @@ function Controller() {
                 $.username.blur();
                 $.password.blur();
                 Ti.App.Properties.setString("user_id", response.id);
+                Ti.App.Properties.setString("username", response.username);
                 var win = Alloy.createController("viewEvent", id).getView();
                 win.fullscreen = false;
                 win.open({

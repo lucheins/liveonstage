@@ -49,7 +49,7 @@ client.ondatastream = function(e){
 };
 
 client.onload = function(){	
-	var height = Ti.Platform.displayCaps.platformHeight - 210;
+	var height = Ti.Platform.displayCaps.platformHeight - 160;
 	$.container.height = height ;
 	$.viewTable.top = height + 1;	
 	var json = this.responseText;
@@ -164,6 +164,7 @@ $.linkLogin.addEventListener('click', function(e){
 
 $.linkClose.addEventListener('click', function(e){
 	Ti.App.Properties.setString('user_id', null);
+	Ti.App.Properties.setString('username', null);
 	$.linkLive.visible = false;
 	$.linkClose.visible = false;
 	$.linkLogin.visible = true;
@@ -171,7 +172,7 @@ $.linkClose.addEventListener('click', function(e){
 
 $.linkLive.addEventListener('click', function(e){
 	
-	var client = Ti.Network.createHTTPClient();
+	/*var client = Ti.Network.createHTTPClient();
 	var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
 	client.open('POST',url);
 	client.ondatastream = function(e){
@@ -181,16 +182,18 @@ $.linkLive.addEventListener('click', function(e){
 		var json = this.responseText;
 		var response = JSON.parse(json);
 		if(response.video_id > 0)
-		{
-			alert('aca ' + id);
+		{*/
+			
 			var args = {
 				event_id: id,
-				video_id: response.video_id  			
+				//video_id: response.video_id,  
+				video_id: 15,
+				username: Ti.App.Properties.getString('username')  			
 			};
 			var win = Alloy.createController('camera',args).getView();	
 			if(Ti.Platform.osname == 'android')
 			{
-				win.fullscreen= false;
+				win.fullscreen= true;
 				win.open({
 				        activityEnterAnimation: Ti.Android.R.anim.fade_in,
 				        activityExitAnimation: Ti.Android.R.anim.fade_out
@@ -200,7 +203,7 @@ $.linkLive.addEventListener('click', function(e){
 				win.open({transition:t});
 			}
 			$.viewEvent.close(); 
-
+/*
 		} else {
 			if(response.video_id == -1)
 			{
@@ -225,5 +228,5 @@ $.linkLive.addEventListener('click', function(e){
 		event_id: id,
 		time_user: getTimezone().toString()
 	};
-	client.send(params);       
+	client.send(params);   */    
 });		

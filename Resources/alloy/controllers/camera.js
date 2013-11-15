@@ -12,41 +12,62 @@ function Controller() {
         id: "camera"
     });
     $.__views.camera && $.addTopLevelView($.__views.camera);
-    $.__views.activity = Ti.UI.createActivityIndicator({
-        color: "#6cb1d5",
+    $.__views.btnStart = Ti.UI.createButton({
         font: {
-            fontFamily: "Helvetica Neue",
-            fontSize: "20dp",
-            fontWeight: "bold"
+            fontSize: "12dp"
         },
-        message: "Loading...",
-        height: Ti.UI.SIZE,
-        width: Ti.UI.SIZE,
-        zIndex: 100,
-        id: "activity"
+        width: "50dp",
+        backgroundColor: "#745DA8",
+        color: "white",
+        top: "10dp",
+        height: "35dp",
+        left: "88%",
+        borderRadius: 4,
+        id: "btnStart",
+        title: "Start"
     });
-    $.__views.camera.add($.__views.activity);
-    $.__views.container = Ti.UI.createView({
-        id: "container",
-        top: "0"
+    $.__views.camera.add($.__views.btnStart);
+    $.__views.btnStop = Ti.UI.createButton({
+        font: {
+            fontSize: "12dp"
+        },
+        width: "50dp",
+        backgroundColor: "#745DA8",
+        color: "white",
+        top: "50dp",
+        height: "35dp",
+        left: "88%",
+        borderRadius: 4,
+        id: "btnStop",
+        title: "Stop"
     });
-    $.__views.camera.add($.__views.container);
-    $.__views.test = Ti.UI.createLabel({
-        id: "test"
-    });
-    $.__views.container.add($.__views.test);
-    $.__views.test2 = Ti.UI.createLabel({
-        id: "test2",
-        top: "20"
-    });
-    $.__views.container.add($.__views.test2);
+    $.__views.camera.add($.__views.btnStop);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
-    var id = args.event_id;
-    var video_id = args.video_id;
-    $.test.text = "evento" + id;
-    $.test2.text = " video: " + video_id;
+    args.event_id;
+    args.video_id;
+    var username = args.username;
+    var liveStreaming = require("com.xenn.liveStreaming");
+    var proxy = liveStreaming.createStreaming({
+        message: "Creating an example Proxy",
+        width: "85%",
+        height: "92%",
+        top: "10dp",
+        left: "10dp"
+    });
+    proxy.setUserRtsp(Alloy.Globals.URL_RTSP);
+    proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP);
+    proxy.setUrlRtsp(Alloy.Globals.URL_RTSP);
+    proxy.setUsernameRtsp(username);
+    proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP);
+    $.camera.add(proxy);
+    $.btnStart.addEventListener("click", function() {
+        proxy.startStreaming();
+    });
+    $.btnStop.addEventListener("click", function() {
+        proxy.stopStreaming();
+    });
     _.extend($, exports);
 }
 

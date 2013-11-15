@@ -3,6 +3,6 @@
 		<ActivityIndicator id="activity"/>
 		 <TextField id="username" />
 		 <TextField id="password" />
-		  <Label id="buttonLogin">Login</Label>
+		  <Button id="buttonLogin" title="Login"/>
 	</Window>
 </Alloy>

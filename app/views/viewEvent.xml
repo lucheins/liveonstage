@@ -14,18 +14,18 @@
 					<Label id="views"/>
 				</View>
 			</View>
-		<View id="content">
-			<Label id="titleDescription">Description:</Label>
-			<Label id="description" />
-		</View>	
-		<View id="login"><Label id="linkLogin">Start session</Label><Label id="linkClose">Close session</Label><Label id="linkLive">Live</Label></View>
-		<View id="other">
-		<Label id="otherEvents">Other events from this Artist:</Label>
-		</View>	
+			<View id="content">
+				<Label id="titleDescription">Description:</Label>
+				<Label id="description" />
+			</View>	
+			<View id="login"><Button id="linkLogin" title="Start session"/><Button id="linkClose" title="Close session"/><Button id="linkLive" title="Live"/></View>
+			<View id="other">
+				<Label id="otherEvents">Other events from this Artist:</Label>
+			</View>	
 		</View>	
 		<View id="viewTable">
 			<TableView id="table"/>
-			</View>
+		</View>
 		</ScrollView>	
 	</Window>
 </Alloy>

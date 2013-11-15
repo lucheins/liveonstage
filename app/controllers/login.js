@@ -71,6 +71,7 @@ $.buttonLogin.addEventListener('click',function(e) {
 	        $.username.blur();  
         	$.password.blur();  
         	Ti.App.Properties.setString('user_id', response.id);	  
+        	Ti.App.Properties.setString('username', response.username);	
         	var win = Alloy.createController('viewEvent', id).getView();		
 				win.fullscreen= false;	
 				if(Ti.Platform.osname == 'android')
