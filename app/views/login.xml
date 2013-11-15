@@ -1,5 +1,8 @@
 <Alloy>
-	<Window title="Login">
-		<Label>I am Login</Label>
+	<Window id="login">	
+		<ActivityIndicator id="activity"/>
+		 <TextField id="username" />
+		 <TextField id="password" />
+		  <Label id="buttonLogin">Login</Label>
 	</Window>
 </Alloy>

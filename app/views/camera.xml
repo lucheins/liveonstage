@@ -1,0 +1,9 @@
+<Alloy>
+	<Window id="camera">
+		<ActivityIndicator id="activity"/>
+		<View id="container"  top="0">
+			<Label id="test"></Label>
+			<Label id="test2" top="20"></Label>
+		</View>
+	</Window>
+</Alloy>

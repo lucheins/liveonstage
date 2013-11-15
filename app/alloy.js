@@ -18,6 +18,8 @@ Alloy.Globals.URL_PROFILE = 'index.php?option=com_mobile&task=profile';
 Alloy.Globals.URL_EVENT = 'index.php?option=com_mobile&task=event';
 Alloy.Globals.URL_CAMPAIGN = 'index.php?option=com_mobile&task=campaign';
 Alloy.Globals.URL_CATEGORIES = 'index.php?option=com_mobile&task=categories';
+Alloy.Globals.URL_LOGIN = 'index.php?option=com_mobile&task=startSessionUser';
+Alloy.Globals.URL_START_STREAMING = 'index.php?option=com_mobile&task=startLiveStreaming';
 Alloy.Globals.LIMIT = 5;
 Alloy.Globals.TOP_LIMIT = 50;
 Alloy.Globals.IMAGE_EVENT_DEFAULT='components/com_community/assets/event.png';

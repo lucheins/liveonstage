@@ -18,6 +18,7 @@
 			<Label id="titleDescription">Description:</Label>
 			<Label id="description" />
 		</View>	
+		<View id="login"><Label id="linkLogin">Start session</Label><Label id="linkClose">Close session</Label><Label id="linkLive">Live</Label></View>
 		<View id="other">
 		<Label id="otherEvents">Other events from this Artist:</Label>
 		</View>	

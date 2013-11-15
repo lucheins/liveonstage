@@ -16,6 +16,10 @@ Alloy.Globals.URL_CAMPAIGN = "index.php?option=com_mobile&task=campaign";
 
 Alloy.Globals.URL_CATEGORIES = "index.php?option=com_mobile&task=categories";
 
+Alloy.Globals.URL_LOGIN = "index.php?option=com_mobile&task=startSessionUser";
+
+Alloy.Globals.URL_START_STREAMING = "index.php?option=com_mobile&task=startLiveStreaming";
+
 Alloy.Globals.LIMIT = 5;
 
 Alloy.Globals.TOP_LIMIT = 50;
