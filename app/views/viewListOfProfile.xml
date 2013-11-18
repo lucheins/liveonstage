@@ -1,8 +1,11 @@
 <Alloy>
 	<Window id="viewListOfProfile">	
 		<ActivityIndicator id="activity"/>
-				<View id="container">
-				<TableView id="table" />
+				<View id="messageTurn">
+						<Label id="description">Text of camera turn on 20 min....</Label>
+				</View>
+				<View id="container">					
+					<TableView id="table" />
 				</View>	
 	</Window>
 </Alloy>

@@ -20,6 +20,7 @@ function Controller() {
         font: {
             fontSize: "14dp"
         },
+        width: "80%",
         id: "title"
     });
     $.__views.rowListProfile.add($.__views.title);

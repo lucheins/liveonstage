@@ -248,7 +248,7 @@ exports.getCategories = function(activity, table) {
     client.send(params);
 };
 
-exports.getListOfProfile = function(activity, table, offsetHome, pageHome, author, name) {
+exports.getListOfProfile = function(activity, table, offsetHome, pageHome, author, name, timezoneBand, utmUser) {
     var index = table.getIndexByName("rowMore");
     index > 0 && table.deleteRow(index);
     var tableData = table.getData();
@@ -269,6 +269,26 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
                     isOdd: i % 2
                 };
                 var row = Alloy.createController("rowListProfile", args).getView();
+                if (1 == timezoneBand && 1 == responses[i].liveActive) {
+                    var buttonLive = Titanium.UI.createButton({
+                        font: {
+                            fontSize: "12dp",
+                            fontWeight: "bold"
+                        },
+                        width: "15%",
+                        borderRadius: 4,
+                        backgroundColor: "#745DA8",
+                        color: "white",
+                        height: "25dp",
+                        textAlign: "center",
+                        title: "Live",
+                        right: "5%"
+                    });
+                    buttonLive.addEventListener("click", function() {
+                        alert("live");
+                    });
+                    row.add(buttonLive);
+                }
             } else {
                 var row = Alloy.createController("rowMore").getView();
                 more = true;
@@ -284,7 +304,7 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
         more && row.addEventListener("click", function() {
             pageHome += 1;
             var offset = pageHome * Alloy.Globals.LIMIT;
-            exports.getListOfProfile(activity, table, offset, pageHome, author, name);
+            exports.getListOfProfile(activity, table, offset, pageHome, author, name, timezoneBand, utmUser);
         });
     };
     client.onerror = function() {
@@ -299,7 +319,9 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
         category: 0,
         author: author,
         item_id: 0,
-        all: 1
+        all: 1,
+        timezone: timezoneBand,
+        time_user: utmUser
     };
     client.send(params);
 };

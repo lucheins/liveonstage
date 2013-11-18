@@ -1,5 +1,22 @@
 var args = arguments[0] || {};
 var data = require('dataExport');
+var timezoneBand = 0;
+var utm = '00:00,0';
+
+$.messageTurn.visible = false;
+
+if(args.view == 'Events')
+{	
+	if((Ti.App.Properties.getString('user_id'))&&(args.author == Ti.App.Properties.getString('user_id')))
+	{
+		$.container.top = '11%';
+		$.messageTurn.visible =  true;
+		timezoneBand = 1;
+		utm = Ti.App.Properties.getString('timezone');
+	}
+}
+
+
 
 if (Ti.Platform.osname == 'android'){
 var actionBar;
@@ -35,7 +52,8 @@ var win = Alloy.createController('actionbarIos',args1).getView();
 $.viewListOfProfile.add(win);
 }
 
-data.getListOfProfile($.activity, $.table,0,0, args.author, args.view);
+
+data.getListOfProfile($.activity, $.table,0,0, args.author, args.view,timezoneBand,utm);
 
 $.table.addEventListener('click', function(e){
 		if(e.source.link > 0)

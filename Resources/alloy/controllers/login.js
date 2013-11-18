@@ -8,7 +8,7 @@ function Controller() {
     function openWindowsLoginSussess() {
         var args = {
             author: Ti.App.Properties.getString("user_id"),
-            authorname: Ti.App.Properties.getString("username"),
+            authorname: Ti.App.Properties.getString("name"),
             view: "Events"
         };
         var win = Alloy.createController("viewListOfProfile", args).getView();
@@ -423,7 +423,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var timezone;
-    Ti.App.Properties.getString("user_id") && openWindowsLoginSussess();
     var actionBar;
     $.login.addEventListener("open", function() {
         if ($.login.activity) {
@@ -454,6 +453,7 @@ function Controller() {
                 $.password.blur();
                 Ti.App.Properties.setString("user_id", response.id);
                 Ti.App.Properties.setString("username", response.username);
+                Ti.App.Properties.setString("name", response.name);
                 Ti.App.Properties.setString("timezone", timezone);
                 openWindowsLoginSussess();
             } else alert("Failed credentials");

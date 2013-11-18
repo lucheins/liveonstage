@@ -2,7 +2,8 @@
 		left:"10dp",
 		height:'50dp',
 		color:"black",
-		font:{fontSize:'14dp'}
+		font:{fontSize:'14dp'},
+		width: '80%'
 },
 "#rowListProfile":{
 	height: '50dp',

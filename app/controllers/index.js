@@ -7,6 +7,7 @@ var height = (Ti.Platform.displayCaps.platformWidth-30)/4;
 Ti.App.Properties.setString('user_id', null);
 Ti.App.Properties.setString('username', null);
 Ti.App.Properties.setString('timezone', null);
+Ti.App.Properties.setString('name', null);
 $.index.addEventListener('open', function() {
   var matrix = Ti.UI.create2DMatrix();
   matrix = matrix.scale(1.1, 1);
@@ -86,8 +87,19 @@ $.Campaigns.addEventListener('click', function (e) {
 	});
 	*/
 $.upcomingEvents.addEventListener('click', function (e) { 
-	var win = Alloy.createController('login').getView();
-	
+
+	if(Ti.App.Properties.getString('user_id') > 0)
+	{
+		var args = {       		
+		    author: Ti.App.Properties.getString('user_id'),
+		    authorname: Ti.App.Properties.getString('name'),
+		    view: 'Events'
+		};        	
+	    var win = Alloy.createController('viewListOfProfile', args).getView();
+	} else {
+		var win = Alloy.createController('login').getView();
+	}
+	win.fullscreen= false;	
 	if(Ti.Platform.osname == 'android')
 	{
 		win.fullscreen= false;

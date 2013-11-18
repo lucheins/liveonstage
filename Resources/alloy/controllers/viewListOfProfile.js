@@ -26,7 +26,32 @@ function Controller() {
         id: "activity"
     });
     $.__views.viewListOfProfile.add($.__views.activity);
+    $.__views.messageTurn = Ti.UI.createView({
+        top: "0dp",
+        left: "0dp",
+        height: "10%",
+        borderColor: "#c3c3c3",
+        backgroundImage: "/light-diagonal-strips.png",
+        backgroundRepeat: true,
+        borderWidth: 0,
+        id: "messageTurn"
+    });
+    $.__views.viewListOfProfile.add($.__views.messageTurn);
+    $.__views.description = Ti.UI.createLabel({
+        font: {
+            fontSize: "12dp"
+        },
+        height: "90%",
+        left: "3%",
+        top: "9%",
+        width: "94%",
+        color: "gray",
+        text: "Text of camera turn on 20 min....",
+        id: "description"
+    });
+    $.__views.messageTurn.add($.__views.description);
     $.__views.container = Ti.UI.createView({
+        top: "0dp",
         id: "container"
     });
     $.__views.viewListOfProfile.add($.__views.container);
@@ -39,6 +64,15 @@ function Controller() {
     _.extend($, $.__views);
     var args = arguments[0] || {};
     var data = require("dataExport");
+    var timezoneBand = 0;
+    var utm = "00:00,0";
+    $.messageTurn.visible = false;
+    if ("Events" == args.view && Ti.App.Properties.getString("user_id") && args.author == Ti.App.Properties.getString("user_id")) {
+        $.container.top = "11%";
+        $.messageTurn.visible = true;
+        timezoneBand = 1;
+        utm = Ti.App.Properties.getString("timezone");
+    }
     var actionBar;
     $.viewListOfProfile.addEventListener("open", function() {
         if ($.viewListOfProfile.activity) {
@@ -53,7 +87,7 @@ function Controller() {
             }
         } else Ti.API.error("Can't access action bar on a lightweight window.");
     });
-    data.getListOfProfile($.activity, $.table, 0, 0, args.author, args.view);
+    data.getListOfProfile($.activity, $.table, 0, 0, args.author, args.view, timezoneBand, utm);
     $.table.addEventListener("click", function(e) {
         if (e.source.link > 0) {
             var view = "viewCampaign";

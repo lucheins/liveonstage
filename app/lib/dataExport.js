@@ -288,7 +288,7 @@ exports.getCategories=function(activity, table)
 	client.send(params);
 };
 
-exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, name)
+exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, name, timezoneBand,utmUser)
 {
 	var index = table.getIndexByName('rowMore');
 	if(index > 0)
@@ -314,6 +314,33 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 	        			isOdd: i%2        			
 	      				};
 		        	var row = Alloy.createController('rowListProfile',args).getView(); 	
+
+		        	if(timezoneBand == 1)
+		        	{	
+		        		if(responses[i].liveActive == 1)
+		        		{
+		        			var buttonLive = Titanium.UI.createButton({
+							   font: {
+								   	fontSize:'12dp',
+								   	fontWeight:'bold'
+									},		
+								width: '15%',
+								borderRadius: 4,
+								backgroundColor:'#745DA8',
+								color: 'white',
+								height: '25dp',
+								textAlign: 'center',
+								title: 'Live',
+								right: '5%'
+							});
+							buttonLive.addEventListener('click',function(e)
+							{
+							   alert('live');
+							});
+							row.add(buttonLive);
+		        		}
+		        		
+		        	}
 		        	
 		        } else {
 		        	var row = Alloy.createController('rowMore').getView();
@@ -333,7 +360,7 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 				row.addEventListener('click', function(){
 				pageHome = pageHome + 1;
 				var offset = pageHome * Alloy.Globals.LIMIT;		
-				exports.getListOfProfile(activity, table,offset,pageHome,author, name);
+				exports.getListOfProfile(activity, table,offset,pageHome,author, name, timezoneBand, utmUser);
 				});
 			}  
 		};
@@ -348,7 +375,9 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
         category: 0,
         author: author,
         item_id: 0 ,
-        all: 1
+        all: 1,
+        timezone: timezoneBand,
+        time_user: utmUser
     };
 	client.send(params);  
 };
