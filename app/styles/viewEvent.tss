@@ -68,7 +68,7 @@
 "#content":{
 	top:'48%',
 	left: '0dp',
-	height: "35%",
+	height: "40%",
 	borderColor: '#c3c3c3',
 	backgroundImage: '/light-diagonal-strips.png',
 	backgroundRepeat: true,
@@ -105,51 +105,8 @@
 	top:'0dp',
 	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
 },
-"#login":{
-	top:'84%',
-	left: '0dp',
-	height: '25dp'
-},
-	"#linkLogin":{
-		font: {
-		   	fontSize:'12dp',
-		   	fontWeight:'bold'
-			},
-		height:'90%',
-		bottom:'8%',
-		width: '30%',
-		borderRadius: 4,
-		backgroundColor:'#745DA8',
-		color: 'white',
-		left: '10dp'
-	},
-	"#linkLive":{
-		font: {
-		   	fontSize:'12dp',
-		   	fontWeight:'bold'
-			},
-		height:'90%',
-		bottom:'8%',
-		width: '25%',
-		borderRadius: 4,
-		backgroundColor:'#745DA8',
-		color: 'white'
-	},
-	"#linkClose":{
-		font: {
-		   	fontSize:'12dp',
-		   	fontWeight:'bold'
-			},
-		height:'90%',
-		bottom:'8%',
-		width: '30%',
-		borderRadius: 4,
-		backgroundColor:'#745DA8',
-		color: 'white',
-		left: '10dp'
-	},
 "#other":{
-	top:'92%',
+	top:'90%',
 	left: '0dp',
 	backgroundColor: "#f2f2f2",
 	height: '22dp'

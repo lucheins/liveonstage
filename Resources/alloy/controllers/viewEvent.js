@@ -1,12 +1,4 @@
 function Controller() {
-    function getTimezone() {
-        var utcTime = new Date();
-        var other = utcTime.getTimezoneOffset() / 60;
-        var i = parseInt(other);
-        var m = other - i;
-        other = i + ":" + 60 * m + ",0";
-        return other;
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "viewEvent";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -131,7 +123,7 @@ function Controller() {
     $.__views.content = Ti.UI.createView({
         top: "48%",
         left: "0dp",
-        height: "35%",
+        height: "40%",
         borderColor: "#c3c3c3",
         backgroundImage: "/light-diagonal-strips.png",
         backgroundRepeat: true,
@@ -164,62 +156,8 @@ function Controller() {
         id: "description"
     });
     $.__views.content.add($.__views.description);
-    $.__views.login = Ti.UI.createView({
-        top: "84%",
-        left: "0dp",
-        height: "25dp",
-        id: "login"
-    });
-    $.__views.container.add($.__views.login);
-    $.__views.linkLogin = Ti.UI.createButton({
-        font: {
-            fontSize: "12dp",
-            fontWeight: "bold"
-        },
-        height: "90%",
-        bottom: "8%",
-        width: "30%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        left: "10dp",
-        id: "linkLogin",
-        title: "Start session"
-    });
-    $.__views.login.add($.__views.linkLogin);
-    $.__views.linkClose = Ti.UI.createButton({
-        font: {
-            fontSize: "12dp",
-            fontWeight: "bold"
-        },
-        height: "90%",
-        bottom: "8%",
-        width: "30%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        left: "10dp",
-        id: "linkClose",
-        title: "Close session"
-    });
-    $.__views.login.add($.__views.linkClose);
-    $.__views.linkLive = Ti.UI.createButton({
-        font: {
-            fontSize: "12dp",
-            fontWeight: "bold"
-        },
-        height: "90%",
-        bottom: "8%",
-        width: "25%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        id: "linkLive",
-        title: "Live"
-    });
-    $.__views.login.add($.__views.linkLive);
     $.__views.other = Ti.UI.createView({
-        top: "92%",
+        top: "90%",
         left: "0dp",
         backgroundColor: "#f2f2f2",
         height: "22dp",
@@ -254,8 +192,6 @@ function Controller() {
     _.extend($, $.__views);
     var id = arguments[0] || {};
     var user_id = 0;
-    $.linkLive.visible = false;
-    $.linkClose.visible = false;
     var actionBar;
     $.viewEvent.addEventListener("open", function() {
         if ($.viewEvent.activity) {
@@ -278,7 +214,7 @@ function Controller() {
         $.activity.show();
     };
     client.onload = function() {
-        var height = Ti.Platform.displayCaps.platformHeight - 160;
+        var height = Ti.Platform.displayCaps.platformHeight - 210;
         $.container.height = height;
         $.viewTable.top = height + 1;
         var json = this.responseText;
@@ -294,11 +230,6 @@ function Controller() {
         $.date.text = responses.message;
         $.views.text = responses.confirmed;
         $.description.text = responses.description;
-        if (Ti.App.Properties.getString("user_id")) {
-            $.linkClose.visible = true;
-            $.linkLogin.visible = false;
-            1 == responses.liveActive && Ti.App.Properties.getString("user_id") == responses.creator && ($.linkLive.visible = true);
-        }
         data.getListItems($.activity, $.table, 0, 0, categoryId, responses.creator, responses.id, "Events", true);
         $.activity.hide();
         user_id = responses.creator;
@@ -308,8 +239,7 @@ function Controller() {
     };
     var params = {
         item_id: id,
-        tc: Alloy.Globals.USER_MOBILE.toString(),
-        time_user: getTimezone().toString()
+        tc: Alloy.Globals.USER_MOBILE.toString()
     };
     client.send(params);
     $.table.addEventListener("click", function(e) {
@@ -338,62 +268,6 @@ function Controller() {
     $.table.footerView = Ti.UI.createView({
         height: 1,
         backgroundColor: "transparent"
-    });
-    $.linkLogin.addEventListener("click", function() {
-        var win = Alloy.createController("login", id).getView();
-        win.fullscreen = false;
-        win.open({
-            activityEnterAnimation: Ti.Android.R.anim.fade_in,
-            activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
-        $.viewEvent.close();
-    });
-    $.linkClose.addEventListener("click", function() {
-        Ti.App.Properties.setString("user_id", null);
-        Ti.App.Properties.setString("username", null);
-        $.linkLive.visible = false;
-        $.linkClose.visible = false;
-        $.linkLogin.visible = true;
-    });
-    $.linkLive.addEventListener("click", function() {
-        var client = Ti.Network.createHTTPClient();
-        var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
-        client.open("POST", url);
-        client.ondatastream = function() {
-            $.activity.show();
-        };
-        client.onload = function() {
-            var json = this.responseText;
-            var response = JSON.parse(json);
-            if (response.video_id > 0) {
-                var args = {
-                    event_id: id,
-                    video_id: response.video_id,
-                    username: Ti.App.Properties.getString("username")
-                };
-                var win = Alloy.createController("camera", args).getView();
-                win.fullscreen = true;
-                win.open({
-                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                    activityExitAnimation: Ti.Android.R.anim.fade_out
-                });
-                $.viewEvent.close();
-            } else {
-                -1 == response.video_id ? alert("The video has already been created") : 0 == response.video_id ? alert("The event does not exist") : alert("The start date is not in the allowed range");
-                $.linkLive.visible = false;
-            }
-            $.activity.hide();
-        };
-        client.onerror = function(e) {
-            alert("Transmission error: " + e.error);
-        };
-        var params = {
-            tc: Alloy.Globals.USER_MOBILE.toString(),
-            user_id: Ti.App.Properties.getString("user_id"),
-            event_id: id,
-            time_user: getTimezone().toString()
-        };
-        client.send(params);
     });
     _.extend($, exports);
 }
