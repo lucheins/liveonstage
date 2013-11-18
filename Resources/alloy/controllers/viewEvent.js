@@ -356,18 +356,44 @@ function Controller() {
         $.linkLogin.visible = true;
     });
     $.linkLive.addEventListener("click", function() {
-        var args = {
-            event_id: id,
-            video_id: 8,
-            username: Ti.App.Properties.getString("username")
+        var client = Ti.Network.createHTTPClient();
+        var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
+        client.open("POST", url);
+        client.ondatastream = function() {
+            $.activity.show();
         };
-        var win = Alloy.createController("camera", args).getView();
-        win.fullscreen = true;
-        win.open({
-            activityEnterAnimation: Ti.Android.R.anim.fade_in,
-            activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
-        $.viewEvent.close();
+        client.onload = function() {
+            var json = this.responseText;
+            var response = JSON.parse(json);
+            if (response.video_id > 0) {
+                var args = {
+                    event_id: id,
+                    video_id: response.video_id,
+                    username: Ti.App.Properties.getString("username")
+                };
+                var win = Alloy.createController("camera", args).getView();
+                win.fullscreen = true;
+                win.open({
+                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                    activityExitAnimation: Ti.Android.R.anim.fade_out
+                });
+                $.viewEvent.close();
+            } else {
+                -1 == response.video_id ? alert("The video has already been created") : 0 == response.video_id ? alert("The event does not exist") : alert("The start date is not in the allowed range");
+                $.linkLive.visible = false;
+            }
+            $.activity.hide();
+        };
+        client.onerror = function(e) {
+            alert("Transmission error: " + e.error);
+        };
+        var params = {
+            tc: Alloy.Globals.USER_MOBILE.toString(),
+            user_id: Ti.App.Properties.getString("user_id"),
+            event_id: id,
+            time_user: getTimezone().toString()
+        };
+        client.send(params);
     });
     _.extend($, exports);
 }
