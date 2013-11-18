@@ -115,38 +115,10 @@ function Controller() {
             fontWeight: "bold",
             fontSize: "15dp"
         },
-        text: "Live Shows",
+        text: "Browser",
         id: "__alloyId5"
     });
     $.__views.liveShows.add($.__views.__alloyId5);
-    $.__views.Campaigns = Ti.UI.createView({
-        width: "47%",
-        left: "51%",
-        borderWidth: 1,
-        borderColor: "#d0d0d0",
-        backgroundColor: "#e4473e",
-        id: "Campaigns"
-    });
-    $.__views.topButtons.add($.__views.Campaigns);
-    $.__views.__alloyId6 = Ti.UI.createImageView({
-        top: "32%",
-        height: "36%",
-        left: "10%",
-        image: "/images/campaigns.png",
-        id: "__alloyId6"
-    });
-    $.__views.Campaigns.add($.__views.__alloyId6);
-    $.__views.__alloyId7 = Ti.UI.createLabel({
-        left: "35%",
-        color: "white",
-        font: {
-            fontWeight: "bold",
-            fontSize: "15dp"
-        },
-        text: "Campaigns",
-        id: "__alloyId7"
-    });
-    $.__views.Campaigns.add($.__views.__alloyId7);
     $.__views.bottomButtons = Ti.UI.createView({
         height: "45%",
         top: "51%",
@@ -163,59 +135,32 @@ function Controller() {
         id: "upcomingEvents"
     });
     $.__views.bottomButtons.add($.__views.upcomingEvents);
-    $.__views.__alloyId8 = Ti.UI.createImageView({
+    $.__views.__alloyId6 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
         left: "10%",
         image: "/images/upcoming.png",
-        id: "__alloyId8"
+        id: "__alloyId6"
     });
-    $.__views.upcomingEvents.add($.__views.__alloyId8);
-    $.__views.__alloyId9 = Ti.UI.createLabel({
+    $.__views.upcomingEvents.add($.__views.__alloyId6);
+    $.__views.__alloyId7 = Ti.UI.createLabel({
         left: "35%",
         color: "white",
         font: {
             fontWeight: "bold",
             fontSize: "15dp"
         },
-        text: "Upcoming",
-        id: "__alloyId9"
+        text: "Go Live!",
+        id: "__alloyId7"
     });
-    $.__views.upcomingEvents.add($.__views.__alloyId9);
-    $.__views.artists = Ti.UI.createView({
-        width: "47%",
-        left: "51%",
-        borderWidth: 1,
-        borderColor: "#d0d0d0",
-        backgroundColor: "#e4473e",
-        id: "artists"
-    });
-    $.__views.bottomButtons.add($.__views.artists);
-    $.__views.__alloyId10 = Ti.UI.createImageView({
-        top: "32%",
-        height: "36%",
-        left: "10%",
-        image: "/images/artists.png",
-        id: "__alloyId10"
-    });
-    $.__views.artists.add($.__views.__alloyId10);
-    $.__views.__alloyId11 = Ti.UI.createLabel({
-        left: "35%",
-        color: "white",
-        font: {
-            fontWeight: "bold",
-            fontSize: "15dp"
-        },
-        text: "Artists",
-        id: "__alloyId11"
-    });
-    $.__views.artists.add($.__views.__alloyId11);
+    $.__views.upcomingEvents.add($.__views.__alloyId7);
     exports.destroy = function() {};
     _.extend($, $.__views);
     (Ti.Platform.displayCaps.platformWidth - 30) / 2;
     (Ti.Platform.displayCaps.platformWidth - 30) / 4;
     Ti.App.Properties.setString("user_id", null);
     Ti.App.Properties.setString("username", null);
+    Ti.App.Properties.setString("timezone", null);
     $.index.addEventListener("open", function() {
         var matrix = Ti.UI.create2DMatrix();
         matrix = matrix.scale(1.1, 1);
@@ -272,17 +217,13 @@ function Controller() {
         var win = Alloy.createController("feed", 1).getView();
         win.open();
     });
-    $.Campaigns.addEventListener("click", function() {
-        var win = Alloy.createController("feed", 2).getView();
-        win.open();
-    });
     $.upcomingEvents.addEventListener("click", function() {
-        var win = Alloy.createController("feed", 3).getView();
-        win.open();
-    });
-    $.artists.addEventListener("click", function() {
-        var win = Alloy.createController("feed", 4).getView();
-        win.open();
+        var win = Alloy.createController("login").getView();
+        win.fullscreen = false;
+        win.open({
+            activityEnterAnimation: Ti.Android.R.anim.fade_in,
+            activityExitAnimation: Ti.Android.R.anim.fade_out
+        });
     });
     $.overlay.setBackgroundGradient({
         type: "linear",

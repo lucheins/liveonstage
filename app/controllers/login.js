@@ -1,4 +1,9 @@
-var id = arguments[0] || {};
+var timezone;
+if(Ti.App.Properties.getString('user_id'))
+{
+	openWindowsLoginSussess();
+}
+
 if (Ti.Platform.osname == 'android'){
 var actionBar;
 $.login.addEventListener("open", function() {
@@ -12,19 +17,6 @@ $.login.addEventListener("open", function() {
                 actionBar.title = "Login";
                 actionBar.displayHomeAsUp = true;
                 actionBar.onHomeIconItemSelected = function() {
-				
-				var win = Alloy.createController('viewEvent', id).getView();		
-				win.fullscreen= false;	
-				if(Ti.Platform.osname == 'android')
-				{
-					win.open({
-					        activityEnterAnimation: Ti.Android.R.anim.fade_in,
-					        activityExitAnimation: Ti.Android.R.anim.fade_out
-					    });	
-				} else {
-					var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-					win.open({transition:t});
-				}	
 				$.login.close();
                 };
             }
@@ -72,19 +64,8 @@ $.buttonLogin.addEventListener('click',function(e) {
         	$.password.blur();  
         	Ti.App.Properties.setString('user_id', response.id);	  
         	Ti.App.Properties.setString('username', response.username);	
-        	var win = Alloy.createController('viewEvent', id).getView();		
-				win.fullscreen= false;	
-				if(Ti.Platform.osname == 'android')
-				{
-					win.open({
-					        activityEnterAnimation: Ti.Android.R.anim.fade_in,
-					        activityExitAnimation: Ti.Android.R.anim.fade_out
-					    });	
-				} else {
-					var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-					win.open({transition:t});
-				}	       	   
-	        $.login.close();
+        	Ti.App.Properties.setString('timezone', timezone);        	
+        	openWindowsLoginSussess();	        
 	    }  
 	    else  
 	    {  
@@ -93,7 +74,7 @@ $.buttonLogin.addEventListener('click',function(e) {
 		$.activity.hide(); 
 	};
 	client.onerror = function(e){alert('Transmission error: ' + e.error);};
-	
+		
 	if ($.username.value != '' && $.password.value != '')  
     {  
     	if (!checkdata($.username.value))  
@@ -106,12 +87,19 @@ $.buttonLogin.addEventListener('click',function(e) {
 	             alert("Please enter a valid password");  
 	        } else
         	{
-        		var user1 = Ti.Utils.base64encode($.username.value + '-' + $.password.value) ;
-        		var params = {
-				    tc: Alloy.Globals.USER_MOBILE.toString(),
-				    u:  user1.toString()
-				};
-				client.send(params);       
+        		timezone = $.pickTimezone.getSelectedRow(0).value;
+        		if(timezone != 'zone')
+        		{      	
+	        		var user1 = Ti.Utils.base64encode($.username.value + '-' + $.password.value) ;
+	        		var params = {
+					    tc: Alloy.Globals.USER_MOBILE.toString(),
+					    u:  user1.toString()
+					};
+					client.send(params);    
+        		} else {
+        			alert("Please select Timezone");  
+        		}
+        		  
 		    }
 	    } 
     }  
@@ -122,4 +110,24 @@ $.buttonLogin.addEventListener('click',function(e) {
 		
 });
 
-
+function openWindowsLoginSussess()
+{	
+   var args = {       		
+	    author: Ti.App.Properties.getString('user_id'),
+	    authorname: Ti.App.Properties.getString('username'),
+	    view: 'Events'
+	};        	
+    var win = Alloy.createController('viewListOfProfile', args).getView();
+    win.fullscreen= false;	
+	if(Ti.Platform.osname == 'android')
+	{
+		win.open({
+			activityEnterAnimation: Ti.Android.R.anim.fade_in,
+			activityExitAnimation: Ti.Android.R.anim.fade_out
+		});	
+	} else {
+		var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+		win.open({transition:t});
+	}	
+	$.login.close();     	  
+}

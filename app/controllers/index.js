@@ -6,6 +6,7 @@ var width = (Ti.Platform.displayCaps.platformWidth-30)/2;
 var height = (Ti.Platform.displayCaps.platformWidth-30)/4;
 Ti.App.Properties.setString('user_id', null);
 Ti.App.Properties.setString('username', null);
+Ti.App.Properties.setString('timezone', null);
 $.index.addEventListener('open', function() {
   var matrix = Ti.UI.create2DMatrix();
   matrix = matrix.scale(1.1, 1);
@@ -78,22 +79,34 @@ $.liveShows.addEventListener('click', function (e) {
 	
 	win.open(); 
 	});
-	
+	/*
 $.Campaigns.addEventListener('click', function (e) { 
 	var win = Alloy.createController('feed', 2).getView();
 	win.open(); 
 	});
-	
+	*/
 $.upcomingEvents.addEventListener('click', function (e) { 
-	var win = Alloy.createController('feed', 3).getView();
-	win.open(); 
-	});
+	var win = Alloy.createController('login').getView();
+	
+	if(Ti.Platform.osname == 'android')
+	{
+		win.fullscreen= false;
+		win.open({
+		        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+		        activityExitAnimation: Ti.Android.R.anim.fade_out
+		    });	
+	} else {
+		var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+		win.open({transition:t});
+	}
 
+	});
+/*
 $.artists.addEventListener('click', function (e) { 
 	var win = Alloy.createController('feed', 4).getView();
 	win.open(); 
 	});
-	
+	*/
 $.overlay.setBackgroundGradient({
     
         type: 'linear',

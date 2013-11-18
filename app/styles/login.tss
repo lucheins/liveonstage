@@ -28,7 +28,12 @@
 		borderRadius: 4,
 		backgroundColor:'#745DA8',
 		color: 'white',
-		top: '140dp',
+		top: '200dp',
 		height: '35dp',
 		textAlign: 'center'
+},
+"#pickTimezone":{
+	top: '130dp',		
+	width: '250dp',
+	height: '60dp',
 }
