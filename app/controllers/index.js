@@ -58,9 +58,6 @@ $.buttoncontainer.animate({
 	});
 	
 });
-
-
-
 var actionBar;
 $.index.addEventListener("open", function() {
     

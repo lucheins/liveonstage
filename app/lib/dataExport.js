@@ -319,6 +319,7 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 		        	{	
 		        		if(responses[i].liveActive == 1)
 		        		{
+		        			var event_id = responses[i].id;
 		        			var buttonLive = Titanium.UI.createButton({
 							   font: {
 								   	fontSize:'12dp',
@@ -335,7 +336,59 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 							});
 							buttonLive.addEventListener('click',function(e)
 							{
-							   alert('live');
+							    var clientLive = Ti.Network.createHTTPClient();
+								var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_VALIDATE_STREAMING;
+								clientLive.open('POST',url);
+								clientLive.ondatastream = function(e){
+								     
+								};						
+								
+								clientLive.onload = function(){	
+									var json = this.responseText;
+									var responseLive = JSON.parse(json);
+								
+									if(responseLive.validate > 0)
+									{			
+										var win = Alloy.createController('camera',event_id).getView();	
+										if(Ti.Platform.osname == 'android')
+										{
+											win.fullscreen= true;
+											win.open({
+											        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+											        activityExitAnimation: Ti.Android.R.anim.fade_out
+											    });	
+										} else {
+											var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+											win.open({transition:t});
+										}
+																	
+									} else {
+										if(responseLive.validate == -1)
+										{
+											alert('The video has already been created');
+										} else {
+											if(responseLive.validate == 0)
+											{
+												alert('The event does not exist');
+											} else {
+												alert('The start date is not in the allowed range');
+											}
+										}
+										buttonLive.hide(); 
+									}		    
+									
+								};
+								clientLive.onerror = function(e){alert('Transmission error: ' + e.error);};
+								
+								var paramsLive = {
+									tc: Alloy.Globals.USER_MOBILE.toString(),
+									user_id: author,
+									event_id: event_id,
+									time_user: utmUser
+								};
+						
+								clientLive.send(paramsLive); 						   
+							   
 							});
 							row.add(buttonLive);
 		        		}

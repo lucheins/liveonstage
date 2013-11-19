@@ -270,6 +270,7 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
                 };
                 var row = Alloy.createController("rowListProfile", args).getView();
                 if (1 == timezoneBand && 1 == responses[i].liveActive) {
+                    var event_id = responses[i].id;
                     var buttonLive = Titanium.UI.createButton({
                         font: {
                             fontSize: "12dp",
@@ -285,7 +286,35 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
                         right: "5%"
                     });
                     buttonLive.addEventListener("click", function() {
-                        alert("live");
+                        var clientLive = Ti.Network.createHTTPClient();
+                        var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_VALIDATE_STREAMING;
+                        clientLive.open("POST", url);
+                        clientLive.ondatastream = function() {};
+                        clientLive.onload = function() {
+                            var json = this.responseText;
+                            var responseLive = JSON.parse(json);
+                            if (responseLive.validate > 0) {
+                                var win = Alloy.createController("camera", event_id).getView();
+                                win.fullscreen = true;
+                                win.open({
+                                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                                    activityExitAnimation: Ti.Android.R.anim.fade_out
+                                });
+                            } else {
+                                -1 == responseLive.validate ? alert("The video has already been created") : 0 == responseLive.validate ? alert("The event does not exist") : alert("The start date is not in the allowed range");
+                                buttonLive.hide();
+                            }
+                        };
+                        clientLive.onerror = function(e) {
+                            alert("Transmission error: " + e.error);
+                        };
+                        var paramsLive = {
+                            tc: Alloy.Globals.USER_MOBILE.toString(),
+                            user_id: author,
+                            event_id: event_id,
+                            time_user: utmUser
+                        };
+                        clientLive.send(paramsLive);
                     });
                     row.add(buttonLive);
                 }

@@ -14,7 +14,7 @@ if(args.view == 'Events')
 		timezoneBand = 1;
 		utm = Ti.App.Properties.getString('timezone');
 	}
-}
+	}
 
 
 

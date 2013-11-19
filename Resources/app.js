@@ -22,6 +22,8 @@ Alloy.Globals.URL_START_STREAMING = "index.php?option=com_mobile&task=startLiveS
 
 Alloy.Globals.URL_STOP_STREAMING = "index.php?option=com_mobile&task=stopLiveStreaming";
 
+Alloy.Globals.URL_VALIDATE_STREAMING = "index.php?option=com_mobile&task=validateToStartLive";
+
 Alloy.Globals.LIMIT = 5;
 
 Alloy.Globals.TOP_LIMIT = 50;
