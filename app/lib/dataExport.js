@@ -358,6 +358,7 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 											        activityExitAnimation: Ti.Android.R.anim.fade_out
 											    });	
 										} else {
+											win.orientationModes = [ Titanium.UI.LANDSCAPE_RIGHT ];
 											var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
 											win.open({transition:t});
 										}

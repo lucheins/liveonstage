@@ -42,4 +42,6 @@ Alloy.Globals.USER_RTSP = 'liveon';
 Alloy.Globals.USER_PASSWORD_RTSP = 'NewLive1M!*';
 Alloy.Globals.URL_RTSP = 'rtsp://liveonstage.com:1935/videowhisper/';
 Alloy.Globals.RESOLUTION_RTSP = 'LOW';
+Alloy.Globals.URL_RTMP = 'rtmp://liveonstage.com:1935/ios';
+
 

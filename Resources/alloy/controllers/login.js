@@ -13,10 +13,15 @@ function Controller() {
         };
         var win = Alloy.createController("viewListOfProfile", args).getView();
         win.fullscreen = false;
-        win.open({
+        if ("android" == Ti.Platform.osname) win.open({
             activityEnterAnimation: Ti.Android.R.anim.fade_in,
             activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+        }); else {
+            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+            win.open({
+                transition: t
+            });
+        }
         $.login.close();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -46,6 +51,10 @@ function Controller() {
         id: "activity"
     });
     $.__views.login.add($.__views.activity);
+    $.__views.container = Ti.UI.createView({
+        id: "container"
+    });
+    $.__views.login.add($.__views.container);
     $.__views.username = Ti.UI.createTextField({
         borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
         keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
@@ -57,7 +66,7 @@ function Controller() {
         height: "60dp",
         id: "username"
     });
-    $.__views.login.add($.__views.username);
+    $.__views.container.add($.__views.username);
     $.__views.password = Ti.UI.createTextField({
         borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
         keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
@@ -70,7 +79,7 @@ function Controller() {
         height: "60dp",
         id: "password"
     });
-    $.__views.login.add($.__views.password);
+    $.__views.container.add($.__views.password);
     var __alloyId8 = [];
     $.__views.pickTimezone = Ti.UI.createPicker({
         top: "130dp",
@@ -78,7 +87,7 @@ function Controller() {
         height: "60dp",
         id: "pickTimezone"
     });
-    $.__views.login.add($.__views.pickTimezone);
+    $.__views.container.add($.__views.pickTimezone);
     $.__views.__alloyId9 = Ti.UI.createPickerRow({
         value: "zone",
         title: "Select Timezone",
@@ -419,24 +428,35 @@ function Controller() {
         id: "buttonLogin",
         title: "Login"
     });
-    $.__views.login.add($.__views.buttonLogin);
+    $.__views.container.add($.__views.buttonLogin);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var timezone;
-    var actionBar;
-    $.login.addEventListener("open", function() {
-        if ($.login.activity) {
-            actionBar = $.login.activity.actionBar;
-            if (actionBar) {
-                actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Login";
-                actionBar.displayHomeAsUp = true;
-                actionBar.onHomeIconItemSelected = function() {
-                    $.login.close();
-                };
-            }
-        } else Ti.API.error("Can't access action bar on a lightweight window.");
-    });
+    if ("android" == Ti.Platform.osname) {
+        var actionBar;
+        $.login.addEventListener("open", function() {
+            if ($.login.activity) {
+                actionBar = $.login.activity.actionBar;
+                if (actionBar) {
+                    actionBar.backgroundImage = "/bg.png";
+                    actionBar.title = "Login";
+                    actionBar.displayHomeAsUp = true;
+                    actionBar.onHomeIconItemSelected = function() {
+                        $.login.close();
+                    };
+                }
+            } else Ti.API.error("Can't access action bar on a lightweight window.");
+        });
+    } else {
+        $.container.top = "9%";
+        $.container.height = "91%";
+        var args = {
+            ventana: $.login,
+            title: "Login"
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.login.add(win);
+    }
     $.buttonLogin.addEventListener("click", function() {
         var client = Ti.Network.createHTTPClient();
         var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_LOGIN;

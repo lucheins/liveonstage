@@ -103,7 +103,7 @@ function Controller() {
     $.__views.__alloyId4 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/bolt.png",
         id: "__alloyId4"
     });
@@ -138,7 +138,7 @@ function Controller() {
     $.__views.__alloyId6 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "10%",
+        left: "3%",
         image: "/images/upcoming.png",
         id: "__alloyId6"
     });
@@ -228,11 +228,18 @@ function Controller() {
             var win = Alloy.createController("viewListOfProfile", args).getView();
         } else var win = Alloy.createController("login").getView();
         win.fullscreen = false;
-        win.fullscreen = false;
-        win.open({
-            activityEnterAnimation: Ti.Android.R.anim.fade_in,
-            activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+        if ("android" == Ti.Platform.osname) {
+            win.fullscreen = false;
+            win.open({
+                activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                activityExitAnimation: Ti.Android.R.anim.fade_out
+            });
+        } else {
+            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+            win.open({
+                transition: t
+            });
+        }
     });
     $.overlay.setBackgroundGradient({
         type: "linear",

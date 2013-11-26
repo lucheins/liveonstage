@@ -18,20 +18,6 @@ $.camera.addEventListener("open", function() {
             }
         }   
 });
-}
-else {	
-	$.container.top = '9%';
-	$.container.height = '91%';	
-var args = {
-	ventana: $.camera,
-	title: "Live On Stage"       			
-	};
-	      		
-var win = Alloy.createController('actionbarIos',args).getView();
-$.camera.add(win);
-}
-
-
 var liveStreaming = require('com.xenn.liveStreaming');
 	var proxy = liveStreaming.createStreaming({
 		message: "Creating an example Proxy",		
@@ -46,10 +32,24 @@ proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
 proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());	
 proxy.setUsernameRtsp(Ti.App.Properties.getString('username'));
 proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
+$.camera.add(proxy);
+}
+else {	
+	$.container.top = '9%';
+	$.container.height = '91%';	
+var args = {
+	ventana: $.camera,
+	title: "Live On Stage"       			
+	};
+	      		
+var win = Alloy.createController('actionbarIos',args).getView();
+$.camera.add(win);
+var streamingLiveIOS = require('com.xenn.finallyIOS');
+}
 
 var video_id = 0;
-$.camera.add(proxy);
-$.btnStart.addEventListener('click', function() {
+
+$.btnStart.addEventListener('click', function(e) {
 	
 	var client = Ti.Network.createHTTPClient();
 	var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
@@ -63,7 +63,22 @@ $.btnStart.addEventListener('click', function() {
 		if(response.video_id > 0)
 		{	
 			video_id = response.video_id;
-			proxy.startStreaming();
+			
+			if (Ti.Platform.osname === 'android') {
+				proxy.startStreaming();
+			} else {
+				foo = streamingLiveIOS.createStreamingView({
+			  		  color:"grey",
+					  width:'85%',
+					  height:"93%",
+					  top: '10dp',
+					  left:'10dp',
+					  streamingName: Ti.App.Properties.getString('username'),
+					  urlServer: Alloy.Globals.URL_RTMP.toString()		  
+				});		
+				e.source.parent.add(foo);
+			}		
+			
 			$.btnStart.enabled = false;
 			$.btnStop.enabled =  true;					
 
@@ -95,7 +110,7 @@ $.btnStart.addEventListener('click', function() {
 	
 	});
 	
-$.btnStop.addEventListener('click', function() {
+$.btnStop.addEventListener('click', function(e) {
 	// cambiar tipo al video y abrir el evento
 
 	var client = Ti.Network.createHTTPClient();
@@ -110,7 +125,14 @@ $.btnStop.addEventListener('click', function() {
 		if (response.stop_video)  
 	    {  
 	        alert('Video saved');
-	        proxy.stopStreaming();	
+	        
+	        if (Ti.Platform.osname === 'android') 
+	        {        
+	        	proxy.stopStreaming();	
+	        } else {
+	        	e.source.parent.remove(foo);
+				foo.cancelar;
+	        }
 	        $.btnStop.enabled =  false;	
 	    }  
 		$.activity.hide();

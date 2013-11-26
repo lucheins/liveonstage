@@ -192,19 +192,31 @@ function Controller() {
     _.extend($, $.__views);
     var id = arguments[0] || {};
     var user_id = 0;
-    var actionBar;
-    $.viewEvent.addEventListener("open", function() {
-        if ($.viewEvent.activity) {
-            actionBar = $.viewEvent.activity.actionBar;
-            if (actionBar) {
-                actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Upcoming Events";
-                actionBar.onHomeIconItemSelected = function() {
-                    $.viewEvent.close();
-                };
-            }
-        } else Ti.API.error("Can't access action bar on a lightweight window.");
-    });
+    if ("android" == Ti.Platform.osname) {
+        var actionBar;
+        $.viewEvent.addEventListener("open", function() {
+            if ($.viewEvent.activity) {
+                actionBar = $.viewEvent.activity.actionBar;
+                if (actionBar) {
+                    actionBar.backgroundImage = "/bg.png";
+                    actionBar.title = "Upcoming Events";
+                    actionBar.onHomeIconItemSelected = function() {
+                        $.viewEvent.close();
+                    };
+                }
+            } else Ti.API.error("Can't access action bar on a lightweight window.");
+        });
+    } else {
+        $.scroll.top = "9%";
+        $.scroll.height = "91%";
+        var args = {
+            ventana: $.viewEvent,
+            vp: $.vp,
+            title: "Upcoming Events"
+        };
+        var win = Alloy.createController("actionbarIos", args).getView();
+        $.viewEvent.add(win);
+    }
     var data = require("dataExport");
     var categoryId = 0;
     var client = Ti.Network.createHTTPClient();
@@ -246,11 +258,18 @@ function Controller() {
         if (e.source.link > 0) {
             $.viewEvent.close();
             var win = Alloy.createController("viewEvent", e.source.link).getView();
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            if ("android" == Ti.Platform.osname) {
+                win.fullscreen = false;
+                win.open({
+                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                    activityExitAnimation: Ti.Android.R.anim.fade_out
+                });
+            } else {
+                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                win.open({
+                    transition: t
+                });
+            }
         } else {
             var index = $.table.getIndexByName("rowMore");
             if (index > 0) {

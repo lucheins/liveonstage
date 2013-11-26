@@ -50,6 +50,7 @@
         <module platform="iphone">ti.paypal</module>
         <module platform="android" version="2.2.3">ti.paypal</module>
         <module platform="android">com.xenn.liveStreaming</module>
+        <module platform="iphone">com.xenn.finallyios</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>

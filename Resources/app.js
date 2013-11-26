@@ -64,4 +64,6 @@ Alloy.Globals.URL_RTSP = "rtsp://liveonstage.com:1935/videowhisper/";
 
 Alloy.Globals.RESOLUTION_RTSP = "LOW";
 
+Alloy.Globals.URL_RTMP = "rtmp://liveonstage.com:1935/ios";
+
 Alloy.createController("index");

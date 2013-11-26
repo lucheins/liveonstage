@@ -1,6 +1,7 @@
 <Alloy>
 	<Window id="login">	
 		<ActivityIndicator id="activity"/>
+		<View id="container">
 		 <TextField id="username" />
 		 <TextField id="password" />
 		 <Picker id="pickTimezone">
@@ -60,5 +61,6 @@
 			<PickerRow value='+13:00,0' title="(+13:00) Nuku'alof" />
         </Picker>	 
 		  <Button id="buttonLogin" title="Login"/>
+		  </View>
 	</Window>
 </Alloy>
