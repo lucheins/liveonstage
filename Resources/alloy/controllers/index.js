@@ -92,7 +92,7 @@ function Controller() {
     });
     $.__views.buttoncontainer.add($.__views.topButtons);
     $.__views.liveShows = Ti.UI.createView({
-        width: "48%",
+        width: "96%",
         left: "2%",
         borderWidth: 1,
         borderColor: "#d0d0d0",
@@ -101,29 +101,42 @@ function Controller() {
     });
     $.__views.topButtons.add($.__views.liveShows);
     $.__views.__alloyId4 = Ti.UI.createView({
+        width: "40%",
+        left: "30%",
+        top: "15%",
+        height: "42%",
         id: "__alloyId4"
     });
     $.__views.liveShows.add($.__views.__alloyId4);
     $.__views.__alloyId5 = Ti.UI.createImageView({
-        top: "32%",
-        height: "36%",
-        left: "10%",
+        width: "20%",
+        height: "70%",
+        left: "5%",
         image: "/images/artists.png",
         id: "__alloyId5"
     });
     $.__views.__alloyId4.add($.__views.__alloyId5);
     $.__views.__alloyId6 = Ti.UI.createLabel({
-        left: "35%",
         color: "white",
         font: {
             fontWeight: "bold",
-            fontSize: "15dp"
+            fontSize: "18dp"
         },
+        left: "30%",
         text: "Browse",
         id: "__alloyId6"
     });
     $.__views.__alloyId4.add($.__views.__alloyId6);
     $.__views.__alloyId7 = Ti.UI.createLabel({
+        color: "#c2c2c2",
+        font: {
+            fontWeight: "bold",
+            fontSize: "10dp"
+        },
+        bottom: "10%",
+        textAlign: "center",
+        left: "20%",
+        width: "60%",
         text: "Find Live Shows, Campaigns, Artists and More",
         id: "__alloyId7"
     });
@@ -136,7 +149,7 @@ function Controller() {
     });
     $.__views.buttoncontainer.add($.__views.bottomButtons);
     $.__views.upcomingEvents = Ti.UI.createView({
-        width: "48%",
+        width: "96%",
         left: "2%",
         borderWidth: 1,
         borderColor: "#d0d0d0",
@@ -145,29 +158,42 @@ function Controller() {
     });
     $.__views.bottomButtons.add($.__views.upcomingEvents);
     $.__views.__alloyId8 = Ti.UI.createView({
+        width: "40%",
+        left: "30%",
+        top: "15%",
+        height: "42%",
         id: "__alloyId8"
     });
     $.__views.upcomingEvents.add($.__views.__alloyId8);
     $.__views.__alloyId9 = Ti.UI.createImageView({
-        top: "32%",
-        height: "36%",
-        left: "10%",
+        width: "20%",
+        height: "70%",
+        left: "5%",
         image: "/images/bolt.png",
         id: "__alloyId9"
     });
     $.__views.__alloyId8.add($.__views.__alloyId9);
     $.__views.__alloyId10 = Ti.UI.createLabel({
-        left: "35%",
         color: "white",
         font: {
             fontWeight: "bold",
-            fontSize: "15dp"
+            fontSize: "18dp"
         },
+        left: "30%",
         text: "Go Live!",
         id: "__alloyId10"
     });
     $.__views.__alloyId8.add($.__views.__alloyId10);
     $.__views.__alloyId11 = Ti.UI.createLabel({
+        color: "#c2c2c2",
+        font: {
+            fontWeight: "bold",
+            fontSize: "10dp"
+        },
+        bottom: "10%",
+        textAlign: "center",
+        left: "20%",
+        width: "60%",
         text: "Already have a Live Show scheduled? Broadcast using this device!",
         id: "__alloyId11"
     });

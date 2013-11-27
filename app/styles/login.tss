@@ -53,11 +53,11 @@
 	left: '10%',
 },
 "#pickTimezone":{
-	top: '32%',		
+	top: '36%',		
 	width: '80%',
 	left: '10%',
-	height: '48%',
 	font: {
 		   	fontSize:'10dp',
 			},
+	
 }

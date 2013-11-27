@@ -5,8 +5,7 @@
 		 <TextField id="username" />
 		 <TextField id="password" />
 		 <Label id="TimezoneLabel">Select your current timezone</Label>
-		 <Picker id="pickTimezone" useSpinner="true">
-		 	<PickerRow value='zone' title='Select Timezone' />
+		 <Picker id="pickTimezone" >
             <PickerRow value='-12:00,0' title='(-12:00) International Date Line West' />
 			<PickerRow value='-11:00,0' title='(-11:00) Midway Island, Samoa' />
 			<PickerRow value='-10:00,0' title='(-10:00) Hawaii' />
