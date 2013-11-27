@@ -1,5 +1,5 @@
 var timezone;
-	
+$.pickTimezone.setSelectedRow(0, 11, false);	
 if (Ti.Platform.osname == 'android'){
 var actionBar;
 $.login.addEventListener("open", function() {

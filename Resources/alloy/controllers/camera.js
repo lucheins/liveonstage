@@ -64,46 +64,34 @@ function Controller() {
     _.extend($, $.__views);
     var event_id = arguments[0] || {};
     $.btnStop.enabled = false;
-    if ("android" == Ti.Platform.osname) {
-        var actionBar;
-        $.camera.addEventListener("open", function() {
-            if ($.camera.activity) {
-                actionBar = $.camera.activity.actionBar;
-                if (actionBar) {
-                    actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = "Live On Stage";
-                    actionBar.displayHomeAsUp = true;
-                    actionBar.onHomeIconItemSelected = function() {
-                        $.camera.close();
-                    };
-                }
-            } else Ti.API.error("Can't access action bar on a lightweight window.");
-        });
-        var liveStreaming = require("com.xenn.liveStreaming");
-        var proxy = liveStreaming.createStreaming({
-            message: "Creating an example Proxy",
-            width: "85%",
-            height: "92%",
-            top: "10dp",
-            left: "10dp"
-        });
-        proxy.setUserRtsp(Alloy.Globals.USER_RTSP.toString());
-        proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
-        proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());
-        proxy.setUsernameRtsp(Ti.App.Properties.getString("username"));
-        proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
-        $.camera.add(proxy);
-    } else {
-        $.container.top = "9%";
-        $.container.height = "91%";
-        var args = {
-            ventana: $.camera,
-            title: "Live On Stage"
-        };
-        var win = Alloy.createController("actionbarIos", args).getView();
-        $.camera.add(win);
-        var streamingLiveIOS = require("com.xenn.finallyIOS");
-    }
+    var actionBar;
+    $.camera.addEventListener("open", function() {
+        if ($.camera.activity) {
+            actionBar = $.camera.activity.actionBar;
+            if (actionBar) {
+                actionBar.backgroundImage = "/bg.png";
+                actionBar.title = "Live On Stage";
+                actionBar.displayHomeAsUp = true;
+                actionBar.onHomeIconItemSelected = function() {
+                    $.camera.close();
+                };
+            }
+        } else Ti.API.error("Can't access action bar on a lightweight window.");
+    });
+    var liveStreaming = require("com.xenn.liveStreaming");
+    var proxy = liveStreaming.createStreaming({
+        message: "Creating an example Proxy",
+        width: "85%",
+        height: "92%",
+        top: "10dp",
+        left: "10dp"
+    });
+    proxy.setUserRtsp(Alloy.Globals.USER_RTSP.toString());
+    proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
+    proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());
+    proxy.setUsernameRtsp(Ti.App.Properties.getString("username"));
+    proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
+    $.camera.add(proxy);
     var video_id = 0;
     $.btnStart.addEventListener("click", function(e) {
         var client = Ti.Network.createHTTPClient();
@@ -117,18 +105,7 @@ function Controller() {
             var response = JSON.parse(json);
             if (response.video_id > 0) {
                 video_id = response.video_id;
-                if ("android" === Ti.Platform.osname) proxy.startStreaming(); else {
-                    foo = streamingLiveIOS.createStreamingView({
-                        color: "grey",
-                        width: "85%",
-                        height: "93%",
-                        top: "10dp",
-                        left: "10dp",
-                        streamingName: Ti.App.Properties.getString("username"),
-                        urlServer: Alloy.Globals.URL_RTMP.toString()
-                    });
-                    e.source.parent.add(foo);
-                }
+                proxy.startStreaming();
                 $.btnStart.enabled = false;
                 $.btnStop.enabled = true;
             } else {
@@ -160,24 +137,16 @@ function Controller() {
             var response = JSON.parse(json);
             if (response.stop_video) {
                 alert("Video saved");
-                if ("android" === Ti.Platform.osname) proxy.stopStreaming(); else {
-                    e.source.parent.remove(foo);
-                    foo.cancelar;
-                }
+                proxy.stopStreaming();
                 $.btnStop.enabled = false;
             }
             $.activity.hide();
             var win = Alloy.createController("viewEvent", event_id).getView();
             win.fullscreen = false;
-            if ("android" == Ti.Platform.osname) win.open({
+            win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
-            }); else {
-                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-                win.open({
-                    transition: t
-                });
-            }
+            });
             $.camera.close();
         };
         client.onerror = function(e) {

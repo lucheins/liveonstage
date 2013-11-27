@@ -1,12 +1,19 @@
+"#container":{
+	
+},
 "#username":{
 	borderStyle: 'Ti.UI.INPUT_BORDERSTYLE_ROUNDED',
 	keyboardType: 'Titanium.UI.KEYBOARD_DEFAULT',
 	returnKeyType: 'Titanium.UI.RETURNKEY_DEFAULT',
 	color: '#336699',
 	hintText: 'Username',
-	top: '10dp',
-	width: '250dp',
-	height: '60dp'
+	top: '2%',
+	width: '80%',
+	height: '10%',
+	left: '10%',
+	border: 1,
+	borderColor: '#c1c1c1',
+	paddingLeft: 5
 },
 "#password":{
 	borderStyle: 'Ti.UI.INPUT_BORDERSTYLE_ROUNDED',
@@ -15,25 +22,42 @@
 	color: '#336699',
 	hintText: 'Password',
 	passwordMask: 'true',
-	top: '70dp',
-	width: '250dp',
-	height: '60dp'
+	top: '14%',
+	width: '80%',
+	height: '10%',
+	left: '10%',
+	border: 1,
+	borderColor: '#c1c1c1',
+	paddingLeft: 5
 },
 "#buttonLogin":{
 	font: {
-		   	fontSize:'13dp',
+		   	fontSize:'16dp',
 		   	fontWeight:'bold'
 			},		
-		width: '25%',
+		width: '45%',
 		borderRadius: 4,
 		backgroundColor:'#745DA8',
 		color: 'white',
-		top: '200dp',
-		height: '35dp',
+		bottom: '5%',
+		height: '10%',
 		textAlign: 'center'
 },
+"#TimezoneLabel":{
+	top: '28%',
+	font: {
+		   	fontSize:'15dp',
+		   	fontWeight:'bold'
+		},
+	color: '#c9c9c9',
+	left: '10%',
+},
 "#pickTimezone":{
-	top: '130dp',		
-	width: '250dp',
-	height: '60dp',
+	top: '32%',		
+	width: '80%',
+	left: '10%',
+	height: '48%',
+	font: {
+		   	fontSize:'10dp',
+			},
 }

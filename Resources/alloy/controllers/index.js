@@ -100,25 +100,34 @@ function Controller() {
         id: "liveShows"
     });
     $.__views.topButtons.add($.__views.liveShows);
-    $.__views.__alloyId4 = Ti.UI.createImageView({
-        top: "32%",
-        height: "36%",
-        left: "3%",
-        image: "/images/bolt.png",
+    $.__views.__alloyId4 = Ti.UI.createView({
         id: "__alloyId4"
     });
     $.__views.liveShows.add($.__views.__alloyId4);
-    $.__views.__alloyId5 = Ti.UI.createLabel({
+    $.__views.__alloyId5 = Ti.UI.createImageView({
+        top: "32%",
+        height: "36%",
+        left: "10%",
+        image: "/images/artists.png",
+        id: "__alloyId5"
+    });
+    $.__views.__alloyId4.add($.__views.__alloyId5);
+    $.__views.__alloyId6 = Ti.UI.createLabel({
         left: "35%",
         color: "white",
         font: {
             fontWeight: "bold",
             fontSize: "15dp"
         },
-        text: "Browser",
-        id: "__alloyId5"
+        text: "Browse",
+        id: "__alloyId6"
     });
-    $.__views.liveShows.add($.__views.__alloyId5);
+    $.__views.__alloyId4.add($.__views.__alloyId6);
+    $.__views.__alloyId7 = Ti.UI.createLabel({
+        text: "Find Live Shows, Campaigns, Artists and More",
+        id: "__alloyId7"
+    });
+    $.__views.liveShows.add($.__views.__alloyId7);
     $.__views.bottomButtons = Ti.UI.createView({
         height: "45%",
         top: "51%",
@@ -135,15 +144,19 @@ function Controller() {
         id: "upcomingEvents"
     });
     $.__views.bottomButtons.add($.__views.upcomingEvents);
-    $.__views.__alloyId6 = Ti.UI.createImageView({
+    $.__views.__alloyId8 = Ti.UI.createView({
+        id: "__alloyId8"
+    });
+    $.__views.upcomingEvents.add($.__views.__alloyId8);
+    $.__views.__alloyId9 = Ti.UI.createImageView({
         top: "32%",
         height: "36%",
-        left: "3%",
-        image: "/images/upcoming.png",
-        id: "__alloyId6"
+        left: "10%",
+        image: "/images/bolt.png",
+        id: "__alloyId9"
     });
-    $.__views.upcomingEvents.add($.__views.__alloyId6);
-    $.__views.__alloyId7 = Ti.UI.createLabel({
+    $.__views.__alloyId8.add($.__views.__alloyId9);
+    $.__views.__alloyId10 = Ti.UI.createLabel({
         left: "35%",
         color: "white",
         font: {
@@ -151,9 +164,14 @@ function Controller() {
             fontSize: "15dp"
         },
         text: "Go Live!",
-        id: "__alloyId7"
+        id: "__alloyId10"
     });
-    $.__views.upcomingEvents.add($.__views.__alloyId7);
+    $.__views.__alloyId8.add($.__views.__alloyId10);
+    $.__views.__alloyId11 = Ti.UI.createLabel({
+        text: "Already have a Live Show scheduled? Broadcast using this device!",
+        id: "__alloyId11"
+    });
+    $.__views.upcomingEvents.add($.__views.__alloyId11);
     exports.destroy = function() {};
     _.extend($, $.__views);
     (Ti.Platform.displayCaps.platformWidth - 30) / 2;
@@ -228,18 +246,11 @@ function Controller() {
             var win = Alloy.createController("viewListOfProfile", args).getView();
         } else var win = Alloy.createController("login").getView();
         win.fullscreen = false;
-        if ("android" == Ti.Platform.osname) {
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
-        } else {
-            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-            win.open({
-                transition: t
-            });
-        }
+        win.fullscreen = false;
+        win.open({
+            activityEnterAnimation: Ti.Android.R.anim.fade_in,
+            activityExitAnimation: Ti.Android.R.anim.fade_out
+        });
     });
     $.overlay.setBackgroundGradient({
         type: "linear",
