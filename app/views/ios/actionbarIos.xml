@@ -6,5 +6,8 @@
     		</View>
     		<Label id="current"/>
     		<View class="navigationBottomBorder"/>
+    		<View id="bottomLogin">	
+				<Label id="textBottom">Login</Label>
+			</View>
     </View>
 </Alloy>

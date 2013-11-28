@@ -117,4 +117,4 @@
 	top: '5%',
 	backgroundImage:'/Icon-Small.png',
 	backgroundRepeat: false
-	},
+	}

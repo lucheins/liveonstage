@@ -58,6 +58,35 @@ $.buttoncontainer.animate({
 	});
 	
 });
+
+// Function to test if device is iOS 7 or later
+var iOS7 = isIOS7Plus();
+var theTop = iOS7 ? 20 : 0;
+$.index.top = theTop;
+
+function isIOS7Plus()
+{
+	// iOS-specific test
+	if (Titanium.Platform.name == 'iPhone OS')
+	{
+		var version = Titanium.Platform.version.split(".");
+		var major = parseInt(version[0],10);
+
+		// Can only test this support on a 3.2+ device
+		if (major >= 7)
+		{
+			$.index.statusBarStyle = Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT;
+			Ti.UI.setBackgroundColor('black');
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
+// END STATUS BAR FIX
+
 var actionBar;
 $.index.addEventListener("open", function() {
     

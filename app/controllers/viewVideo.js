@@ -24,9 +24,33 @@ $.viewVideo.addEventListener("open", function() {
         }
 
 });
+} else {	
+	
+	// Function to test if device is iOS 7 or later
+function isIOS7Plus()
+{
+	// iOS-specific test
+	if (Titanium.Platform.name == 'iPhone OS')
+	{
+		var version = Titanium.Platform.version.split(".");
+		var major = parseInt(version[0],10);
+
+		// Can only test this support on a 3.2+ device
+		if (major >= 7)
+		{
+			$.viewVideo.statusBarStyle = Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT;
+		//	Ti.UI.setBackgroundColor('#4D024A');
+			return true;
+		}
+	}
+	return false;
 }
 
-else {	
+var iOS7 = isIOS7Plus();
+var theTop = iOS7 ? 20 : 0;
+$.viewVideo.top = theTop;
+// END STATUS BAR FIX
+	
 	$.scroll.top = '9%';
 	$.scroll.height = '91%';	
 var args = {

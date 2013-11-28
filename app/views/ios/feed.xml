@@ -8,6 +8,9 @@
 	    		<View id="iconSmall"/>
     		</View>
     		<View class="navigationBottomBorder"/>
+    		<View id="bottomLogin">	
+				<Label id="textBottom">Login</Label>
+			</View>
     	</View>
     	<ScrollView id="topNav" showVerticalScrollIndicator="false" showHorizontalScrollIndicator="false" scrollType="horizontal">
 			<View id="NavContainer">

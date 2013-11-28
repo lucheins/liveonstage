@@ -1,6 +1,6 @@
 "#Navigation":{
 	height: '8%',
-	top: '-8%',
+	top: '0%',
 	backgroundColor: '#16011e',
 	backgroundImage: '/light-diagonal-strips.png',
 	backgroundRepeat: true	
@@ -107,6 +107,5 @@
   	textAlign: 'center',
   	left: '20%',
   	width: '60%'
-	}
-
+}
 

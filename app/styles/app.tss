@@ -119,4 +119,28 @@
 		borderRadius: 4,
 		backgroundImage: '/light-diagonal-strips.png',
 		backgroundRepeat: true	
-		}
+	},
+"#bottomLogin":{
+	top:'10%',
+	right: '5dp',
+	width: '20%',
+	height: '80%',
+	zIndex: 100
+},
+"#textBottom":{
+	font: {
+	   	fontSize:'12dp',
+	   	fontWeight:'bold'
+		},
+	height:'90%',
+	bottom:'8%',
+	width: '98%',
+	borderRadius: 4,
+	backgroundColor:'#745DA8',
+	color: 'white',
+	textAlign: 'center'	
+}
+
+		
+
+

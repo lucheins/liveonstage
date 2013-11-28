@@ -28,6 +28,34 @@ var backArrow = Ti.UI.createLabel({
   text: '\u25c3',
 });
 
+// Function to test if device is iOS 7 or later
+function isIOS7Plus()
+{
+	// iOS-specific test
+	if (Titanium.Platform.name == 'iPhone OS')
+	{
+		var version = Titanium.Platform.version.split(".");
+		var major = parseInt(version[0],10);
+
+		// Can only test this support on a 3.2+ device
+		if (major >= 7)
+		{
+			$.feedWin.statusBarStyle = Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT;
+		//	Ti.UI.setBackgroundColor('#4D024A');
+			return true;
+		}
+	}
+	return false;
+}
+
+var iOS7 = isIOS7Plus();
+var theTop = iOS7 ? 20 : 0;
+$.feedWin.top = theTop;
+// END STATUS BAR FIX
+
+
+
+
 $.backArrow.add(backArrow);
 
 $.actionIos.addEventListener("click",function(e){
@@ -233,3 +261,15 @@ live.footerView = Ti.UI.createView({
     height: 1,
     backgroundColor: 'transparent'
 });
+
+
+$.bottomLogin.addEventListener('click', function(e){
+	var win = Alloy.createController('login').getView();
+	win.fullscreen= false;
+	var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+	win.open({transition:t});
+	
+});
+
+
+
