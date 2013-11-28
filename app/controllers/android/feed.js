@@ -62,24 +62,9 @@ var viewPager = module.createViewPager(
 	}		
 );
 
-var actionBar;
-$.feedWin.addEventListener("open", function() {
-    
-        if (! $.feedWin.activity) {
-            Ti.API.error("Can't access action bar on a lightweight window.");
-        } else {
-            actionBar = $.feedWin.activity.actionBar;
-            if (actionBar) {
-                actionBar.backgroundImage = "/bg.png";
-                actionBar.title = Alloy.Globals.NAME_PAGE ;
-                actionBar.displayHomeAsUp = true;
-                actionBar.onHomeIconItemSelected = function() {
-                    resetInitPage(0, 'Categories');
-                };
-            }
-        }
-    
-});
+
+var actionBar = require('actionBarButtoms'); 
+actionBar.putActionBar($.feedWin,Alloy.Globals.NAME_PAGE,true,null,null,$.activity);
 	
 viewPager.height = '95%';
 viewPager.top = '0';
@@ -123,18 +108,7 @@ categories.addEventListener('click', function(e){
 		resetInitPage(e.source.link, title);
 	});
 
-function resetInitPage(catId, title)
-{
-	categoryId = catId;
-	actionBar.title = title;
-	live.setData([]);
-	campaigns.removeAllChildren();
-	campaigns.removeAllChildren();
-	upcomming.setData([]);
-	artists.removeAllChildren();
-	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
-	viewPager.scrollTo(1);	
-}
+
 
 live.addEventListener('click', function(e){
 		if(e.source.link > 0)

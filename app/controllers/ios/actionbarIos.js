@@ -23,3 +23,8 @@ if(args.title == 'Login')
 	$.bottomLogin.hide();
 }
 
+$.bottomLogin.addEventListener('click', function(e){
+	var actionBar = require('actionBarButtoms');
+	actionBar.iosActionLogin();	
+});
+

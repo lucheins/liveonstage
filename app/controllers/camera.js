@@ -1,23 +1,10 @@
 var event_id = arguments[0] || {};
 $.btnStop.enabled = false;
+
+var actionBar = require('actionBarButtoms'); 
+actionBar.putActionBar($.camera,"Live On Stage",false,null,$.container,null);
+
 if (Ti.Platform.osname == 'android'){
-var actionBar;
-$.camera.addEventListener("open", function() {
-    
-        if (! $.camera.activity) {
-            Ti.API.error("Can't access action bar on a lightweight window.");
-        } else {
-            actionBar = $.camera.activity.actionBar;
-            if (actionBar) {
-                actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Live On Stage";
-                actionBar.displayHomeAsUp = true;
-                actionBar.onHomeIconItemSelected = function() {
-					$.camera.close();
-                };
-            }
-        }   
-});
 var liveStreaming = require('com.xenn.liveStreaming');
 	var proxy = liveStreaming.createStreaming({
 		message: "Creating an example Proxy",		
@@ -33,17 +20,7 @@ proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());
 proxy.setUsernameRtsp(Ti.App.Properties.getString('username'));
 proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
 $.camera.add(proxy);
-}
-else {	
-	$.container.top = '9%';
-	$.container.height = '91%';	
-var args = {
-	ventana: $.camera,
-	title: "Live On Stage"       			
-	};
-	      		
-var win = Alloy.createController('actionbarIos',args).getView();
-$.camera.add(win);
+} else {	
 var streamingLiveIOS = require('com.xenn.finallyIOS');
 }
 

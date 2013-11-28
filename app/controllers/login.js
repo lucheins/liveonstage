@@ -1,65 +1,8 @@
 var timezone;
 $.pickTimezone.setSelectedRow(0, 10, false);	
 
-if (Ti.Platform.osname == 'android'){
-var actionBar;
-$.login.addEventListener("open", function() {
-    
-        if (! $.login.activity) {
-            Ti.API.error("Can't access action bar on a lightweight window.");
-        } else {
-            actionBar = $.login.activity.actionBar;
-            if (actionBar) {
-                actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Login";
-                actionBar.displayHomeAsUp = true;
-                actionBar.onHomeIconItemSelected = function() {
-				$.login.close();
-                };
-            }
-        }   
-});
-}
-else {	
-
-// Function to test if device is iOS 7 or later
-function isIOS7Plus()
-{
-	// iOS-specific test
-	if (Titanium.Platform.name == 'iPhone OS')
-	{
-		var version = Titanium.Platform.version.split(".");
-		var major = parseInt(version[0],10);
-
-		// Can only test this support on a 3.2+ device
-		if (major >= 7)
-		{
-			$.login.statusBarStyle = Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT;
-		//	Ti.UI.setBackgroundColor('#4D024A');
-			return true;
-		}
-	}
-	return false;
-}
-
-var iOS7 = isIOS7Plus();
-var theTop = iOS7 ? 20 : 0;
-$.login.top = theTop;
-// END STATUS BAR FIX
-
-	$.container.top = '9%';
-	$.container.height = '91%';	
-var args = {
-	ventana: $.login,
-	title: "Login"       			
-	};
-	      		
-var win = Alloy.createController('actionbarIos',args).getView();
-$.login.add(win);
-
-}
-
-
+var actionBar = require('actionBarButtoms'); 
+actionBar.putActionBar($.login,"Login",false,null,$.container,null);
 
 function checkdata(value)  
 	{  

@@ -264,11 +264,8 @@ live.footerView = Ti.UI.createView({
 
 
 $.bottomLogin.addEventListener('click', function(e){
-	var win = Alloy.createController('login').getView();
-	win.fullscreen= false;
-	var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-	win.open({transition:t});
-	
+	var actionBar = require('actionBarButtoms');
+	actionBar.iosActionLogin();	
 });
 
 

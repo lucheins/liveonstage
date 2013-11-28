@@ -1,13 +1,4 @@
 function Controller() {
-    function isIOS7Plus() {
-        var version = Titanium.Platform.version.split(".");
-        var major = parseInt(version[0], 10);
-        if (major >= 7) {
-            $.login.statusBarStyle = Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT;
-            return true;
-        }
-        return false;
-    }
     function checkdata(value) {
         var testresults = false;
         var filter = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\_\-\.\@\/]+$/;
@@ -22,15 +13,10 @@ function Controller() {
         };
         var win = Alloy.createController("viewListOfProfile", args).getView();
         win.fullscreen = false;
-        if ("android" == Ti.Platform.osname) win.open({
+        win.open({
             activityEnterAnimation: Ti.Android.R.anim.fade_in,
             activityExitAnimation: Ti.Android.R.anim.fade_out
-        }); else {
-            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-            win.open({
-                transition: t
-            });
-        }
+        });
         $.login.close();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -460,34 +446,8 @@ function Controller() {
     _.extend($, $.__views);
     var timezone;
     $.pickTimezone.setSelectedRow(0, 10, false);
-    if ("android" == Ti.Platform.osname) {
-        var actionBar;
-        $.login.addEventListener("open", function() {
-            if ($.login.activity) {
-                actionBar = $.login.activity.actionBar;
-                if (actionBar) {
-                    actionBar.backgroundImage = "/bg.png";
-                    actionBar.title = "Login";
-                    actionBar.displayHomeAsUp = true;
-                    actionBar.onHomeIconItemSelected = function() {
-                        $.login.close();
-                    };
-                }
-            } else Ti.API.error("Can't access action bar on a lightweight window.");
-        });
-    } else {
-        var iOS7 = isIOS7Plus();
-        var theTop = iOS7 ? 20 : 0;
-        $.login.top = theTop;
-        $.container.top = "9%";
-        $.container.height = "91%";
-        var args = {
-            ventana: $.login,
-            title: "Login"
-        };
-        var win = Alloy.createController("actionbarIos", args).getView();
-        $.login.add(win);
-    }
+    var actionBar = require("actionBarButtoms");
+    actionBar.putActionBar($.login, "Login", false, null, $.container, null);
     $.buttonLogin.addEventListener("click", function() {
         var client = Ti.Network.createHTTPClient();
         var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_LOGIN;

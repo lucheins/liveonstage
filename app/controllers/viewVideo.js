@@ -2,67 +2,10 @@ var id = arguments[0] || {};
 var pageHome = 0;
 
 var user_id = 0;
-if (Ti.Platform.osname == 'android'){
-var actionBar;
-$.viewVideo.addEventListener("open", function() {
-    
-        if (! $.viewVideo.activity) {
-            Ti.API.error("Can't access action bar on a lightweight window.");
-        } else {
-            actionBar = $.viewVideo.activity.actionBar;
-            if (actionBar) {
-                actionBar.backgroundImage = "/bg.png";
-                actionBar.title = "Live Shows";
-                actionBar.displayHomeAsUp = true;
-                actionBar.onHomeIconItemSelected = function() {
-                    $.vp.hide();
-				    $.vp.release();
-				    $.vp = null;
-					$.viewVideo.close();
-                };
-            }
-        }
 
-});
-} else {	
-	
-	// Function to test if device is iOS 7 or later
-function isIOS7Plus()
-{
-	// iOS-specific test
-	if (Titanium.Platform.name == 'iPhone OS')
-	{
-		var version = Titanium.Platform.version.split(".");
-		var major = parseInt(version[0],10);
+var actionBar = require('actionBarButtoms'); 
+actionBar.putActionBar($.viewVideo,"Live Shows",false,$.vp,$.scroll,null);
 
-		// Can only test this support on a 3.2+ device
-		if (major >= 7)
-		{
-			$.viewVideo.statusBarStyle = Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT;
-		//	Ti.UI.setBackgroundColor('#4D024A');
-			return true;
-		}
-	}
-	return false;
-}
-
-var iOS7 = isIOS7Plus();
-var theTop = iOS7 ? 20 : 0;
-$.viewVideo.top = theTop;
-// END STATUS BAR FIX
-	
-	$.scroll.top = '9%';
-	$.scroll.height = '91%';	
-var args = {
-	ventana: $.viewVideo,
-	title: "Live Shows"       	        			
-	};
-
-
-      		
-var win = Alloy.createController('actionbarIos',args).getView();
-$.viewVideo.add(win);
-}
 
 Ti.Gesture.addEventListener("orientationchange", function(e){
 	var orientation = Ti.Gesture.orientation;
