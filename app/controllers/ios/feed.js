@@ -210,7 +210,7 @@ $.scrollableView.addEventListener("scrollend", function(e){
 
 categories.addEventListener('click', function(e){
 		
-		var title = 'Categories';
+		var title = 'Live On Stage';
 		if(e.source.link > 0)
 		{
 			title = e.source.text;
