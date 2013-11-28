@@ -1,4 +1,15 @@
 function Controller() {
+    function resetInitPage(catId, title) {
+        categoryId = catId;
+        $.feedWin.activity.actionBar.title = title;
+        live.setData([]);
+        campaigns.removeAllChildren();
+        campaigns.removeAllChildren();
+        upcomming.setData([]);
+        artists.removeAllChildren();
+        data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
+        viewPager.scrollTo(1);
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "feed";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -98,7 +109,7 @@ function Controller() {
         }
     });
     var actionBar = require("actionBarButtoms");
-    actionBar.putActionBar($.feedWin, Alloy.Globals.NAME_PAGE, true, null, null, $.activity, true);
+    actionBar.putActionBar($.feedWin, Alloy.Globals.NAME_PAGE, true, null, null, $.activity, false);
     viewPager.height = "95%";
     viewPager.top = "0";
     $.feedWin.add(viewPager);

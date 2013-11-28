@@ -53,7 +53,7 @@ var theTop = iOS7 ? 20 : 0;
 $.feedWin.top = theTop;
 // END STATUS BAR FIX
 
-
+$.current.text = 'Live On Stage';
 
 
 $.backArrow.add(backArrow);
@@ -221,7 +221,7 @@ categories.addEventListener('click', function(e){
 function resetInitPage(catId, title)
 {
 	categoryId = catId;
-	
+	$.current.text = title;
 	live.setData([]);
 	//campaigns.setData([]);
 	campaigns.removeAllChildren();

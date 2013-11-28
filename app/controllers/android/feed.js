@@ -64,7 +64,7 @@ var viewPager = module.createViewPager(
 
 
 var actionBar = require('actionBarButtoms'); 
-actionBar.putActionBar($.feedWin,Alloy.Globals.NAME_PAGE,true,null,null,$.activity,true);
+actionBar.putActionBar($.feedWin,Alloy.Globals.NAME_PAGE,true,null,null,$.activity,false);
 	
 viewPager.height = '95%';
 viewPager.top = '0';
@@ -100,7 +100,7 @@ viewPager.addEventListener("pageChange", function (e)
 
 categories.addEventListener('click', function(e){
 		
-		var title = 'Categories';
+		var title = 'Live On Stage';
 		if(e.source.link > 0)
 		{
 			title = e.source.text;
@@ -146,6 +146,17 @@ upcomming.addEventListener('click', function(e){
 		}		
 	});
 	
+function resetInitPage(catId, title)
+{
+	categoryId = catId;
+	$.feedWin.activity.actionBar.title = title;
+	live.setData([]);
+	campaigns.removeAllChildren();
+	upcomming.setData([]);
+	artists.removeAllChildren();
+	data.getListItems($.activity, live,0,0,categoryId,0,0,'Videos');
+	viewPager.scrollTo(1);	
+}
 
 
 

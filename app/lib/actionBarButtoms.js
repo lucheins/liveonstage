@@ -20,27 +20,23 @@ exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activ
 	                actionBar.title = title;
 	                actionBar.displayHomeAsUp = true;
 	                actionBar.onHomeIconItemSelected = function() {
-	                	if(isFeed)
-	                	{
-	                		resetInitPage(0, 'Categories',activity);
-	                	} else {
-	                		if(vp)
-		                    {
-		                    	vp.hide();
-							    vp.release();
-							    vp = null;
-		                    }	                    
-							currentWindow.close();
-							if(reset)
-							{					
-								var win = Alloy.createController('feed', 1).getView();								
-								win.fullscreen= false;	
-								win.open({
-											activityEnterAnimation: Ti.Android.R.anim.fade_in,
-											activityExitAnimation: Ti.Android.R.anim.fade_out
-									});	
-							}
-	                	}
+	                	
+	                	if(vp)
+		                {
+		                    vp.hide();
+							vp.release();
+							vp = null;
+		                }	                    
+						currentWindow.close();
+						if(reset)
+						{					
+							var win = Alloy.createController('feed', 1).getView();								
+							win.fullscreen= false;	
+							win.open({
+								activityEnterAnimation: Ti.Android.R.anim.fade_in,
+								activityExitAnimation: Ti.Android.R.anim.fade_out
+							});	
+						}	                	
 	                    
 	                };
 	                if (title != 'Login')
@@ -141,16 +137,4 @@ function acctionLogin(currentWin, vp)
 	}
 }
 
-function resetInitPage(catId, title, activity)
-{
-	categoryId = catId;
-	actionBar.title = title;
-	live.setData([]);
-	campaigns.removeAllChildren();
-	campaigns.removeAllChildren();
-	upcomming.setData([]);
-	artists.removeAllChildren();
-	data.getListItems(activity, live,0,0,categoryId,0,0,'Videos');
-	viewPager.scrollTo(1);	
-}
 
