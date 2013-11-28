@@ -239,11 +239,18 @@ function Controller() {
             author: args.id
         };
         var win = Alloy.createController("viewProfile", args1).getView();
-        win.fullscreen = false;
-        win.open({
-            activityEnterAnimation: Ti.Android.R.anim.fade_in,
-            activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+        if ("android" == Ti.Platform.osname) {
+            win.fullscreen = false;
+            win.open({
+                activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                activityExitAnimation: Ti.Android.R.anim.fade_out
+            });
+        } else {
+            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+            win.open({
+                transition: t
+            });
+        }
     });
     _.extend($, exports);
 }

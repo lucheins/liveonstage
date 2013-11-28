@@ -1,17 +1,17 @@
 function Controller() {
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
-    this.__controllerPath = "viewListOfProfile";
+    this.__controllerPath = "viewListEventsToLive";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.viewListOfProfile = Ti.UI.createWindow({
+    $.__views.viewListEventsToLive = Ti.UI.createWindow({
         backgroundColor: "#fff",
         title: Alloy.Globals.NAME_PAGE,
-        id: "viewListOfProfile"
+        id: "viewListEventsToLive"
     });
-    $.__views.viewListOfProfile && $.addTopLevelView($.__views.viewListOfProfile);
+    $.__views.viewListEventsToLive && $.addTopLevelView($.__views.viewListEventsToLive);
     $.__views.activity = Ti.UI.createActivityIndicator({
         color: "#6cb1d5",
         font: {
@@ -25,7 +25,7 @@ function Controller() {
         zIndex: 100,
         id: "activity"
     });
-    $.__views.viewListOfProfile.add($.__views.activity);
+    $.__views.viewListEventsToLive.add($.__views.activity);
     $.__views.messageTurn = Ti.UI.createView({
         top: "0dp",
         left: "0dp",
@@ -36,7 +36,7 @@ function Controller() {
         borderWidth: 0,
         id: "messageTurn"
     });
-    $.__views.viewListOfProfile.add($.__views.messageTurn);
+    $.__views.viewListEventsToLive.add($.__views.messageTurn);
     $.__views.description = Ti.UI.createLabel({
         font: {
             fontSize: "12dp"
@@ -54,7 +54,7 @@ function Controller() {
         top: "0dp",
         id: "container"
     });
-    $.__views.viewListOfProfile.add($.__views.container);
+    $.__views.viewListEventsToLive.add($.__views.container);
     $.__views.table = Ti.UI.createTableView({
         top: "0dp",
         id: "table"
@@ -67,7 +67,7 @@ function Controller() {
     var timezoneBand = 0;
     var utm = "00:00,0";
     var actionBar = require("actionBarButtoms");
-    actionBar.putActionBar($.viewListOfProfile, args.authorname + " - " + args.view, false, null, $.container, null);
+    actionBar.putActionBar($.viewListEventsToLive, args.authorname + " - " + args.view + "1", false, null, $.container, null, true);
     $.messageTurn.hide();
     if ("Events" == args.view && Ti.App.Properties.getString("user_id") && args.author == Ti.App.Properties.getString("user_id")) {
         $.container.top = "11%";

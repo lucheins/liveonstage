@@ -262,10 +262,15 @@ live.footerView = Ti.UI.createView({
     backgroundColor: 'transparent'
 });
 
+$.textBottom.text = 'Login';
+	if(Ti.App.Properties.getString('user_id') > 0)
+	{
+		$.textBottom.text = 'Logout';
+	}
 
 $.bottomLogin.addEventListener('click', function(e){
 	var actionBar = require('actionBarButtoms');
-	actionBar.iosActionLogin();	
+	actionBar.iosActionLogin($.feedWin,null);	
 });
 
 

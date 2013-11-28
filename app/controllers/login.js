@@ -2,7 +2,7 @@ var timezone;
 $.pickTimezone.setSelectedRow(0, 10, false);	
 
 var actionBar = require('actionBarButtoms'); 
-actionBar.putActionBar($.login,"Login",false,null,$.container,null);
+actionBar.putActionBar($.login,"Login",false,null,$.container,null,false);
 
 function checkdata(value)  
 	{  
@@ -89,7 +89,7 @@ function openWindowsLoginSussess()
 	    authorname: Ti.App.Properties.getString('name'),
 	    view: 'Events'
 	};        	
-    var win = Alloy.createController('viewListOfProfile', args).getView();
+    var win = Alloy.createController('viewListEventsToLive', args).getView();
     win.fullscreen= false;	
 	if(Ti.Platform.osname == 'android')
 	{

@@ -1,4 +1,4 @@
-exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activity)
+exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activity,reset)
 {
 	var buttomText = 'Login';
 	if(Ti.App.Properties.getString('user_id') > 0)
@@ -30,7 +30,16 @@ exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activ
 							    vp.release();
 							    vp = null;
 		                    }	                    
-							currentWindow.close();	
+							
+							if(reset)
+							{					
+								var win = Alloy.createController('feed', 1).getView();								
+								win.fullscreen= false;	
+								win.open({
+											activityEnterAnimation: Ti.Android.R.anim.fade_in,
+											activityExitAnimation: Ti.Android.R.anim.fade_out
+									});	
+							}
 	                	}
 	                    
 	                };
@@ -43,7 +52,7 @@ exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activ
 							showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM 
 						}); 
 						menuItem.addEventListener("click", function(e) { 
-							acctionLogin();
+							acctionLogin(currentWindow,vp);
 						}); 
 						}; 
 					}                
@@ -82,9 +91,9 @@ exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activ
 		container.height = '91%';	
 	var args = {
 		ventana: currentWindow,
-		vp: vp,
-		
-		title: "Artists"       			
+		vp: vp,		
+		title: title,
+		reset: reset       			
 		};
 		      		
 	var win = Alloy.createController('actionbarIos',args).getView();
@@ -93,13 +102,13 @@ exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activ
 
 };
 
-exports.iosActionLogin=function()
+exports.iosActionLogin=function(currentWin,vp)
 {
-	acctionLogin();
+	acctionLogin(currentWin,vp);
 };
 
 
-function acctionLogin()
+function acctionLogin(currentWin, vp)
 {
 	
 	if(Ti.App.Properties.getString('user_id') > 0)
@@ -111,11 +120,17 @@ function acctionLogin()
 		var win = Alloy.createController('feed', 1).getView();
 	} else {		
 		var win = Alloy.createController('login').getView();
+		if(vp)
+		{
+		    vp.hide();
+			vp.release();
+			vp = null;
+		}	                    
+		currentWin.close();	
 	}								
 	win.fullscreen= false;	
 	if(Ti.Platform.osname == 'android')
 	{
-		win.fullscreen= false;
 		win.open({
 				activityEnterAnimation: Ti.Android.R.anim.fade_in,
 				activityExitAnimation: Ti.Android.R.anim.fade_out

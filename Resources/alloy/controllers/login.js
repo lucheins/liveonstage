@@ -11,12 +11,17 @@ function Controller() {
             authorname: Ti.App.Properties.getString("name"),
             view: "Events"
         };
-        var win = Alloy.createController("viewListOfProfile", args).getView();
+        var win = Alloy.createController("viewListEventsToLive", args).getView();
         win.fullscreen = false;
-        win.open({
+        if ("android" == Ti.Platform.osname) win.open({
             activityEnterAnimation: Ti.Android.R.anim.fade_in,
             activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+        }); else {
+            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+            win.open({
+                transition: t
+            });
+        }
         $.login.close();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -447,7 +452,7 @@ function Controller() {
     var timezone;
     $.pickTimezone.setSelectedRow(0, 10, false);
     var actionBar = require("actionBarButtoms");
-    actionBar.putActionBar($.login, "Login", false, null, $.container, null);
+    actionBar.putActionBar($.login, "Login", false, null, $.container, null, false);
     $.buttonLogin.addEventListener("click", function() {
         var client = Ti.Network.createHTTPClient();
         var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_LOGIN;

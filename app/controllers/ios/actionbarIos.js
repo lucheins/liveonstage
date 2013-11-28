@@ -7,10 +7,15 @@ function closeView (){
 	args.vp.release();
 	args.vp = null;
 	}
-	
-	args.ventana.close();
+	if(args.reset)
+	{
+		var win = Alloy.createController('feed', 1).getView();
+		var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+		win.open({transition:t});
+	} else {		
+		args.ventana.close();	
 	}
-
+}
 var backArrow = Ti.UI.createLabel({
   color:'Gray',
   text: '\u25c3',
@@ -21,10 +26,16 @@ $.backArrow.add(backArrow);
 if(args.title == 'Login')
 {
 	$.bottomLogin.hide();
-}
+};
+
+$.textBottom.text = 'Login';
+	if(Ti.App.Properties.getString('user_id') > 0)
+	{
+		$.textBottom.text = 'Logout';
+	}
 
 $.bottomLogin.addEventListener('click', function(e){
 	var actionBar = require('actionBarButtoms');
-	actionBar.iosActionLogin();	
+	actionBar.iosActionLogin(args.ventana,args.vp);	
 });
 
