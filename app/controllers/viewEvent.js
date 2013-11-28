@@ -2,7 +2,7 @@ var id = arguments[0] || {};
 var user_id = 0;
 
 var actionBar = require('actionBarButtoms'); 
-actionBar.putActionBar($.viewEvent,"Upcoming Events",false,$.vp,$.scroll,null);
+actionBar.putActionBar($.viewEvent,"Upcoming Events",false,$.vp,$.scroll,null,false);
 
 var data = require('dataExport');
 var categoryId = 0;

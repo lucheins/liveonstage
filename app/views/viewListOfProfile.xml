@@ -1,6 +1,6 @@
 <Alloy>
 	<Window id="viewListOfProfile">	
-		<ActivityIndicator id="activity"/>
+		<ActivityIndicator id="activity" visible="false"/>
 				<View id="messageTurn">
 						<Label id="description">Live Shows will be Available for broadcasting only 20 minutes before the scheduled start time!</Label>
 				</View>

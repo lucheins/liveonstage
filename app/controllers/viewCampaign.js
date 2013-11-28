@@ -2,7 +2,7 @@ var id = arguments[0] || {};
 
 
 var actionBar = require('actionBarButtoms'); 
-actionBar.putActionBar($.viewCampaign,"Campaigns",false,$.vp,$.scroll,null);
+actionBar.putActionBar($.viewCampaign,"Campaigns",false,$.vp,$.scroll,null,false);
 
 Ti.Gesture.addEventListener("orientationchange", function(e){
 	var orientation = Ti.Gesture.orientation;

@@ -2,7 +2,7 @@ var event_id = arguments[0] || {};
 $.btnStop.enabled = false;
 
 var actionBar = require('actionBarButtoms'); 
-actionBar.putActionBar($.camera,"Live On Stage",false,null,$.container,null);
+actionBar.putActionBar($.camera,"Live On Stage",false,null,$.container,null,false);
 
 if (Ti.Platform.osname == 'android'){
 var liveStreaming = require('com.xenn.liveStreaming');

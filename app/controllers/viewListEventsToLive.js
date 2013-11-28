@@ -10,8 +10,6 @@ actionBar.putActionBar($.viewListEventsToLive,args.authorname + " - " + args.vie
 
 $.messageTurn.hide();
 
-if(args.view == 'Events')
-{	
 	if((Ti.App.Properties.getString('user_id'))&&(args.author == Ti.App.Properties.getString('user_id')))
 	{
 		$.container.top = '11%';
@@ -32,7 +30,7 @@ if(args.view == 'Events')
 		utm = Ti.App.Properties.getString('timezone');
 		//alert('mostart');
 	}
-	}
+	
 
 data.getListOfProfile($.activity, $.table,0,0, args.author, args.view,timezoneBand,utm);
 

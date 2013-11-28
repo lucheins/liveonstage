@@ -3,7 +3,7 @@ id = args.video;
 author = args.author;
 
 var actionBar = require('actionBarButtoms'); 
-actionBar.putActionBar($.viewProfile,"Artists",false,$.vp,$.container,null);
+actionBar.putActionBar($.viewProfile,"Artists",false,$.vp,$.container,null,false);
 
 Ti.Gesture.addEventListener("orientationchange", function(e){
 	var orientation = Ti.Gesture.orientation;

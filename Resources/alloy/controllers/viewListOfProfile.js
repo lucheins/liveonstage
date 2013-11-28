@@ -23,7 +23,8 @@ function Controller() {
         height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
         zIndex: 100,
-        id: "activity"
+        id: "activity",
+        visible: "false"
     });
     $.__views.viewListOfProfile.add($.__views.activity);
     $.__views.messageTurn = Ti.UI.createView({
@@ -67,17 +68,13 @@ function Controller() {
     var timezoneBand = 0;
     var utm = "00:00,0";
     var actionBar = require("actionBarButtoms");
-    actionBar.putActionBar($.viewListOfProfile, args.authorname + " - " + args.view, false, null, $.container, null);
+    actionBar.putActionBar($.viewListOfProfile, args.authorname + " - " + args.view, false, null, $.container, null, false);
     $.messageTurn.hide();
+    $.messageTurn.visible = false;
     if ("Events" == args.view && Ti.App.Properties.getString("user_id") && args.author == Ti.App.Properties.getString("user_id")) {
         $.container.top = "11%";
-        var version = Titanium.Platform.version.split(".");
-        var major = parseInt(version[0], 10);
-        if (major >= 7) {
-            $.messageTurn.top = 35;
-            $.container.top = "18%";
-        }
         $.messageTurn.show();
+        $.messageTurn.visible = true;
         timezoneBand = 1;
         utm = Ti.App.Properties.getString("timezone");
     }
@@ -89,15 +86,10 @@ function Controller() {
             "Videos" == args.view && (view = "viewVideo");
             var win = Alloy.createController(view, e.source.link).getView();
             win.fullscreen = false;
-            if ("android" == Ti.Platform.osname) win.open({
+            win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
-            }); else {
-                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-                win.open({
-                    transition: t
-                });
-            }
+            });
         }
     });
     $.table.footerView = Ti.UI.createView({

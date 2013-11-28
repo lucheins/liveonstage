@@ -64,7 +64,7 @@ var viewPager = module.createViewPager(
 
 
 var actionBar = require('actionBarButtoms'); 
-actionBar.putActionBar($.feedWin,Alloy.Globals.NAME_PAGE,true,null,null,$.activity);
+actionBar.putActionBar($.feedWin,Alloy.Globals.NAME_PAGE,true,null,null,$.activity,true);
 	
 viewPager.height = '95%';
 viewPager.top = '0';

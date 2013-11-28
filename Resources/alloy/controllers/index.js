@@ -1,12 +1,5 @@
 function Controller() {
     function isIOS7Plus() {
-        var version = Titanium.Platform.version.split(".");
-        var major = parseInt(version[0], 10);
-        if (major >= 7) {
-            $.index.statusBarStyle = Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT;
-            Ti.UI.setBackgroundColor("black");
-            return true;
-        }
         return false;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -24,7 +17,7 @@ function Controller() {
     $.__views.index && $.addTopLevelView($.__views.index);
     $.__views.Navigation = Ti.UI.createView({
         height: "8%",
-        top: "0%",
+        top: "-8%",
         backgroundColor: "#16011e",
         backgroundImage: "/light-diagonal-strips.png",
         backgroundRepeat: true,
@@ -285,18 +278,11 @@ function Controller() {
             var win = Alloy.createController("viewListOfProfile", args).getView();
         } else var win = Alloy.createController("login").getView();
         win.fullscreen = false;
-        if ("android" == Ti.Platform.osname) {
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
-        } else {
-            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-            win.open({
-                transition: t
-            });
-        }
+        win.fullscreen = false;
+        win.open({
+            activityEnterAnimation: Ti.Android.R.anim.fade_in,
+            activityExitAnimation: Ti.Android.R.anim.fade_out
+        });
     });
     $.overlay.setBackgroundGradient({
         type: "linear",

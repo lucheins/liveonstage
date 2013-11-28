@@ -30,7 +30,7 @@ exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activ
 							    vp.release();
 							    vp = null;
 		                    }	                    
-							
+							currentWindow.close();
 							if(reset)
 							{					
 								var win = Alloy.createController('feed', 1).getView();								
@@ -52,7 +52,7 @@ exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activ
 							showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM 
 						}); 
 						menuItem.addEventListener("click", function(e) { 
-							acctionLogin(currentWindow,vp);
+							acctionLogin(currentWindow,vp);														
 						}); 
 						}; 
 					}                
