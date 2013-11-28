@@ -41,6 +41,8 @@ function Controller() {
     var name = args.name || "";
     name = name.toLowerCase();
     $.imageCat.image = "/images/categories/" + name + ".jpg";
+    $.imageCat.link = args.link;
+    $.imageCat.text = args.name || "";
     _.extend($, exports);
 }
 
