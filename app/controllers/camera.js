@@ -17,7 +17,7 @@ var liveStreaming = require('com.xenn.liveStreaming');
 proxy.setUserRtsp(Alloy.Globals.USER_RTSP.toString());
 proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
 proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());	
-proxy.setUsernameRtsp(Ti.App.Properties.getString('username'));
+proxy.setUsernameRtsp(Ti.App.Properties.getString('username').toString());
 proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
 $.camera.add(proxy);
 } else {	
