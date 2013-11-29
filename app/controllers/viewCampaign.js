@@ -198,7 +198,7 @@ function getUrlYoutube(video_id, vp)
 }
 
 // Paypal
-
+/*
 var Paypal = require('ti.paypal');
 
 
@@ -270,7 +270,7 @@ function addButtonToWindow() {
 
 addButtonToWindow();
 
-
+*/
 
 
 

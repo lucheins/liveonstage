@@ -25,58 +25,6 @@ function Controller() {
         vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
         vdldr.send();
     }
-    function addButtonToWindow() {
-        if (button) {
-            donate.remove(button);
-            button = null;
-        }
-        button = Paypal.createPaypalButton({
-            width: "194dp",
-            height: "37dp",
-            buttonStyle: Paypal.BUTTON_194x37,
-            language: "en_US",
-            textStyle: Paypal.PAYPAL_TEXT_DONATE,
-            appID: "APP-80W284485P519543T",
-            paypalEnvironment: Paypal.PAYPAL_ENV_SANDBOX,
-            feePaidByReceiver: false,
-            enableShipping: false,
-            payment: {
-                paymentType: Paypal.PAYMENT_TYPE_SERVICE,
-                subtotal: 10,
-                tax: 0,
-                shipping: 0,
-                currency: "USD",
-                recipient: "efaby10@hotmail.com",
-                customID: "anythingYouWant",
-                invoiceItems: [ {
-                    name: "Shoes",
-                    totalPrice: 8,
-                    itemPrice: 2,
-                    itemCount: 4
-                }, {
-                    name: "Hats",
-                    totalPrice: 2,
-                    itemPrice: .5,
-                    itemCount: 4
-                } ],
-                ipnUrl: "http://www.appcelerator.com/",
-                merchantName: "Dev Tools",
-                memo: "For the orphans and widows in the world!"
-            }
-        });
-        button.addEventListener("paymentCancelled", function() {
-            addButtonToWindow();
-        });
-        button.addEventListener("paymentSuccess", function() {
-            addButtonToWindow();
-        });
-        button.addEventListener("paymentError", function() {
-            addButtonToWindow();
-        });
-        button.addEventListener("buttonDisplayed", function() {});
-        button.addEventListener("buttonError", function() {});
-        $.donate.add(button);
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "viewCampaign";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -92,7 +40,6 @@ function Controller() {
     $.__views.viewCampaign && $.addTopLevelView($.__views.viewCampaign);
     $.__views.scroll = Ti.UI.createScrollView({
         top: "0",
-        height: "90%",
         id: "scroll",
         width: "100%",
         scrollType: "vertical"
@@ -547,9 +494,6 @@ function Controller() {
         tc: Alloy.Globals.USER_MOBILE.toString()
     };
     client.send(params);
-    var Paypal = require("ti.paypal");
-    var button;
-    addButtonToWindow();
     _.extend($, exports);
 }
 
