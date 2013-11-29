@@ -104,21 +104,22 @@ function getName(name)
 
 function getPathVideo(type,path)
 {
+	
 	var url = ''; 
 	var urlEnd = ''; 
 	$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
 	$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
+	
 	if (Ti.Platform.osname == 'android'){
 		$.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
-		url = Allow.Globals .URL_LIVE; 
+		url = Alloy.Globals.URL_LIVE; 
 	}
 	else {
 		$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
-		url = Allow.Globals .URL_LIVE_IOS; 
-		urlEnd = Allow.Globals.URL_VIDEO_END; 
+		url = Alloy.Globals.URL_LIVE_IOS; 
 	}
+	urlEnd = Alloy.Globals.URL_VIDEO_END; 
 	var name = getName(path);	
-		
 	if(type == 'vod')
 	{
 		url = Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + urlEnd;
