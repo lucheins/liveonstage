@@ -15,18 +15,19 @@ if(args.view == 'Events')
 {	
 	if((Ti.App.Properties.getString('user_id'))&&(args.author == Ti.App.Properties.getString('user_id')))
 	{
-		$.container.top = '20%';
-		$.messageTurn.top = '9%';
+		$.container.top = '11%';
 		if (Titanium.Platform.name == 'iPhone OS')
 		{
+			$.container.top = '20%';
+			$.messageTurn.top = '9%';
 			var version = Titanium.Platform.version.split(".");
 			var major = parseInt(version[0],10);
 	
 			// Can only test this support on a 3.2+ device
 			if (major >= 7)
 			{
-				$.messageTurn.top = 35;
-				$.container.top = '18%';
+				$.messageTurn.top = '18%';
+				//$.container.top = '18%';
 			}
 		}
 		$.messageTurn.show();

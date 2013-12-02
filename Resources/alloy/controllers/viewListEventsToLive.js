@@ -70,11 +70,7 @@ function Controller() {
     actionBar.putActionBar($.viewListEventsToLive, args.authorname + " - " + args.view, false, null, $.container, null, true);
     $.messageTurn.hide();
     if (Ti.App.Properties.getString("user_id") && args.author == Ti.App.Properties.getString("user_id")) {
-        $.container.top = "20%";
-        $.messageTurn.top = "9%";
-        var version = Titanium.Platform.version.split(".");
-        var major = parseInt(version[0], 10);
-        major >= 7 && ($.messageTurn.top = "18%");
+        $.container.top = "11%";
         $.messageTurn.show();
         timezoneBand = 1;
         utm = Ti.App.Properties.getString("timezone");
@@ -87,15 +83,10 @@ function Controller() {
             "Videos" == args.view && (view = "viewVideo");
             var win = Alloy.createController(view, e.source.link).getView();
             win.fullscreen = false;
-            if ("android" == Ti.Platform.osname) win.open({
+            win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
-            }); else {
-                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-                win.open({
-                    transition: t
-                });
-            }
+            });
         }
     });
     $.table.footerView = Ti.UI.createView({

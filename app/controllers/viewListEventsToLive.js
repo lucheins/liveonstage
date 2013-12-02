@@ -12,10 +12,12 @@ $.messageTurn.hide();
 
 	if((Ti.App.Properties.getString('user_id'))&&(args.author == Ti.App.Properties.getString('user_id')))
 	{
-		$.container.top = '20%';
-		$.messageTurn.top = '9%';
+		$.container.top = '11%';
+		
 		if (Titanium.Platform.name == 'iPhone OS')
 		{
+			$.container.top = '20%';
+			$.messageTurn.top = '9%';
 			var version = Titanium.Platform.version.split(".");
 			var major = parseInt(version[0],10);
 	
