@@ -4,11 +4,11 @@
 		<View id="container">
 		
 		<View id="btnStart">	
-				<Label id="textBottom">Start</Label>
+				<Label id="textBottomStart">Start</Label>
 		</View>	
 			
 		<View id="btnStop">	
-				<Label id="textBottom" class="btnStopC">Stop</Label>
+				<Label id="textBottomStop" class="btnStopC">Stop</Label>
 		</View>	
         </View>
 	</Window>

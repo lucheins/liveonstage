@@ -35,7 +35,6 @@ function Controller() {
             fontSize: "12dp"
         },
         width: "50dp",
-        backgroundColor: "#745DA8",
         color: "white",
         top: "10dp",
         height: "35dp",
@@ -44,7 +43,7 @@ function Controller() {
         id: "btnStart"
     });
     $.__views.container.add($.__views.btnStart);
-    $.__views.textBottom = Ti.UI.createLabel({
+    $.__views.textBottomStart = Ti.UI.createLabel({
         font: {
             fontSize: "12dp",
             fontWeight: "bold"
@@ -57,15 +56,14 @@ function Controller() {
         color: "white",
         textAlign: "center",
         text: "Start",
-        id: "textBottom"
+        id: "textBottomStart"
     });
-    $.__views.btnStart.add($.__views.textBottom);
+    $.__views.btnStart.add($.__views.textBottomStart);
     $.__views.btnStop = Ti.UI.createView({
         font: {
             fontSize: "12dp"
         },
         width: "50dp",
-        backgroundColor: "#745DA8",
         color: "white",
         top: "50dp",
         height: "35dp",
@@ -74,7 +72,7 @@ function Controller() {
         id: "btnStop"
     });
     $.__views.container.add($.__views.btnStop);
-    $.__views.textBottom = Ti.UI.createLabel({
+    $.__views.textBottomStop = Ti.UI.createLabel({
         font: {
             fontSize: "12dp",
             fontWeight: "bold"
@@ -87,30 +85,33 @@ function Controller() {
         color: "white",
         textAlign: "center",
         text: "Stop",
-        id: "textBottom"
+        id: "textBottomStop"
     });
-    $.__views.btnStop.add($.__views.textBottom);
+    $.__views.btnStop.add($.__views.textBottomStop);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var event_id = arguments[0] || {};
-    $.btnStop.color = "#c2c2c2";
+    $.textBottomStop.backgroundColor = "#D6CAC3";
+    $.textBottomStop.color = "#EDE2DD";
     var band = 0;
     var actionBar = require("actionBarButtoms");
-    actionBar.putActionBar($.camera, "Live On Stage", false, null, $.container, null, false);
-    var liveStreaming = require("com.xenn.liveStreaming");
-    var proxy = liveStreaming.createStreaming({
-        message: "Creating an example Proxy",
-        width: "85%",
-        height: "92%",
-        top: "10dp",
-        left: "10dp"
-    });
-    proxy.setUserRtsp(Alloy.Globals.USER_RTSP.toString());
-    proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
-    proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());
-    proxy.setUsernameRtsp(Ti.App.Properties.getString("username").toString());
-    proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
-    $.camera.add(proxy);
+    actionBar.putActionBar($.camera, "Camera", false, null, $.container, null, false);
+    if ("android" == Ti.Platform.osname) {
+        var liveStreaming = require("com.xenn.liveStreaming");
+        var proxy = liveStreaming.createStreaming({
+            message: "Creating an example Proxy",
+            width: "85%",
+            height: "92%",
+            top: "10dp",
+            left: "10dp"
+        });
+        proxy.setUserRtsp(Alloy.Globals.USER_RTSP.toString());
+        proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
+        proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());
+        proxy.setUsernameRtsp(Ti.App.Properties.getString("username").toString());
+        proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
+        $.camera.add(proxy);
+    } else var streamingLiveIOS = require("com.xenn.finallyIOS");
     var video_id = 0;
     $.btnStart.addEventListener("click", function(e) {
         if (0 == band) {
@@ -125,10 +126,23 @@ function Controller() {
                 var response = JSON.parse(json);
                 if (response.video_id > 0) {
                     video_id = response.video_id;
-                    proxy.startStreaming();
+                    if ("android" === Ti.Platform.osname) proxy.startStreaming(); else {
+                        foo = streamingLiveIOS.createStreamingView({
+                            color: "grey",
+                            width: "85%",
+                            height: "93%",
+                            top: "10dp",
+                            left: "10dp",
+                            streamingName: Ti.App.Properties.getString("username"),
+                            urlServer: Alloy.Globals.URL_RTMP.toString()
+                        });
+                        e.source.parent.parent.add(foo);
+                    }
                     band = 1;
-                    $.btnStart.color = "#c2c2c2";
-                    $.btnStop.color = "white";
+                    $.textBottomStart.backgroundColor = "#D6CAC3";
+                    $.textBottomStart.color = "#EDE2DD";
+                    $.textBottomStop.backgroundColor = "#745DA8";
+                    $.textBottomStop.color = "white";
                 } else {
                     -1 == response.video_id ? alert("The video has already been created") : 0 == response.video_id ? alert("The event does not exist") : alert("The start date is not in the allowed range");
                     $.camera.close();
@@ -160,15 +174,23 @@ function Controller() {
                 var response = JSON.parse(json);
                 if (response.stop_video) {
                     alert("Video saved");
-                    proxy.stopStreaming();
+                    if ("android" === Ti.Platform.osname) proxy.stopStreaming(); else {
+                        e.source.parent.remove(foo);
+                        foo.cancelar;
+                    }
                 }
                 $.activity.hide();
                 var win = Alloy.createController("viewEvent", event_id).getView();
                 win.fullscreen = false;
-                win.open({
+                if ("android" == Ti.Platform.osname) win.open({
                     activityEnterAnimation: Ti.Android.R.anim.fade_in,
                     activityExitAnimation: Ti.Android.R.anim.fade_out
-                });
+                }); else {
+                    var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                    win.open({
+                        transition: t
+                    });
+                }
                 $.camera.close();
             };
             client.onerror = function(e) {

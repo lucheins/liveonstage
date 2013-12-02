@@ -320,7 +320,7 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 		        		if(responses[i].liveActive == 1)
 		        		{
 		        			var event_id = responses[i].id;
-		        			var buttonLive = Titanium.UI.createButton({
+		        			var buttonLive = Titanium.UI.createView({
 							   font: {
 								   	fontSize:'12dp',
 								   	fontWeight:'bold'
@@ -334,6 +334,21 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 								title: 'Live',
 								right: '5%'
 							});
+							var labelBtnLive = Ti.UI.createLabel({
+								  font: {
+									   	fontSize:'12dp',
+									   	fontWeight:'bold'
+										},
+									height:'90%',
+									bottom:'8%',
+									width: '98%',
+									borderRadius: 4,
+									backgroundColor:'#745DA8',
+									color: 'white',
+									textAlign: 'center',
+									text: 'Live'
+								});
+							buttonLive.add(labelBtnLive);
 							buttonLive.addEventListener('click',function(e)
 							{
 							    var clientLive = Ti.Network.createHTTPClient();

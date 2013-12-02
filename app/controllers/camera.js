@@ -1,10 +1,11 @@
 var event_id = arguments[0] || {};
-$.btnStop.color = '#c2c2c2';
+$.textBottomStop.backgroundColor = '#D6CAC3';
+$.textBottomStop.color = "#EDE2DD";
 
 var band = 0;
 
 var actionBar = require('actionBarButtoms'); 
-actionBar.putActionBar($.camera,"Live On Stage",false,null,$.container,null,false);
+actionBar.putActionBar($.camera,"Camera",false,null,$.container,null,false);
 
 if (Ti.Platform.osname == 'android'){
 var liveStreaming = require('com.xenn.liveStreaming');
@@ -56,11 +57,13 @@ $.btnStart.addEventListener('click', function(e) {
 						  streamingName: Ti.App.Properties.getString('username'),
 						  urlServer: Alloy.Globals.URL_RTMP.toString()		  
 					});		
-					e.source.parent.add(foo);
+					e.source.parent.parent.add(foo);
 				}		
 				band = 1;
-				$.btnStart.color = '#c2c2c2';
-				$.btnStop.color =  'white';					
+				$.textBottomStart.backgroundColor = '#D6CAC3';
+				$.textBottomStart.color = "#EDE2DD";	
+				$.textBottomStop.backgroundColor = '#745DA8';
+				$.textBottomStop.color = "white";				
 	
 			} else {
 				if(response.video_id == -1)

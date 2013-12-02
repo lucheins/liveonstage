@@ -271,7 +271,7 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
                 var row = Alloy.createController("rowListProfile", args).getView();
                 if (1 == timezoneBand && 1 == responses[i].liveActive) {
                     var event_id = responses[i].id;
-                    var buttonLive = Titanium.UI.createButton({
+                    var buttonLive = Titanium.UI.createView({
                         font: {
                             fontSize: "12dp",
                             fontWeight: "bold"
@@ -285,6 +285,21 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
                         title: "Live",
                         right: "5%"
                     });
+                    var labelBtnLive = Ti.UI.createLabel({
+                        font: {
+                            fontSize: "12dp",
+                            fontWeight: "bold"
+                        },
+                        height: "90%",
+                        bottom: "8%",
+                        width: "98%",
+                        borderRadius: 4,
+                        backgroundColor: "#745DA8",
+                        color: "white",
+                        textAlign: "center",
+                        text: "Live"
+                    });
+                    buttonLive.add(labelBtnLive);
                     buttonLive.addEventListener("click", function() {
                         var clientLive = Ti.Network.createHTTPClient();
                         var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_VALIDATE_STREAMING;
@@ -295,11 +310,19 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
                             var responseLive = JSON.parse(json);
                             if (responseLive.validate > 0) {
                                 var win = Alloy.createController("camera", event_id).getView();
-                                win.fullscreen = true;
-                                win.open({
-                                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                                    activityExitAnimation: Ti.Android.R.anim.fade_out
-                                });
+                                if ("android" == Ti.Platform.osname) {
+                                    win.fullscreen = true;
+                                    win.open({
+                                        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                                        activityExitAnimation: Ti.Android.R.anim.fade_out
+                                    });
+                                } else {
+                                    win.orientationModes = [ Titanium.UI.LANDSCAPE_RIGHT ];
+                                    var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                                    win.open({
+                                        transition: t
+                                    });
+                                }
                             } else {
                                 -1 == responseLive.validate ? alert("The video has already been created") : 0 == responseLive.validate ? alert("The event does not exist") : alert("The start date is not in the allowed range");
                                 buttonLive.hide();

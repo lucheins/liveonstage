@@ -39,3 +39,11 @@ $.bottomLogin.addEventListener('click', function(e){
 	actionBar.iosActionLogin(args.ventana,args.vp);	
 });
 
+
+if(args.title == 'Camera')
+{
+	$.iconSmall.width = '5%';
+	$.bottomLogin.width = '15%';	
+	$.current.left = '12%';
+}
+

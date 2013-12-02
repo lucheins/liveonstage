@@ -13,10 +13,15 @@ function Controller() {
         };
         var win = Alloy.createController("viewListEventsToLive", args).getView();
         win.fullscreen = false;
-        win.open({
+        if ("android" == Ti.Platform.osname) win.open({
             activityEnterAnimation: Ti.Android.R.anim.fade_in,
             activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+        }); else {
+            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+            win.open({
+                transition: t
+            });
+        }
         $.login.close();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));

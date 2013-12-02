@@ -235,11 +235,18 @@ function Controller() {
         if (e.source.link > 0) {
             $.viewEvent.close();
             var win = Alloy.createController("viewEvent", e.source.link).getView();
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            if ("android" == Ti.Platform.osname) {
+                win.fullscreen = false;
+                win.open({
+                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                    activityExitAnimation: Ti.Android.R.anim.fade_out
+                });
+            } else {
+                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                win.open({
+                    transition: t
+                });
+            }
         } else {
             var index = $.table.getIndexByName("rowMore");
             if (index > 0) {

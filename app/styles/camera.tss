@@ -3,7 +3,7 @@
 		   	fontSize:'12dp'
 			},		
 		width: '50dp',
-		backgroundColor:'#745DA8',
+	//	backgroundColor:'#745DA8',
 		color: 'white',
 		top: '10dp',
 		height: '35dp',
@@ -15,10 +15,36 @@
 		   	fontSize:'12dp'
 			},		
 		width: '50dp',
-		backgroundColor:'#745DA8',
+		//backgroundColor:'#745DA8',
 		color: 'white',
 		top: '50dp',
 		height: '35dp',
 		left: '88%' ,
 		borderRadius: 4
+},
+"#textBottomStop":{
+	font: {
+	   	fontSize:'12dp',
+	   	fontWeight:'bold'
+		},
+	height:'90%',
+	bottom:'8%',
+	width: '98%',
+	borderRadius: 4,
+	backgroundColor:'#745DA8',
+	color: 'white',
+	textAlign: 'center'	
+},
+"#textBottomStart":{
+	font: {
+	   	fontSize:'12dp',
+	   	fontWeight:'bold'
+		},
+	height:'90%',
+	bottom:'8%',
+	width: '98%',
+	borderRadius: 4,
+	backgroundColor:'#745DA8',
+	color: 'white',
+	textAlign: 'center'	
 }

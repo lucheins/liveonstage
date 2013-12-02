@@ -46,7 +46,7 @@ function Controller() {
         top: "9%",
         width: "94%",
         color: "gray",
-        text: "Live Shows will be Available for broadcasting only 20 minutes before the scheduled start time!",
+        text: "Live Shows will be available for broadcasting only 20 minutes before the scheduled start time!",
         id: "description"
     });
     $.__views.messageTurn.add($.__views.description);
@@ -70,7 +70,11 @@ function Controller() {
     actionBar.putActionBar($.viewListEventsToLive, args.authorname + " - " + args.view, false, null, $.container, null, true);
     $.messageTurn.hide();
     if (Ti.App.Properties.getString("user_id") && args.author == Ti.App.Properties.getString("user_id")) {
-        $.container.top = "11%";
+        $.container.top = "20%";
+        $.messageTurn.top = "9%";
+        var version = Titanium.Platform.version.split(".");
+        var major = parseInt(version[0], 10);
+        major >= 7 && ($.messageTurn.top = "18%");
         $.messageTurn.show();
         timezoneBand = 1;
         utm = Ti.App.Properties.getString("timezone");
@@ -83,10 +87,15 @@ function Controller() {
             "Videos" == args.view && (view = "viewVideo");
             var win = Alloy.createController(view, e.source.link).getView();
             win.fullscreen = false;
-            win.open({
+            if ("android" == Ti.Platform.osname) win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            }); else {
+                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                win.open({
+                    transition: t
+                });
+            }
         }
     });
     $.table.footerView = Ti.UI.createView({

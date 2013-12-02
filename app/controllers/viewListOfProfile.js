@@ -15,7 +15,8 @@ if(args.view == 'Events')
 {	
 	if((Ti.App.Properties.getString('user_id'))&&(args.author == Ti.App.Properties.getString('user_id')))
 	{
-		$.container.top = '11%';
+		$.container.top = '20%';
+		$.messageTurn.top = '9%';
 		if (Titanium.Platform.name == 'iPhone OS')
 		{
 			var version = Titanium.Platform.version.split(".");
