@@ -426,7 +426,7 @@ function Controller() {
     });
     __alloyId12.push($.__views.__alloyId65);
     $.__views.pickTimezone.add(__alloyId12);
-    $.__views.buttonLogin = Ti.UI.createButton({
+    $.__views.buttonLogin = Ti.UI.createView({
         font: {
             fontSize: "16dp",
             fontWeight: "bold"
@@ -438,10 +438,25 @@ function Controller() {
         bottom: "5%",
         height: "10%",
         textAlign: "center",
-        id: "buttonLogin",
-        title: "Login"
+        id: "buttonLogin"
     });
     $.__views.container.add($.__views.buttonLogin);
+    $.__views.textBottom = Ti.UI.createLabel({
+        font: {
+            fontSize: "12dp",
+            fontWeight: "bold"
+        },
+        height: "90%",
+        bottom: "8%",
+        width: "98%",
+        borderRadius: 4,
+        backgroundColor: "#745DA8",
+        color: "white",
+        textAlign: "center",
+        text: "Login",
+        id: "textBottom"
+    });
+    $.__views.buttonLogin.add($.__views.textBottom);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var timezone;

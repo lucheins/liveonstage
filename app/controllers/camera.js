@@ -1,5 +1,7 @@
 var event_id = arguments[0] || {};
-$.btnStop.enabled = false;
+$.btnStop.color = '#c2c2c2';
+
+var band = 0;
 
 var actionBar = require('actionBarButtoms'); 
 actionBar.putActionBar($.camera,"Live On Stage",false,null,$.container,null,false);
@@ -27,112 +29,116 @@ var streamingLiveIOS = require('com.xenn.finallyIOS');
 var video_id = 0;
 
 $.btnStart.addEventListener('click', function(e) {
-	
-	var client = Ti.Network.createHTTPClient();
-	var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
-	client.open('POST',url);
-	client.ondatastream = function(e){
-	     $.activity.show(); 
-	};
-	client.onload = function(){	
-		var json = this.responseText;
-		var response = JSON.parse(json);
-		if(response.video_id > 0)
-		{	
-			video_id = response.video_id;
-			
-			if (Ti.Platform.osname === 'android') {
-				proxy.startStreaming();
-			} else {
-				foo = streamingLiveIOS.createStreamingView({
-			  		  color:"grey",
-					  width:'85%',
-					  height:"93%",
-					  top: '10dp',
-					  left:'10dp',
-					  streamingName: Ti.App.Properties.getString('username'),
-					  urlServer: Alloy.Globals.URL_RTMP.toString()		  
-				});		
-				e.source.parent.add(foo);
-			}		
-			
-			$.btnStart.enabled = false;
-			$.btnStop.enabled =  true;					
-
-		} else {
-			if(response.video_id == -1)
-			{
-				alert('The video has already been created');
-			} else {
-				if(response.video_id == 0)
-				{
-					alert('The event does not exist');
+	if(band == 0)
+	{
+		var client = Ti.Network.createHTTPClient();
+		var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
+		client.open('POST',url);
+		client.ondatastream = function(e){
+		     $.activity.show(); 
+		};
+		client.onload = function(){	
+			var json = this.responseText;
+			var response = JSON.parse(json);
+			if(response.video_id > 0)
+			{	
+				video_id = response.video_id;
+				
+				if (Ti.Platform.osname === 'android') {
+					proxy.startStreaming();
 				} else {
-					alert('The start date is not in the allowed range');
-				}
-			}
-			$.camera.close();
-		}		    
-		$.activity.hide(); 
-	};
-	client.onerror = function(e){alert('Transmission error: ' + e.error);};
+					foo = streamingLiveIOS.createStreamingView({
+				  		  color:"grey",
+						  width:'85%',
+						  height:"93%",
+						  top: '10dp',
+						  left:'10dp',
+						  streamingName: Ti.App.Properties.getString('username'),
+						  urlServer: Alloy.Globals.URL_RTMP.toString()		  
+					});		
+					e.source.parent.add(foo);
+				}		
+				band = 1;
+				$.btnStart.color = '#c2c2c2';
+				$.btnStop.color =  'white';					
 	
-	var params = {
-		tc: Alloy.Globals.USER_MOBILE.toString(),
-		user_id: Ti.App.Properties.getString('user_id'),
-		event_id: event_id,
-		time_user: Ti.App.Properties.getString('timezone')
-	};
-	client.send(params);  
+			} else {
+				if(response.video_id == -1)
+				{
+					alert('The video has already been created');
+				} else {
+					if(response.video_id == 0)
+					{
+						alert('The event does not exist');
+					} else {
+						alert('The start date is not in the allowed range');
+					}
+				}
+				$.camera.close();
+			}		    
+			$.activity.hide(); 
+		};
+		client.onerror = function(e){alert('Transmission error: ' + e.error);};
+		
+		var params = {
+			tc: Alloy.Globals.USER_MOBILE.toString(),
+			user_id: Ti.App.Properties.getString('user_id'),
+			event_id: event_id,
+			time_user: Ti.App.Properties.getString('timezone')
+		};
+		client.send(params);  
+	
+	}
 	
 	});
 	
 $.btnStop.addEventListener('click', function(e) {
 	// cambiar tipo al video y abrir el evento
-
-	var client = Ti.Network.createHTTPClient();
-	var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_STOP_STREAMING;
-	client.open('POST',url);
-	client.ondatastream = function(e){
-	     $.activity.show(); 
-	};
-	client.onload = function(){	
-		var json = this.responseText;
-		var response = JSON.parse(json);
-		if (response.stop_video)  
-	    {  
-	        alert('Video saved');
-	        
-	        if (Ti.Platform.osname === 'android') 
-	        {        
-	        	proxy.stopStreaming();	
-	        } else {
-	        	e.source.parent.remove(foo);
-				foo.cancelar;
-	        }
-	        $.btnStop.enabled =  false;	
-	    }  
-		$.activity.hide();
-        var win = Alloy.createController('viewEvent', event_id).getView();		
-		win.fullscreen= false;	
-		if(Ti.Platform.osname == 'android')
-		{
-			win.open({
-				activityEnterAnimation: Ti.Android.R.anim.fade_in,
-				activityExitAnimation: Ti.Android.R.anim.fade_out
-			});	
-		} else {
-			var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-			win.open({transition:t});
-		}	       	   
-	    $.camera.close(); 
-	};
-	client.onerror = function(e){alert('Transmission error: ' + e.error);};	
-	var params = {
-		tc: Alloy.Globals.USER_MOBILE.toString(),
-		video_id: video_id
-	};
-	client.send(params);  		 
-	});
+	if(band == 1)
+	{	var client = Ti.Network.createHTTPClient();
+		var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_STOP_STREAMING;
+		client.open('POST',url);
+		client.ondatastream = function(e){
+		     $.activity.show(); 
+		};
+		client.onload = function(){	
+			var json = this.responseText;
+			var response = JSON.parse(json);
+			if (response.stop_video)  
+		    {  
+		        alert('Video saved');
+		        
+		        if (Ti.Platform.osname === 'android') 
+		        {        
+		        	proxy.stopStreaming();	
+		        } else {
+		        	e.source.parent.remove(foo);
+					foo.cancelar;
+		        }
+		       // $.btnStop.enabled =  false;	
+		    }  
+			$.activity.hide();
+	        var win = Alloy.createController('viewEvent', event_id).getView();		
+			win.fullscreen= false;	
+			if(Ti.Platform.osname == 'android')
+			{
+				win.open({
+					activityEnterAnimation: Ti.Android.R.anim.fade_in,
+					activityExitAnimation: Ti.Android.R.anim.fade_out
+				});	
+			} else {
+				var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+				win.open({transition:t});
+			}	       	   
+		    $.camera.close(); 
+		};
+		client.onerror = function(e){alert('Transmission error: ' + e.error);};	
+		var params = {
+			tc: Alloy.Globals.USER_MOBILE.toString(),
+			video_id: video_id
+		};
+		client.send(params);  	
+	}	 
+});
 	
 

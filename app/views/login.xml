@@ -60,7 +60,10 @@
 			<PickerRow value='+12:00,0' title='(+12:00) Fiji, Kamchatka, Marshall Is.' />
 			<PickerRow value='+13:00,0' title="(+13:00) Nuku'alof" />
         </Picker>	
-         <Button id="buttonLogin" title="Login"/>
+        <View id="buttonLogin">	
+				<Label id="textBottom">Login</Label>
+		</View>	
+       
 		  </View>
 	</Window>
 </Alloy>

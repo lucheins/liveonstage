@@ -30,7 +30,7 @@ function Controller() {
         id: "container"
     });
     $.__views.camera.add($.__views.container);
-    $.__views.btnStart = Ti.UI.createButton({
+    $.__views.btnStart = Ti.UI.createView({
         font: {
             fontSize: "12dp"
         },
@@ -41,11 +41,26 @@ function Controller() {
         height: "35dp",
         left: "88%",
         borderRadius: 4,
-        id: "btnStart",
-        title: "Start"
+        id: "btnStart"
     });
     $.__views.container.add($.__views.btnStart);
-    $.__views.btnStop = Ti.UI.createButton({
+    $.__views.textBottom = Ti.UI.createLabel({
+        font: {
+            fontSize: "12dp",
+            fontWeight: "bold"
+        },
+        height: "90%",
+        bottom: "8%",
+        width: "98%",
+        borderRadius: 4,
+        backgroundColor: "#745DA8",
+        color: "white",
+        textAlign: "center",
+        text: "Start",
+        id: "textBottom"
+    });
+    $.__views.btnStart.add($.__views.textBottom);
+    $.__views.btnStop = Ti.UI.createView({
         font: {
             fontSize: "12dp"
         },
@@ -56,14 +71,30 @@ function Controller() {
         height: "35dp",
         left: "88%",
         borderRadius: 4,
-        id: "btnStop",
-        title: "Stop"
+        id: "btnStop"
     });
     $.__views.container.add($.__views.btnStop);
+    $.__views.textBottom = Ti.UI.createLabel({
+        font: {
+            fontSize: "12dp",
+            fontWeight: "bold"
+        },
+        height: "90%",
+        bottom: "8%",
+        width: "98%",
+        borderRadius: 4,
+        backgroundColor: "#745DA8",
+        color: "white",
+        textAlign: "center",
+        text: "Stop",
+        id: "textBottom"
+    });
+    $.__views.btnStop.add($.__views.textBottom);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var event_id = arguments[0] || {};
-    $.btnStop.enabled = false;
+    $.btnStop.color = "#c2c2c2";
+    var band = 0;
     var actionBar = require("actionBarButtoms");
     actionBar.putActionBar($.camera, "Live On Stage", false, null, $.container, null, false);
     var liveStreaming = require("com.xenn.liveStreaming");
@@ -82,69 +113,73 @@ function Controller() {
     $.camera.add(proxy);
     var video_id = 0;
     $.btnStart.addEventListener("click", function(e) {
-        var client = Ti.Network.createHTTPClient();
-        var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
-        client.open("POST", url);
-        client.ondatastream = function() {
-            $.activity.show();
-        };
-        client.onload = function() {
-            var json = this.responseText;
-            var response = JSON.parse(json);
-            if (response.video_id > 0) {
-                video_id = response.video_id;
-                proxy.startStreaming();
-                $.btnStart.enabled = false;
-                $.btnStop.enabled = true;
-            } else {
-                -1 == response.video_id ? alert("The video has already been created") : 0 == response.video_id ? alert("The event does not exist") : alert("The start date is not in the allowed range");
-                $.camera.close();
-            }
-            $.activity.hide();
-        };
-        client.onerror = function(e) {
-            alert("Transmission error: " + e.error);
-        };
-        var params = {
-            tc: Alloy.Globals.USER_MOBILE.toString(),
-            user_id: Ti.App.Properties.getString("user_id"),
-            event_id: event_id,
-            time_user: Ti.App.Properties.getString("timezone")
-        };
-        client.send(params);
+        if (0 == band) {
+            var client = Ti.Network.createHTTPClient();
+            var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
+            client.open("POST", url);
+            client.ondatastream = function() {
+                $.activity.show();
+            };
+            client.onload = function() {
+                var json = this.responseText;
+                var response = JSON.parse(json);
+                if (response.video_id > 0) {
+                    video_id = response.video_id;
+                    proxy.startStreaming();
+                    band = 1;
+                    $.btnStart.color = "#c2c2c2";
+                    $.btnStop.color = "white";
+                } else {
+                    -1 == response.video_id ? alert("The video has already been created") : 0 == response.video_id ? alert("The event does not exist") : alert("The start date is not in the allowed range");
+                    $.camera.close();
+                }
+                $.activity.hide();
+            };
+            client.onerror = function(e) {
+                alert("Transmission error: " + e.error);
+            };
+            var params = {
+                tc: Alloy.Globals.USER_MOBILE.toString(),
+                user_id: Ti.App.Properties.getString("user_id"),
+                event_id: event_id,
+                time_user: Ti.App.Properties.getString("timezone")
+            };
+            client.send(params);
+        }
     });
     $.btnStop.addEventListener("click", function(e) {
-        var client = Ti.Network.createHTTPClient();
-        var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_STOP_STREAMING;
-        client.open("POST", url);
-        client.ondatastream = function() {
-            $.activity.show();
-        };
-        client.onload = function() {
-            var json = this.responseText;
-            var response = JSON.parse(json);
-            if (response.stop_video) {
-                alert("Video saved");
-                proxy.stopStreaming();
-                $.btnStop.enabled = false;
-            }
-            $.activity.hide();
-            var win = Alloy.createController("viewEvent", event_id).getView();
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
-            $.camera.close();
-        };
-        client.onerror = function(e) {
-            alert("Transmission error: " + e.error);
-        };
-        var params = {
-            tc: Alloy.Globals.USER_MOBILE.toString(),
-            video_id: video_id
-        };
-        client.send(params);
+        if (1 == band) {
+            var client = Ti.Network.createHTTPClient();
+            var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_STOP_STREAMING;
+            client.open("POST", url);
+            client.ondatastream = function() {
+                $.activity.show();
+            };
+            client.onload = function() {
+                var json = this.responseText;
+                var response = JSON.parse(json);
+                if (response.stop_video) {
+                    alert("Video saved");
+                    proxy.stopStreaming();
+                }
+                $.activity.hide();
+                var win = Alloy.createController("viewEvent", event_id).getView();
+                win.fullscreen = false;
+                win.open({
+                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                    activityExitAnimation: Ti.Android.R.anim.fade_out
+                });
+                $.camera.close();
+            };
+            client.onerror = function(e) {
+                alert("Transmission error: " + e.error);
+            };
+            var params = {
+                tc: Alloy.Globals.USER_MOBILE.toString(),
+                video_id: video_id
+            };
+            client.send(params);
+        }
     });
     _.extend($, exports);
 }

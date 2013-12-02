@@ -2,8 +2,14 @@
 	<Window id="camera">		
 		<ActivityIndicator id="activity"/>
 		<View id="container">
-		<Button id="btnStart" title="Start" />
-        <Button id="btnStop" title="Stop"  />
+		
+		<View id="btnStart">	
+				<Label id="textBottom">Start</Label>
+		</View>	
+			
+		<View id="btnStop">	
+				<Label id="textBottom" class="btnStopC">Stop</Label>
+		</View>	
         </View>
 	</Window>
 </Alloy>

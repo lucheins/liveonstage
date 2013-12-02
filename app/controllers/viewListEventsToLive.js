@@ -6,7 +6,7 @@ var utm = '00:00,0';
 
 
 var actionBar = require('actionBarButtoms'); 
-actionBar.putActionBar($.viewListEventsToLive,args.authorname + " - " + args.view + "1",false,null,$.container,null,true);
+actionBar.putActionBar($.viewListEventsToLive,args.authorname + " - " + args.view,false,null,$.container,null,true);
 
 $.messageTurn.hide();
 
