@@ -53,8 +53,8 @@ client.onload = function(){
 	    }
 	}
 	$.author.text = responses.name;
-	$.videos.text = responses.num_videos + ' videos publised.';
-	$.views.text = responses.view + ' Profile views';	
+	$.videos.text = responses.num_videos + ' videos published.';
+	$.views.text = responses.view + ' profile views';	
 	$.activity.hide(); 
 	
 	$.event.addEventListener('click', function(e){

@@ -15,5 +15,14 @@
 	height: '35dp',
 	width: '35dp',
 	top: '18%'
+},
+"#rowCategories[platform=ios formFactor=tablet]": { 
+    height: '70dp'
+},
+".categories-icon[platform=ios formFactor=tablet]": { 
+    height: '50dp',
+	width: '50dp'
+},
+"#title[platform=ios formFactor=tablet]": { 
+    left: '100dp'
 }
-

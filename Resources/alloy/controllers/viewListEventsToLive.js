@@ -37,18 +37,29 @@ function Controller() {
         id: "messageTurn"
     });
     $.__views.viewListEventsToLive.add($.__views.messageTurn);
-    $.__views.description = Ti.UI.createLabel({
-        font: {
-            fontSize: "12dp"
-        },
-        height: "90%",
-        left: "3%",
-        top: "9%",
-        width: "94%",
-        color: "gray",
-        text: "Live Shows will be available for broadcasting only 20 minutes before the scheduled start time!",
-        id: "description"
-    });
+    $.__views.description = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "12dp"
+            },
+            height: "90%",
+            left: "3%",
+            top: "9%",
+            width: "94%",
+            color: "gray"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            }
+        });
+        _.extend(o, {
+            text: "Live Shows will be available for broadcasting only 20 minutes before the scheduled start time!",
+            id: "description"
+        });
+        return o;
+    }());
     $.__views.messageTurn.add($.__views.description);
     $.__views.container = Ti.UI.createView({
         top: "0dp",
@@ -71,6 +82,8 @@ function Controller() {
     $.messageTurn.hide();
     if (Ti.App.Properties.getString("user_id") && args.author == Ti.App.Properties.getString("user_id")) {
         $.container.top = "11%";
+        $.container.top = "20%";
+        $.messageTurn.top = "9%";
         $.messageTurn.show();
         timezoneBand = 1;
         utm = Ti.App.Properties.getString("timezone");
@@ -83,10 +96,15 @@ function Controller() {
             "Videos" == args.view && (view = "viewVideo");
             var win = Alloy.createController(view, e.source.link).getView();
             win.fullscreen = false;
-            win.open({
+            if ("android" == Ti.Platform.osname) win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            }); else {
+                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                win.open({
+                    transition: t
+                });
+            }
         }
     });
     $.table.footerView = Ti.UI.createView({

@@ -117,5 +117,46 @@
 "#viewTable":{
 	top:'0%',
 	left: '0dp'
+},
+"#author[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'25dp'
+		}		
+},
+"#title[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'28dp'
+		}	
+},
+"#views[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		},
+	top : '105dp'	
+},
+"#date[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}		
+},
+"#description[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}	
+},
+"#titleDescription[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		}
+},
+"#otherEvents[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		},
+		top: '5dp'
+},
+"#other[platform=ios formFactor=tablet]": { 
+    height: '42dp'
 }
+
 

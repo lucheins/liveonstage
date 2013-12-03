@@ -24,4 +24,17 @@
 		fontSize:'14dp'
 		},
 		color: "#000000"
+},
+"#text[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}
+},
+"#buttonMore[platform=ios formFactor=tablet]": { 
+   height: '70dp'
+},
+"#message[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		}
 }

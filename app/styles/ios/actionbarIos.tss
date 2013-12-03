@@ -35,4 +35,10 @@
 	},
 "#current":{
 	left: '19%'
+},
+"#current[platform=ios formFactor=tablet]": { 
+    font: {
+		fontSize: '30dp'
+	},
 }
+

@@ -35,4 +35,32 @@
 	height: '80dp',
 	touchEnabled: true,
 	hasChild: false
+},
+"#author[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		},
+	left: '145dp'	,
+	bottom: '30dp'	
+},
+"#title[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'30dp'
+		},
+	left: '145dp'		
+},
+"#footMessage[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		},
+	left: '145dp'		
+},
+"#rowListItems[platform=ios formFactor=tablet]": { 
+   height: '120dp'		
+},
+"#image[platform=ios formFactor=tablet]": { 
+    height: '110dp'	,
+    width: '130dp'	
 }
+
+

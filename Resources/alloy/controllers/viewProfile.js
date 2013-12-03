@@ -8,7 +8,7 @@ function Controller() {
     function getPathVideo(type, path) {
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+        "android" == Ti.Platform.osname ? $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT : $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END : Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
         return url;
@@ -20,18 +20,29 @@ function Controller() {
             y = JSON.parse(x).content.video["fmt_stream_map"][0].url;
             vp.url = y;
         };
+        if ("android" != Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
+        }
         vdldr.open("GET", "http://m.youtube.com/watch?ajax=1&feature=related&layout=mobile&tsp=1&&v=" + video_id);
-        vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-        vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        if ("android" == Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        }
         vdldr.send();
     }
     function openWindows(arg) {
         var win = Alloy.createController("viewListOfProfile", arg).getView();
         win.fullscreen = false;
-        win.open({
+        if ("android" == Ti.Platform.osname) win.open({
             activityEnterAnimation: Ti.Android.R.anim.fade_in,
             activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+        }); else {
+            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+            win.open({
+                transition: t
+            });
+        }
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "viewProfile";
@@ -88,118 +99,222 @@ function Controller() {
         id: "data"
     });
     $.__views.container.add($.__views.data);
-    $.__views.author = Ti.UI.createLabel({
-        font: {
-            fontSize: "16dp",
-            fontWeight: "bold"
-        },
-        height: "auto",
-        left: "5dp",
-        top: "5dp",
-        color: "#717777",
-        id: "author"
-    });
+    $.__views.author = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "16dp",
+                fontWeight: "bold"
+            },
+            height: "auto",
+            left: "5dp",
+            top: "5dp",
+            color: "#717777"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "30dp"
+            }
+        });
+        _.extend(o, {
+            id: "author"
+        });
+        return o;
+    }());
     $.__views.data.add($.__views.author);
-    $.__views.views = Ti.UI.createLabel({
-        font: {
-            fontSize: "14dp"
-        },
-        height: "auto",
-        left: "5dp",
-        top: "45dp",
-        color: "#717777",
-        id: "views"
-    });
+    $.__views.views = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "14dp"
+            },
+            height: "auto",
+            left: "5dp",
+            top: "45dp",
+            color: "#717777"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "26dp"
+            },
+            top: "105dp"
+        });
+        _.extend(o, {
+            id: "views"
+        });
+        return o;
+    }());
     $.__views.data.add($.__views.views);
-    $.__views.videos = Ti.UI.createLabel({
-        font: {
-            fontSize: "14dp"
-        },
-        height: "auto",
-        left: "5dp",
-        top: "65dp",
-        color: "#717777",
-        id: "videos"
-    });
+    $.__views.videos = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "14dp"
+            },
+            height: "auto",
+            left: "5dp",
+            top: "65dp",
+            color: "#717777"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "26dp"
+            },
+            top: "135dp"
+        });
+        _.extend(o, {
+            id: "videos"
+        });
+        return o;
+    }());
     $.__views.data.add($.__views.videos);
-    $.__views.links = Ti.UI.createView({
-        top: "83%",
-        left: "0dp",
-        height: "30dp",
-        id: "links"
-    });
+    $.__views.links = Ti.UI.createView(function() {
+        var o = {};
+        _.extend(o, {
+            top: "83%",
+            left: "0dp",
+            height: "30dp"
+        });
+        Alloy.isTablet && _.extend(o, {
+            height: "50dp"
+        });
+        _.extend(o, {
+            id: "links"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.links);
-    $.__views.event = Ti.UI.createView({
-        top: "0",
-        left: "0dp",
-        width: "32%",
-        height: "25dp",
-        id: "event"
-    });
+    $.__views.event = Ti.UI.createView(function() {
+        var o = {};
+        _.extend(o, {
+            top: "0",
+            left: "0dp",
+            width: "32%",
+            height: "25dp"
+        });
+        Alloy.isTablet && _.extend(o, {
+            height: "45dp"
+        });
+        _.extend(o, {
+            id: "event"
+        });
+        return o;
+    }());
     $.__views.links.add($.__views.event);
-    $.__views.labelLink = Ti.UI.createLabel({
-        font: {
-            fontSize: "13dp",
-            fontWeight: "bold"
-        },
-        height: "90%",
-        bottom: "8%",
-        width: "98%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        textAlign: "center",
-        text: "Upcoming",
-        id: "labelLink"
-    });
+    $.__views.labelLink = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "13dp",
+                fontWeight: "bold"
+            },
+            height: "90%",
+            bottom: "8%",
+            width: "98%",
+            borderRadius: 4,
+            backgroundColor: "#745DA8",
+            color: "white",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "25dp"
+            }
+        });
+        _.extend(o, {
+            text: "Upcoming",
+            id: "labelLink"
+        });
+        return o;
+    }());
     $.__views.event.add($.__views.labelLink);
-    $.__views.video = Ti.UI.createView({
-        top: "0",
-        left: "33%",
-        width: "32%",
-        height: "25dp",
-        id: "video"
-    });
+    $.__views.video = Ti.UI.createView(function() {
+        var o = {};
+        _.extend(o, {
+            top: "0",
+            left: "33%",
+            width: "32%",
+            height: "25dp"
+        });
+        Alloy.isTablet && _.extend(o, {
+            height: "45dp"
+        });
+        _.extend(o, {
+            id: "video"
+        });
+        return o;
+    }());
     $.__views.links.add($.__views.video);
-    $.__views.labelLink = Ti.UI.createLabel({
-        font: {
-            fontSize: "13dp",
-            fontWeight: "bold"
-        },
-        height: "90%",
-        bottom: "8%",
-        width: "98%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        textAlign: "center",
-        text: "Videos",
-        id: "labelLink"
-    });
+    $.__views.labelLink = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "13dp",
+                fontWeight: "bold"
+            },
+            height: "90%",
+            bottom: "8%",
+            width: "98%",
+            borderRadius: 4,
+            backgroundColor: "#745DA8",
+            color: "white",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "25dp"
+            }
+        });
+        _.extend(o, {
+            text: "Videos",
+            id: "labelLink"
+        });
+        return o;
+    }());
     $.__views.video.add($.__views.labelLink);
-    $.__views.campaign = Ti.UI.createView({
-        top: "0",
-        left: "66%",
-        width: "32%",
-        height: "25dp",
-        id: "campaign"
-    });
+    $.__views.campaign = Ti.UI.createView(function() {
+        var o = {};
+        _.extend(o, {
+            top: "0",
+            left: "66%",
+            width: "32%",
+            height: "25dp"
+        });
+        Alloy.isTablet && _.extend(o, {
+            height: "45dp"
+        });
+        _.extend(o, {
+            id: "campaign"
+        });
+        return o;
+    }());
     $.__views.links.add($.__views.campaign);
-    $.__views.labelLink = Ti.UI.createLabel({
-        font: {
-            fontSize: "13dp",
-            fontWeight: "bold"
-        },
-        height: "90%",
-        bottom: "8%",
-        width: "98%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        textAlign: "center",
-        text: "Campaigns",
-        id: "labelLink"
-    });
+    $.__views.labelLink = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "13dp",
+                fontWeight: "bold"
+            },
+            height: "90%",
+            bottom: "8%",
+            width: "98%",
+            borderRadius: 4,
+            backgroundColor: "#745DA8",
+            color: "white",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "25dp"
+            }
+        });
+        _.extend(o, {
+            text: "Campaigns",
+            id: "labelLink"
+        });
+        return o;
+    }());
     $.__views.campaign.add($.__views.labelLink);
     exports.destroy = function() {};
     _.extend($, $.__views);
@@ -237,8 +352,8 @@ function Controller() {
             $.cover.image = imageLink;
         } else url = getUrlYoutube(responses.video_id, $.vp);
         $.author.text = responses.name;
-        $.videos.text = responses.num_videos + " videos publised.";
-        $.views.text = responses.view + " Profile views";
+        $.videos.text = responses.num_videos + " videos published.";
+        $.views.text = responses.view + " profile views";
         $.activity.hide();
         $.event.addEventListener("click", function() {
             var args = {

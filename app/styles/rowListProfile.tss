@@ -9,4 +9,12 @@
 	height: '50dp',
 	touchEnabled: true,				 	
 	hasChild: false
+},
+"#title[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		}		
+},
+"#rowListProfile[platform=ios formFactor=tablet]": { 
+    height: '70dp'		
 }

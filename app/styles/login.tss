@@ -58,4 +58,29 @@
 		   	fontSize:'10dp',
 			},
 	
+},
+"#textBottom[platform=ios formFactor=tablet]": { 
+    font: {
+		fontWeight: 'bold',
+		fontSize: '25dp'
+	},
+},
+"#TimezoneLabel[platform=ios formFactor=tablet]": { 
+    font: {
+		fontWeight: 'bold',
+		fontSize: '22dp'
+	},
+},
+"#username[platform=ios formFactor=tablet]": { 
+    font: {
+		fontSize: '30dp'
+	},
+},
+"#password[platform=ios formFactor=tablet]": { 
+    font: {
+		fontSize: '30dp'
+	},
 }
+
+
+

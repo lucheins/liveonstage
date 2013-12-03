@@ -139,6 +139,16 @@
 	backgroundColor:'#745DA8',
 	color: 'white',
 	textAlign: 'center'	
+},
+"#textBottom[platform=ios formFactor=tablet]": { 
+    font: {
+		fontSize: '24dp'
+	},
+},
+"#title[platform=ios formFactor=tablet]": { 
+    font: {
+		fontSize: '24dp'
+	},
 }
 
 		

@@ -125,7 +125,35 @@
 		font:{fontSize:'11dp'},
 		textAlign: 'right',
 		left: '66%'
-		}
+	},
+"#title[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'30dp'
+		}		
+},
+"#about[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
+},
+"#accomplished[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
+},
+"#percentage[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
+},
+"#days[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
+}
+
+
+
 
 
 

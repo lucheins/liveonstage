@@ -79,4 +79,38 @@
     height : '55%',
     width : '95%',
     zIndex: 20
+},
+"#author[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'30dp'
+		}		
+},
+"#labelLink[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'25dp'
+		}	
+},
+"#views[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		},
+	top : '105dp'	
+},
+"#videos[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		},
+	top: '135dp'	
+},
+"#links[platform=ios formFactor=tablet]": { 
+	height: '50dp'
+},
+"#event[platform=ios formFactor=tablet]": { 
+	height: '45dp'
+},
+"#video[platform=ios formFactor=tablet]": { 
+	height: '45dp'
+},
+"#campaign[platform=ios formFactor=tablet]": { 
+	height: '45dp'
 }

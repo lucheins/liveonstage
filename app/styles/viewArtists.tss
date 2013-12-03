@@ -141,6 +141,41 @@
 	height: '27',
 	width: '100%',
 	textAlign: 'center'
+},
+"#title[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'30dp'
+		}		
+},
+"#about[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
+},
+"#views[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
+},
+"#videos[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
+},
+"#accomplished[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
+},
+"#percentage[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
+},
+"#days[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'23dp'
+		}	
 }
 
 

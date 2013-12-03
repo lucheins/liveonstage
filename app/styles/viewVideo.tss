@@ -78,5 +78,24 @@
 },
 "#table":{
 	top: '0'
+},
+"#author[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'25dp'
+		}		
+},
+"#title[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		}	
+},
+"#otherEvents[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		}
+},
+"#views[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'25dp'
+		}
 }
-

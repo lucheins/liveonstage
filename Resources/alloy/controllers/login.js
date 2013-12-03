@@ -13,10 +13,15 @@ function Controller() {
         };
         var win = Alloy.createController("viewListEventsToLive", args).getView();
         win.fullscreen = false;
-        win.open({
+        if ("android" == Ti.Platform.osname) win.open({
             activityEnterAnimation: Ti.Android.R.anim.fade_in,
             activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+        }); else {
+            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+            win.open({
+                transition: t
+            });
+        }
         $.login.close();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -50,50 +55,84 @@ function Controller() {
         id: "container"
     });
     $.__views.login.add($.__views.container);
-    $.__views.username = Ti.UI.createTextField({
-        borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
-        keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
-        returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
-        color: "#336699",
-        hintText: "Username",
-        top: "2%",
-        width: "80%",
-        height: "10%",
-        left: "10%",
-        border: 1,
-        borderColor: "#c1c1c1",
-        paddingLeft: 5,
-        id: "username"
-    });
+    $.__views.username = Ti.UI.createTextField(function() {
+        var o = {};
+        _.extend(o, {
+            borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
+            keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
+            returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
+            color: "#336699",
+            hintText: "Username",
+            top: "2%",
+            width: "80%",
+            height: "10%",
+            left: "10%",
+            border: 1,
+            borderColor: "#c1c1c1",
+            paddingLeft: 5
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "30dp"
+            }
+        });
+        _.extend(o, {
+            id: "username"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.username);
-    $.__views.password = Ti.UI.createTextField({
-        borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
-        keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
-        returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
-        color: "#336699",
-        hintText: "Password",
-        passwordMask: "true",
-        top: "14%",
-        width: "80%",
-        height: "10%",
-        left: "10%",
-        border: 1,
-        borderColor: "#c1c1c1",
-        paddingLeft: 5,
-        id: "password"
-    });
+    $.__views.password = Ti.UI.createTextField(function() {
+        var o = {};
+        _.extend(o, {
+            borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
+            keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
+            returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
+            color: "#336699",
+            hintText: "Password",
+            passwordMask: "true",
+            top: "14%",
+            width: "80%",
+            height: "10%",
+            left: "10%",
+            border: 1,
+            borderColor: "#c1c1c1",
+            paddingLeft: 5
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "30dp"
+            }
+        });
+        _.extend(o, {
+            id: "password"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.password);
-    $.__views.TimezoneLabel = Ti.UI.createLabel({
-        top: "28%",
-        font: {
-            fontSize: "15dp",
-            fontWeight: "bold"
-        },
-        color: "#c9c9c9",
-        left: "10%",
-        text: "Select your current timezone",
-        id: "TimezoneLabel"
-    });
+    $.__views.TimezoneLabel = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            top: "28%",
+            font: {
+                fontSize: "15dp",
+                fontWeight: "bold"
+            },
+            color: "#c9c9c9",
+            left: "10%"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "22dp"
+            }
+        });
+        _.extend(o, {
+            text: "Select your current timezone",
+            id: "TimezoneLabel"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.TimezoneLabel);
     var __alloyId12 = [];
     $.__views.pickTimezone = Ti.UI.createPicker({
@@ -441,21 +480,39 @@ function Controller() {
         id: "buttonLogin"
     });
     $.__views.container.add($.__views.buttonLogin);
-    $.__views.textBottom = Ti.UI.createLabel({
-        font: {
-            fontSize: "12dp",
-            fontWeight: "bold"
-        },
-        height: "90%",
-        bottom: "8%",
-        width: "98%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        textAlign: "center",
-        text: "Login",
-        id: "textBottom"
-    });
+    $.__views.textBottom = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "12dp",
+                fontWeight: "bold"
+            },
+            height: "90%",
+            bottom: "8%",
+            width: "98%",
+            borderRadius: 4,
+            backgroundColor: "#745DA8",
+            color: "white",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            }
+        });
+        _.extend(o, {});
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "25dp"
+            }
+        });
+        _.extend(o, {
+            text: "Login",
+            id: "textBottom"
+        });
+        return o;
+    }());
     $.__views.buttonLogin.add($.__views.textBottom);
     exports.destroy = function() {};
     _.extend($, $.__views);

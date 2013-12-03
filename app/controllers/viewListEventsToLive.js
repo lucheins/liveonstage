@@ -18,17 +18,7 @@ $.messageTurn.hide();
 		{
 			$.container.top = '20%';
 			$.messageTurn.top = '9%';
-			var version = Titanium.Platform.version.split(".");
-			var major = parseInt(version[0],10);
-	
-			// Can only test this support on a 3.2+ device
 			
-			if (major >= 7)
-			{
-				$.messageTurn.top = '18%';
-				//$.container.top = '18%';
-				//alert('ios7');
-			}
 		}
 		$.messageTurn.show();
 		timezoneBand = 1;

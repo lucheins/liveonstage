@@ -267,5 +267,90 @@
     width : '95%',
     zIndex: 20,
     top : '2%'
+},
+"#title[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'30dp'
+		}		
+},
+"#perks[platform=ios formFactor=tablet]": { 
+    top : '35dp'		
+},
+"#author[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'25dp'
+		}	
+},
+"#categoryName[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'25dp'
+		}	
+},
+"#description[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'25dp'
+		}	
+},
+"#titleDescription[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		}	
+},
+"#titleButtom[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		}	
+},
+"#readmore[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'25dp'
+		}	
+},
+"#accomplished[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}	
+},
+"#percentage[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}	
+},
+"#days[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}	
+},
+"#total[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}	
+},
+"#textAccomplished[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}	
+},
+"#textPercentage[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}	
+},
+"#textDays[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}	
+},
+"#textTotal[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'24dp'
+		}	
+},
+"#givebacksTitle[platform=ios formFactor=tablet]": { 
+    font: {
+	   	fontSize:'26dp'
+		}	
 }
+
+
 

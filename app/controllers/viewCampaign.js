@@ -110,6 +110,12 @@ client.onload = function(){
 			width: '70%',
 			color: 'gray'
 		});
+		var osname = Ti.Platform.osname;
+		if(osname === 'ipad')
+		{
+			insideLabel1.font = { fontSize:'26dp' };
+			insideLabel2.font = { fontSize:'24dp' };
+		}
 		row.add(insideLabel1);
 		row.add(insideLabel2);
 		$.perks.add(row);	

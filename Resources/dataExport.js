@@ -300,6 +300,13 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
                         text: "Live"
                     });
                     buttonLive.add(labelBtnLive);
+                    var osname = Ti.Platform.osname;
+                    if ("ipad" === osname) {
+                        labelBtnLive.font = {
+                            fontSize: "24dp"
+                        };
+                        buttonLive.height = "37dp";
+                    }
                     buttonLive.addEventListener("click", function() {
                         var clientLive = Ti.Network.createHTTPClient();
                         var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_VALIDATE_STREAMING;
@@ -310,11 +317,19 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
                             var responseLive = JSON.parse(json);
                             if (responseLive.validate > 0) {
                                 var win = Alloy.createController("camera", event_id).getView();
-                                win.fullscreen = true;
-                                win.open({
-                                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                                    activityExitAnimation: Ti.Android.R.anim.fade_out
-                                });
+                                if ("android" == Ti.Platform.osname) {
+                                    win.fullscreen = true;
+                                    win.open({
+                                        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                                        activityExitAnimation: Ti.Android.R.anim.fade_out
+                                    });
+                                } else {
+                                    win.orientationModes = [ Titanium.UI.LANDSCAPE_RIGHT ];
+                                    var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                                    win.open({
+                                        transition: t
+                                    });
+                                }
                             } else {
                                 -1 == responseLive.validate ? alert("The video has already been created") : 0 == responseLive.validate ? alert("The event does not exist") : alert("The start date is not in the allowed range");
                                 buttonLive.hide();

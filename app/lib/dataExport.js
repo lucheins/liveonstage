@@ -349,6 +349,13 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 									text: 'Live'
 								});
 							buttonLive.add(labelBtnLive);
+							var osname = Ti.Platform.osname;
+							if(osname === 'ipad')
+							{
+								labelBtnLive.font = { fontSize: '24dp' };
+								buttonLive.height = '37dp';
+							}
+							
 							buttonLive.addEventListener('click',function(e)
 							{
 							    var clientLive = Ti.Network.createHTTPClient();

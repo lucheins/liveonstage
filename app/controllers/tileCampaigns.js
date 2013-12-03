@@ -8,6 +8,11 @@ var deviceHeight = Ti.Platform.displayCaps.platformHeight;
 var deviceWidth = Ti.Platform.displayCaps.platformWidth;
 
 var height = 360;
+var osname = Ti.Platform.osname;
+if(osname === 'ipad')
+{
+	height = 800;
+}
 $.container.height = height+'dp';
 $.container.top = (height * args.row)+'dp';
 

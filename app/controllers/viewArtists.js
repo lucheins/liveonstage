@@ -6,6 +6,11 @@ var deviceHeight = Ti.Platform.displayCaps.platformHeight;
 var deviceWidth = Ti.Platform.displayCaps.platformWidth;
 
 var height = 360;
+var osname = Ti.Platform.osname;
+if(osname === 'ipad')
+{
+	height = 800;
+}
 $.container.height = height+'dp';
 $.container.top = (height * args.row)+'dp';
 
@@ -31,6 +36,7 @@ var textInfo = '';
 		textInfo =  args.about;	
 	} 
 	var top = 5;
+	var topPlus = 15;
 	if(textInfo != '')
 	{
 		if(textInfo.length > Alloy.Globals.ABOUT)
@@ -41,6 +47,12 @@ var textInfo = '';
 		$.about.top = 0;
 		top = 25;
 	}
+	var osname = Ti.Platform.osname;
+if(osname === 'ipad')
+{
+	top = top + 25;	
+	topPlus = topPlus + 15;	
+}
 
 if (args.campaing != null)
 {
@@ -52,10 +64,10 @@ if (args.campaing != null)
 } else {
 	
 	$.videoinfo.remove($.progressBar);
-	$.videos.text = args.videos + ' videos publised.';	
-	$.views.text = args.views + ' Profile views';
+	$.videos.text = args.videos + ' videos published.';	
+	$.views.text = args.views + ' profile views';
 	$.videos.top = top;
-	$.views.top = top + 15;	
+	$.views.top = top + topPlus;	
 }
 
 

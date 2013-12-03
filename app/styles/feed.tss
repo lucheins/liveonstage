@@ -117,4 +117,20 @@
 	top: '5%',
 	backgroundImage:'/Icon-Small.png',
 	backgroundRepeat: false
-	}
+},
+"#current[platform=ios formFactor=tablet]": { 
+    font: {
+		fontSize: '30dp'
+	},
+},
+".navLabel[platform=ios formFactor=tablet]": { 
+    font: {
+		fontSize: '26dp'
+	},
+}
+
+
+
+
+
+

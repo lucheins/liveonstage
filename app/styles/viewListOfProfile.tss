@@ -24,5 +24,11 @@
 	width: "94%",
 	height : "90%",
 	color: 'gray'
+},
+"#description[platform=ios formFactor=tablet]": { 
+    font: {
+		fontSize: '24dp'
+	},
 }
+
 

@@ -107,5 +107,23 @@
   	textAlign: 'center',
   	left: '20%',
   	width: '60%'
+},
+".menu-small-label[platform=ios formFactor=tablet]": { 
+    font: {
+		fontWeight: 'bold',
+		fontSize: '22dp'
+	},
+},
+".menu-label[platform=ios formFactor=tablet]": { 
+    font: {
+		fontWeight: 'bold',
+		fontSize: '30dp'
+	},
+},
+".promo[platform=ios formFactor=tablet]": { 
+    font: {
+		fontWeight: 'bold',
+		fontSize: '58dp'
+	},
 }
 
