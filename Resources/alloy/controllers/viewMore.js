@@ -11,35 +11,66 @@ function Controller() {
         id: "container"
     });
     $.__views.container && $.addTopLevelView($.__views.container);
-    $.__views.buttonMore = Ti.UI.createView({
-        height: "40dp",
-        left: "33%",
-        width: "34%",
-        id: "buttonMore"
-    });
+    $.__views.buttonMore = Ti.UI.createView(function() {
+        var o = {};
+        _.extend(o, {
+            height: "40dp",
+            left: "33%",
+            width: "34%"
+        });
+        Alloy.isTablet && _.extend(o, {
+            height: "70dp"
+        });
+        _.extend(o, {
+            id: "buttonMore"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.buttonMore);
-    $.__views.text = Ti.UI.createLabel({
-        font: {
-            fontSize: "12dp",
-            fontWeight: "bold"
-        },
-        top: "5%",
-        height: "90%",
-        width: "90%",
-        borderRadius: 5,
-        backgroundColor: "#745DA8",
-        color: "white",
-        textAlign: "center",
-        id: "text"
-    });
+    $.__views.text = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "12dp",
+                fontWeight: "bold"
+            },
+            top: "5%",
+            height: "90%",
+            width: "90%",
+            borderRadius: 5,
+            backgroundColor: "#745DA8",
+            color: "white",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            }
+        });
+        _.extend(o, {
+            id: "text"
+        });
+        return o;
+    }());
     $.__views.buttonMore.add($.__views.text);
-    $.__views.message = Ti.UI.createLabel({
-        font: {
-            fontSize: "14dp"
-        },
-        color: "#000000",
-        id: "message"
-    });
+    $.__views.message = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "14dp"
+            },
+            color: "#000000"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "26dp"
+            }
+        });
+        _.extend(o, {
+            id: "message"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.message);
     exports.destroy = function() {};
     _.extend($, $.__views);

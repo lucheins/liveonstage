@@ -50,7 +50,7 @@ var textInfo = '';
 	var osname = Ti.Platform.osname;
 if(osname === 'ipad')
 {
-	top = top + 5;	
+	top = top + 25;	
 	topPlus = topPlus + 15;	
 }
 
