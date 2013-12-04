@@ -100,7 +100,7 @@ viewPager.addEventListener("pageChange", function (e)
 
 categories.addEventListener('click', function(e){
 		
-		var title = 'Live On Stage';
+		var title = 'LiveOnStage';
 		if(e.source.link > 0)
 		{
 			title = e.source.text;

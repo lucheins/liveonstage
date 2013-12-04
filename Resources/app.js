@@ -1,6 +1,6 @@
 var Alloy = require("alloy"), _ = Alloy._, Backbone = Alloy.Backbone;
 
-Alloy.Globals.NAME_PAGE = "Live On Stage";
+Alloy.Globals.NAME_PAGE = "LiveOnStage";
 
 Alloy.Globals.DOMAIN = "http://www.liveonstage.com/";
 

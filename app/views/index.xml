@@ -9,7 +9,7 @@
 			<View id="overlay">
 				<View id="gradient"/>
 			</View>
-			<Label class="promo">Promoting your music with Live Video</Label>
+			<Label class="promo">Promoting your music with live video</Label>
 		</View>
 		<View id="buttoncontainer">
 			<View class="buttonsTopBorder"/>
@@ -19,7 +19,7 @@
 					<ImageView class="menu-icon" image="/images/artists.png" />
 					<Label class="menu-label">Browse</Label>
 					</View>
-					<Label class="menu-small-label">Find Live Shows, Campaigns, Artists and More</Label>					
+					<Label class="menu-small-label">Find live shows, campaigns, artists and more</Label>					
 				</View>
 			</View>
 			<View id="bottomButtons" class="bottomButtons">
@@ -28,7 +28,7 @@
 					<ImageView class="menu-icon" image="/images/bolt.png" />
 					<Label class="menu-label">Go Live!</Label>
 					</View>	
-					<Label class="menu-small-label">Already have a Live Show scheduled? Broadcast using this device!</Label>
+					<Label class="menu-small-label">Already have a live show scheduled? Broadcast using this device!</Label>
 								
 				</View>				
 			</View>

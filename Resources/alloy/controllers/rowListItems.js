@@ -6,118 +6,56 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.rowListItems = Ti.UI.createTableViewRow(function() {
-        var o = {};
-        _.extend(o, {
-            height: "80dp",
-            touchEnabled: true,
-            hasChild: false
-        });
-        Alloy.isTablet && _.extend(o, {
-            height: "120dp"
-        });
-        _.extend(o, {
-            id: "rowListItems"
-        });
-        return o;
-    }());
+    $.__views.rowListItems = Ti.UI.createTableViewRow({
+        height: "80dp",
+        touchEnabled: true,
+        hasChild: false,
+        id: "rowListItems"
+    });
     $.__views.rowListItems && $.addTopLevelView($.__views.rowListItems);
-    $.__views.title = Ti.UI.createLabel(function() {
-        var o = {};
-        _.extend(o, {
-            font: {
-                fontSize: "15dp",
-                fontWeight: "bold"
-            },
-            left: "110dp",
-            top: "3%",
-            color: "#2B2B2B",
-            shadowColor: "#f2f2f2",
-            shadowOffset: {
-                x: 1,
-                y: 1
-            }
-        });
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontSize: "24dp"
-            }
-        });
-        _.extend(o, {});
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontSize: "30dp"
-            },
-            left: "145dp"
-        });
-        _.extend(o, {
-            id: "title"
-        });
-        return o;
-    }());
+    $.__views.title = Ti.UI.createLabel({
+        font: {
+            fontSize: "15dp",
+            fontWeight: "bold"
+        },
+        left: "110dp",
+        top: "3%",
+        color: "#2B2B2B",
+        shadowColor: "#f2f2f2",
+        shadowOffset: {
+            x: 1,
+            y: 1
+        },
+        id: "title"
+    });
     $.__views.rowListItems.add($.__views.title);
-    $.__views.author = Ti.UI.createLabel(function() {
-        var o = {};
-        _.extend(o, {
-            font: {
-                fontSize: "14dp"
-            },
-            left: "110dp",
-            bottom: "18dp",
-            color: "#717777"
-        });
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontSize: "26dp"
-            },
-            left: "145dp",
-            bottom: "30dp"
-        });
-        _.extend(o, {
-            id: "author"
-        });
-        return o;
-    }());
+    $.__views.author = Ti.UI.createLabel({
+        font: {
+            fontSize: "14dp"
+        },
+        left: "110dp",
+        bottom: "18dp",
+        color: "#717777",
+        id: "author"
+    });
     $.__views.rowListItems.add($.__views.author);
-    $.__views.footMessage = Ti.UI.createLabel(function() {
-        var o = {};
-        _.extend(o, {
-            font: {
-                fontSize: "13dp"
-            },
-            left: "110dp",
-            bottom: "3dp",
-            color: "#909090"
-        });
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontSize: "26dp"
-            },
-            left: "145dp"
-        });
-        _.extend(o, {
-            id: "footMessage"
-        });
-        return o;
-    }());
+    $.__views.footMessage = Ti.UI.createLabel({
+        font: {
+            fontSize: "13dp"
+        },
+        left: "110dp",
+        bottom: "3dp",
+        color: "#909090",
+        id: "footMessage"
+    });
     $.__views.rowListItems.add($.__views.footMessage);
-    $.__views.image = Ti.UI.createImageView(function() {
-        var o = {};
-        _.extend(o, {
-            width: "100dp",
-            height: "70dp",
-            left: "5dp",
-            top: "5dp"
-        });
-        Alloy.isTablet && _.extend(o, {
-            height: "110dp",
-            width: "130dp"
-        });
-        _.extend(o, {
-            id: "image"
-        });
-        return o;
-    }());
+    $.__views.image = Ti.UI.createImageView({
+        width: "100dp",
+        height: "70dp",
+        left: "5dp",
+        top: "5dp",
+        id: "image"
+    });
     $.__views.rowListItems.add($.__views.image);
     exports.destroy = function() {};
     _.extend($, $.__views);

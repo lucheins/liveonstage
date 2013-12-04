@@ -53,7 +53,7 @@ var theTop = iOS7 ? 20 : 0;
 $.feedWin.top = theTop;
 // END STATUS BAR FIX
 
-$.current.text = 'Live On Stage';
+$.current.text = 'LiveOnStage';
 
 
 $.backArrow.add(backArrow);

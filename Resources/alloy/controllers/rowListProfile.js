@@ -6,49 +6,23 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.rowListProfile = Ti.UI.createTableViewRow(function() {
-        var o = {};
-        _.extend(o, {
-            height: "50dp",
-            touchEnabled: true,
-            hasChild: false
-        });
-        Alloy.isTablet && _.extend(o, {
-            height: "70dp"
-        });
-        _.extend(o, {
-            id: "rowListProfile"
-        });
-        return o;
-    }());
+    $.__views.rowListProfile = Ti.UI.createTableViewRow({
+        height: "50dp",
+        touchEnabled: true,
+        hasChild: false,
+        id: "rowListProfile"
+    });
     $.__views.rowListProfile && $.addTopLevelView($.__views.rowListProfile);
-    $.__views.title = Ti.UI.createLabel(function() {
-        var o = {};
-        _.extend(o, {
-            left: "10dp",
-            height: "50dp",
-            color: "black",
-            font: {
-                fontSize: "14dp"
-            },
-            width: "80%"
-        });
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontSize: "24dp"
-            }
-        });
-        _.extend(o, {});
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontSize: "26dp"
-            }
-        });
-        _.extend(o, {
-            id: "title"
-        });
-        return o;
-    }());
+    $.__views.title = Ti.UI.createLabel({
+        left: "10dp",
+        height: "50dp",
+        color: "black",
+        font: {
+            fontSize: "14dp"
+        },
+        width: "80%",
+        id: "title"
+    });
     $.__views.rowListProfile.add($.__views.title);
     exports.destroy = function() {};
     _.extend($, $.__views);
