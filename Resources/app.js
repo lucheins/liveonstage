@@ -54,7 +54,7 @@ Alloy.Globals.TITLE_SIZE = 30;
 
 Alloy.Globals.DESCRIPTION_SIZE = 160;
 
-Alloy.Globals.ABOUT = 150;
+Alloy.Globals.ABOUT = 100;
 
 Alloy.Globals.CONNECTION_ERROR = "You must be connected to the internet to be able to see this. Please connect and try again!";
 

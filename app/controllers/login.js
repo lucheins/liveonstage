@@ -3,7 +3,7 @@ $.pickTimezone.setSelectedRow(0, 10, false);
 
 var actionBar = require('actionBarButtoms'); 
 actionBar.putActionBar($.login,"Login",false,null,$.container,null,false);
-
+$.username.autocorrect = false;
 function checkdata(value)  
 	{  
 	    var testresults = false;  
@@ -28,7 +28,7 @@ $.buttonLogin.addEventListener('click',function(e) {
 		var response = JSON.parse(json);
 		if (response.id > 0)  
 	    {  
-	        alert("Welcome " + response.name + ".");  
+	        //alert("Welcome " + response.name + ".");  
 	        $.username.blur();  
         	$.password.blur();  
         	Ti.App.Properties.setString('user_id', response.id);	  

@@ -45,12 +45,12 @@ var textInfo = '';
 		}
 		$.about.text = textInfo;
 		$.about.top = 0;
-		top = 25;
+		top = 45;
 	}
 	var osname = Ti.Platform.osname;
 if(osname === 'ipad')
 {
-	top = top + 25;	
+	top = top + 5;	
 	topPlus = topPlus + 15;	
 }
 
