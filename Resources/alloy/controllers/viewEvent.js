@@ -63,17 +63,34 @@ function Controller() {
         id: "topdata"
     });
     $.__views.data.add($.__views.topdata);
-    $.__views.title = Ti.UI.createLabel({
-        font: {
-            fontSize: "15dp",
-            fontWeight: "bold"
-        },
-        height: "100%",
-        left: "0%",
-        top: "0%",
-        color: "#e4473e",
-        id: "title"
-    });
+    $.__views.title = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "15dp",
+                fontWeight: "bold"
+            },
+            height: "100%",
+            left: "0%",
+            top: "0%",
+            color: "#e4473e"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            }
+        });
+        _.extend(o, {});
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "28dp"
+            }
+        });
+        _.extend(o, {
+            id: "title"
+        });
+        return o;
+    }());
     $.__views.topdata.add($.__views.title);
     $.__views.bottomdata = Ti.UI.createView({
         height: "50%",
@@ -82,43 +99,77 @@ function Controller() {
         id: "bottomdata"
     });
     $.__views.data.add($.__views.bottomdata);
-    $.__views.author = Ti.UI.createLabel({
-        font: {
-            fontSize: "13dp"
-        },
-        height: "30%",
-        top: "0%",
-        left: "0%",
-        color: "#717777",
-        id: "author"
-    });
+    $.__views.author = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "13dp"
+            },
+            height: "30%",
+            top: "0%",
+            left: "0%",
+            color: "#717777"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "25dp"
+            }
+        });
+        _.extend(o, {
+            id: "author"
+        });
+        return o;
+    }());
     $.__views.bottomdata.add($.__views.author);
-    $.__views.date = Ti.UI.createLabel({
-        font: {
-            fontSize: "13dp"
-        },
-        height: "28%",
-        left: "0%",
-        top: "32%",
-        color: "#717777",
-        id: "date"
-    });
+    $.__views.date = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "13dp"
+            },
+            height: "28%",
+            left: "0%",
+            top: "32%",
+            color: "#717777"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            }
+        });
+        _.extend(o, {
+            id: "date"
+        });
+        return o;
+    }());
     $.__views.bottomdata.add($.__views.date);
-    $.__views.views = Ti.UI.createLabel({
-        font: {
-            fontSize: "12dp",
-            fontWeight: "bold"
-        },
-        height: "32%",
-        left: "0%",
-        bottom: "5%",
-        color: "white",
-        width: "98%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        textAlign: "center",
-        id: "views"
-    });
+    $.__views.views = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "12dp",
+                fontWeight: "bold"
+            },
+            height: "32%",
+            left: "0%",
+            bottom: "5%",
+            color: "white",
+            width: "98%",
+            borderRadius: 4,
+            backgroundColor: "#745DA8",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            },
+            top: "105dp"
+        });
+        _.extend(o, {
+            id: "views"
+        });
+        return o;
+    }());
     $.__views.bottomdata.add($.__views.views);
     $.__views.content = Ti.UI.createView({
         top: "48%",
@@ -131,51 +182,94 @@ function Controller() {
         id: "content"
     });
     $.__views.container.add($.__views.content);
-    $.__views.titleDescription = Ti.UI.createLabel({
-        font: {
-            fontSize: "14dp",
-            fontWeight: "bold"
-        },
-        height: "auto",
-        left: "3%",
-        width: "94%",
-        top: "4%",
-        text: "Description:",
-        id: "titleDescription"
-    });
+    $.__views.titleDescription = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "14dp",
+                fontWeight: "bold"
+            },
+            height: "auto",
+            left: "3%",
+            width: "94%",
+            top: "4%"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "26dp"
+            }
+        });
+        _.extend(o, {
+            text: "Description:",
+            id: "titleDescription"
+        });
+        return o;
+    }());
     $.__views.content.add($.__views.titleDescription);
-    $.__views.description = Ti.UI.createLabel({
-        font: {
-            fontSize: "12dp"
-        },
-        height: "90%",
-        left: "3%",
-        top: "9%",
-        width: "94%",
-        color: "gray",
-        id: "description"
-    });
+    $.__views.description = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "12dp"
+            },
+            height: "90%",
+            left: "3%",
+            top: "9%",
+            width: "94%",
+            color: "gray"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            }
+        });
+        _.extend(o, {
+            id: "description"
+        });
+        return o;
+    }());
     $.__views.content.add($.__views.description);
-    $.__views.other = Ti.UI.createView({
-        top: "90%",
-        left: "0dp",
-        backgroundColor: "#f2f2f2",
-        height: "22dp",
-        id: "other"
-    });
+    $.__views.other = Ti.UI.createView(function() {
+        var o = {};
+        _.extend(o, {
+            top: "90%",
+            left: "0dp",
+            backgroundColor: "#f2f2f2",
+            height: "22dp"
+        });
+        Alloy.isTablet && _.extend(o, {
+            height: "42dp"
+        });
+        _.extend(o, {
+            id: "other"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.other);
-    $.__views.otherEvents = Ti.UI.createLabel({
-        font: {
-            fontSize: "14dp",
-            fontWeight: "bold"
-        },
-        height: "auto",
-        left: "10dp",
-        top: "0dp",
-        textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
-        text: "Other events from this Artist:",
-        id: "otherEvents"
-    });
+    $.__views.otherEvents = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "14dp",
+                fontWeight: "bold"
+            },
+            height: "auto",
+            left: "10dp",
+            top: "0dp",
+            textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "26dp"
+            },
+            top: "5dp"
+        });
+        _.extend(o, {
+            text: "Other events from this Artist:",
+            id: "otherEvents"
+        });
+        return o;
+    }());
     $.__views.other.add($.__views.otherEvents);
     $.__views.viewTable = Ti.UI.createView({
         top: "0%",
@@ -235,11 +329,18 @@ function Controller() {
         if (e.source.link > 0) {
             $.viewEvent.close();
             var win = Alloy.createController("viewEvent", e.source.link).getView();
-            win.fullscreen = false;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            if ("android" == Ti.Platform.osname) {
+                win.fullscreen = false;
+                win.open({
+                    activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                    activityExitAnimation: Ti.Android.R.anim.fade_out
+                });
+            } else {
+                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                win.open({
+                    transition: t
+                });
+            }
         } else {
             var index = $.table.getIndexByName("rowMore");
             if (index > 0) {
