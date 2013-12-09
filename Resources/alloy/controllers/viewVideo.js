@@ -14,7 +14,7 @@ function Controller() {
         url = Alloy.Globals.URL_LIVE;
         urlEnd = Alloy.Globals.URL_VIDEO_END;
         var name = getName(path);
-        url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + urlEnd : url + name + URL_VIDEO_END;
+        url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + urlEnd : url + name + Alloy.Globals.URL_VIDEO_END;
         alert(url);
         return url;
     }

@@ -124,9 +124,9 @@ function getPathVideo(type,path)
 	{
 		url = Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + urlEnd;
 	} else {
-		url = url + name + URL_VIDEO_END;
+		url = url + name + Alloy.Globals.URL_VIDEO_END;
 	}
-	alert(url);
+	
 	return url;	 
 }
 
