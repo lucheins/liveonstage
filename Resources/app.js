@@ -38,9 +38,9 @@ Alloy.Globals.PASS = "LiveXenn2013!@coNNectApp";
 
 Alloy.Globals.USER_MOBILE = Ti.Utils.base64encode(Alloy.Globals.USER + "-" + Alloy.Globals.PASS);
 
-Alloy.Globals.URL_LIVE = "rtmp://liveonstage.com:1935/videowhisper/mp4:";
+Alloy.Globals.URL_LIVE = "http://liveonstage.com:1935/videowhisper/";
 
-Alloy.Globals.URL_LIVE_IOS = "http://liveonstage.com:1935/videowhisper/ngrp:";
+Alloy.Globals.URL_LIVE_IOS = "http://liveonstage.com:1935/videowhisper/";
 
 Alloy.Globals.URL_VOD = "http://liveonstage.com:1935/vod/_definst_/mp4:";
 
@@ -64,7 +64,7 @@ Alloy.Globals.USER_PASSWORD_RTSP = "NewLive1M!*";
 
 Alloy.Globals.URL_RTSP = "rtsp://liveonstage.com:1935/videowhisper/";
 
-Alloy.Globals.RESOLUTION_RTSP = "MIDDLE";
+Alloy.Globals.RESOLUTION_RTSP = "LOW";
 
 Alloy.Globals.URL_RTMP = "rtmp://liveonstage.com:1935/ios";
 
