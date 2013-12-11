@@ -107,24 +107,31 @@ function getName(name)
 
 function getPathVideo(type,path)
 {
+	
+	var url = ''; 
+	var urlEnd = ''; 
 	$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
 	$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
+	
 	if (Ti.Platform.osname == 'android'){
-	$.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+		$.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+		url = Alloy.Globals.URL_LIVE; 
 	}
 	else {
 		$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+		url = Alloy.Globals.URL_LIVE_IOS; 
 	}
-	var name = getName(path);		
+	urlEnd = Alloy.Globals.URL_VIDEO_END; 
+	var name = getName(path);	
 	if(type == 'vod')
 	{
-		url = Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + Alloy.Globals.URL_VIDEO_END;
+		url = Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + urlEnd;
 	} else {
-		url = Alloy.Globals.URL_LIVE + name + Alloy.Globals.URL_VIDEO_END;
+		url = url + name + Alloy.Globals.URL_VIDEO_END;
 	}
-	return url;	
+	
+	return url;	 
 }
-
 function getUrlYoutube(video_id, vp)
 {
 	vdldr = Ti.Network.createHTTPClient();
