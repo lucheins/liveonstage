@@ -13,16 +13,231 @@ function Controller() {
         };
         var win = Alloy.createController("viewListEventsToLive", args).getView();
         win.fullscreen = false;
-        if ("android" == Ti.Platform.osname) win.open({
+        win.open({
             activityEnterAnimation: Ti.Android.R.anim.fade_in,
             activityExitAnimation: Ti.Android.R.anim.fade_out
-        }); else {
-            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
-            win.open({
-                transition: t
-            });
-        }
+        });
         $.login.close();
+    }
+    function getTimezone() {
+        var utcTime = new Date();
+        var other = utcTime.getTimezoneOffset() / 60;
+        var i = parseInt(other);
+        var m = other - i;
+        var sign = "-";
+        if (0 > i) {
+            i = -1 * i;
+            sign = "+";
+        }
+        10 > i && (i = "0" + i);
+        m = 60 * m;
+        0 == m && (m = "00");
+        other = sign + i + ":" + m + ",0";
+        return other;
+    }
+    function NavRules() {
+        Ti.Geolocation.headingFilter = 10;
+        Ti.Geolocation.Android.manualMode = true;
+        var gpsProvider = Ti.Geolocation.Android.createLocationProvider({
+            name: Ti.Geolocation.PROVIDER_GPS,
+            minUpdateDistance: 0,
+            minUpdateTime: 0
+        });
+        Ti.Geolocation.Android.addLocationProvider(gpsProvider);
+        var networkProvider = Ti.Geolocation.Android.createLocationProvider({
+            name: Ti.Geolocation.PROVIDER_NETWORK,
+            minUpdateTime: 3,
+            minUpdateDistance: 30
+        });
+        Ti.Geolocation.Android.addLocationProvider(networkProvider);
+        var gpsRule = Ti.Geolocation.Android.createLocationRule({
+            provider: Ti.Geolocation.PROVIDER_GPS,
+            accuracy: 500,
+            maxAge: 5e3,
+            minAge: 3e3
+        });
+        Ti.Geolocation.Android.addLocationRule(gpsRule);
+    }
+    function getLocation() {
+        Titanium.Geolocation.getCurrentPosition(function(e) {
+            if (e.error || !e.success) {
+                gpsLow.show();
+                return;
+            }
+            if (e.success) {
+                location_coords = e.coords.timestamp;
+                var date1 = new Date(location_coords);
+                gpsLow.hide();
+                timezoneGpsUTC = getTimezone(date1.getTimezoneOffset());
+                $.timezoneLabelGps.text = "Timezone: " + getTimezoneByUTC(timezoneGpsUTC);
+                $.load.hide();
+            }
+        });
+    }
+    function getTimezoneByUTC(value) {
+        var timezones = [ {
+            value: "-12:00,0",
+            title: "(-12:00) International Date Line West"
+        }, {
+            value: "-11:00,0",
+            title: "(-11:00) Midway Island, Samoa"
+        }, {
+            value: "-10:00,0",
+            title: "(-10:00) Hawaii"
+        }, {
+            value: "-09:00,1",
+            title: "(-09:00) Alaska"
+        }, {
+            value: "-08:00,1",
+            title: "(-08:00) Pacific Time (US &amp; Canada)"
+        }, {
+            value: "-07:00,0",
+            title: "(-07:00) Arizona"
+        }, {
+            value: "-07:00,1",
+            title: "(-07:00) Mountain Time (US &amp; Canada)"
+        }, {
+            value: "-06:00,0",
+            title: "(-06:00) Central America, Saskatchewan"
+        }, {
+            value: "-06:00,1",
+            title: "(-06:00) Central Time (US &amp; Canada), Guadalajara, Mexico city"
+        }, {
+            value: "-05:00,0",
+            title: "(-05:00) Indiana, Bogota, Lima, Quito, Rio Branco"
+        }, {
+            value: "-05:00,1",
+            title: "(-05:00) Eastern time (US &amp; Canada)"
+        }, {
+            value: "-04:00,1",
+            title: "(-04:00) Atlantic time (Canada), Manaus, Santiago"
+        }, {
+            value: "-04:30,0",
+            title: "(-04:30) Caracas"
+        }, {
+            value: "-04:00,0",
+            title: "(-04:00) La Paz"
+        }, {
+            value: "-03:30,1",
+            title: "(-03:30) Newfoundland"
+        }, {
+            value: "-03:00,1",
+            title: "(-03:00) Greenland, Brasilia, Montevideo"
+        }, {
+            value: "-03:00,0",
+            title: "(-03:00) Buenos Aires, Georgetown"
+        }, {
+            value: "-02:00,1",
+            title: "(-02:00) Mid-Atlantic"
+        }, {
+            value: "-01:00,1",
+            title: "(-01:00) Azores"
+        }, {
+            value: "-01:00,0",
+            title: "(-01:00) Cape Verde Is."
+        }, {
+            value: "00:00,0",
+            title: "(00:00) Casablanca, Monrovia, Reykjavik"
+        }, {
+            value: "00:00,1",
+            title: "(00:00) GMT: Dublin, Edinburgh, Lisbon, London"
+        }, {
+            value: "+01:00,1",
+            title: "(+01:00) Amsterdam, Berlin, Rome, Vienna, Prague, Brussels"
+        }, {
+            value: "+01:00,0",
+            title: "(+01:00) West Central Africa"
+        }, {
+            value: "+02:00,1",
+            title: "(+02:00) Amman, Athens, Istanbul, Beirut, Cairo, Jerusalem"
+        }, {
+            value: "+02:00,0",
+            title: "(+02:00) Harare, Pretoria"
+        }, {
+            value: "+03:00,1",
+            title: "(+03:00) Baghdad, Moscow, St. Petersburg, Volgograd"
+        }, {
+            value: "+03:00,0",
+            title: "(+03:00) Kuwait, Riyadh, Nairobi, Tbilisi"
+        }, {
+            value: "+03:30,0",
+            title: "(+03:30) Tehran"
+        }, {
+            value: "+04:00,0",
+            title: "(+04:00) Abu Dhadi, Muscat"
+        }, {
+            value: "+04:00,1",
+            title: "(+04:00) Baku, Yerevan"
+        }, {
+            value: "+04:30,0",
+            title: "(+04:30) Kabul"
+        }, {
+            value: "+05:00,1",
+            title: "(+05:00) Ekaterinburg"
+        }, {
+            value: "+05:00,0",
+            title: "(+05:00) Islamabad, Karachi, Tashkent"
+        }, {
+            value: "+05:30,0",
+            title: "(+05:30) Chennai, Kolkata, Mumbai, New Delhi, Sri Jayawardenepura"
+        }, {
+            value: "+05:45,0",
+            title: "(+05:45) Kathmandu"
+        }, {
+            value: "+06:00,0",
+            title: "(+06:00) Astana, Dhaka"
+        }, {
+            value: "+06:00,1",
+            title: "(+06:00) Almaty, Nonosibirsk"
+        }, {
+            value: "+06:30,0",
+            title: "(+06:30) Yangon (Rangoon)"
+        }, {
+            value: "+07:00,1",
+            title: "(+07:00) Krasnoyarsk"
+        }, {
+            value: "+07:00,0",
+            title: "(+07:00) Bangkok, Hanoi, Jakarta"
+        }, {
+            value: "+08:00,0",
+            title: "(+08:00) Beijing, Hong Kong, Singapore, Taipei"
+        }, {
+            value: "+08:00,1",
+            title: "(+08:00) Irkutsk, Ulaan Bataar, Perth"
+        }, {
+            value: "+09:00,1",
+            title: "(+09:00) Yakutsk"
+        }, {
+            value: "+09:00,0",
+            title: "(+09:00) Seoul, Osaka, Sapporo, Tokyo"
+        }, {
+            value: "+09:30,0",
+            title: "(+09:30) Darwin"
+        }, {
+            value: "+09:30,1",
+            title: "(+09:30) Adelaide"
+        }, {
+            value: "+10:00,0",
+            title: "(+10:00) Brisbane, Guam, Port Moresby"
+        }, {
+            value: "+10:00,1",
+            title: "(+10:00) Canberra, Melbourne, Sydney, Hobart, Vladivostok"
+        }, {
+            value: "+11:00,0",
+            title: "(+11:00) Magadan, Solomon Is., New Caledonia"
+        }, {
+            value: "+12:00,1",
+            title: "(+12:00) Auckland, Wellington"
+        }, {
+            value: "+12:00,0",
+            title: "(+12:00) Fiji, Kamchatka, Marshall Is."
+        }, {
+            value: "+13:00,0",
+            title: "(+13:00) Nuku'alof"
+        } ];
+        var title = "";
+        for (var i = 0, ilen = timezones.length; ilen > i; i++) timezones[i]["value"] == value && (title = timezones[i]["title"]);
+        return title;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "login";
@@ -55,84 +270,50 @@ function Controller() {
         id: "container"
     });
     $.__views.login.add($.__views.container);
-    $.__views.username = Ti.UI.createTextField(function() {
-        var o = {};
-        _.extend(o, {
-            borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
-            keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
-            returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
-            color: "#336699",
-            hintText: "Username",
-            top: "2%",
-            width: "80%",
-            height: "10%",
-            left: "10%",
-            border: 1,
-            borderColor: "#c1c1c1",
-            paddingLeft: 5
-        });
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontSize: "30dp"
-            }
-        });
-        _.extend(o, {
-            id: "username"
-        });
-        return o;
-    }());
+    $.__views.username = Ti.UI.createTextField({
+        borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
+        keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
+        returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
+        color: "#336699",
+        hintText: "Username",
+        top: "2%",
+        width: "80%",
+        height: "10%",
+        left: "10%",
+        border: 1,
+        borderColor: "#c1c1c1",
+        paddingLeft: 5,
+        id: "username"
+    });
     $.__views.container.add($.__views.username);
-    $.__views.password = Ti.UI.createTextField(function() {
-        var o = {};
-        _.extend(o, {
-            borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
-            keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
-            returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
-            color: "#336699",
-            hintText: "Password",
-            passwordMask: "true",
-            top: "14%",
-            width: "80%",
-            height: "10%",
-            left: "10%",
-            border: 1,
-            borderColor: "#c1c1c1",
-            paddingLeft: 5
-        });
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontSize: "30dp"
-            }
-        });
-        _.extend(o, {
-            id: "password"
-        });
-        return o;
-    }());
+    $.__views.password = Ti.UI.createTextField({
+        borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
+        keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
+        returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
+        color: "#336699",
+        hintText: "Password",
+        passwordMask: "true",
+        top: "14%",
+        width: "80%",
+        height: "10%",
+        left: "10%",
+        border: 1,
+        borderColor: "#c1c1c1",
+        paddingLeft: 5,
+        id: "password"
+    });
     $.__views.container.add($.__views.password);
-    $.__views.TimezoneLabel = Ti.UI.createLabel(function() {
-        var o = {};
-        _.extend(o, {
-            top: "28%",
-            font: {
-                fontSize: "15dp",
-                fontWeight: "bold"
-            },
-            color: "#c9c9c9",
-            left: "10%"
-        });
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontWeight: "bold",
-                fontSize: "22dp"
-            }
-        });
-        _.extend(o, {
-            text: "Select your current timezone",
-            id: "TimezoneLabel"
-        });
-        return o;
-    }());
+    $.__views.TimezoneLabel = Ti.UI.createLabel({
+        top: "28%",
+        font: {
+            fontSize: "15dp",
+            fontWeight: "bold"
+        },
+        color: "#c9c9c9",
+        left: "10%",
+        text: "Select your current timezone",
+        id: "TimezoneLabel"
+    });
     $.__views.container.add($.__views.TimezoneLabel);
     var __alloyId12 = [];
     $.__views.pickTimezone = Ti.UI.createPicker({
@@ -465,6 +646,84 @@ function Controller() {
     });
     __alloyId12.push($.__views.__alloyId65);
     $.__views.pickTimezone.add(__alloyId12);
+    $.__views.messageTimezoneAsk = Ti.UI.createView({
+        top: "47%",
+        width: "80%",
+        left: "10%",
+        height: "17%",
+        id: "messageTimezoneAsk"
+    });
+    $.__views.container.add($.__views.messageTimezoneAsk);
+    $.__views.messageTimezoneAskLabel = Ti.UI.createLabel({
+        top: "10%",
+        font: {
+            fontSize: "12dp",
+            fontWeight: "bold"
+        },
+        color: "#c9c9c9",
+        text: "Did the GPS not retrieve your timezone? (Choose Timezone Manually)",
+        id: "messageTimezoneAskLabel"
+    });
+    $.__views.messageTimezoneAsk.add($.__views.messageTimezoneAskLabel);
+    $.__views.buttonTimezone = Ti.UI.createView({
+        width: "25%",
+        borderRadius: 4,
+        backgroundColor: "#745DA8",
+        color: "white",
+        bottom: "5%",
+        height: "30%",
+        textAlign: "center",
+        left: "0%",
+        id: "buttonTimezone"
+    });
+    $.__views.messageTimezoneAsk.add($.__views.buttonTimezone);
+    $.__views.textBottom = Ti.UI.createLabel({
+        font: {
+            fontSize: "12dp",
+            fontWeight: "bold"
+        },
+        height: "90%",
+        bottom: "8%",
+        width: "98%",
+        borderRadius: 4,
+        backgroundColor: "#745DA8",
+        color: "white",
+        textAlign: "center",
+        text: "Choose",
+        id: "textBottom"
+    });
+    $.__views.buttonTimezone.add($.__views.textBottom);
+    $.__views.timezoneGps = Ti.UI.createView({
+        top: "35%",
+        width: "80%",
+        left: "10%",
+        height: "12%",
+        backgroundColor: "white",
+        id: "timezoneGps"
+    });
+    $.__views.container.add($.__views.timezoneGps);
+    $.__views.load = Ti.UI.createActivityIndicator({
+        color: "#6cb1d5",
+        font: {
+            fontFamily: "Helvetica Neue",
+            fontSize: "12dp",
+            fontWeight: "bold"
+        },
+        message: " Searching your GPS Timezone",
+        height: "100%",
+        width: "80%",
+        id: "load"
+    });
+    $.__views.timezoneGps.add($.__views.load);
+    $.__views.timezoneLabelGps = Ti.UI.createLabel({
+        top: "10%",
+        font: {
+            fontSize: "14dp",
+            fontWeight: "bold"
+        },
+        id: "timezoneLabelGps"
+    });
+    $.__views.timezoneGps.add($.__views.timezoneLabelGps);
     $.__views.buttonLogin = Ti.UI.createView({
         font: {
             fontSize: "16dp",
@@ -480,44 +739,29 @@ function Controller() {
         id: "buttonLogin"
     });
     $.__views.container.add($.__views.buttonLogin);
-    $.__views.textBottom = Ti.UI.createLabel(function() {
-        var o = {};
-        _.extend(o, {
-            font: {
-                fontSize: "12dp",
-                fontWeight: "bold"
-            },
-            height: "90%",
-            bottom: "8%",
-            width: "98%",
-            borderRadius: 4,
-            backgroundColor: "#745DA8",
-            color: "white",
-            textAlign: "center"
-        });
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontSize: "24dp"
-            }
-        });
-        _.extend(o, {});
-        Alloy.isTablet && _.extend(o, {
-            font: {
-                fontWeight: "bold",
-                fontSize: "25dp"
-            }
-        });
-        _.extend(o, {
-            text: "Login",
-            id: "textBottom"
-        });
-        return o;
-    }());
+    $.__views.textBottom = Ti.UI.createLabel({
+        font: {
+            fontSize: "12dp",
+            fontWeight: "bold"
+        },
+        height: "90%",
+        bottom: "8%",
+        width: "98%",
+        borderRadius: 4,
+        backgroundColor: "#745DA8",
+        color: "white",
+        textAlign: "center",
+        text: "Login",
+        id: "textBottom"
+    });
     $.__views.buttonLogin.add($.__views.textBottom);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var timezone;
     $.pickTimezone.setSelectedRow(0, 10, false);
+    var zoneGps = 1;
+    var timezoneGpsUTC = "";
+    $.load.show();
     var actionBar = require("actionBarButtoms");
     actionBar.putActionBar($.login, "Login", false, null, $.container, null, false);
     $.username.autocorrect = false;
@@ -546,7 +790,7 @@ function Controller() {
             alert("Transmission error: " + e.error);
         };
         if ("" != $.username.value && "" != $.password.value) if (checkdata($.username.value)) if (checkdata($.password.value)) {
-            timezone = $.pickTimezone.getSelectedRow(0).value;
+            timezone = 1 == zoneGps ? timezoneGpsUTC : $.pickTimezone.getSelectedRow(0).value;
             if ("zone" != timezone) {
                 var user1 = Ti.Utils.base64encode($.username.value + "-" + $.password.value);
                 var params = {
@@ -556,6 +800,47 @@ function Controller() {
                 client.send(params);
             } else alert("Please select Timezone");
         } else alert("Please enter a valid password"); else alert("Please enter a valid username"); else alert("Username/Password are required");
+    });
+    var gpsApagado = Ti.UI.createAlertDialog({
+        title: "GPS Limitada",
+        message: "Activa el GPS para poder utilizar el servicio de mapas",
+        ok: "OK"
+    });
+    var gpsLow = Ti.UI.createAlertDialog({
+        title: "Buscando GPS",
+        message: "Utiliza la app en tu auto o sal a un espacio abierto",
+        ok: "OK"
+    });
+    var location_coords;
+    NavRules();
+    var locationAdded = false;
+    var handleLocation = function(e) {
+        e.error || Ti.API.info(e.coords);
+        getLocation();
+    };
+    var addHandler = function() {
+        if (!locationAdded) {
+            Ti.Geolocation.addEventListener("location", handleLocation);
+            locationAdded = true;
+        }
+    };
+    var removeHandler = function() {
+        if (locationAdded) {
+            Ti.Geolocation.removeEventListener("location", handleLocation);
+            locationAdded = false;
+        }
+    };
+    addHandler();
+    var activity = Ti.Android.currentActivity;
+    activity.addEventListener("destroy", removeHandler);
+    activity.addEventListener("pause", removeHandler);
+    Ti.Geolocation.locationServicesEnabled || gpsApagado.show();
+    $.buttonTimezone.addEventListener("click", function() {
+        $.messageTimezoneAsk.hide();
+        $.timezoneGps.hide();
+        zoneGps = 0;
+        $.load.hide();
+        removeHandler();
     });
     _.extend($, exports);
 }

@@ -80,7 +80,53 @@
     font: {
 		fontSize: '30dp'
 	},
+},
+"#messageTimezoneAsk":{
+	top: '47%',		
+	width: '80%',
+	left: '10%',
+	height: '17%'
+},
+"#messageTimezoneAskLabel":{
+	top: '10%',
+	font: {
+		   	fontSize:'12dp',
+		   	fontWeight:'bold'
+		},
+	color: '#c9c9c9'	
+},
+"#buttonTimezone":{
+		width: '25%',
+		borderRadius: 4,
+		backgroundColor:'#745DA8',
+		color: 'white',
+		bottom: '5%',
+		height: '30%',
+		textAlign: 'center',
+		left: '0%'
+},
+"#timezoneGps":{
+	top: '35%',		
+	width: '80%',
+	left: '10%',
+	height: '12%',
+	backgroundColor: 'white'
+},
+"#timezoneLabelGps":{
+	top: '10%',
+	font: {
+		   	fontSize:'14dp',
+		   	fontWeight:'bold'
+		}
+},
+"#load":{
+	color: '#6cb1d5',
+	font: {
+	  	fontFamily:'Helvetica Neue', 
+	  	fontSize:'12dp', 
+	  	fontWeight:'bold'
+	  	},
+	message: ' Searching your GPS Timezone',  
+	height: '100%',
+	width: '80%'
 }
-
-
-

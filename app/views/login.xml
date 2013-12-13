@@ -60,9 +60,22 @@
 			<PickerRow value='+12:00,0' title='(+12:00) Fiji, Kamchatka, Marshall Is.' />
 			<PickerRow value='+13:00,0' title="(+13:00) Nuku'alof" />
         </Picker>	
+         <View id="messageTimezoneAsk">	
+				<Label id="messageTimezoneAskLabel">Did the GPS not retrieve your timezone? (Choose Timezone Manually)</Label>
+				<View id="buttonTimezone">
+					<Label id="textBottom">Choose</Label>
+				</View>
+				
+		</View>	
+		 <View id="timezoneGps">	
+		 	<ActivityIndicator id="load"/>
+				<Label id="timezoneLabelGps"></Label>
+		</View>			 
+        
         <View id="buttonLogin">	
 				<Label id="textBottom">Login</Label>
 		</View>	
+		
        
 		  </View>
 	</Window>
