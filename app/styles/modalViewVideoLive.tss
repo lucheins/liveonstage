@@ -1,0 +1,55 @@
+"#modal":{
+	backgroundColor: "#35000000",
+	
+},
+"#contentModal":{
+	backgroundColor: 'transparent',
+	height: '30%',
+	width: '80%'
+},
+"#container":{
+	backgroundColor: '#fff',
+	height: '100%',
+	width: '100%',
+	borderRadius: 3
+},
+"#labelModal":{
+	top: '10%',
+	left: '5%',
+	font: {
+	   	fontSize:'14dp',
+	   	fontWeight:'bold'
+	},
+	color: 'black'
+},
+"#videoName":{
+	borderStyle: 'Ti.UI.INPUT_BORDERSTYLE_ROUNDED',
+	keyboardType: 'Titanium.UI.KEYBOARD_DEFAULT',
+	returnKeyType: 'Titanium.UI.RETURNKEY_DEFAULT',
+	hintText: 'Video Name',
+	top: '30%',
+	width: '80%',
+	color: '#336699',
+	border: 1,
+	borderColor: '#336699',
+	paddingLeft: 5
+},
+"#bottomModal":{
+	bottom:'10%',
+	left: '5%',
+	width: '40%',
+	height: '20%'
+},
+"#textBottom":{
+	font: {
+	   	fontSize:'12dp',
+	   	fontWeight:'bold'
+		},
+	height:'90%',
+	bottom:'8%',
+	width: '98%',
+	borderRadius: 4,
+	backgroundColor:'#745DA8',
+	color: 'white',
+	textAlign: 'center'	
+}

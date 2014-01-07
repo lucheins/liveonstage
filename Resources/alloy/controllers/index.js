@@ -270,19 +270,44 @@ function Controller() {
     });
     $.upcomingEvents.addEventListener("click", function() {
         if (Ti.App.Properties.getString("user_id") > 0) {
-            var args = {
-                author: Ti.App.Properties.getString("user_id"),
-                authorname: Ti.App.Properties.getString("name"),
-                view: "Events"
-            };
-            var win = Alloy.createController("viewListOfProfile", args).getView();
-        } else var win = Alloy.createController("login").getView();
-        win.fullscreen = false;
-        win.fullscreen = false;
-        win.open({
-            activityEnterAnimation: Ti.Android.R.anim.fade_in,
-            activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+            var dialog = Ti.UI.createAlertDialog({
+                buttonNames: [ "See my videos!", "Go Live Now!" ],
+                message: "What do you want to do?",
+                title: "Go Live!"
+            });
+            dialog.show();
+            dialog.addEventListener("click", function(e) {
+                if (1 == e.index) {
+                    var win = Alloy.createController("modalViewVideoLive").getView();
+                    win.open({
+                        modal: true,
+                        navBarHidden: true,
+                        modalTransitionStyle: Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,
+                        modalStyle: Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN
+                    });
+                } else if (0 == e.index) {
+                    var args = {
+                        author: Ti.App.Properties.getString("user_id"),
+                        authorname: Ti.App.Properties.getString("name"),
+                        view: "Events"
+                    };
+                    var win = Alloy.createController("viewListEventsToLive", args).getView();
+                    win.fullscreen = false;
+                    win.open({
+                        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                        activityExitAnimation: Ti.Android.R.anim.fade_out
+                    });
+                }
+            });
+        } else {
+            var win = Alloy.createController("login").getView();
+            win.fullscreen = false;
+            win.fullscreen = false;
+            win.open({
+                activityEnterAnimation: Ti.Android.R.anim.fade_in,
+                activityExitAnimation: Ti.Android.R.anim.fade_out
+            });
+        }
     });
     $.overlay.setBackgroundGradient({
         type: "linear",

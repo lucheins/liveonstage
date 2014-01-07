@@ -90,7 +90,10 @@ function Controller() {
     $.__views.btnStop.add($.__views.textBottomStop);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var event_id = arguments[0] || {};
+    var args = arguments[0] || {};
+    var event_id = args.event_id;
+    var live_video = args.live_video;
+    var title = args.title;
     $.textBottomStop.backgroundColor = "#D6CAC3";
     $.textBottomStop.color = "#EDE2DD";
     var band = 0;
@@ -143,7 +146,9 @@ function Controller() {
                 tc: Alloy.Globals.USER_MOBILE.toString(),
                 user_id: Ti.App.Properties.getString("user_id"),
                 event_id: event_id,
-                time_user: Ti.App.Properties.getString("timezone")
+                time_user: Ti.App.Properties.getString("timezone"),
+                live: live_video,
+                title: title
             };
             client.send(params);
         }
@@ -164,7 +169,14 @@ function Controller() {
                     proxy.stopStreaming();
                 }
                 $.activity.hide();
-                var win = Alloy.createController("viewEvent", event_id).getView();
+                if (1 == live_video) {
+                    var args = {
+                        author: Ti.App.Properties.getString("user_id"),
+                        authorname: Ti.App.Properties.getString("name"),
+                        view: "Events"
+                    };
+                    var win = Alloy.createController("viewListEventsToLive", args).getView();
+                } else var win = Alloy.createController("viewEvent", event_id).getView();
                 win.fullscreen = false;
                 win.open({
                     activityEnterAnimation: Ti.Android.R.anim.fade_in,

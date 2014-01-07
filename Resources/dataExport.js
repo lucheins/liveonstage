@@ -316,7 +316,12 @@ exports.getListOfProfile = function(activity, table, offsetHome, pageHome, autho
                             var json = this.responseText;
                             var responseLive = JSON.parse(json);
                             if (responseLive.validate > 0) {
-                                var win = Alloy.createController("camera", event_id).getView();
+                                var args = {
+                                    event_id: event_id,
+                                    live_video: 0,
+                                    title: ""
+                                };
+                                var win = Alloy.createController("camera", args).getView();
                                 win.fullscreen = true;
                                 win.open({
                                     activityEnterAnimation: Ti.Android.R.anim.fade_in,
