@@ -371,7 +371,13 @@ exports.getListOfProfile=function(activity, table,offsetHome, pageHome, author, 
 								
 									if(responseLive.validate > 0)
 									{			
-										var win = Alloy.createController('camera',event_id).getView();	
+										//var win = Alloy.createController('camera',event_id).getView();
+										 var args = {
+		                                     event_id: event_id,
+		                                     live_video: 0,
+		                                     title: ""
+		                                 };
+		                                 var win = Alloy.createController("camera", args).getView();	
 										if(Ti.Platform.osname == 'android')
 										{
 											win.fullscreen= true;

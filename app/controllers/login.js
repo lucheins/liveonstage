@@ -4,6 +4,11 @@ var zoneGps = 1;
 var timezoneGpsUTC = '';
 //$.timezoneGps.hide();
 $.load.show(); 
+var dialog = Ti.UI.createAlertDialog({
+         buttonNames: [ "See my videos!", "Go Live Now!" ],
+         message: "What do you want to do?",
+         title: "Go Live!"
+     });
 var actionBar = require('actionBarButtoms'); 
 actionBar.putActionBar($.login,"Login",false,null,$.container,null,false);
 $.username.autocorrect = false;
@@ -38,7 +43,8 @@ $.buttonLogin.addEventListener('click',function(e) {
         	Ti.App.Properties.setString('username', response.username);	
         	Ti.App.Properties.setString('name', response.name);	
         	Ti.App.Properties.setString('timezone', timezone);        	
-        	openWindowsLoginSussess();	        
+        	//openWindowsLoginSussess();
+        	dialog.show();	        
 	    }  
 	    else  
 	    {  
@@ -326,4 +332,16 @@ $.buttonTimezone.addEventListener('click',function(e) {
 	removeHandler();
 });
 
+dialog.addEventListener("click", function(e) {
+         if (1 == e.index) {
+             var win = Alloy.createController("modalViewVideoLive").getView();
+             win.open({
+                 modal: true,
+                 navBarHidden: true,
+                 modalTransitionStyle: Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,
+                 modalStyle: Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN
+             });
+             $.login.close();
+        } else 0 == e.index && openWindowsLoginSussess();
+     });
 
