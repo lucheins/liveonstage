@@ -35,7 +35,7 @@ function Controller() {
         height: "5%",
         backgroundColor: "gray",
         width: "100%",
-        bottom: 0,
+        bottom: "0",
         id: "__alloyId1"
     });
     $.__views.Navigation.add($.__views.__alloyId1);
@@ -44,6 +44,7 @@ function Controller() {
         top: "8%",
         backgroundImage: "/app-cover.jpg",
         left: "-100%",
+        width: "100%",
         id: "banner"
     });
     $.__views.index.add($.__views.banner);
@@ -240,7 +241,7 @@ function Controller() {
         });
         $.Navigation.animate({
             left: 0,
-            top: "0%",
+            top: "1%",
             duration: 250,
             delay: 750,
             curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
@@ -248,7 +249,7 @@ function Controller() {
         });
         $.buttoncontainer.animate({
             left: 0,
-            top: "62%",
+            top: "58%",
             duration: 500,
             curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
             opacity: 1

@@ -41,7 +41,7 @@ $.banner.animate({
 	
 $.Navigation.animate({
 	  left: 0,
-	  top: '0%',
+	  top: '1%',
 	  duration: 250,
 	  delay: 750,
 	  curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
@@ -51,7 +51,7 @@ $.Navigation.animate({
 
 $.buttoncontainer.animate({
 	  left: 0,
-	  top: '62%',
+	  top: '58%',
 	  duration: 500,
 	  curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
 	  opacity: 1.0
