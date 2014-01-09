@@ -1,41 +1,32 @@
 "#modal":{
-	backgroundColor: "#35000000",
-	
+	backgroundColor: "#50000000",	
 },
 "#contentModal":{
 	backgroundColor: 'transparent',
-	height: '30%',
+	height: '40%',
 	width: '80%'
 },
 "#container":{
 	backgroundColor: '#fff',
 	height: '100%',
 	width: '100%',
-	borderRadius: 3
-},
-"#labelModal":{
-	top: '10%',
-	left: '5%',
-	font: {
-	   	fontSize:'14dp',
-	   	fontWeight:'bold'
-	},
-	color: 'black'
+	borderRadius: 5,
+	borderColor: '#78797A',
+	borderWidth: 3
 },
 "#videoName":{
-	borderStyle: 'Ti.UI.INPUT_BORDERSTYLE_ROUNDED',
-	keyboardType: 'Titanium.UI.KEYBOARD_DEFAULT',
-	returnKeyType: 'Titanium.UI.RETURNKEY_DEFAULT',
-	hintText: 'Video Name',
-	top: '30%',
-	width: '80%',
+	hintText: 'Name Your Broadcast',
+	top: '10%',
+	width: '90%',
 	color: '#336699',
-	border: 1,
 	borderColor: '#336699',
-	paddingLeft: 5
+	paddingLeft: 5,
+    font: {
+	   	fontSize:'14dp',
+		}
 },
 "#bottomModal":{
-	bottom:'10%',
+	bottom:'5%',
 	left: '5%',
 	width: '40%',
 	height: '20%'
@@ -52,4 +43,17 @@
 	backgroundColor:'#745DA8',
 	color: 'white',
 	textAlign: 'center'	
+},
+"#description":{
+	hintText: 'Description Your Broadcast',
+	top: '35%',
+	width: '90%',
+	height: '35%',
+	color: '#336699',
+	borderColor: '#336699',
+	paddingLeft: 5,
+	borderStyle:"Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
+	font: {
+	   	fontSize:'14dp'
+		}	
 }

@@ -1,15 +1,40 @@
 
 $.bottomModal.addEventListener('click',function(){
 	
-	if ($.videoName.value != '')  
+	var filter = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\_\-\.\@\/]+$/;
+	var band = 0;	    
+	if($.description.value!= '')
+	{
+		if (filter.test($.description.value))  
+		{ 
+			band = band + 1;  
+		} else {
+				alert("Please enter a valid video description");  
+			}
+	} else {  
+        alert("Video description is required");  
+    } 
+    
+    if ($.videoName.value != '')  
     {  		
-		var filter = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\_\-\.\@\/]+$/;  
 		if (filter.test($.videoName.value))  
 		{  
-		     var args = {       		
+		   band = band + 1;  
+		} else {
+			alert("Please enter a valid video name");  
+		}
+	}else  
+    {  
+        alert("Video name is required");  
+    } 
+    
+    if(band == 2)
+    {
+    	var args = {       		
 				event_id: 0,
 				live_video: 1,
-				title: $.videoName.value
+				title: $.videoName.value,
+				description: $.description.value
 			};        	
 		   		
 			var win = Alloy.createController('camera',args).getView();	
@@ -26,14 +51,6 @@ $.bottomModal.addEventListener('click',function(){
 						win.open({transition:t});
 			}
 			$.modal.close();
-		} else {
-			alert("Please enter a valid video name");  
-		}
-	}else  
-    {  
-        alert("Video name is required");  
-    } 
-	    
-	
+    }
 	
 });

@@ -1,9 +1,10 @@
 <Alloy>
 	<Window id="modal" modal="true">	
 		<View id="contentModal">
-			<View id="container">
-			<Label id="labelModal">Set Video Name:</Label>
+			<View id="container">			
 			<TextField id="videoName" />
+			<TextArea id="description" textAlign="left" />
+			
 			<View id="bottomModal">	
 				<Label id="textBottom">Go Live!</Label>
 			</View>	

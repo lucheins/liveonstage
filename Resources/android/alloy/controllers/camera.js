@@ -94,6 +94,7 @@ function Controller() {
     var event_id = args.event_id;
     var live_video = args.live_video;
     var title = args.title;
+    var description = args.description;
     $.textBottomStop.backgroundColor = "#D6CAC3";
     $.textBottomStop.color = "#EDE2DD";
     var band = 0;
@@ -148,7 +149,8 @@ function Controller() {
                 event_id: event_id,
                 time_user: Ti.App.Properties.getString("timezone"),
                 live: live_video,
-                title: title
+                title: title,
+                description: description
             };
             client.send(params);
         }
