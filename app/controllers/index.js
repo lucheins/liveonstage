@@ -41,7 +41,7 @@ $.banner.animate({
 	
 $.Navigation.animate({
 	  left: 0,
-	  top: '1%',
+	  top: '0%',
 	  duration: 250,
 	  delay: 750,
 	  curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
@@ -51,7 +51,7 @@ $.Navigation.animate({
 
 $.buttoncontainer.animate({
 	  left: 0,
-	  top: '58%',
+	  top: '62%',
 	  duration: 500,
 	  curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
 	  opacity: 1.0
@@ -148,11 +148,17 @@ $.upcomingEvents.addEventListener('click', function (e) {
          } else {
              var win = Alloy.createController("login").getView();
              win.fullscreen = false;
-             win.fullscreen = false;
-             win.open({
-                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                 activityExitAnimation: Ti.Android.R.anim.fade_out
-             });
+                         
+             if(Ti.Platform.osname == 'android')
+			{
+				win.open({
+				        activityEnterAnimation: Ti.Android.R.anim.fade_in,
+				        activityExitAnimation: Ti.Android.R.anim.fade_out
+				    });	
+			} else {
+				var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+				win.open({transition:t});
+			}	
          }
 
 	});

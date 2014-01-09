@@ -4,6 +4,8 @@ var zoneGps = 1;
 var timezoneGpsUTC = '';
 //$.timezoneGps.hide();
 $.load.show(); 
+$.pickTimezone.hide() ;
+
 var dialog = Ti.UI.createAlertDialog({
          buttonNames: [ "See my videos!", "Go Live Now!" ],
          message: "What do you want to do?",
@@ -329,7 +331,9 @@ $.buttonTimezone.addEventListener('click',function(e) {
 	$.timezoneGps.hide();
 	zoneGps = 0;
 	$.load.hide();
-	removeHandler();
+	if (Ti.Platform.osname === 'android'){
+	removeHandler(); }
+	$.pickTimezone.show();
 });
 
 dialog.addEventListener("click", function(e) {

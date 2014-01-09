@@ -3,7 +3,7 @@
 		<View id="contentModal">
 			<View id="container">			
 			<TextField id="videoName" />
-			<TextArea id="description" textAlign="left" />
+			<TextArea id="description" textAlign="left" value="Description" />
 			
 			<View id="bottomModal">	
 				<Label id="textBottom">Go Live!</Label>

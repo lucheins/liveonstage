@@ -54,3 +54,18 @@ $.bottomModal.addEventListener('click',function(){
     }
 	
 });
+
+$.description._hintText = $.description.value;
+
+$.description.addEventListener('focus',function(e){
+    if(e.source.value == e.source._hintText){
+        e.source.value = "";
+        e.source.color = "#336699";
+    }
+});
+$.description.addEventListener('blur',function(e){
+    if(e.source.value==""){
+    	e.source.color = "#c1c1c1";
+        e.source.value = e.source._hintText;
+    }
+});

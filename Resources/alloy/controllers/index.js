@@ -1,5 +1,12 @@
 function Controller() {
     function isIOS7Plus() {
+        var version = Titanium.Platform.version.split(".");
+        var major = parseInt(version[0], 10);
+        if (major >= 7) {
+            $.index.statusBarStyle = Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT;
+            Ti.UI.setBackgroundColor("black");
+            return true;
+        }
         return false;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -17,7 +24,7 @@ function Controller() {
     $.__views.index && $.addTopLevelView($.__views.index);
     $.__views.Navigation = Ti.UI.createView({
         height: "8%",
-        top: "-8%",
+        top: "0%",
         backgroundColor: "#16011e",
         backgroundImage: "/light-diagonal-strips.png",
         backgroundRepeat: true,
@@ -56,19 +63,31 @@ function Controller() {
         id: "gradient"
     });
     $.__views.overlay.add($.__views.gradient);
-    $.__views.__alloyId2 = Ti.UI.createLabel({
-        color: "white",
-        font: {
-            fontSize: "25dp",
-            fontWeight: "bold"
-        },
-        bottom: "5%",
-        left: "4%",
-        width: "92%",
-        textAlign: "center",
-        text: "Promoting your music with live video",
-        id: "__alloyId2"
-    });
+    $.__views.__alloyId2 = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            color: "white",
+            font: {
+                fontSize: "25dp",
+                fontWeight: "bold"
+            },
+            bottom: "5%",
+            left: "4%",
+            width: "92%",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "58dp"
+            }
+        });
+        _.extend(o, {
+            text: "Promoting your music with live video",
+            id: "__alloyId2"
+        });
+        return o;
+    }());
     $.__views.banner.add($.__views.__alloyId2);
     $.__views.buttoncontainer = Ti.UI.createView({
         height: "38%",
@@ -119,30 +138,54 @@ function Controller() {
         id: "__alloyId5"
     });
     $.__views.__alloyId4.add($.__views.__alloyId5);
-    $.__views.__alloyId6 = Ti.UI.createLabel({
-        color: "white",
-        font: {
-            fontWeight: "bold",
-            fontSize: "18dp"
-        },
-        left: "30%",
-        text: "Browse",
-        id: "__alloyId6"
-    });
+    $.__views.__alloyId6 = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            color: "white",
+            font: {
+                fontWeight: "bold",
+                fontSize: "18dp"
+            },
+            left: "30%"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "30dp"
+            }
+        });
+        _.extend(o, {
+            text: "Browse",
+            id: "__alloyId6"
+        });
+        return o;
+    }());
     $.__views.__alloyId4.add($.__views.__alloyId6);
-    $.__views.__alloyId7 = Ti.UI.createLabel({
-        color: "#c2c2c2",
-        font: {
-            fontWeight: "bold",
-            fontSize: "10dp"
-        },
-        bottom: "10%",
-        textAlign: "center",
-        left: "20%",
-        width: "60%",
-        text: "Find live shows, campaigns, artists and more",
-        id: "__alloyId7"
-    });
+    $.__views.__alloyId7 = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            color: "#c2c2c2",
+            font: {
+                fontWeight: "bold",
+                fontSize: "10dp"
+            },
+            bottom: "10%",
+            textAlign: "center",
+            left: "20%",
+            width: "60%"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "22dp"
+            }
+        });
+        _.extend(o, {
+            text: "Find live shows, campaigns, artists and more",
+            id: "__alloyId7"
+        });
+        return o;
+    }());
     $.__views.liveShows.add($.__views.__alloyId7);
     $.__views.bottomButtons = Ti.UI.createView({
         height: "45%",
@@ -176,30 +219,54 @@ function Controller() {
         id: "__alloyId9"
     });
     $.__views.__alloyId8.add($.__views.__alloyId9);
-    $.__views.__alloyId10 = Ti.UI.createLabel({
-        color: "white",
-        font: {
-            fontWeight: "bold",
-            fontSize: "18dp"
-        },
-        left: "30%",
-        text: "Go Live!",
-        id: "__alloyId10"
-    });
+    $.__views.__alloyId10 = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            color: "white",
+            font: {
+                fontWeight: "bold",
+                fontSize: "18dp"
+            },
+            left: "30%"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "30dp"
+            }
+        });
+        _.extend(o, {
+            text: "Go Live!",
+            id: "__alloyId10"
+        });
+        return o;
+    }());
     $.__views.__alloyId8.add($.__views.__alloyId10);
-    $.__views.__alloyId11 = Ti.UI.createLabel({
-        color: "#c2c2c2",
-        font: {
-            fontWeight: "bold",
-            fontSize: "10dp"
-        },
-        bottom: "10%",
-        textAlign: "center",
-        left: "20%",
-        width: "60%",
-        text: "Already have a live show scheduled? Broadcast using this device!",
-        id: "__alloyId11"
-    });
+    $.__views.__alloyId11 = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            color: "#c2c2c2",
+            font: {
+                fontWeight: "bold",
+                fontSize: "10dp"
+            },
+            bottom: "10%",
+            textAlign: "center",
+            left: "20%",
+            width: "60%"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "22dp"
+            }
+        });
+        _.extend(o, {
+            text: "Already have a live show scheduled? Broadcast using this device!",
+            id: "__alloyId11"
+        });
+        return o;
+    }());
     $.__views.upcomingEvents.add($.__views.__alloyId11);
     exports.destroy = function() {};
     _.extend($, $.__views);
@@ -302,11 +369,15 @@ function Controller() {
         } else {
             var win = Alloy.createController("login").getView();
             win.fullscreen = false;
-            win.fullscreen = false;
-            win.open({
+            if ("android" == Ti.Platform.osname) win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            }); else {
+                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                win.open({
+                    transition: t
+                });
+            }
         }
     });
     $.overlay.setBackgroundGradient({

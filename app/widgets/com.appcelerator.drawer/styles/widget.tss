@@ -1,4 +1,4 @@
-{
+
 	"#drawer": {
 		left: 0,
 		right: 0,
@@ -30,4 +30,3 @@
 		backgroundColor: "black",
         layout: "horizontal"        
     }
-}

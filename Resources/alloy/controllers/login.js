@@ -13,10 +13,15 @@ function Controller() {
         };
         var win = Alloy.createController("viewListEventsToLive", args).getView();
         win.fullscreen = false;
-        win.open({
+        if ("android" == Ti.Platform.osname) win.open({
             activityEnterAnimation: Ti.Android.R.anim.fade_in,
             activityExitAnimation: Ti.Android.R.anim.fade_out
-        });
+        }); else {
+            var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+            win.open({
+                transition: t
+            });
+        }
         $.login.close();
     }
     function getTimezone() {
@@ -37,26 +42,33 @@ function Controller() {
     }
     function NavRules() {
         Ti.Geolocation.headingFilter = 10;
-        Ti.Geolocation.Android.manualMode = true;
-        var gpsProvider = Ti.Geolocation.Android.createLocationProvider({
-            name: Ti.Geolocation.PROVIDER_GPS,
-            minUpdateDistance: 0,
-            minUpdateTime: 0
-        });
-        Ti.Geolocation.Android.addLocationProvider(gpsProvider);
-        var networkProvider = Ti.Geolocation.Android.createLocationProvider({
-            name: Ti.Geolocation.PROVIDER_NETWORK,
-            minUpdateTime: 3,
-            minUpdateDistance: 30
-        });
-        Ti.Geolocation.Android.addLocationProvider(networkProvider);
-        var gpsRule = Ti.Geolocation.Android.createLocationRule({
-            provider: Ti.Geolocation.PROVIDER_GPS,
-            accuracy: 500,
-            maxAge: 5e3,
-            minAge: 3e3
-        });
-        Ti.Geolocation.Android.addLocationRule(gpsRule);
+        if ("android" == Ti.Platform.osname) {
+            Ti.Geolocation.Android.manualMode = true;
+            var gpsProvider = Ti.Geolocation.Android.createLocationProvider({
+                name: Ti.Geolocation.PROVIDER_GPS,
+                minUpdateDistance: 0,
+                minUpdateTime: 0
+            });
+            Ti.Geolocation.Android.addLocationProvider(gpsProvider);
+            var networkProvider = Ti.Geolocation.Android.createLocationProvider({
+                name: Ti.Geolocation.PROVIDER_NETWORK,
+                minUpdateTime: 3,
+                minUpdateDistance: 30
+            });
+            Ti.Geolocation.Android.addLocationProvider(networkProvider);
+            var gpsRule = Ti.Geolocation.Android.createLocationRule({
+                provider: Ti.Geolocation.PROVIDER_GPS,
+                accuracy: 500,
+                maxAge: 5e3,
+                minAge: 3e3
+            });
+            Ti.Geolocation.Android.addLocationRule(gpsRule);
+        } else {
+            Ti.Geolocation.distanceFilter = 10;
+            Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;
+            Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
+            Ti.Geolocation.purpose = Ti.Locale.getString("gps_purpose");
+        }
     }
     function getLocation() {
         Titanium.Geolocation.getCurrentPosition(function(e) {
@@ -270,50 +282,84 @@ function Controller() {
         id: "container"
     });
     $.__views.login.add($.__views.container);
-    $.__views.username = Ti.UI.createTextField({
-        borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
-        keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
-        returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
-        color: "#336699",
-        hintText: "Username",
-        top: "2%",
-        width: "80%",
-        height: "10%",
-        left: "10%",
-        border: 1,
-        borderColor: "#c1c1c1",
-        paddingLeft: 5,
-        id: "username"
-    });
+    $.__views.username = Ti.UI.createTextField(function() {
+        var o = {};
+        _.extend(o, {
+            borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
+            keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
+            returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
+            color: "#336699",
+            hintText: "Username",
+            top: "2%",
+            width: "80%",
+            height: "10%",
+            left: "10%",
+            border: 1,
+            borderColor: "#c1c1c1",
+            paddingLeft: 5
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "30dp"
+            }
+        });
+        _.extend(o, {
+            id: "username"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.username);
-    $.__views.password = Ti.UI.createTextField({
-        borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
-        keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
-        returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
-        color: "#336699",
-        hintText: "Password",
-        passwordMask: "true",
-        top: "14%",
-        width: "80%",
-        height: "10%",
-        left: "10%",
-        border: 1,
-        borderColor: "#c1c1c1",
-        paddingLeft: 5,
-        id: "password"
-    });
+    $.__views.password = Ti.UI.createTextField(function() {
+        var o = {};
+        _.extend(o, {
+            borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
+            keyboardType: "Titanium.UI.KEYBOARD_DEFAULT",
+            returnKeyType: "Titanium.UI.RETURNKEY_DEFAULT",
+            color: "#336699",
+            hintText: "Password",
+            passwordMask: "true",
+            top: "14%",
+            width: "80%",
+            height: "10%",
+            left: "10%",
+            border: 1,
+            borderColor: "#c1c1c1",
+            paddingLeft: 5
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "30dp"
+            }
+        });
+        _.extend(o, {
+            id: "password"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.password);
-    $.__views.TimezoneLabel = Ti.UI.createLabel({
-        top: "28%",
-        font: {
-            fontSize: "15dp",
-            fontWeight: "bold"
-        },
-        color: "#c9c9c9",
-        left: "10%",
-        text: "Select your current timezone",
-        id: "TimezoneLabel"
-    });
+    $.__views.TimezoneLabel = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            top: "28%",
+            font: {
+                fontSize: "15dp",
+                fontWeight: "bold"
+            },
+            color: "#c9c9c9",
+            left: "10%"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "22dp"
+            }
+        });
+        _.extend(o, {
+            text: "Select your current timezone",
+            id: "TimezoneLabel"
+        });
+        return o;
+    }());
     $.__views.container.add($.__views.TimezoneLabel);
     var __alloyId12 = [];
     $.__views.pickTimezone = Ti.UI.createPicker({
@@ -677,21 +723,39 @@ function Controller() {
         id: "buttonTimezone"
     });
     $.__views.messageTimezoneAsk.add($.__views.buttonTimezone);
-    $.__views.textBottom = Ti.UI.createLabel({
-        font: {
-            fontSize: "12dp",
-            fontWeight: "bold"
-        },
-        height: "90%",
-        bottom: "8%",
-        width: "98%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        textAlign: "center",
-        text: "Choose",
-        id: "textBottom"
-    });
+    $.__views.textBottom = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "12dp",
+                fontWeight: "bold"
+            },
+            height: "90%",
+            bottom: "8%",
+            width: "98%",
+            borderRadius: 4,
+            backgroundColor: "#745DA8",
+            color: "white",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            }
+        });
+        _.extend(o, {});
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "25dp"
+            }
+        });
+        _.extend(o, {
+            text: "Choose",
+            id: "textBottom"
+        });
+        return o;
+    }());
     $.__views.buttonTimezone.add($.__views.textBottom);
     $.__views.timezoneGps = Ti.UI.createView({
         top: "35%",
@@ -739,21 +803,39 @@ function Controller() {
         id: "buttonLogin"
     });
     $.__views.container.add($.__views.buttonLogin);
-    $.__views.textBottom = Ti.UI.createLabel({
-        font: {
-            fontSize: "12dp",
-            fontWeight: "bold"
-        },
-        height: "90%",
-        bottom: "8%",
-        width: "98%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        textAlign: "center",
-        text: "Login",
-        id: "textBottom"
-    });
+    $.__views.textBottom = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "12dp",
+                fontWeight: "bold"
+            },
+            height: "90%",
+            bottom: "8%",
+            width: "98%",
+            borderRadius: 4,
+            backgroundColor: "#745DA8",
+            color: "white",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            }
+        });
+        _.extend(o, {});
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontWeight: "bold",
+                fontSize: "25dp"
+            }
+        });
+        _.extend(o, {
+            text: "Login",
+            id: "textBottom"
+        });
+        return o;
+    }());
     $.__views.buttonLogin.add($.__views.textBottom);
     exports.destroy = function() {};
     _.extend($, $.__views);
@@ -762,6 +844,7 @@ function Controller() {
     var zoneGps = 1;
     var timezoneGpsUTC = "";
     $.load.show();
+    $.pickTimezone.hide();
     var dialog = Ti.UI.createAlertDialog({
         buttonNames: [ "See my videos!", "Go Live Now!" ],
         message: "What do you want to do?",
@@ -818,34 +901,39 @@ function Controller() {
     });
     var location_coords;
     NavRules();
-    var locationAdded = false;
-    var handleLocation = function(e) {
-        e.error || Ti.API.info(e.coords);
+    if ("android" === Ti.Platform.osname) {
+        var locationAdded = false;
+        var handleLocation = function(e) {
+            e.error || Ti.API.info(e.coords);
+            getLocation();
+        };
+        var addHandler = function() {
+            if (!locationAdded) {
+                Ti.Geolocation.addEventListener("location", handleLocation);
+                locationAdded = true;
+            }
+        };
+        var removeHandler = function() {
+            if (locationAdded) {
+                Ti.Geolocation.removeEventListener("location", handleLocation);
+                locationAdded = false;
+            }
+        };
+        addHandler();
+        var activity = Ti.Android.currentActivity;
+        activity.addEventListener("destroy", removeHandler);
+        activity.addEventListener("pause", removeHandler);
+    } else Ti.Geolocation.addEventListener("location", function() {
         getLocation();
-    };
-    var addHandler = function() {
-        if (!locationAdded) {
-            Ti.Geolocation.addEventListener("location", handleLocation);
-            locationAdded = true;
-        }
-    };
-    var removeHandler = function() {
-        if (locationAdded) {
-            Ti.Geolocation.removeEventListener("location", handleLocation);
-            locationAdded = false;
-        }
-    };
-    addHandler();
-    var activity = Ti.Android.currentActivity;
-    activity.addEventListener("destroy", removeHandler);
-    activity.addEventListener("pause", removeHandler);
+    });
     Ti.Geolocation.locationServicesEnabled || gpsApagado.show();
     $.buttonTimezone.addEventListener("click", function() {
         $.messageTimezoneAsk.hide();
         $.timezoneGps.hide();
         zoneGps = 0;
         $.load.hide();
-        removeHandler();
+        "android" === Ti.Platform.osname && removeHandler();
+        $.pickTimezone.show();
     });
     dialog.addEventListener("click", function(e) {
         if (1 == e.index) {

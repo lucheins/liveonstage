@@ -94,25 +94,28 @@ function Controller() {
     var event_id = args.event_id;
     var live_video = args.live_video;
     var title = args.title;
+    var description = args.description;
     $.textBottomStop.backgroundColor = "#D6CAC3";
     $.textBottomStop.color = "#EDE2DD";
     var band = 0;
     var actionBar = require("actionBarButtoms");
     actionBar.putActionBar($.camera, "Camera", false, null, $.container, null, false);
-    var liveStreaming = require("com.xenn.liveStreaming");
-    var proxy = liveStreaming.createStreaming({
-        message: "Creating an example Proxy",
-        width: "85%",
-        height: "92%",
-        top: "10dp",
-        left: "10dp"
-    });
-    proxy.setUserRtsp(Alloy.Globals.USER_RTSP.toString());
-    proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
-    proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());
-    proxy.setUsernameRtsp(Ti.App.Properties.getString("username").toString());
-    proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
-    $.camera.add(proxy);
+    if ("android" == Ti.Platform.osname) {
+        var liveStreaming = require("com.xenn.liveStreaming");
+        var proxy = liveStreaming.createStreaming({
+            message: "Creating an example Proxy",
+            width: "85%",
+            height: "92%",
+            top: "10dp",
+            left: "10dp"
+        });
+        proxy.setUserRtsp(Alloy.Globals.USER_RTSP.toString());
+        proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
+        proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());
+        proxy.setUsernameRtsp(Ti.App.Properties.getString("username").toString());
+        proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
+        $.camera.add(proxy);
+    } else var streamingLiveIOS = require("com.xenn.finallyIOS");
     var video_id = 0;
     $.btnStart.addEventListener("click", function(e) {
         if (0 == band) {
@@ -127,7 +130,18 @@ function Controller() {
                 var response = JSON.parse(json);
                 if (response.video_id > 0) {
                     video_id = response.video_id;
-                    proxy.startStreaming();
+                    if ("android" === Ti.Platform.osname) proxy.startStreaming(); else {
+                        foo = streamingLiveIOS.createStreamingView({
+                            color: "grey",
+                            width: "85%",
+                            height: "93%",
+                            top: "10dp",
+                            left: "10dp",
+                            streamingName: Ti.App.Properties.getString("username"),
+                            urlServer: Alloy.Globals.URL_RTMP.toString()
+                        });
+                        e.source.parent.parent.add(foo);
+                    }
                     band = 1;
                     $.textBottomStart.backgroundColor = "#D6CAC3";
                     $.textBottomStart.color = "#EDE2DD";
@@ -148,7 +162,8 @@ function Controller() {
                 event_id: event_id,
                 time_user: Ti.App.Properties.getString("timezone"),
                 live: live_video,
-                title: title
+                title: title,
+                description: description
             };
             client.send(params);
         }
@@ -166,7 +181,10 @@ function Controller() {
                 var response = JSON.parse(json);
                 if (response.stop_video) {
                     alert("Video saved");
-                    proxy.stopStreaming();
+                    if ("android" === Ti.Platform.osname) proxy.stopStreaming(); else {
+                        e.source.parent.remove(foo);
+                        foo.cancelar;
+                    }
                 }
                 $.activity.hide();
                 if (1 == live_video) {
@@ -178,10 +196,15 @@ function Controller() {
                     var win = Alloy.createController("viewListEventsToLive", args).getView();
                 } else var win = Alloy.createController("viewEvent", event_id).getView();
                 win.fullscreen = false;
-                win.open({
+                if ("android" == Ti.Platform.osname) win.open({
                     activityEnterAnimation: Ti.Android.R.anim.fade_in,
                     activityExitAnimation: Ti.Android.R.anim.fade_out
-                });
+                }); else {
+                    var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                    win.open({
+                        transition: t
+                    });
+                }
                 $.camera.close();
             };
             client.onerror = function(e) {

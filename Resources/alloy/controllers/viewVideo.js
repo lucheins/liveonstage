@@ -10,8 +10,13 @@ function Controller() {
         var urlEnd = "";
         $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
         $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-        $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
-        url = Alloy.Globals.URL_LIVE;
+        if ("android" == Ti.Platform.osname) {
+            $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+            url = Alloy.Globals.URL_LIVE;
+        } else {
+            $.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+            url = Alloy.Globals.URL_LIVE_IOS;
+        }
         urlEnd = Alloy.Globals.URL_VIDEO_END;
         var name = getName(path);
         url = "vod" == type ? Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + urlEnd : url + name + Alloy.Globals.URL_VIDEO_END;
@@ -24,9 +29,15 @@ function Controller() {
             y = JSON.parse(x).content.video["fmt_stream_map"][0].url;
             vp.url = y;
         };
+        if ("android" != Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko) Version/6.0.1 Safari/536.26.14");
+        }
         vdldr.open("GET", "http://m.youtube.com/watch?ajax=1&feature=related&layout=mobile&tsp=1&&v=" + video_id);
-        vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
-        vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        if ("android" == Ti.Platform.osname) {
+            vdldr.setRequestHeader("Referer", "http://www.youtube.com/watch?v=" + video_id);
+            vdldr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; GT-I9003 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        }
         vdldr.send();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -86,45 +97,84 @@ function Controller() {
         id: "data"
     });
     $.__views.container.add($.__views.data);
-    $.__views.title = Ti.UI.createLabel({
-        font: {
-            fontSize: "14dp",
-            fontWeight: "bold"
-        },
-        height: "50%",
-        left: "0%",
-        top: "2%",
-        color: "#717777",
-        id: "title"
-    });
+    $.__views.title = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "14dp",
+                fontWeight: "bold"
+            },
+            height: "50%",
+            left: "0%",
+            top: "2%",
+            color: "#717777"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "24dp"
+            }
+        });
+        _.extend(o, {});
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "26dp"
+            }
+        });
+        _.extend(o, {
+            id: "title"
+        });
+        return o;
+    }());
     $.__views.data.add($.__views.title);
-    $.__views.author = Ti.UI.createLabel({
-        font: {
-            fontSize: "13dp"
-        },
-        height: "46%",
-        left: "0%",
-        bottom: "2%",
-        color: "#717777",
-        width: "70%",
-        id: "author"
-    });
+    $.__views.author = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "13dp"
+            },
+            height: "46%",
+            left: "0%",
+            bottom: "2%",
+            color: "#717777",
+            width: "70%"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "25dp"
+            }
+        });
+        _.extend(o, {
+            id: "author"
+        });
+        return o;
+    }());
     $.__views.data.add($.__views.author);
-    $.__views.views = Ti.UI.createLabel({
-        font: {
-            fontSize: "13dp",
-            fontWeight: "bold"
-        },
-        height: "30%",
-        right: "0%",
-        bottom: "8%",
-        width: "28%",
-        borderRadius: 4,
-        backgroundColor: "#745DA8",
-        color: "white",
-        textAlign: "center",
-        id: "views"
-    });
+    $.__views.views = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "13dp",
+                fontWeight: "bold"
+            },
+            height: "30%",
+            right: "0%",
+            bottom: "8%",
+            width: "28%",
+            borderRadius: 4,
+            backgroundColor: "#745DA8",
+            color: "white",
+            textAlign: "center"
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "25dp"
+            }
+        });
+        _.extend(o, {
+            id: "views"
+        });
+        return o;
+    }());
     $.__views.data.add($.__views.views);
     $.__views.other = Ti.UI.createView({
         top: "93%",
@@ -134,19 +184,30 @@ function Controller() {
         id: "other"
     });
     $.__views.container.add($.__views.other);
-    $.__views.otherEvents = Ti.UI.createLabel({
-        font: {
-            fontSize: "14dp",
-            fontWeight: "bold"
-        },
-        height: "100%",
-        left: "3%",
-        width: "94%",
-        top: "0%",
-        textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
-        text: "Other videos from this Artist:",
-        id: "otherEvents"
-    });
+    $.__views.otherEvents = Ti.UI.createLabel(function() {
+        var o = {};
+        _.extend(o, {
+            font: {
+                fontSize: "14dp",
+                fontWeight: "bold"
+            },
+            height: "100%",
+            left: "3%",
+            width: "94%",
+            top: "0%",
+            textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+        });
+        Alloy.isTablet && _.extend(o, {
+            font: {
+                fontSize: "26dp"
+            }
+        });
+        _.extend(o, {
+            text: "Other videos from this Artist:",
+            id: "otherEvents"
+        });
+        return o;
+    }());
     $.__views.other.add($.__views.otherEvents);
     $.__views.viewTable = Ti.UI.createView({
         left: "0%",
@@ -211,10 +272,15 @@ function Controller() {
             $.viewVideo.close();
             var win = Alloy.createController("viewVideo", e.source.link).getView();
             win.fullscreen = false;
-            win.open({
+            if ("android" == Ti.Platform.osname) win.open({
                 activityEnterAnimation: Ti.Android.R.anim.fade_in,
                 activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            }); else {
+                var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                win.open({
+                    transition: t
+                });
+            }
         } else {
             var index = $.table.getIndexByName("rowMore");
             if (index > 0) {

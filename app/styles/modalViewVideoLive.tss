@@ -19,11 +19,12 @@
 	top: '10%',
 	width: '90%',
 	color: '#336699',
-	borderColor: '#336699',
+	borderColor: '#c1c1c1',
 	paddingLeft: 5,
     font: {
 	   	fontSize:'14dp',
-		}
+		},
+	height: '15%',
 },
 "#bottomModal":{
 	bottom:'5%',
@@ -45,12 +46,12 @@
 	textAlign: 'center'	
 },
 "#description":{
-	hintText: 'Description Your Broadcast',
+	
 	top: '35%',
 	width: '90%',
 	height: '35%',
-	color: '#336699',
-	borderColor: '#336699',
+	color: '#c1c1c1',
+	borderColor: '#c1c1c1',
 	paddingLeft: 5,
 	borderStyle:"Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
 	font: {
