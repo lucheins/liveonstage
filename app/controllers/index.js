@@ -39,9 +39,17 @@ $.banner.animate({
 	  opacity: 1.0
 	});
 	
+	var top = '62%';
+	var top1 = '0%';
+	 if(Ti.Platform.osname == 'android')
+	{
+		top = '58%';
+		top1 = '1%';
+	}
+	
 $.Navigation.animate({
 	  left: 0,
-	  top: '0%',
+	  top: top1,
 	  duration: 250,
 	  delay: 750,
 	  curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
@@ -51,7 +59,7 @@ $.Navigation.animate({
 
 $.buttoncontainer.animate({
 	  left: 0,
-	  top: '62%',
+	  top: top,
 	  duration: 500,
 	  curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
 	  opacity: 1.0
