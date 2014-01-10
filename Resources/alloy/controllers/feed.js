@@ -504,8 +504,7 @@ function Controller() {
     $.current.text = "LiveOnStage";
     $.backArrow.add(backArrow);
     $.actionIos.addEventListener("click", function() {
-        var back = Alloy.createController("index").getView();
-        back.open();
+        $.feedWin.close();
     });
     1 == activeTab && data.getListItems($.activity, live, 0, 0, categoryId, 0, 0, "Videos");
     if (2 == activeTab) {

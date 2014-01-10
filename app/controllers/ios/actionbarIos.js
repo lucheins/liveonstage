@@ -12,9 +12,9 @@ function closeView (){
 		var win = Alloy.createController('feed', 1).getView();
 		var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
 		win.open({transition:t});
-	} else {		
+	} //else {		
 		args.ventana.close();	
-	}
+	//}
 }
 var backArrow = Ti.UI.createLabel({
   color:'Gray',

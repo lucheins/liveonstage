@@ -82,7 +82,7 @@ exports.putActionBar=function(currentWindow, title, isFeed, vp, container, activ
 	var theTop = iOS7 ? 20 : 0;
 	currentWindow.top = theTop;
 	// END STATUS BAR FIX
-		
+	
 		container.top = '9%';
 		container.height = '91%';	
 	var args = {

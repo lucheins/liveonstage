@@ -59,9 +59,9 @@ $.current.text = 'LiveOnStage';
 $.backArrow.add(backArrow);
 
 $.actionIos.addEventListener("click",function(e){
-    var back = Alloy.createController('index').getView();
-  	back.open();
-	
+   // var back = Alloy.createController('index').getView();
+  //	back.open();
+	$.feedWin.close();
 });
 
 

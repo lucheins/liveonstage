@@ -7,9 +7,9 @@ $.load.show();
 $.pickTimezone.hide() ;
 
 var dialog = Ti.UI.createAlertDialog({
-         buttonNames: [ "See my videos!", "Go Live Now!" ],
+         buttonNames: [ "Go to My Events", "Go Live Now" ],
          message: "What do you want to do?",
-         title: "Go Live!"
+         title: "Login successful!"
      });
 var actionBar = require('actionBarButtoms'); 
 actionBar.putActionBar($.login,"Login",false,null,$.container,null,false);
@@ -184,14 +184,14 @@ if(Ti.Platform.osname  ==  'android') {
 }//END NavRules
 
 var gpsApagado = Ti.UI.createAlertDialog({
-	title: 'GPS Limitada',
-	message: 'Activa el GPS para poder utilizar el servicio de mapas',
+	title: 'GPS Unavailable',
+	message: 'Turn on the GPS to be able to use the map function',
     ok: 'OK'
 });
 
 var gpsLow = Ti.UI.createAlertDialog({
-	title: 'Buscando GPS',
-	message: 'Utiliza la app en tu auto o sal a un espacio abierto',
+	title: 'Searching for GPS',
+	message: 'Try going outside to get GPS signal',
     ok: 'OK'
 });
 

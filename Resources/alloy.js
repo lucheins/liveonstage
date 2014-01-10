@@ -223,7 +223,7 @@ exports.createCollection = function(name, args) {
 };
 
 exports.isTablet = function() {
-    return false;
+    return "ipad" === Ti.Platform.osname;
 }();
 
 exports.isHandheld = !exports.isTablet;

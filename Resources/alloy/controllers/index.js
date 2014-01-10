@@ -305,9 +305,15 @@ function Controller() {
             curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
             opacity: 1
         });
+        var top = "62%";
+        var top1 = "0%";
+        if ("android" == Ti.Platform.osname) {
+            top = "58%";
+            top1 = "1%";
+        }
         $.Navigation.animate({
             left: 0,
-            top: "0%",
+            top: top1,
             duration: 250,
             delay: 750,
             curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
@@ -315,7 +321,7 @@ function Controller() {
         });
         $.buttoncontainer.animate({
             left: 0,
-            top: "62%",
+            top: top,
             duration: 500,
             curve: Titanium.UI.ANIMATION_CURVE_EASE_IN,
             opacity: 1
@@ -338,7 +344,7 @@ function Controller() {
     $.upcomingEvents.addEventListener("click", function() {
         if (Ti.App.Properties.getString("user_id") > 0) {
             var dialog = Ti.UI.createAlertDialog({
-                buttonNames: [ "See my videos!", "Go Live Now!" ],
+                buttonNames: [ "Go to My Events", "Go Live Now" ],
                 message: "What do you want to do?",
                 title: "Go Live!"
             });
@@ -360,10 +366,15 @@ function Controller() {
                     };
                     var win = Alloy.createController("viewListEventsToLive", args).getView();
                     win.fullscreen = false;
-                    win.open({
+                    if ("android" == Ti.Platform.osname) win.open({
                         activityEnterAnimation: Ti.Android.R.anim.fade_in,
                         activityExitAnimation: Ti.Android.R.anim.fade_out
-                    });
+                    }); else {
+                        var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+                        win.open({
+                            transition: t
+                        });
+                    }
                 }
             });
         } else {

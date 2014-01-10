@@ -125,7 +125,7 @@ $.upcomingEvents.addEventListener('click', function (e) {
 	if(Ti.App.Properties.getString('user_id') > 0)
 	{
 		var dialog = Ti.UI.createAlertDialog({
-                 buttonNames: [ "See my videos!", "Go Live Now!" ],
+                 buttonNames: [ "Go to My Events", "Go Live Now" ],
                  message: "What do you want to do?",
                  title: "Go Live!"
              });
@@ -147,10 +147,18 @@ $.upcomingEvents.addEventListener('click', function (e) {
                      };
                      var win = Alloy.createController("viewListEventsToLive", args).getView();
                      win.fullscreen = false;
-                     win.open({
-                        activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                         activityExitAnimation: Ti.Android.R.anim.fade_out
-                     });
+					if(Ti.Platform.osname == 'android')
+					{
+						win.open({
+							activityEnterAnimation: Ti.Android.R.anim.fade_in,
+							activityExitAnimation: Ti.Android.R.anim.fade_out
+						});	
+					} else {
+						var t = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+						win.open({transition:t});
+					}	                     
+
+
                  }
              });
          } else {
