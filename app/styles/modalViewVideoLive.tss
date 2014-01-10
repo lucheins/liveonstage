@@ -24,7 +24,7 @@
     font: {
 	   	fontSize:'14dp',
 		},
-	height: '15%',
+	height: '18%',
 },
 "#bottomModal":{
 	bottom:'5%',
