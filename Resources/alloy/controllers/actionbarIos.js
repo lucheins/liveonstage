@@ -53,11 +53,14 @@ function Controller() {
         width: "12%",
         height: "90%",
         top: "5%",
-        backgroundImage: "/Icon-Small.png",
-        backgroundRepeat: false,
         id: "iconSmall"
     });
     $.__views.actionIos.add($.__views.iconSmall);
+    $.__views.image = Ti.UI.createImageView({
+        id: "image",
+        image: "/Icon-Small.png"
+    });
+    $.__views.iconSmall.add($.__views.image);
     $.__views.current = Ti.UI.createLabel(function() {
         var o = {};
         _.extend(o, {

@@ -5,7 +5,9 @@
     	<View id="Navigation">
     		<View id="actionIos">
 	    		<Label id="backArrow"/>
-	    		<View id="iconSmall"/>
+	    		<View id="iconSmall">
+	    			<ImageView id="image" image="/Icon-Small.png" />
+	    		</View>
     		</View>
     		<Label id="current"/>
     		<View class="navigationBottomBorder"/>
@@ -58,3 +60,4 @@
     </Window>
    
 </Alloy>
+

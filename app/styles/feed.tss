@@ -24,7 +24,7 @@
 	left: '0%'
 	},
 "#scrollableView": {
-	height: '80%',
+	height: '81%',
 	top: '19%'
 	},
 "#NavContainer": {
@@ -126,8 +126,8 @@
 	width: '12%',
 	height: '90%',
 	top: '5%',
-	backgroundImage:'/Icon-Small.png',
-	backgroundRepeat: false
+	//backgroundImage:'/Icon-Small.png',
+	//backgroundRepeat: false
 },
 "#current[platform=ios formFactor=tablet]": { 
     font: {
