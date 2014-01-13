@@ -10,7 +10,7 @@
 	bottom: '0%'
 	},
 "#Navigation":{
-	height: '9%',
+	height: '8%',
 	top: '0%',
 	backgroundColor: '#f2f2f2',
 	backgroundImage: '/light-diagonal-strips.png',
@@ -40,5 +40,12 @@
     font: {
 		fontSize: '30dp'
 	},
+},
+"#bottomLogin":{
+	top:'14%',
+	right: '5dp',
+	width: '20%',
+	height: '80%',
+	zIndex: 100
 }
 

@@ -35,7 +35,7 @@ function Controller() {
     });
     $.__views.feedWin && $.addTopLevelView($.__views.feedWin);
     $.__views.Navigation = Ti.UI.createView({
-        height: "9%",
+        height: "8%",
         top: "0%",
         backgroundColor: "#f2f2f2",
         backgroundImage: "/light-diagonal-strips.png",
@@ -71,7 +71,9 @@ function Controller() {
     $.__views.actionIos.add($.__views.iconSmall);
     $.__views.current = Ti.UI.createLabel(function() {
         var o = {};
-        _.extend(o, {});
+        _.extend(o, {
+            left: "19%"
+        });
         Alloy.isTablet && _.extend(o, {
             font: {
                 fontSize: "30dp"
@@ -84,10 +86,10 @@ function Controller() {
     }());
     $.__views.Navigation.add($.__views.current);
     $.__views.__alloyId67 = Ti.UI.createView({
-        height: "5%",
-        backgroundColor: "#d0d0d0",
+        height: "2%",
+        backgroundColor: "#c6c6c6",
         width: "100%",
-        bottom: 0,
+        bottom: "0%",
         id: "__alloyId67"
     });
     $.__views.Navigation.add($.__views.__alloyId67);
@@ -129,7 +131,7 @@ function Controller() {
     $.__views.bottomLogin.add($.__views.textBottom);
     $.__views.topNav = Ti.UI.createScrollView({
         height: "11%",
-        top: "9%",
+        top: "8%",
         width: "100%",
         left: "0%",
         id: "topNav",
@@ -464,7 +466,7 @@ function Controller() {
     $.__views.artistsScreen.add($.__views.activity);
     $.__views.scrollableView = Ti.UI.createScrollableView({
         height: "80%",
-        top: "20%",
+        top: "19%",
         views: __alloyId78,
         id: "scrollableView"
     });

@@ -40,7 +40,7 @@ function Controller() {
         font: {
             fontSize: "14dp"
         },
-        height: "15%",
+        height: "18%",
         id: "videoName"
     });
     $.__views.container.add($.__views.videoName);
