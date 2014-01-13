@@ -210,6 +210,7 @@ function Controller() {
     Ti.App.Properties.setString("username", null);
     Ti.App.Properties.setString("timezone", null);
     Ti.App.Properties.setString("name", null);
+    $.index.exitOnClose = true;
     $.index.addEventListener("open", function() {
         var matrix = Ti.UI.create2DMatrix();
         matrix = matrix.scale(1.1, 1);
