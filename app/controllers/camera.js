@@ -12,7 +12,7 @@ var band = 0;
 
 var actionBar = require('actionBarButtoms'); 
 actionBar.putActionBar($.camera,"Camera",false,null,$.container,null,false);
-
+var type = 0;
 if (Ti.Platform.osname == 'android'){
 var liveStreaming = require('com.xenn.liveStreaming');
 	var proxy = liveStreaming.createStreaming({
@@ -25,12 +25,13 @@ var liveStreaming = require('com.xenn.liveStreaming');
 	
 proxy.setUserRtsp(Alloy.Globals.USER_RTSP.toString());
 proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
-proxy.setUrlRtsp(Alloy.Globals.URL_RTSP.toString());	
+	
 proxy.setUsernameRtsp(Ti.App.Properties.getString('username').toString());
 proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
 $.camera.add(proxy);
 } else {	
 var streamingLiveIOS = require('com.xenn.finallyIOS');
+type = 1;
 }
 
 var video_id = 0;
@@ -38,6 +39,11 @@ var video_id = 0;
 $.btnStart.addEventListener('click', function(e) {
 	if(band == 0)
 	{
+		$.textBottomStart.backgroundColor = '#D6CAC3';
+		$.textBottomStart.color = "#EDE2DD";	
+		$.textBottomStop.backgroundColor = '#745DA8';
+		$.textBottomStop.color = "white";	
+		
 		var client = Ti.Network.createHTTPClient();
 		var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
 		client.open('POST',url);
@@ -52,6 +58,7 @@ $.btnStart.addEventListener('click', function(e) {
 				video_id = response.video_id;
 				
 				if (Ti.Platform.osname === 'android') {
+					proxy.setUrlRtsp(response.url);
 					proxy.startStreaming();
 				} else {
 					foo = streamingLiveIOS.createStreamingView({
@@ -61,15 +68,11 @@ $.btnStart.addEventListener('click', function(e) {
 						  top: '10dp',
 						  left:'10dp',
 						  streamingName: Ti.App.Properties.getString('username'),
-						  urlServer: Alloy.Globals.URL_RTMP.toString()		  
+						  urlServer: response.url		  
 					});		
 					e.source.parent.parent.add(foo);
 				}		
-				band = 1;
-				$.textBottomStart.backgroundColor = '#D6CAC3';
-				$.textBottomStart.color = "#EDE2DD";	
-				$.textBottomStop.backgroundColor = '#745DA8';
-				$.textBottomStop.color = "white";				
+				band = 1;							
 	
 			} else {
 				if(response.video_id == -1)
@@ -83,6 +86,12 @@ $.btnStart.addEventListener('click', function(e) {
 						alert('The start date is not in the allowed range');
 					}
 				}
+				
+				$.textBottomStart.backgroundColor = '#745DA8';
+				$.textBottomStart.color = "white";	
+				$.textBottomStop.backgroundColor = '#D6CAC3';
+				$.textBottomStop.color = "#EDE2DD";	
+				
 				$.camera.close();
 			}		    
 			$.activity.hide(); 
@@ -96,7 +105,8 @@ $.btnStart.addEventListener('click', function(e) {
 			time_user: Ti.App.Properties.getString("timezone"),
             live: live_video,
             title: title,
-            description: description
+            description: description,
+            type: type
 		};
 		client.send(params);  
 	
@@ -107,7 +117,10 @@ $.btnStart.addEventListener('click', function(e) {
 $.btnStop.addEventListener('click', function(e) {
 	// cambiar tipo al video y abrir el evento
 	if(band == 1)
-	{	var client = Ti.Network.createHTTPClient();
+	{	
+		$.textBottomStop.backgroundColor = '#D6CAC3';
+		$.textBottomStop.color = "#EDE2DD";	
+		var client = Ti.Network.createHTTPClient();
 		var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_STOP_STREAMING;
 		client.open('POST',url);
 		client.ondatastream = function(e){

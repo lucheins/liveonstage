@@ -30,10 +30,17 @@ client.onload = function(){
 	var json = this.responseText;
 	var responses = JSON.parse(json);
 	var url ='';
+	
 	if(responses.type == 'vod' || responses.type == 'live')
 	{
-		url = getPathVideo(responses.type, responses.path);
-		$.vp.url = url;
+		$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
+		$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;	
+		if (Ti.Platform.osname == 'android'){
+			$.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;		
+		} else {
+			$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+		}	
+		$.vp.url = responses.path;
 	} else {
 		if(responses.type == '' || responses.type == null)
 	    {
@@ -94,44 +101,6 @@ var params = {
 };
 client.send(params);
 
-function getName(name)
-{
-	var names = name.split('_');	
-	name = names[0] + '_' + Alloy.Globals.RESOLUCION_VIDEO;
-	if(names[1] != null)
-	{
-		name = name + '_' + names[1];
-	}
-	return name;
-}
-
-function getPathVideo(type,path)
-{
-	
-	var url = ''; 
-	var urlEnd = ''; 
-	$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
-	$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-	
-	if (Ti.Platform.osname == 'android'){
-		$.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
-		url = Alloy.Globals.URL_LIVE; 
-	}
-	else {
-		$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
-		url = Alloy.Globals.URL_LIVE_IOS; 
-	}
-	urlEnd = Alloy.Globals.URL_VIDEO_END; 
-	var name = getName(path);	
-	if(type == 'vod')
-	{
-		url = Alloy.Globals.URL_VOD + name + Alloy.Globals.URL_VOD_END + urlEnd;
-	} else {
-		url = url + name + Alloy.Globals.URL_VIDEO_END;
-	}
-	
-	return url;	 
-}
 function getUrlYoutube(video_id, vp)
 {
 	vdldr = Ti.Network.createHTTPClient();

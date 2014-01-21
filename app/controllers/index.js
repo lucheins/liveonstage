@@ -47,7 +47,7 @@ $.banner.animate({
 	var top1 = '0%';
 	 if(Ti.Platform.osname == 'android')
 	{
-		top = '58%';
+		top = '57%';
 		top1 = '1%';
 	}
 	
