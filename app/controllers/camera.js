@@ -26,8 +26,7 @@ var liveStreaming = require('com.xenn.liveStreaming');
 proxy.setUserRtsp(Alloy.Globals.USER_RTSP.toString());
 proxy.setPasswordRtsp(Alloy.Globals.USER_PASSWORD_RTSP.toString());
 	
-proxy.setUsernameRtsp(Ti.App.Properties.getString('username').toString());
-proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
+
 $.camera.add(proxy);
 } else {	
 var streamingLiveIOS = require('com.xenn.finallyIOS');
@@ -59,6 +58,8 @@ $.btnStart.addEventListener('click', function(e) {
 				
 				if (Ti.Platform.osname === 'android') {
 					proxy.setUrlRtsp(response.url);
+					proxy.setUsernameRtsp(Ti.App.Properties.getString('username').toString());
+					proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
 					proxy.startStreaming();
 				} else {
 					foo = streamingLiveIOS.createStreamingView({
