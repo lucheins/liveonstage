@@ -57,10 +57,35 @@ function Controller() {
         id: "image"
     });
     $.__views.rowListItems.add($.__views.image);
+    $.__views.live = Ti.UI.createLabel({
+        font: {
+            fontSize: "10dp",
+            fontWeight: "bold"
+        },
+        borderRadius: 4,
+        backgroundColor: "#e4473e",
+        color: "white",
+        textAlign: "center",
+        left: "3%",
+        top: "11%",
+        height: "20%",
+        width: "10%",
+        text: "Live",
+        id: "live"
+    });
+    $.__views.rowListItems.add($.__views.live);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
     var text = args.title || "";
+    var type = args.type || "vod";
+    $.live.hide();
+    $.live.visible = false;
+    if ("live" == type) {
+        $.live.show();
+        $.live.visible = true;
+        $.live.link = args.link;
+    }
     text.length > Alloy.Globals.TITLE_SIZE && (text = text.substring(0, Alloy.Globals.TITLE_SIZE - 2) + "...");
     $.title.text = text;
     $.title.link = args.link;

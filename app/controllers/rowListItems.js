@@ -1,5 +1,16 @@
 var args = arguments[0] || {};
 var text = args.title || '';
+var type = args.type || 'vod';
+
+$.live.hide();
+$.live.visible = false;
+
+if(type == 'live')
+{	
+	$.live.show();
+	$.live.visible = true;
+	$.live.link = args.link;
+}
 
 if(text.length > Alloy.Globals.TITLE_SIZE)
 {

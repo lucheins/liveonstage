@@ -112,6 +112,7 @@ exports.getListItems=function(activity, table,offsetHome, pageHome, category, au
 		var responses = JSON.parse(this.responseText);
 		var more = false;
 		for (var i=0; i < responses.length; i++) {	
+			//alert(responses[i]);
 		        if(responses[i].title != 'more')
 		        {
 		        	 var args = {
@@ -121,7 +122,8 @@ exports.getListItems=function(activity, table,offsetHome, pageHome, category, au
 	        			page: name,
 	        			title: responses[i].title,	        			
 	        			message: responses[i].message,
-	        			image: responses[i].image	        			
+	        			image: responses[i].image,
+	        			type: responses[i].type	        			
 		      		};
 			        var row = Alloy.createController('rowListItems',args).getView(); 	
 		        } else {
