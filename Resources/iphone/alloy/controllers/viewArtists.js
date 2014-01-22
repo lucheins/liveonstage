@@ -124,6 +124,7 @@ function Controller() {
     $.__views.views = Ti.UI.createLabel(function() {
         var o = {};
         _.extend(o, {
+            top: "55%",
             font: {
                 fontSize: "11dp"
             },
@@ -144,6 +145,7 @@ function Controller() {
     $.__views.videos = Ti.UI.createLabel(function() {
         var o = {};
         _.extend(o, {
+            top: "75%",
             font: {
                 fontSize: "11dp"
             },
@@ -320,8 +322,6 @@ function Controller() {
         $.videoinfo.remove($.progressBar);
         $.videos.text = args.videos + " videos published.";
         $.views.text = args.views + " profile views";
-        $.videos.top = top;
-        $.views.top = top + topPlus;
     }
     $.videocover.addEventListener("click", function() {
         var args1 = {

@@ -98,7 +98,8 @@ exports.getListItems = function(activity, table, offsetHome, pageHome, category,
                     page: name,
                     title: responses[i].title,
                     message: responses[i].message,
-                    image: responses[i].image
+                    image: responses[i].image,
+                    type: responses[i].type
                 };
                 var row = Alloy.createController("rowListItems", args).getView();
             } else {

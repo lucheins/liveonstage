@@ -118,6 +118,7 @@
 	},
 "#videos":
 {
+	top: '75%',
 	font:{fontSize:'11dp'},
 	color: 'gray',
 	left: '3%'
@@ -129,6 +130,7 @@
 	},
 "#views":
 {
+	top: '55%',
 	font:{fontSize:'11dp'},
 	color: 'gray',
 	left: '3%'

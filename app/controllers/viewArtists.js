@@ -66,8 +66,7 @@ if (args.campaing != null)
 	$.videoinfo.remove($.progressBar);
 	$.videos.text = args.videos + ' videos published.';	
 	$.views.text = args.views + ' profile views';
-	$.videos.top = top;
-	$.views.top = top + topPlus;	
+	
 }
 
 
