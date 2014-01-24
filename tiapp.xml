@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <id>com.xenn.liveonstage</id>
+    <id>com.liveonstage.liveonstage</id>
     <name>LiveOnStage</name>
     <version>1.0.2</version>
     <publisher>Xenn Marketing</publisher>
@@ -30,11 +30,9 @@
     </iphone>
     <property name="ti.android.fastdev" type="bool">false</property>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        
         <manifest android:installLocation="auto">
             <uses-sdk android:maxSdkVersion="19"
                 android:minSdkVersion="14" android:targetSdkVersion="18"/>
-                
             <application android:theme="@style/Theme.Liveonbar"/>
         </manifest>
     </android>
