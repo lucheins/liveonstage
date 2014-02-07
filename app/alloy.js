@@ -15,6 +15,7 @@ Alloy.Globals.DOMAIN = 'http://www.liveonstage.com/';
 Alloy.Globals.URL_BASE = 'index.php?option=com_mobile';
 Alloy.Globals.URL_VIDEO = 'index.php?option=com_mobile&task=video';
 Alloy.Globals.URL_PROFILE = 'index.php?option=com_mobile&task=profile';
+Alloy.Globals.URL_REGISTER_ACCEPT = 'index.php?option=com_mobile&task=registerAcceptTerms';
 Alloy.Globals.URL_EVENT = 'index.php?option=com_mobile&task=event';
 Alloy.Globals.URL_CAMPAIGN = 'index.php?option=com_mobile&task=campaign';
 Alloy.Globals.URL_CATEGORIES = 'index.php?option=com_mobile&task=categories';
@@ -32,6 +33,8 @@ Alloy.Globals.USER_MOBILE = Ti.Utils.base64encode(Alloy.Globals.USER + '-' + All
 Alloy.Globals.TITLE_SIZE = 30;
 Alloy.Globals.DESCRIPTION_SIZE = 160;
 Alloy.Globals.ABOUT = 100;
+Alloy.Globals.TITLE_LIST = 40;
+Alloy.Globals.TITLE_VIEW = 80;
 Alloy.Globals.CONNECTION_ERROR = 'You must be connected to the internet to be able to see this. Please connect and try again!';
 Alloy.Globals.USER_RTSP = 'liveon';
 Alloy.Globals.USER_PASSWORD_RTSP = 'NewLive1M';

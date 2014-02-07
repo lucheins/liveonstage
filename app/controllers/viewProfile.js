@@ -31,19 +31,9 @@ client.onload = function(){
 	var responses = JSON.parse(json);
 	var url ='';
 	
-	if(responses.type == 'vod' || responses.type == 'live')
+	if(responses.type == '' || responses.type == null)
 	{
-		$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
-		$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;	
-		if (Ti.Platform.osname == 'android'){
-			$.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;		
-		} else {
-			$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
-		}	
-		$.vp.url = responses.path;
-	} else {
-		if(responses.type == '' || responses.type == null)
-	    {
+		$.reportView.hide();
 	    	var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;
 			if(responses.avatar.length > 0)
 			{
@@ -55,11 +45,33 @@ client.onload = function(){
 			}
 
 	    	$.cover.image = imageLink;
-	    } else {
-	    	url = getUrlYoutube(responses.video_id, $.vp);
-	    }
+
+	} else {
+
+		if(responses.type == 'vod' || responses.type == 'live')
+		{
+			$.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
+			$.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;	
+			if (Ti.Platform.osname == 'android'){
+				$.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;		
+			} else {
+				$.vp.mediaControlStyle = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+			}	
+			$.vp.url = responses.path;
+		} else {
+			url = getUrlYoutube(responses.video_id, $.vp);
+		}		
+		$.data.top = '66%';
+		$.links.top = '88%';
 	}
-	$.author.text = responses.name;
+	
+	var name1 = responses.name;
+	if(name1.length > Alloy.Globals.TITLE_VIEW)
+	{
+		name1 = name1.substring(0,Alloy.Globals.TITLE_VIEW - 2) + '...';			
+	}
+	
+	$.author.text = name1;
 	$.videos.text = responses.num_videos + ' videos published.';
 	$.views.text = responses.view + ' profile views';	
 	$.activity.hide(); 

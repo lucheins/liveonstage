@@ -122,8 +122,9 @@ function acctionLogin(currentWin, vp)
 			vp.release();
 			vp = null;
 		}	                    
-		currentWin.close();	
-	}								
+			
+	}	
+	currentWin.close();							
 	win.fullscreen= false;	
 	if(Ti.Platform.osname == 'android')
 	{

@@ -68,6 +68,31 @@ function Controller() {
         id: "cover"
     });
     $.__views.container.add($.__views.cover);
+    $.__views.reportView = Ti.UI.createView({
+        top: "62%",
+        left: "3%",
+        width: "94%",
+        height: "5%",
+        id: "reportView"
+    });
+    $.__views.container.add($.__views.reportView);
+    $.__views.report = Ti.UI.createLabel({
+        font: {
+            fontSize: "13dp",
+            fontWeight: "bold"
+        },
+        height: "90%",
+        width: "25%",
+        borderRadius: 4,
+        top: "0%",
+        right: "0%",
+        backgroundColor: "#e4473e",
+        color: "white",
+        textAlign: "center",
+        text: "Report",
+        id: "report"
+    });
+    $.__views.reportView.add($.__views.report);
     $.__views.data = Ti.UI.createView({
         top: "61%",
         height: "21%",
@@ -211,20 +236,27 @@ function Controller() {
         var json = this.responseText;
         var responses = JSON.parse(json);
         var url = "";
-        if ("vod" == responses.type || "live" == responses.type) {
-            $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
-            $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-            $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
-            $.vp.url = responses.path;
-        } else if ("" == responses.type || null == responses.type) {
+        if ("" == responses.type || null == responses.type) {
+            $.reportView.hide();
             var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;
             if (responses.avatar.length > 0) {
                 imageLink = responses.avatar;
                 "http" != imageLink.substring(0, 4) && (imageLink = Alloy.Globals.DOMAIN + imageLink);
             }
             $.cover.image = imageLink;
-        } else url = getUrlYoutube(responses.video_id, $.vp);
-        $.author.text = responses.name;
+        } else {
+            if ("vod" == responses.type || "live" == responses.type) {
+                $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
+                $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
+                $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+                $.vp.url = responses.path;
+            } else url = getUrlYoutube(responses.video_id, $.vp);
+            $.data.top = "66%";
+            $.links.top = "88%";
+        }
+        var name1 = responses.name;
+        name1.length > Alloy.Globals.TITLE_VIEW && (name1 = name1.substring(0, Alloy.Globals.TITLE_VIEW - 2) + "...");
+        $.author.text = name1;
         $.videos.text = responses.num_videos + " videos published.";
         $.views.text = responses.view + " profile views";
         $.activity.hide();

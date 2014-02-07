@@ -12,8 +12,8 @@ function acctionLogin(currentWin, vp) {
             vp.release();
             vp = null;
         }
-        currentWin.close();
     }
+    currentWin.close();
     win.fullscreen = false;
     win.open({
         activityEnterAnimation: Ti.Android.R.anim.fade_in,

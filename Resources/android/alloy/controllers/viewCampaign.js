@@ -74,6 +74,31 @@ function Controller() {
         id: "cover"
     });
     $.__views.fixed.add($.__views.cover);
+    $.__views.reportView = Ti.UI.createView({
+        top: "52%",
+        left: "3%",
+        width: "94%",
+        height: "5%",
+        id: "reportView"
+    });
+    $.__views.fixed.add($.__views.reportView);
+    $.__views.report = Ti.UI.createLabel({
+        font: {
+            fontSize: "13dp",
+            fontWeight: "bold"
+        },
+        height: "90%",
+        width: "25%",
+        borderRadius: 4,
+        top: "5%",
+        right: "0%",
+        backgroundColor: "#e4473e",
+        color: "white",
+        textAlign: "center",
+        text: "Report",
+        id: "report"
+    });
+    $.__views.reportView.add($.__views.report);
     $.__views.data = Ti.UI.createView({
         top: "52%",
         height: "48%",
@@ -84,7 +109,7 @@ function Controller() {
         top: "0%",
         left: "3%",
         width: "94%",
-        height: "26%",
+        height: "30%",
         id: "meta"
     });
     $.__views.data.add($.__views.meta);
@@ -117,8 +142,8 @@ function Controller() {
             fontSize: "13dp",
             fontWeight: "bold"
         },
-        height: "40%",
-        width: "30%",
+        height: "30%",
+        width: "25%",
         borderRadius: 4,
         right: "0%",
         bottom: "3%",
@@ -129,8 +154,8 @@ function Controller() {
     });
     $.__views.meta.add($.__views.categoryName);
     $.__views.content = Ti.UI.createView({
-        top: "28%",
-        height: "44%",
+        top: "30%",
+        height: "40%",
         backgroundColor: "#f0f0f0",
         id: "content"
     });
@@ -393,17 +418,21 @@ function Controller() {
     };
     client.onload = function() {
         var fixed = Ti.Platform.displayCaps.platformHeight - 50;
-        $.fixed.height = fixed;
-        $.givebacks.top = fixed + 1;
         var json = this.responseText;
         var responses = JSON.parse(json);
         var url = "";
-        if (null != responses.campaign[0].type) if ("vod" == responses.campaign[0].type || "live" == responses.campaign[0].type) {
-            $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
-            $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
-            $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
-            $.vp.url = responses.campaign[0].path;
-        } else url = getUrlYoutube(responses.campaign[0].video_id, $.vp); else {
+        if (null != responses.campaign[0].type) {
+            if ("vod" == responses.campaign[0].type || "live" == responses.campaign[0].type) {
+                $.vp.sourceType = Titanium.Media.VIDEO_SOURCE_TYPE_STREAMING;
+                $.vp.scalingMode = Titanium.Media.VIDEO_SCALING_ASPECT_FIT;
+                $.vp.mediaControlMode = Titanium.Media.VIDEO_CONTROL_DEFAULT;
+                $.vp.url = responses.campaign[0].path;
+            } else url = getUrlYoutube(responses.campaign[0].video_id, $.vp);
+            $.data.top = "57%";
+            $.data.height = "43%";
+            fixed += .1 * fixed;
+        } else {
+            $.reportView.hide();
             var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;
             if (responses.campaign[0].image.length > 0) {
                 imageLink = responses.campaign[0].image;
@@ -411,8 +440,12 @@ function Controller() {
             }
             $.cover.image = imageLink;
         }
+        var name1 = responses.campaign[0].title;
+        name1.length > Alloy.Globals.TITLE_VIEW && (name1 = name1.substring(0, Alloy.Globals.TITLE_VIEW - 2) + "...");
+        $.fixed.height = fixed;
+        $.givebacks.top = fixed + 1;
         $.author.text = responses.campaign[0].name;
-        $.title.text = responses.campaign[0].title;
+        $.title.text = name1;
         var text = responses.campaign[0].long_description;
         text.length > Alloy.Globals.DESCRIPTION_SIZE && (text = text.substring(0, Alloy.Globals.DESCRIPTION_SIZE - 2) + "...");
         $.description.text = text;

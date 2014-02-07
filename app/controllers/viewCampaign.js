@@ -31,12 +31,10 @@ client.onload = function(){
 	
 	var fixed = Ti.Platform.displayCaps.platformHeight - 50;
 	
-	$.fixed.height = fixed;
-	$.givebacks.top = fixed+1;
 	var json = this.responseText;
 	var responses = JSON.parse(json);
 	var url ='';
-
+	
 	if(responses.campaign[0].type != null)
 	{
 		if(responses.campaign[0].type == 'vod' || responses.campaign[0].type == 'live')
@@ -53,7 +51,11 @@ client.onload = function(){
 		} else {
 		    	url = getUrlYoutube(responses.campaign[0].video_id, $.vp);	   
 		}
+		$.data.top = '57%';
+		$.data.height = '43%';
+		fixed = fixed + (fixed * 0.1);
 	} else {
+		$.reportView.hide();
 		var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;
 		if(responses.campaign[0].image.length > 0)
 		{
@@ -66,10 +68,16 @@ client.onload = function(){
 	
 		$.cover.image = imageLink;
 	}
+	var name1 = responses.campaign[0].title;
+	if(name1.length > Alloy.Globals.TITLE_VIEW)
+	{
+		name1 = name1.substring(0,Alloy.Globals.TITLE_VIEW - 2) + '...';			
+	}
 	
-	
+	$.fixed.height = fixed;
+	$.givebacks.top = fixed+1;
 	$.author.text = responses.campaign[0].name;
-	$.title.text = responses.campaign[0].title;
+	$.title.text = name1; 
 	var text = responses.campaign[0].long_description;
 	if(text.length > Alloy.Globals.DESCRIPTION_SIZE)
 	{

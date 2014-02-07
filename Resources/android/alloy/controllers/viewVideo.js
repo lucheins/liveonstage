@@ -60,8 +60,33 @@ function Controller() {
         id: "vp"
     });
     $.__views.container.add($.__views.vp);
-    $.__views.data = Ti.UI.createView({
+    $.__views.reportView = Ti.UI.createView({
         top: "73%",
+        left: "3%",
+        width: "94%",
+        height: "5%",
+        id: "reportView"
+    });
+    $.__views.container.add($.__views.reportView);
+    $.__views.report = Ti.UI.createLabel({
+        font: {
+            fontSize: "13dp",
+            fontWeight: "bold"
+        },
+        height: "90%",
+        width: "25%",
+        borderRadius: 4,
+        top: "0%",
+        right: "0%",
+        backgroundColor: "#e4473e",
+        color: "white",
+        textAlign: "center",
+        text: "Report",
+        id: "report"
+    });
+    $.__views.reportView.add($.__views.report);
+    $.__views.data = Ti.UI.createView({
+        top: "78%",
         height: "20%",
         width: "94%",
         left: "3%",
@@ -109,7 +134,7 @@ function Controller() {
     });
     $.__views.data.add($.__views.views);
     $.__views.other = Ti.UI.createView({
-        top: "93%",
+        top: "98%",
         left: "0%",
         backgroundColor: "#f2f2f2",
         height: "7%",

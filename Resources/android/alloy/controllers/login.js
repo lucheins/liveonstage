@@ -763,6 +763,7 @@ function Controller() {
     var timezoneGpsUTC = "";
     $.load.show();
     $.pickTimezone.hide();
+    var user_id = 0;
     var dialog = Ti.UI.createAlertDialog({
         buttonNames: [ "Go to My Events", "Go Live Now" ],
         message: "What do you want to do?",
@@ -781,16 +782,60 @@ function Controller() {
         client.onload = function() {
             var json = this.responseText;
             var response = JSON.parse(json);
-            if (response.id > 0) {
+            if (response["user"].id > 0) {
                 $.username.blur();
                 $.password.blur();
-                Ti.App.Properties.setString("user_id", response.id);
-                Ti.App.Properties.setString("username", response.username);
-                Ti.App.Properties.setString("name", response.name);
-                Ti.App.Properties.setString("timezone", timezone);
-                dialog.show();
+                user_id = response["user"].id;
+                if (1 == response["user"].accept) {
+                    Ti.App.Properties.setString("user_id", response["user"].id);
+                    Ti.App.Properties.setString("username", response["user"].username);
+                    Ti.App.Properties.setString("name", response["user"].name);
+                    Ti.App.Properties.setString("timezone", timezone);
+                    $.activity.hide();
+                    dialog.show();
+                } else {
+                    var dialog1 = Ti.UI.createAlertDialog({
+                        buttonNames: [ "No Accept", "Accept" ],
+                        message: response["terms"].toString(),
+                        title: "Terms of Service "
+                    });
+                    dialog1.addEventListener("click", function(e) {
+                        if (0 == e.index) {
+                            Ti.App.Properties.setString("user_id", null);
+                            Ti.App.Properties.setString("username", null);
+                            Ti.App.Properties.setString("timezone", null);
+                            Ti.App.Properties.setString("name", null);
+                            $.login.close();
+                        } else if (1 == e.index) {
+                            var client1 = Ti.Network.createHTTPClient();
+                            var url1 = Alloy.Globals.DOMAIN + Alloy.Globals.URL_REGISTER_ACCEPT;
+                            client1.open("POST", url1);
+                            client1.ondatastream = function() {
+                                $.activity.show();
+                            };
+                            client1.onload = function() {
+                                var json = this.responseText;
+                                JSON.parse(json);
+                            };
+                            client1.onerror = function(e) {
+                                alert("Transmission error: " + e.error);
+                            };
+                            var params = {
+                                user_id: user_id,
+                                tc: Alloy.Globals.USER_MOBILE.toString()
+                            };
+                            client1.send(params);
+                            Ti.App.Properties.setString("user_id", response["user"].id);
+                            Ti.App.Properties.setString("username", response["user"].username);
+                            Ti.App.Properties.setString("name", response["user"].name);
+                            Ti.App.Properties.setString("timezone", timezone);
+                            $.activity.hide();
+                            dialog.show();
+                        }
+                    });
+                    dialog1.show();
+                }
             } else alert("Failed credentials");
-            $.activity.hide();
         };
         client.onerror = function(e) {
             alert("Transmission error: " + e.error);

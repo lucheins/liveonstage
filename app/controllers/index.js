@@ -4,10 +4,10 @@ var black = '#000000';
 var gray = '#888888';
 var width = (Ti.Platform.displayCaps.platformWidth-30)/2;
 var height = (Ti.Platform.displayCaps.platformWidth-30)/4;
-Ti.App.Properties.setString('user_id', null);
+/**Ti.App.Properties.setString('user_id', null);
 Ti.App.Properties.setString('username', null);
 Ti.App.Properties.setString('timezone', null);
-Ti.App.Properties.setString('name', null);
+Ti.App.Properties.setString('name', null);*/
 
 $.index.exitOnClose = true;
 

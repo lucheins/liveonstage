@@ -176,8 +176,10 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
-    $.title.text = args.name || "";
     $.title.link = args.link;
+    var name1 = args.name || "";
+    name1.length > Alloy.Globals.TITLE_LIST && (name1 = name1.substring(0, Alloy.Globals.TITLE_LIST - 2) + "...");
+    $.title.text = name1;
     Ti.Platform.displayCaps.platformHeight;
     Ti.Platform.displayCaps.platformWidth;
     var height = 360;

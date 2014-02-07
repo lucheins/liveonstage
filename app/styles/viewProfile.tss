@@ -113,4 +113,24 @@
 },
 "#campaign[platform=ios formFactor=tablet]": { 
 	height: '45dp'
-}
+},
+"#reportView":{
+		top: '62%',
+		left: '3%',
+		width: '94%',
+		height: '5%'
+	},
+		"#report": {
+			font: {
+			   	fontSize:'13dp',
+			   	fontWeight: 'bold'
+				},
+			height:'90%',
+			width: '25%',
+			borderRadius: 4,
+			top: '0%',
+			right:'0%',
+			backgroundColor:'#e4473e',
+			color: 'white',
+			textAlign: 'center'			
+		}

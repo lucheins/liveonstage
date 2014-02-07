@@ -6,11 +6,15 @@
 			<View id="fixed">
 				<VideoPlayer id="vp" />
 				<ImageView id="cover"/>
-				<View id="data">	
+				<View id="reportView">
+						<Label id="report">Report</Label>
+				</View>	
+				<View id="data">					
 					<View id="meta">
 						<Label id="title" />
 						<Label id="author" />
 						<Label id="categoryName" />
+						
 					</View>
 					<View id="content">
 						<Label id="titleDescription">Description:</Label>

@@ -77,7 +77,7 @@ function Controller() {
         title: "Campaigns",
         view: campaigns
     }, {
-        title: "Upcomming",
+        title: "Upcoming",
         view: upcomming
     }, {
         title: "Artists",

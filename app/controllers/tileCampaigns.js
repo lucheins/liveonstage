@@ -1,7 +1,14 @@
 var args = arguments[0] || {};
-$.title.text = args.name || '';
+
 $.title.link = args.link;
 
+var name1 = args.name || '';
+if(name1.length > Alloy.Globals.TITLE_LIST)
+{
+	name1 = name1.substring(0,Alloy.Globals.TITLE_LIST - 2) + '...';			
+}
+
+$.title.text = name1;
 
 var isTablet = (width > 899 || height > 899);
 var deviceHeight = Ti.Platform.displayCaps.platformHeight;

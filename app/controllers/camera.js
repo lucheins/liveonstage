@@ -3,8 +3,7 @@ var event_id = args.event_id;
 var live_video = args.live_video;
 var title = args.title;
 var description = args.description;
-
-
+    
 $.textBottomStop.backgroundColor = '#D6CAC3';
 $.textBottomStop.color = "#EDE2DD";
 
@@ -175,4 +174,3 @@ $.btnStop.addEventListener('click', function(e) {
 	}	 
 });
 	
-

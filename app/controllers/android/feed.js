@@ -31,7 +31,7 @@ var pagerDataScrolling = [
 		{ title: "Categories",	view: categories },
 		{ title: "Live Shows",	view: live },
 		{ title: "Campaigns",	view: campaigns },
-		{ title: "Upcomming",	view: upcomming },
+		{ title: "Upcoming",	view: upcomming },
 		{ title: "Artists",		view: artists }		
 	];
 	
