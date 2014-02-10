@@ -1,6 +1,6 @@
 function Controller() {
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
-    this.__controllerPath = "modalViewVideoLive";
+    this.__controllerPath = "modalReport";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
@@ -15,8 +15,8 @@ function Controller() {
     $.__views.modal && $.addTopLevelView($.__views.modal);
     $.__views.contentModal = Ti.UI.createView({
         backgroundColor: "transparent",
-        height: "50%",
-        width: "80%",
+        height: "60%",
+        width: "90%",
         id: "contentModal"
     });
     $.__views.modal.add($.__views.contentModal);
@@ -33,7 +33,7 @@ function Controller() {
     $.__views.reportTitle = Ti.UI.createView({
         top: "0%",
         width: "100%",
-        height: "20%",
+        height: "18%",
         id: "reportTitle"
     });
     $.__views.container.add($.__views.reportTitle);
@@ -43,7 +43,7 @@ function Controller() {
             fontSize: "18dp"
         },
         left: "5%",
-        text: "Go Live!",
+        text: "Report this",
         id: "title"
     });
     $.__views.reportTitle.add($.__views.title);
@@ -54,20 +54,26 @@ function Controller() {
         id: "border"
     });
     $.__views.reportTitle.add($.__views.border);
-    $.__views.videoName = Ti.UI.createTextField({
-        hintText: "Name Your Broadcast",
+    $.__views.pickReport = Ti.UI.createPicker({
         top: "25%",
         width: "90%",
-        color: "#336699",
-        borderColor: "#c1c1c1",
-        paddingLeft: 5,
-        font: {
-            fontSize: "14dp"
-        },
-        height: "18%",
-        id: "videoName"
+        id: "pickReport"
     });
-    $.__views.container.add($.__views.videoName);
+    $.__views.container.add($.__views.pickReport);
+    var __alloyId66 = [];
+    $.__views.__alloyId67 = Ti.UI.createPickerRow({
+        value: "Select a predefined report",
+        title: "Select a predefined report",
+        id: "__alloyId67"
+    });
+    __alloyId66.push($.__views.__alloyId67);
+    $.__views.__alloyId68 = Ti.UI.createPickerRow({
+        value: "Spamming / Advertisement Profanity / Inappropriate content. Abusive.",
+        title: "Spamming / Advertisement Profanity / Inappropriate content. Abusive.",
+        id: "__alloyId68"
+    });
+    __alloyId66.push($.__views.__alloyId68);
+    $.__views.pickReport.add(__alloyId66);
     $.__views.description = Ti.UI.createTextArea({
         top: "45%",
         width: "90%",
@@ -87,7 +93,7 @@ function Controller() {
     $.__views.reportFoot = Ti.UI.createView({
         bottom: "0%",
         width: "100%",
-        height: "18%",
+        height: "15%",
         borderColor: "#c1c1c1",
         borderWidth: 1,
         id: "reportFoot"
@@ -95,8 +101,8 @@ function Controller() {
     $.__views.container.add($.__views.reportFoot);
     $.__views.bottomModal = Ti.UI.createView({
         bottom: "5%",
-        left: "5%",
-        width: "35%",
+        left: "20%",
+        width: "29%",
         height: "100%",
         id: "bottomModal"
     });
@@ -106,17 +112,41 @@ function Controller() {
             fontSize: "12dp",
             fontWeight: "bold"
         },
-        height: "70%",
+        height: "75%",
         bottom: "8%",
-        width: "98%",
+        width: "80%",
         borderRadius: 4,
         backgroundColor: "#745DA8",
         color: "white",
         textAlign: "center",
-        text: "Go Live!",
+        text: "Send",
         id: "textBottom"
     });
     $.__views.bottomModal.add($.__views.textBottom);
+    $.__views.bottomModalCancel = Ti.UI.createView({
+        bottom: "5%",
+        right: "20%",
+        width: "29%",
+        height: "100%",
+        id: "bottomModalCancel"
+    });
+    $.__views.reportFoot.add($.__views.bottomModalCancel);
+    $.__views.textBottom = Ti.UI.createLabel({
+        font: {
+            fontSize: "12dp",
+            fontWeight: "bold"
+        },
+        height: "75%",
+        bottom: "8%",
+        width: "80%",
+        borderRadius: 4,
+        backgroundColor: "#745DA8",
+        color: "white",
+        textAlign: "center",
+        text: "Cancel",
+        id: "textBottom"
+    });
+    $.__views.bottomModalCancel.add($.__views.textBottom);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.bottomModal.addEventListener("click", function() {

@@ -6,7 +6,9 @@
 		<VideoPlayer id="vp" />
 		<ImageView id="cover"/>
 		<View id="reportView">
-						<Label id="report">Report</Label>
+			<View id="reportButtom">
+				<Label id="report">Report</Label>
+			</View>
 		</View>	
 		<View id="data">	
 			<Label id="author" />

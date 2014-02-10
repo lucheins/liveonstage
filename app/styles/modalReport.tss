@@ -3,8 +3,8 @@
 },
 "#contentModal":{
 	backgroundColor: 'transparent',
-	height: '50%',
-	width: '80%'
+	height: '60%',
+	width: '90%'
 },
 "#container":{
 	backgroundColor: '#fff',
@@ -14,22 +14,14 @@
 	borderColor: '#78797A',
 	borderWidth: 1
 },
-"#videoName":{
-	hintText: 'Name Your Broadcast',
+"#pickReport":{	
 	top: '25%',
-	width: '90%',
-	color: '#336699',
-	borderColor: '#c1c1c1',
-	paddingLeft: 5,
-    font: {
-	   	fontSize:'14dp',
-		},
-	height: '18%',
+	width: '90%'	
 },
 "#bottomModal":{
 	bottom:'5%',
-	left: '5%',
-	width: '35%',
+	left: '20%',
+	width: '29%',
 	height: '100%'
 },
 "#textBottom":{
@@ -37,13 +29,19 @@
 	   	fontSize:'12dp',
 	   	fontWeight:'bold'
 		},
-	height:'70%',
+	height:'75%',
 	bottom:'8%',
-	width: '98%',
+	width: '80%',
 	borderRadius: 4,
 	backgroundColor:'#745DA8',
 	color: 'white',
 	textAlign: 'center'	
+},
+"#bottomModalCancel":{
+	bottom:'5%',
+	right: '20%',
+	width: '29%',
+	height: '100%'
 },
 "#description":{	
 	top: '45%',
@@ -60,13 +58,13 @@
 "#reportTitle":{	
 	top: '0%',
 	width: '100%',
-	height: '20%',
+	height: '18%',
 	
 },
 "#reportFoot":{	
 	bottom: '0%',
 	width: '100%',
-	height: '18%',
+	height: '15%',
 	borderColor: '#c1c1c1',
 	borderWidth: 1
 },
@@ -82,5 +80,4 @@
 	borderColor: '#299ac6',
 	borderWidth: 1
 }
-
 

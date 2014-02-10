@@ -82,23 +82,27 @@ function Controller() {
         id: "reportView"
     });
     $.__views.fixed.add($.__views.reportView);
-    $.__views.report = Ti.UI.createLabel({
-        font: {
-            fontSize: "13dp",
-            fontWeight: "bold"
-        },
+    $.__views.reportButtom = Ti.UI.createView({
         height: "90%",
         width: "25%",
         borderRadius: 4,
         top: "5%",
         right: "0%",
         backgroundColor: "#e4473e",
+        id: "reportButtom"
+    });
+    $.__views.reportView.add($.__views.reportButtom);
+    $.__views.report = Ti.UI.createLabel({
+        font: {
+            fontSize: "13dp",
+            fontWeight: "bold"
+        },
         color: "white",
         textAlign: "center",
         text: "Report",
         id: "report"
     });
-    $.__views.reportView.add($.__views.report);
+    $.__views.reportButtom.add($.__views.report);
     $.__views.data = Ti.UI.createView({
         top: "52%",
         height: "48%",

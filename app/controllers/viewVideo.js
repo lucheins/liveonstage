@@ -33,7 +33,8 @@ client.ondatastream = function(e){
 
 client.onload = function(){	
 	
-	var height = Ti.Platform.displayCaps.platformHeight - 180;
+	var height = Ti.Platform.displayCaps.platformHeight - 140;
+
 	$.container.height = height ;
 	$.viewTable.top = height + 1;	
 	var json = this.responseText;
@@ -131,4 +132,15 @@ setTimeout(function(){
 $.table.footerView = Ti.UI.createView({
     height: 1,
     backgroundColor: 'transparent'
+});
+
+
+$.report.addEventListener('click', function(){
+	var win = Alloy.createController("modalReport").getView();
+             win.open({
+                 modal: true,
+                 navBarHidden: true,
+                 modalTransitionStyle: Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,
+                 modalStyle: Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN
+             });
 });

@@ -5,7 +5,9 @@
 			<View id="container">
 				<VideoPlayer id="vp" />
 				<View id="reportView">
+					<View id="reportButtom">
 						<Label id="report">Report</Label>
+					</View>	
 				</View>	
 				<View id="data">	
 					<Label id="title"/>

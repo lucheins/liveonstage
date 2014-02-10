@@ -54,39 +54,43 @@ function Controller() {
         top: "3%",
         autoplay: true,
         backgroundColor: "black",
-        height: "70%",
+        height: "65%",
         width: "94%",
         left: "3%",
         id: "vp"
     });
     $.__views.container.add($.__views.vp);
     $.__views.reportView = Ti.UI.createView({
-        top: "73%",
+        top: "68%",
         left: "3%",
         width: "94%",
-        height: "5%",
+        height: "7%",
         id: "reportView"
     });
     $.__views.container.add($.__views.reportView);
+    $.__views.reportButtom = Ti.UI.createView({
+        height: "90%",
+        width: "25%",
+        borderRadius: 4,
+        top: "10%",
+        right: "0%",
+        backgroundColor: "#e4473e",
+        id: "reportButtom"
+    });
+    $.__views.reportView.add($.__views.reportButtom);
     $.__views.report = Ti.UI.createLabel({
         font: {
             fontSize: "13dp",
             fontWeight: "bold"
         },
-        height: "90%",
-        width: "25%",
-        borderRadius: 4,
-        top: "0%",
-        right: "0%",
-        backgroundColor: "#e4473e",
         color: "white",
         textAlign: "center",
         text: "Report",
         id: "report"
     });
-    $.__views.reportView.add($.__views.report);
+    $.__views.reportButtom.add($.__views.report);
     $.__views.data = Ti.UI.createView({
-        top: "78%",
+        top: "73%",
         height: "20%",
         width: "94%",
         left: "3%",
@@ -134,7 +138,7 @@ function Controller() {
     });
     $.__views.data.add($.__views.views);
     $.__views.other = Ti.UI.createView({
-        top: "98%",
+        top: "93%",
         left: "0%",
         backgroundColor: "#f2f2f2",
         height: "7%",
@@ -188,7 +192,7 @@ function Controller() {
         $.activity.show();
     };
     client.onload = function() {
-        var height = Ti.Platform.displayCaps.platformHeight - 180;
+        var height = Ti.Platform.displayCaps.platformHeight - 140;
         $.container.height = height;
         $.viewTable.top = height + 1;
         var json = this.responseText;
@@ -243,6 +247,15 @@ function Controller() {
     $.table.footerView = Ti.UI.createView({
         height: 1,
         backgroundColor: "transparent"
+    });
+    $.report.addEventListener("click", function() {
+        var win = Alloy.createController("modalReport").getView();
+        win.open({
+            modal: true,
+            navBarHidden: true,
+            modalTransitionStyle: Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,
+            modalStyle: Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN
+        });
     });
     _.extend($, exports);
 }
