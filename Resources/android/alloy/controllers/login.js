@@ -782,7 +782,10 @@ function Controller() {
         client.onload = function() {
             var json = this.responseText;
             var response = JSON.parse(json);
-            if (response["user"].id > 0) {
+            if ("undefined" == typeof response["user"]) {
+                alert("Failed credentials");
+                $.activity.hide();
+            } else {
                 $.username.blur();
                 $.password.blur();
                 user_id = response["user"].id;
@@ -835,7 +838,7 @@ function Controller() {
                     });
                     dialog1.show();
                 }
-            } else alert("Failed credentials");
+            }
         };
         client.onerror = function(e) {
             alert("Transmission error: " + e.error);

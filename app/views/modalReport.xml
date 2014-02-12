@@ -1,5 +1,6 @@
 <Alloy>
 	<Window id="modal" modal="true">	
+		<ActivityIndicator id="activity"/>
 		<View id="contentModal">
 			<View id="container">					
 				<View id="reportTitle">
@@ -8,7 +9,7 @@
 				</View>		
 						
 				<Picker id="pickReport" >
-					<PickerRow value='Select a predefined report' title='Select a predefined report' />
+					<PickerRow value='0' title='Select a predefined report' />
 	            	<PickerRow value='Spamming / Advertisement Profanity / Inappropriate content. Abusive.' title='Spamming / Advertisement Profanity / Inappropriate content. Abusive.' />
 	            </Picker>
 				

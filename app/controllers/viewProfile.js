@@ -151,4 +151,14 @@ function openWindows(arg)
 			win.open({transition:t});
 		}			
 }
+
+$.reportButtom.addEventListener('click', function(){
+	var win = Alloy.createController("modalReport",id).getView();
+             win.open({
+                 modal: true,
+                 navBarHidden: true,
+                 modalTransitionStyle: Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,
+                 modalStyle: Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN
+             });
+});
 	

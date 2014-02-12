@@ -405,6 +405,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var id = arguments[0] || {};
+    var id_video = 0;
     var actionBar = require("actionBarButtoms");
     actionBar.putActionBar($.viewCampaign, "Campaigns", false, $.vp, $.scroll, null, false);
     Ti.Gesture.addEventListener("orientationchange", function() {
@@ -435,6 +436,16 @@ function Controller() {
             $.data.top = "57%";
             $.data.height = "43%";
             fixed += .1 * fixed;
+            id_video = responses.campaign[0].id_video;
+            $.reportButtom.addEventListener("click", function() {
+                var win = Alloy.createController("modalReport", id_video).getView();
+                win.open({
+                    modal: true,
+                    navBarHidden: true,
+                    modalTransitionStyle: Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,
+                    modalStyle: Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN
+                });
+            });
         } else {
             $.reportView.hide();
             var imageLink = Alloy.Globals.DOMAIN + Alloy.Globals.IMAGE_USER_DEFAULT;

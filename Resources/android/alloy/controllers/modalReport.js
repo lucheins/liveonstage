@@ -13,6 +13,20 @@ function Controller() {
         modal: "true"
     });
     $.__views.modal && $.addTopLevelView($.__views.modal);
+    $.__views.activity = Ti.UI.createActivityIndicator({
+        color: "#6cb1d5",
+        font: {
+            fontFamily: "Helvetica Neue",
+            fontSize: "20dp",
+            fontWeight: "bold"
+        },
+        message: "Loading...",
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        zIndex: 100,
+        id: "activity"
+    });
+    $.__views.modal.add($.__views.activity);
     $.__views.contentModal = Ti.UI.createView({
         backgroundColor: "transparent",
         height: "60%",
@@ -62,7 +76,7 @@ function Controller() {
     $.__views.container.add($.__views.pickReport);
     var __alloyId66 = [];
     $.__views.__alloyId67 = Ti.UI.createPickerRow({
-        value: "Select a predefined report",
+        value: "0",
         title: "Select a predefined report",
         id: "__alloyId67"
     });
@@ -149,26 +163,41 @@ function Controller() {
     $.__views.bottomModalCancel.add($.__views.textBottom);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var video_id = arguments[0] || {};
     $.bottomModal.addEventListener("click", function() {
         var filter = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\_\-\.\@\/]+$/;
         var band = 0;
         "" != $.description.value ? filter.test($.description.value) ? band += 1 : alert("Please enter a valid video description") : alert("Video description is required");
-        "" != $.videoName.value ? filter.test($.videoName.value) ? band += 1 : alert("Please enter a valid video name") : alert("Video name is required");
+        "0" == $.pickReport.getSelectedRow(0).value ? alert("Please select the type of report") : band += 1;
         if (2 == band) {
-            var args = {
-                event_id: 0,
-                live_video: 1,
-                title: $.videoName.value,
-                description: $.description.value
+            var client1 = Ti.Network.createHTTPClient();
+            var url1 = Alloy.Globals.DOMAIN + Alloy.Globals.URL_REPORT_VIDEO;
+            client1.open("POST", url1);
+            client1.ondatastream = function() {
+                $.activity.show();
             };
-            var win = Alloy.createController("camera", args).getView();
-            win.fullscreen = true;
-            win.open({
-                activityEnterAnimation: Ti.Android.R.anim.fade_in,
-                activityExitAnimation: Ti.Android.R.anim.fade_out
-            });
+            client1.onload = function() {
+                var json = this.responseText;
+                JSON.parse(json);
+                alert("Thank you for submitting a report. An administrator will review this report shortly.");
+            };
+            var user_id = 0;
+            Ti.App.Properties.getString("user_id") && (user_id = Ti.App.Properties.getString("user_id").toString());
+            client1.onerror = function(e) {
+                alert("Transmission error: " + e.error);
+            };
+            var params = {
+                user_id: user_id,
+                tc: Alloy.Globals.USER_MOBILE.toString(),
+                video_id: video_id,
+                message: $.description.value
+            };
+            client1.send(params);
             $.modal.close();
         }
+    });
+    $.bottomModalCancel.addEventListener("click", function() {
+        $.modal.close();
     });
     $.description._hintText = $.description.value;
     $.description.addEventListener("focus", function(e) {
@@ -182,6 +211,9 @@ function Controller() {
             e.source.color = "#c1c1c1";
             e.source.value = e.source._hintText;
         }
+    });
+    $.pickReport.addEventListener("change", function(e) {
+        $.description.value = "0" != e.source.getSelectedRow(0).value ? e.source.getSelectedRow(0).value : "";
     });
     _.extend($, exports);
 }

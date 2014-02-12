@@ -135,8 +135,8 @@ $.table.footerView = Ti.UI.createView({
 });
 
 
-$.report.addEventListener('click', function(){
-	var win = Alloy.createController("modalReport").getView();
+$.reportButtom.addEventListener('click', function(){
+	var win = Alloy.createController("modalReport",id).getView();
              win.open({
                  modal: true,
                  navBarHidden: true,

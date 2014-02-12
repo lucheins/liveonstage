@@ -16,6 +16,7 @@ Alloy.Globals.URL_BASE = 'index.php?option=com_mobile';
 Alloy.Globals.URL_VIDEO = 'index.php?option=com_mobile&task=video';
 Alloy.Globals.URL_PROFILE = 'index.php?option=com_mobile&task=profile';
 Alloy.Globals.URL_REGISTER_ACCEPT = 'index.php?option=com_mobile&task=registerAcceptTerms';
+Alloy.Globals.URL_REPORT_VIDEO = 'index.php?option=com_mobile&task=reportVideo';
 Alloy.Globals.URL_EVENT = 'index.php?option=com_mobile&task=event';
 Alloy.Globals.URL_CAMPAIGN = 'index.php?option=com_mobile&task=campaign';
 Alloy.Globals.URL_CATEGORIES = 'index.php?option=com_mobile&task=categories';

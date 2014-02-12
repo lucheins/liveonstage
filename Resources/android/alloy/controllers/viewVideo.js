@@ -248,8 +248,8 @@ function Controller() {
         height: 1,
         backgroundColor: "transparent"
     });
-    $.report.addEventListener("click", function() {
-        var win = Alloy.createController("modalReport").getView();
+    $.reportButtom.addEventListener("click", function() {
+        var win = Alloy.createController("modalReport", id).getView();
         win.open({
             modal: true,
             navBarHidden: true,

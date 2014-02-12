@@ -72,7 +72,7 @@ function Controller() {
         top: "62%",
         left: "3%",
         width: "94%",
-        height: "5%",
+        height: "6%",
         id: "reportView"
     });
     $.__views.container.add($.__views.reportView);
@@ -301,6 +301,15 @@ function Controller() {
         author: author
     };
     client.send(params);
+    $.reportButtom.addEventListener("click", function() {
+        var win = Alloy.createController("modalReport", id).getView();
+        win.open({
+            modal: true,
+            navBarHidden: true,
+            modalTransitionStyle: Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,
+            modalStyle: Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN
+        });
+    });
     _.extend($, exports);
 }
 

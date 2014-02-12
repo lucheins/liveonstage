@@ -42,7 +42,7 @@ $.buttonLogin.addEventListener('click',function(e) {
 		var json = this.responseText;
 		var response = JSON.parse(json);
 		
-		if (response['user'].id > 0)  
+		if (!(typeof response['user'] === "undefined"))  
 	    {  
 	        $.username.blur();  
         	$.password.blur();  
@@ -106,6 +106,7 @@ $.buttonLogin.addEventListener('click',function(e) {
 	    else  
 	    {  
 	        alert('Failed credentials');  
+	        $.activity.hide();
 		}; 
 		 
 	};
