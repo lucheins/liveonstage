@@ -22,6 +22,7 @@ Alloy.Globals.URL_CAMPAIGN = 'index.php?option=com_mobile&task=campaign';
 Alloy.Globals.URL_CATEGORIES = 'index.php?option=com_mobile&task=categories';
 Alloy.Globals.URL_LOGIN = 'index.php?option=com_mobile&task=startSessionUser';
 Alloy.Globals.URL_START_STREAMING = 'index.php?option=com_mobile&task=startLiveStreaming';
+Alloy.Globals.GET_URL_START_STREAMING = 'index.php?option=com_mobile&task=getUrlToStream';
 Alloy.Globals.URL_STOP_STREAMING = 'index.php?option=com_mobile&task=stopLiveStreaming';
 Alloy.Globals.URL_VALIDATE_STREAMING = 'index.php?option=com_mobile&task=validateToStartLive';
 Alloy.Globals.LIMIT = 5;

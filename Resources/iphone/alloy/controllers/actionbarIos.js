@@ -77,14 +77,14 @@ function Controller() {
         return o;
     }());
     $.__views.Navigation.add($.__views.current);
-    $.__views.__alloyId66 = Ti.UI.createView({
+    $.__views.__alloyId69 = Ti.UI.createView({
         height: "2%",
         backgroundColor: "#c6c6c6",
         width: "100%",
         bottom: "0%",
-        id: "__alloyId66"
+        id: "__alloyId69"
     });
-    $.__views.Navigation.add($.__views.__alloyId66);
+    $.__views.Navigation.add($.__views.__alloyId69);
     $.__views.bottomLogin = Ti.UI.createView({
         top: "14%",
         right: "5dp",

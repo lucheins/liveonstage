@@ -60,12 +60,41 @@ function Controller() {
         top: "3%",
         autoplay: true,
         backgroundColor: "black",
-        height: "70%",
+        height: "65%",
         width: "94%",
         left: "3%",
         id: "vp"
     });
     $.__views.container.add($.__views.vp);
+    $.__views.reportView = Ti.UI.createView({
+        top: "68%",
+        left: "3%",
+        width: "94%",
+        height: "7%",
+        id: "reportView"
+    });
+    $.__views.container.add($.__views.reportView);
+    $.__views.reportButtom = Ti.UI.createView({
+        height: "90%",
+        width: "25%",
+        borderRadius: 4,
+        top: "10%",
+        right: "0%",
+        backgroundColor: "#e4473e",
+        id: "reportButtom"
+    });
+    $.__views.reportView.add($.__views.reportButtom);
+    $.__views.report = Ti.UI.createLabel({
+        font: {
+            fontSize: "13dp",
+            fontWeight: "bold"
+        },
+        color: "white",
+        textAlign: "center",
+        text: "Report",
+        id: "report"
+    });
+    $.__views.reportButtom.add($.__views.report);
     $.__views.data = Ti.UI.createView({
         top: "73%",
         height: "20%",
@@ -219,7 +248,7 @@ function Controller() {
         $.activity.show();
     };
     client.onload = function() {
-        var height = Ti.Platform.displayCaps.platformHeight - 180;
+        var height = Ti.Platform.displayCaps.platformHeight - 140;
         $.container.height = height;
         $.viewTable.top = height + 1;
         var json = this.responseText;
@@ -279,6 +308,15 @@ function Controller() {
     $.table.footerView = Ti.UI.createView({
         height: 1,
         backgroundColor: "transparent"
+    });
+    $.reportButtom.addEventListener("click", function() {
+        var win = Alloy.createController("modalReport", id).getView();
+        win.open({
+            modal: true,
+            navBarHidden: true,
+            modalTransitionStyle: Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,
+            modalStyle: Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN
+        });
     });
     _.extend($, exports);
 }

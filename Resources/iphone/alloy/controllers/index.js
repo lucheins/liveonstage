@@ -272,10 +272,6 @@ function Controller() {
     _.extend($, $.__views);
     (Ti.Platform.displayCaps.platformWidth - 30) / 2;
     (Ti.Platform.displayCaps.platformWidth - 30) / 4;
-    Ti.App.Properties.setString("user_id", null);
-    Ti.App.Properties.setString("username", null);
-    Ti.App.Properties.setString("timezone", null);
-    Ti.App.Properties.setString("name", null);
     $.index.exitOnClose = true;
     $.index.addEventListener("open", function() {
         var matrix = Ti.UI.create2DMatrix();

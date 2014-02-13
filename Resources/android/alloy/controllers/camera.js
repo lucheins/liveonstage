@@ -98,6 +98,32 @@ function Controller() {
     $.textBottomStop.backgroundColor = "#D6CAC3";
     $.textBottomStop.color = "#EDE2DD";
     var band = 0;
+    var timeout = 13;
+    var timeup;
+    var layover = Titanium.UI.createView({
+        width: "85%",
+        height: "92%",
+        top: "10dp",
+        left: "10dp",
+        backgroundColor: "red",
+        opacity: "0.5"
+    });
+    var layoverText = Titanium.UI.createLabel({
+        font: {
+            fontSize: "18dp",
+            fontWeight: "bold"
+        },
+        color: "white",
+        text: "Hold on tight!.. your streaming starts in:",
+        top: "25%"
+    });
+    var layoverTime = Titanium.UI.createLabel({
+        font: {
+            fontSize: "26dp",
+            fontWeight: "bold"
+        },
+        color: "white"
+    });
     var actionBar = require("actionBarButtoms");
     actionBar.putActionBar($.camera, "Camera", false, null, $.container, null, false);
     var type = 0;
@@ -115,26 +141,25 @@ function Controller() {
     var video_id = 0;
     $.btnStart.addEventListener("click", function(e) {
         if (0 == band) {
+            band = 1;
             $.textBottomStart.backgroundColor = "#D6CAC3";
             $.textBottomStart.color = "#EDE2DD";
             $.textBottomStop.backgroundColor = "#745DA8";
             $.textBottomStop.color = "white";
-            var client = Ti.Network.createHTTPClient();
-            var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
-            client.open("POST", url);
-            client.ondatastream = function() {
+            var client1 = Ti.Network.createHTTPClient();
+            var url1 = Alloy.Globals.DOMAIN + Alloy.Globals.GET_URL_START_STREAMING;
+            client1.open("POST", url1);
+            client1.ondatastream = function() {
                 $.activity.show();
             };
-            client.onload = function() {
+            client1.onload = function() {
                 var json = this.responseText;
                 var response = JSON.parse(json);
                 if (response.video_id > 0) {
-                    video_id = response.video_id;
                     proxy.setUrlRtsp(response.url);
                     proxy.setUsernameRtsp(Ti.App.Properties.getString("username").toString());
                     proxy.setQualityRtsp(Alloy.Globals.RESOLUTION_RTSP.toString());
                     proxy.startStreaming();
-                    band = 1;
                 } else {
                     -1 == response.video_id ? alert("The video has already been created") : 0 == response.video_id ? alert("The event does not exist") : alert("The start date is not in the allowed range");
                     $.textBottomStart.backgroundColor = "#745DA8";
@@ -145,20 +170,60 @@ function Controller() {
                 }
                 $.activity.hide();
             };
-            client.onerror = function(e) {
+            client1.onerror = function(e) {
                 alert("Transmission error: " + e.error);
             };
             var params = {
                 tc: Alloy.Globals.USER_MOBILE.toString(),
-                user_id: Ti.App.Properties.getString("user_id"),
-                event_id: event_id,
-                time_user: Ti.App.Properties.getString("timezone"),
                 live: live_video,
-                title: title,
-                description: description,
-                type: type
+                type: type,
+                event_id: event_id,
+                user_id: Ti.App.Properties.getString("user_id")
             };
-            client.send(params);
+            client1.send(params);
+            layover.add(layoverText);
+            layover.add(layoverTime);
+            $.camera.add(layover);
+            countdown = setInterval(function() {
+                timeout -= 1;
+                timeup = timeout.toString();
+                layoverTime.text = timeup;
+                if ("-1" == timeup) {
+                    layoverTime.color = "#745DA8";
+                    layoverTime.fontSize = "36dp";
+                    layoverTime.text = "Let's rock!";
+                }
+                if ("-2" == timeup) {
+                    clearInterval(countdown);
+                    layover.remove(layoverTime);
+                    $.camera.remove(layover);
+                    var client = Ti.Network.createHTTPClient();
+                    var url = Alloy.Globals.DOMAIN + Alloy.Globals.URL_START_STREAMING;
+                    client.open("POST", url);
+                    client.ondatastream = function() {
+                        $.activity.show();
+                    };
+                    client.onload = function() {
+                        var json = this.responseText;
+                        var response = JSON.parse(json);
+                        response.video_id > 0 && (video_id = response.video_id);
+                        $.activity.hide();
+                    };
+                    client.onerror = function(e) {
+                        alert("Transmission error: " + e.error);
+                    };
+                    var params = {
+                        tc: Alloy.Globals.USER_MOBILE.toString(),
+                        user_id: Ti.App.Properties.getString("user_id"),
+                        event_id: event_id,
+                        time_user: Ti.App.Properties.getString("timezone"),
+                        live: live_video,
+                        title: title,
+                        description: description
+                    };
+                    client.send(params);
+                }
+            }, 1e3);
         }
     });
     $.btnStop.addEventListener("click", function(e) {
