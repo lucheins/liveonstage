@@ -69,3 +69,7 @@ $.description.addEventListener('blur',function(e){
         e.source.value = e.source._hintText;
     }
 });
+
+$.bottomModalCancel.addEventListener('click',function(){
+	$.modal.close();
+});

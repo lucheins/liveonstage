@@ -117,6 +117,32 @@ function Controller() {
         id: "textBottom"
     });
     $.__views.bottomModal.add($.__views.textBottom);
+    $.__views.bottomModalCancel = Ti.UI.createView({
+        bottom: "5%",
+        left: "45%",
+        width: "35%",
+        height: "100%",
+        id: "bottomModalCancel"
+    });
+    $.__views.reportFoot.add($.__views.bottomModalCancel);
+    $.__views.textBottomCancel = Ti.UI.createLabel({
+        font: {
+            fontSize: "12dp",
+            fontWeight: "bold"
+        },
+        height: "70%",
+        bottom: "8%",
+        width: "98%",
+        borderRadius: 4,
+        backgroundColor: "white",
+        color: "#745DA8",
+        textAlign: "center",
+        borderColor: "#745DA8",
+        borderWidth: 1,
+        text: "Cancel!",
+        id: "textBottomCancel"
+    });
+    $.__views.bottomModalCancel.add($.__views.textBottomCancel);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.bottomModal.addEventListener("click", function() {
@@ -152,6 +178,9 @@ function Controller() {
             e.source.color = "#c1c1c1";
             e.source.value = e.source._hintText;
         }
+    });
+    $.bottomModalCancel.addEventListener("click", function() {
+        $.modal.close();
     });
     _.extend($, exports);
 }

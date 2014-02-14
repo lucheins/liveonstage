@@ -81,6 +81,26 @@
 	bottom: '0%',
 	borderColor: '#299ac6',
 	borderWidth: 1
-}
-
+},
+"#bottomModalCancel":{
+	bottom:'5%',
+	left: '45%',
+	width: '35%',
+	height: '100%'
+},
+"#textBottomCancel":{
+	font: {
+	   	fontSize:'12dp',
+	   	fontWeight:'bold'
+		},
+	height:'70%',
+	bottom:'8%',
+	width: '98%',
+	borderRadius: 4,
+	backgroundColor:'white',
+	color: '#745DA8',
+	textAlign: 'center',
+	borderColor: '#745DA8',
+	borderWidth: 1	
+} 
 

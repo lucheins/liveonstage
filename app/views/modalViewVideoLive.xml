@@ -12,7 +12,11 @@
 			<View id="reportFoot">
 						<View id="bottomModal">	
 							<Label id="textBottom">Go Live!</Label>							
-						</View>							
+						</View>		
+						
+						<View id="bottomModalCancel">	
+							<Label id="textBottomCancel">Cancel!</Label>							
+						</View>						
 				</View>	
 			
 			</View>	
