@@ -15,7 +15,7 @@
 						</View>		
 						
 						<View id="bottomModalCancel">	
-							<Label id="textBottomCancel">Cancel!</Label>							
+							<Label id="textBottomCancel">Cancel</Label>							
 						</View>						
 				</View>	
 			

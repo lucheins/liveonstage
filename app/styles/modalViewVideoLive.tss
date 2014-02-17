@@ -100,7 +100,7 @@
 	backgroundColor:'white',
 	color: '#745DA8',
 	textAlign: 'center',
-	borderColor: '#745DA8',
-	borderWidth: 1	
+	//borderColor: '#745DA8',
+	//borderWidth: 1	
 } 
 
