@@ -137,9 +137,7 @@ function Controller() {
         backgroundColor: "white",
         color: "#745DA8",
         textAlign: "center",
-        borderColor: "#745DA8",
-        borderWidth: 1,
-        text: "Cancel!",
+        text: "Cancel",
         id: "textBottomCancel"
     });
     $.__views.bottomModalCancel.add($.__views.textBottomCancel);
